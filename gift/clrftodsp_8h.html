@@ -1,0 +1,682 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.7"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>clrftodsp.h: clrftodsp.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">clrftodsp.h
+   </div>
+   <div id="projectbrief">colorfultodispay.模拟一个人正在打字（每输出一个字符停顿），将控制台的文字增加前后景色。适用于Windows。（我也只是用了windows.h)</div>
+  </td>
+    <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <span id="MSearchSelect"                onmouseover="return searchBox.OnSearchSelectShow()"                onmouseout="return searchBox.OnSearchSelectHide()">&#160;</span>
+          <input type="text" id="MSearchField" value="" placeholder="搜索" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.svg" alt=""/></a>
+          </span>
+        </div>
+</td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.7 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('clrftodsp_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle"><div class="title">clrftodsp.h 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;windows.h&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+<code>#include &lt;ctime&gt;</code><br />
+</div>
+<p><a href="clrftodsp_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:acf381e351b4665ad0e66acde87a65a51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#acf381e351b4665ad0e66acde87a65a51">write_word</a> (string _str, int _time)</td></tr>
+<tr class="memdesc:acf381e351b4665ad0e66acde87a65a51"><td class="mdescLeft">&#160;</td><td class="mdescRight">一个一个地输出字符。（默认换行） <br  />
+ Output the characters one by one.(default line break)  <br /></td></tr>
+<tr class="separator:acf381e351b4665ad0e66acde87a65a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c2983416e3391ab732aef16c1a8155"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a66c2983416e3391ab732aef16c1a8155">write_word</a> (string _str, int _time, bool _isend)</td></tr>
+<tr class="memdesc:a66c2983416e3391ab732aef16c1a8155"><td class="mdescLeft">&#160;</td><td class="mdescRight">一个一个地输出字符。 <br  />
+ Output the characters one by one.  <br /></td></tr>
+<tr class="separator:a66c2983416e3391ab732aef16c1a8155"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22c814e8370eb2bdd0fd61bf6ca90db2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a22c814e8370eb2bdd0fd61bf6ca90db2">write_word</a> (string _str, int _ltime, int _rtime)</td></tr>
+<tr class="memdesc:a22c814e8370eb2bdd0fd61bf6ca90db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">一个一个地输出字符。（默认换行、随机时间） <br  />
+ Output the characters one by one.(default line break, random time)  <br /></td></tr>
+<tr class="separator:a22c814e8370eb2bdd0fd61bf6ca90db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0649182ada777e929a589501743ba2e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a0649182ada777e929a589501743ba2e1">write_word</a> (string _str, int _ltime, int _rtime, bool _isend)</td></tr>
+<tr class="memdesc:a0649182ada777e929a589501743ba2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">一个一个地输出字符。（随机时间） <br  />
+ Output the characters one by one.(random time)  <br /></td></tr>
+<tr class="separator:a0649182ada777e929a589501743ba2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab078246aecda8d4b0b3235597292412d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#ab078246aecda8d4b0b3235597292412d">clearline</a> ()</td></tr>
+<tr class="memdesc:ab078246aecda8d4b0b3235597292412d"><td class="mdescLeft">&#160;</td><td class="mdescRight">清除当前行的所有字符。 <br  />
+ Clears all characters for the current line.  <br /></td></tr>
+<tr class="separator:ab078246aecda8d4b0b3235597292412d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1bac8c286e6b3596e056cee0406b6d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#ae1bac8c286e6b3596e056cee0406b6d7">clearline</a> (bool _issleep)</td></tr>
+<tr class="memdesc:ae1bac8c286e6b3596e056cee0406b6d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">清除当前行的字符。 <br  />
+ Clears the characters of the specified line.  <br /></td></tr>
+<tr class="separator:ae1bac8c286e6b3596e056cee0406b6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56624e0171a0b833e7e11b584d0f7b54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a56624e0171a0b833e7e11b584d0f7b54">clearline</a> (int _lineid, bool _issleep)</td></tr>
+<tr class="memdesc:a56624e0171a0b833e7e11b584d0f7b54"><td class="mdescLeft">&#160;</td><td class="mdescRight">清除指定行的字符。 <br  />
+ Clears the characters of the specified line.  <br /></td></tr>
+<tr class="separator:a56624e0171a0b833e7e11b584d0f7b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b3cebefcb26d930aaade69bcfe3f4b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a1b3cebefcb26d930aaade69bcfe3f4b9">clearline</a> (int _lineid, bool _issleep, bool _ishide)</td></tr>
+<tr class="memdesc:a1b3cebefcb26d930aaade69bcfe3f4b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">清除指定行的字符。 <br  />
+ Clears the characters of the specified line.  <br /></td></tr>
+<tr class="separator:a1b3cebefcb26d930aaade69bcfe3f4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae618a3ecbb0d62500bfff666b12b8afc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#ae618a3ecbb0d62500bfff666b12b8afc">clear_all</a> ()</td></tr>
+<tr class="memdesc:ae618a3ecbb0d62500bfff666b12b8afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">清除全部字符。若不想要停顿，直接在代码中插入<code>system("cls")</code>即可，它只是拿来美化用的。 <br  />
+ Clear all characters.  <br /></td></tr>
+<tr class="separator:ae618a3ecbb0d62500bfff666b12b8afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1839339e3e85263ba4c1ea456b9b108"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#ae1839339e3e85263ba4c1ea456b9b108">scroll_word</a> (string _str, int _lineid)</td></tr>
+<tr class="memdesc:ae1839339e3e85263ba4c1ea456b9b108"><td class="mdescLeft">&#160;</td><td class="mdescRight">在指定行滚动字符。 <br  />
+ Scrolling characters on the specified line.  <br /></td></tr>
+<tr class="separator:ae1839339e3e85263ba4c1ea456b9b108"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6051edc81f1b80dcf45ccf4339bba4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#ae6051edc81f1b80dcf45ccf4339bba4f">scroll_word</a> (string _str)</td></tr>
+<tr class="memdesc:ae6051edc81f1b80dcf45ccf4339bba4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">在指定行滚动字符。 <br  />
+ Scrolling characters on the specified line.  <br /></td></tr>
+<tr class="separator:ae6051edc81f1b80dcf45ccf4339bba4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fb0fe572f93e7ad8e8ba4a5751045e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a9fb0fe572f93e7ad8e8ba4a5751045e1">setcolor</a> (unsigned short _color)</td></tr>
+<tr class="memdesc:a9fb0fe572f93e7ad8e8ba4a5751045e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置输出字符的前景色和后景色。 <br  />
+ Sets the foreground and back colors of the output characters.  <br /></td></tr>
+<tr class="separator:a9fb0fe572f93e7ad8e8ba4a5751045e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02fd73d861ef2e4aabb38c0c9ff82947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clrftodsp_8h.html#a02fd73d861ef2e4aabb38c0c9ff82947">init</a> ()</td></tr>
+<tr class="memdesc:a02fd73d861ef2e4aabb38c0c9ff82947"><td class="mdescLeft">&#160;</td><td class="mdescRight">当你要输出中文时，建议你使用这个函数。否则可能会输出乱码。 <br  />
+ When you want to output Chinese, it is recommended that you use this function. Otherwise, garbled characters may be output.  <br /></td></tr>
+<tr class="separator:a02fd73d861ef2e4aabb38c0c9ff82947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock"><dl class="section author"><dt>作者</dt><dd>JoyWonderful ColorfulToDisplay. 模拟一个人正在输入，删除字。 若要输出中文，请执行 <a class="el" href="clrftodsp_8h.html#a02fd73d861ef2e4aabb38c0c9ff82947" title="当你要输出中文时，建议你使用这个函数。否则可能会输出乱码。   When you want to output Chinese, it is recommended that you use this ...">init()</a> 函数。 包含头文件编译，请将 #include "clrftodsp.h" 添置代码头部，将你写的文件和我写的头文件放在一起，再编译。注意，不是 &lt;&gt; 而是 "" 。 </dd></dl>
+</div><h2 class="groupheader">函数说明</h2>
+<a id="ae618a3ecbb0d62500bfff666b12b8afc" name="ae618a3ecbb0d62500bfff666b12b8afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae618a3ecbb0d62500bfff666b12b8afc">&#9670;&#160;</a></span>clear_all()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clear_all </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>清除全部字符。若不想要停顿，直接在代码中插入<code>system("cls")</code>即可，它只是拿来美化用的。 <br  />
+ Clear all characters. </p>
+<dl class="section attention"><dt>注意</dt><dd>清除之后，光标将回到(0, 0)，即控制台窗口的左上角。 <br  />
+ Once cleared, the cursor will return to (0, 0), which is the upper-left corner of the console window. </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ab078246aecda8d4b0b3235597292412d" name="ab078246aecda8d4b0b3235597292412d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab078246aecda8d4b0b3235597292412d">&#9670;&#160;</a></span>clearline() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clearline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>清除当前行的所有字符。 <br  />
+ Clears all characters for the current line. </p>
+<dl class="section note"><dt>注解</dt><dd>不显示光标，没有时间停顿，这是一个功能而已，不是拿来吸引观众的。若你想清除 <code><a class="el" href="clrftodsp_8h.html#acf381e351b4665ad0e66acde87a65a51" title="一个一个地输出字符。（默认换行）   Output the characters one by one.(default line break)">write_word()</a></code> 输出的内容， <br  />
+ 请将 <code>_isend</code> 改为 <code>false</code>。 <br  />
+ <br  />
+ No cursor, no time to pause, this is just a feature, not to attract the audience. If you want <br  />
+ to clear the <code><a class="el" href="clrftodsp_8h.html#acf381e351b4665ad0e66acde87a65a51" title="一个一个地输出字符。（默认换行）   Output the characters one by one.(default line break)">write_word()</a></code> output, change <code>_isend</code> to 'false'. </dd></dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ae1bac8c286e6b3596e056cee0406b6d7" name="ae1bac8c286e6b3596e056cee0406b6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1bac8c286e6b3596e056cee0406b6d7">&#9670;&#160;</a></span>clearline() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clearline </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_issleep</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>清除当前行的字符。 <br  />
+ Clears the characters of the specified line. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_issleep</td><td>一个布尔值，表示是否在清除一个字符后停顿3毫秒。 <br  />
+ A Boolean value that indicates whether to pause for 3 milliseconds after clearing a character. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a56624e0171a0b833e7e11b584d0f7b54" name="a56624e0171a0b833e7e11b584d0f7b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56624e0171a0b833e7e11b584d0f7b54">&#9670;&#160;</a></span>clearline() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clearline </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_lineid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_issleep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>清除指定行的字符。 <br  />
+ Clears the characters of the specified line. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_lineid</td><td>一个整数，表示你想清除的行的行号。（从1开始） <br  />
+ An integer that represents the line number of the row you want to clear. (from 1) </td></tr>
+    <tr><td class="paramname">_issleep</td><td>一个布尔值，表示是否在清除一个字符后停顿3毫秒。 <br  />
+ A Boolean value that indicates whether to pause for 3 milliseconds after clearing a character. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a1b3cebefcb26d930aaade69bcfe3f4b9" name="a1b3cebefcb26d930aaade69bcfe3f4b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3cebefcb26d930aaade69bcfe3f4b9">&#9670;&#160;</a></span>clearline() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void clearline </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_lineid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_issleep</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_ishide</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>清除指定行的字符。 <br  />
+ Clears the characters of the specified line. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_lineid</td><td>一个整数，表示你想清除的行的行号。（从1开始） <br  />
+ An integer that represents the line number of the row you want to clear. (from 1) </td></tr>
+    <tr><td class="paramname">_issleep</td><td>一个布尔值，表示是否在清除一个字符后停顿3毫秒。 <br  />
+ A Boolean value that indicates whether to pause for 3 milliseconds after clearing a character. </td></tr>
+    <tr><td class="paramname">_ishide</td><td>一个布尔值，表示你是否想隐藏光标。 <br  />
+ A Boolean value that indicates whether you want to hide the cursor. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a02fd73d861ef2e4aabb38c0c9ff82947" name="a02fd73d861ef2e4aabb38c0c9ff82947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02fd73d861ef2e4aabb38c0c9ff82947">&#9670;&#160;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>当你要输出中文时，建议你使用这个函数。否则可能会输出乱码。 <br  />
+ When you want to output Chinese, it is recommended that you use this function. Otherwise, garbled characters may be output. </p>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ae6051edc81f1b80dcf45ccf4339bba4f" name="ae6051edc81f1b80dcf45ccf4339bba4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6051edc81f1b80dcf45ccf4339bba4f">&#9670;&#160;</a></span>scroll_word() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void scroll_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>在指定行滚动字符。 <br  />
+ Scrolling characters on the specified line. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_lineid</td><td>一个整数，表示你想滚动字符行的行号。 <br  />
+ An integer that represents the line number of the character line you want to scroll. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="ae1839339e3e85263ba4c1ea456b9b108" name="ae1839339e3e85263ba4c1ea456b9b108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1839339e3e85263ba4c1ea456b9b108">&#9670;&#160;</a></span>scroll_word() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void scroll_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_lineid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>在指定行滚动字符。 <br  />
+ Scrolling characters on the specified line. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_str</td><td>一个字符串，表示你想滚动的字符。 <br  />
+ A string that represents the character you want to scroll. </td></tr>
+    <tr><td class="paramname">_lineid</td><td>一个整数，表示你想滚动字符行的行号。 <br  />
+ An integer that represents the line number of the character line you want to scroll. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a9fb0fe572f93e7ad8e8ba4a5751045e1" name="a9fb0fe572f93e7ad8e8ba4a5751045e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fb0fe572f93e7ad8e8ba4a5751045e1">&#9670;&#160;</a></span>setcolor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void setcolor </td>
+          <td>(</td>
+          <td class="paramtype">unsigned short&#160;</td>
+          <td class="paramname"><em>_color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置输出字符的前景色和后景色。 <br  />
+ Sets the foreground and back colors of the output characters. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_color</td><td>一个十六进制的数字。 <br  />
+ 请以 <code>0x</code> 开头。格式为 <code>0x[前景色][背景色]</code> 。 <br  />
+ 其中 0=黑色 1=蓝色 2=绿色 3=浅绿色 4=红色 5=紫色 6=黄色 7=白色 8=灰色 9=淡蓝色 A=淡绿色 B=淡浅绿色 C=淡红色 D=淡紫色 E=淡黄色 F=亮白色。更多信息，请打开命令行(cmd.exe)键入 <code>color /?</code> 回车。例如：0xfc 会在亮白色上产生淡红色。 <br  />
+ <br  />
+ A hexadecimal number. <br  />
+ Please start with '0x'. The format is '0x[foreground color][background color]'. <br  />
+ where 0=black 1=blue 2=green 3=light green 4=red 5=purple 6=yellow 7=white 8=gray 9=light blue A=pale green B=light light green C=pale red D=lilac E=pale yellow F=bright white. For more information, open the command line (cmd.exe) and type 'color /?' carriage enter. For example: 0xfc produces a reddish tinge on bright white. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a22c814e8370eb2bdd0fd61bf6ca90db2" name="a22c814e8370eb2bdd0fd61bf6ca90db2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22c814e8370eb2bdd0fd61bf6ca90db2">&#9670;&#160;</a></span>write_word() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_ltime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_rtime</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>一个一个地输出字符。（默认换行、随机时间） <br  />
+ Output the characters one by one.(default line break, random time) </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_str</td><td>一个字符串，这是你想要输出的字符串。 <br  />
+ A string, which is the string you want to output. </td></tr>
+    <tr><td class="paramname">_ltime</td><td>一个整数，这是每个字符输出之后你想要停顿的时间左边界。 <br  />
+ An integer, that is the left boundary of the time you want to pause after each character output. </td></tr>
+    <tr><td class="paramname">_rtime</td><td>一个整数，这是每个字符输出之后你想要停顿的时间右边界。 <br  />
+ An integer, that is the right boundary of the time you want to pause after each character output. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a0649182ada777e929a589501743ba2e1" name="a0649182ada777e929a589501743ba2e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0649182ada777e929a589501743ba2e1">&#9670;&#160;</a></span>write_word() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_ltime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_rtime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_isend</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>一个一个地输出字符。（随机时间） <br  />
+ Output the characters one by one.(random time) </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_str</td><td>一个字符串，这是你想要输出的字符串。 <br  />
+ A string, which is the string you want to output. </td></tr>
+    <tr><td class="paramname">_ltime</td><td>一个整数，这是每个字符输出之后你想要停顿的时间左边界。 <br  />
+ An integer, that is the left boundary of the time you want to pause after each character output. </td></tr>
+    <tr><td class="paramname">_rtime</td><td>一个整数，这是每个字符输出之后你想要停顿的时间右边界。 <br  />
+ An integer, that is the right boundary of the time you want to pause after each character output. </td></tr>
+    <tr><td class="paramname">_isend</td><td>一个布尔值，这是你想不想换行的表示。 <br  />
+ A boolean value, which is an indication of whether you want to break the line or not. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="acf381e351b4665ad0e66acde87a65a51" name="acf381e351b4665ad0e66acde87a65a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf381e351b4665ad0e66acde87a65a51">&#9670;&#160;</a></span>write_word() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>一个一个地输出字符。（默认换行） <br  />
+ Output the characters one by one.(default line break) </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_str</td><td>一个字符串，这是你想要输出的字符串。 <br  />
+ A string, which is the string you want to output. </td></tr>
+    <tr><td class="paramname">_time</td><td>一个整数，这是每个字符输出之后你想要停顿的时间。 <br  />
+ An integer, that is the time you want to pause after each character output. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+<a id="a66c2983416e3391ab732aef16c1a8155" name="a66c2983416e3391ab732aef16c1a8155"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c2983416e3391ab732aef16c1a8155">&#9670;&#160;</a></span>write_word() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void write_word </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>_str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>_time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>_isend</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>一个一个地输出字符。 <br  />
+ Output the characters one by one. </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">_str</td><td>一个字符串，这是你想要输出的字符串。 <br  />
+ A string, which is the string you want to output. </td></tr>
+    <tr><td class="paramname">_time</td><td>一个整数，这是每个字符输出之后你想要停顿的时间。 <br  />
+ An integer, that is the time you want to pause after each character output. </td></tr>
+    <tr><td class="paramname">_isend</td><td>一个布尔值，这是你想不想换行的表示。 <br  />
+ A boolean value, which is an indication of whether you want to break the line or not. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>返回</dt><dd>无。 <br  />
+ Nothing. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="clrftodsp_8h.html">clrftodsp.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7 </li>
+  </ul>
+</div>
+</body>
+</html>
