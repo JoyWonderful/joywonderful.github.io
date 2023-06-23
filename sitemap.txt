@@ -1,7 +1,9 @@
+https://joywonderful.github.io/more/index.html
+https://joywonderful.github.io/friends/index.html
+https://joywonderful.github.io/posts/drawpic/
 https://joywonderful.github.io/rss-read/index.html
 https://joywonderful.github.io/tags/index.html
 https://joywonderful.github.io/pic/index.html
-https://joywonderful.github.io/more/index.html
 https://joywonderful.github.io/categories/index.html
 https://joywonderful.github.io/about/index.html
 https://joywonderful.github.io/comments/index.html
@@ -39,6 +41,8 @@ https://joywonderful.github.io/tags/%E7%BC%96%E8%AF%91%E9%A2%84%E5%A4%84%E7%90%8
 https://joywonderful.github.io/tags/%E5%B8%B8%E9%87%8F/
 https://joywonderful.github.io/tags/%E4%BD%9C%E6%96%87/
 https://joywonderful.github.io/tags/%E6%8C%87%E9%92%88/
+https://joywonderful.github.io/tags/%E7%94%BB/
+https://joywonderful.github.io/tags/%E9%9D%99%E7%89%A9%E9%80%9F%E5%86%99/
 https://joywonderful.github.io/categories/%E6%B5%8B%E8%AF%95/
 https://joywonderful.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/
 https://joywonderful.github.io/categories/%E5%85%B6%E4%BB%96/

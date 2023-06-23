@@ -6,7 +6,7 @@
   <link href="https://joywonderful.github.io/atom.xml" rel="self"/>
   
   <link href="https://joywonderful.github.io/"/>
-  <updated>2023-06-22T07:53:30.705Z</updated>
+  <updated>2023-06-23T05:52:11.684Z</updated>
   <id>https://joywonderful.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自己画的一些画</title>
+    <link href="https://joywonderful.github.io/posts/drawpic/"/>
+    <id>https://joywonderful.github.io/posts/drawpic/</id>
+    <published>2023-06-23T05:48:32.000Z</published>
+    <updated>2023-06-23T05:52:11.684Z</updated>
+    
+    <content type="html"><![CDATA[<p>放假了闲着没事情干，便画了一些画，放在这儿，留此纪念。</p><span id="more"></span><p><img src="/pic/pencil-box.jpg" alt="pencil-box"><br><img src="/pic/naozhong.jpg" alt="naozhong"></p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;放假了闲着没事情干，便画了一些画，放在这儿，留此纪念。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="琐碎" scheme="https://joywonderful.github.io/categories/%E7%90%90%E7%A2%8E/"/>
+    
+    
+    <category term="画" scheme="https://joywonderful.github.io/tags/%E7%94%BB/"/>
+    
+    <category term="静物速写" scheme="https://joywonderful.github.io/tags/%E9%9D%99%E7%89%A9%E9%80%9F%E5%86%99/"/>
+    
+  </entry>
   
   <entry>
     <title>欢迎</title>
