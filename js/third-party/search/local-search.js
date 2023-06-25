@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (keywords.length === 1 && keywords[0] === '') {
       container.classList.add('no-result');
-      container.innerHTML = '<div class="search-result-icon"><i class="fa fa-search fa-5x"></i></div>';
+      container.innerHTML = '<div class="search-result-icon"><i class="fa fa-search fa-5x"></i><p>键入以进行搜索。</p></div>';
     } else if (resultItems.length === 0) {
       container.classList.add('no-result');
-      container.innerHTML = '<div class="search-result-icon"><i class="far fa-frown fa-5x"></i></div>';
+      container.innerHTML = '<div class="search-result-icon"><i class="fa fa-file-circle-xmark fa-5x"></i><p>哎呀，没有您搜索的内容。换个关键词试试？</p></div>';
     } else {
       resultItems.sort((left, right) => {
         if (left.includedCount !== right.includedCount) {
