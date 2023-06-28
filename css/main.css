@@ -1299,17 +1299,19 @@ pre code {
   margin-left: 10px;
 }
 .sidebar-nav li:hover {
-  color: #fc6423;
+  color: #000000;
 }
 .sidebar-toc-active .sidebar-nav-toc,
 .sidebar-overview-active .sidebar-nav-overview {
-  border-bottom-color: #fc6423;
-  color: #fc6423;
+  /*border-bottom-color: #fc6423;*/
+  border-bottom: none;
+  color: #000000;
+  font-weight: 600;
   transition-delay: 0.2s;
 }
 .sidebar-toc-active .sidebar-nav-toc:hover,
 .sidebar-overview-active .sidebar-nav-overview:hover {
-  color: #fc6423;
+  color: #000000;
 }
 .sidebar-panel-container {
   align-items: start;
@@ -1445,13 +1447,22 @@ pre code {
   padding-left: 0;
 }
 .post-toc ol a {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.8s ease-in-out;
+  border-bottom: none;
 }
 .post-toc .nav-item {
   line-height: 1.8;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: font-weight 0.8s;
+}
+.post-toc .nav-item a{
+  color: #a9a9a9;
+}
+.post-toc .nav-item a:hover {
+  font-weight: bold;
+  color: #000000
 }
 .post-toc .nav .nav-child {
   --height: 0;
@@ -1468,14 +1479,16 @@ pre code {
   visibility: unset;
 }
 .post-toc .nav .active > a {
-  border-bottom-color: #fc6423;
-  color: #fc6423;
+  text-decoration: none;
+  border-bottom: none;
+  /*border-bottom-color: #fc6423;*/
+  color: #252525;
 }
 .post-toc .nav .active-current > a {
-  color: #fc6423;
+  color: #252525;
 }
 .post-toc .nav .active-current > a:hover {
-  color: #fc6423;
+  color: #000000;
 }
 .site-state {
   display: flex;
@@ -1973,10 +1986,17 @@ pre code {
   flex: 1;
 }
 .post-nav-item a {
-  border-bottom: 0;
+  border-bottom: none;
   display: block;
   font-size: 0.875em;
   line-height: 1.6;
+  color: #5d5d5d;
+  transition: color 0.7s, font-weight 0.7s;
+}
+.post-nav-item a:hover
+{
+  color: #000000;
+  font-weight: bold;
 }
 .post-nav-item a:active {
   top: 2px;
@@ -2014,6 +2034,12 @@ pre code {
 .post-tags a {
   display: inline-block;
   font-size: 0.8125em;
+  border-bottom: none;
+  color: #787878;
+  transition: color 0.7s;
+}
+.post-tags a:hover {
+  color: #000000;
 }
 .post-tags a:not(:last-child) {
   margin-right: 10px;
@@ -2218,11 +2244,13 @@ ul.breadcrumb li:last-child {
   display: inline-block;
   margin: 10px;
   border-bottom: none;
-  box-shadow: 0.5px 0.5px rgba(0,0,0,0.06), 0.5px 0.5px rgba(0,0,0,0.06);
+  box-shadow: 0.8px 0.8px rgba(0,0,0,0.08), -0.8px -0.8px rgba(0,0,0,0.08);
+  transition: color 0.5s, background-color 0.5s, box-shadow 0.3s;
 }
 .tag-cloud a:hover
 {
-  color: #035a5a;
+  color: #ffffff;
+  background-color: #000000;
   box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
 }
 .tag-cloud-0 {

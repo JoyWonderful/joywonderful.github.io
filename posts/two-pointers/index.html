@@ -18,28 +18,29 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeIn","post_block":"fadeIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"fadeIn","sidebar":"fadeIn"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="你好你好！，我是 JoyWonderful，这是我的个人博客。这个主题是 next，喜欢吗？">
+    <meta name="description" content="双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。——Lqingyi(Lxandqi)  思想分类 普通双指针 也就是两个普通的 for （也可以是其他的）循环嵌套。 左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案） 快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello!">
-<meta property="og:url" content="https://joywonderful.github.io/posts/Hello/index.html">
+<meta property="og:title" content="双指针-快慢指针">
+<meta property="og:url" content="https://joywonderful.github.io/posts/two-pointers/index.html">
 <meta property="og:site_name" content="JoyWonderful的小窝">
-<meta property="og:description" content="你好你好！，我是 JoyWonderful，这是我的个人博客。这个主题是 next，喜欢吗？">
+<meta property="og:description" content="双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。——Lqingyi(Lxandqi)  思想分类 普通双指针 也就是两个普通的 for （也可以是其他的）循环嵌套。 左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案） 快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-01T01:30:03.000Z">
-<meta property="article:modified_time" content="2023-06-22T08:12:34.953Z">
+<meta property="article:published_time" content="2023-06-26T10:00:45.000Z">
+<meta property="article:modified_time" content="2023-06-26T10:44:40.725Z">
 <meta property="article:author" content="JoyWonderful">
-<meta property="article:tag" content="网站测试">
+<meta property="article:tag" content="基础算法">
+<meta property="article:tag" content="解题思想">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://joywonderful.github.io/posts/Hello/">
+<link rel="canonical" href="https://joywonderful.github.io/posts/two-pointers/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://joywonderful.github.io/posts/Hello/","path":"/posts/Hello/","title":"Hello!"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://joywonderful.github.io/posts/two-pointers/","path":"/posts/two-pointers/","title":"双指针-快慢指针"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hello! | JoyWonderful的小窝</title>
+<title>双指针-快慢指针 | JoyWonderful的小窝</title>
   
 
 
@@ -191,7 +192,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%A0%E5%A5%BD"><span class="nav-number">1.</span> <span class="nav-text">你好</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E6%83%B3%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">思想分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA"><span class="nav-number">2.</span> <span class="nav-text">提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -254,7 +255,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/Hello/">
+    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/two-pointers/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -267,12 +268,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hello! | JoyWonderful的小窝">
+      <meta itemprop="name" content="双指针-快慢指针 | JoyWonderful的小窝">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello!
+          双指针-快慢指针
         </h1>
 
         <div class="post-meta-container">
@@ -282,15 +283,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-05-01 09:30:03" itemprop="dateCreated datePublished" datetime="2023-05-01T09:30:03+08:00">2023-05-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-22 16:12:34" itemprop="dateModified" datetime="2023-06-22T16:12:34+08:00">2023-06-22</time>
+      <time title="创建时间：2023-06-26 18:00:45 / 修改时间：18:44:40" itemprop="dateCreated datePublished" datetime="2023-06-26T18:00:45+08:00">2023-06-26</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -298,7 +293,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">测试</span></a>
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
         </span>
     </span>
 
@@ -310,14 +305,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>316</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -327,37 +322,26 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><!--测试置顶，一会儿取置顶。-->
-
-<h2 id="你好"><a href="#你好" class="headerlink" title="你好"></a>你好</h2><p><strong>你好！</strong>，我是 <code>JoyWonderful</code>，这是我的个人博客。<br>这个主题是 <em>next</em>，喜欢吗？</p>
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
+</blockquote>
+<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
+<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
+<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
+<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
+</ul>
 <span id="more"></span>
 
-<p><code>cpp</code>, 你好~</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello&quot;</span> &lt;&lt; endl ;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>python</code>, 你好！</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mystr = <span class="string">&quot;hello&quot;</span></span><br><span class="line"><span class="built_in">print</span>(mystr, end=<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">input</span>())</span><br></pre></td></tr></table></figure>
-
-<p>列表：</p>
-<ul>
-<li>你好<ul>
-<li>hello, hexo</li>
-<li>hello, next</li>
-<li>hello, github page</li>
-</ul>
-</li>
-<li>再见<ul>
-<li>good</li>
-<li>bye<ul>
-<li>bob</li>
-<li>job</li>
-<li>pull</li>
-</ul>
-</li>
-<li>bye</li>
-</ul>
-</li>
-</ul>
-
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
+<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
+<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
+<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
+<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
+<hr>
+<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
+<p><strong>代码：</strong>  </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">5</span> ;</span><br><span class="line"><span class="type">int</span> a[N], b[N] ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b[i]) ;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &gt; m)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>) ;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[i] == b[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++ ;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            j++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -370,18 +354,19 @@
     
 </div>
           <div class="post-tags">
-              <a href="/tags/%E7%BD%91%E7%AB%99%E6%B5%8B%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 网站测试</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 基础算法</a>
+              <a href="/tags/%E8%A7%A3%E9%A2%98%E6%80%9D%E6%83%B3/" rel="tag"><i class="fa fa-tag"></i> 解题思想</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/posts/drawpic/" rel="prev" title="自己画的一些画">
+                  <i class="fa fa-chevron-left"></i> 自己画的一些画
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/chafen/" rel="next" title="差分">
-                  差分 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

@@ -13,6 +13,37 @@
       </categories>
   </entry>
   <entry>
+    <title>双指针-快慢指针</title>
+    <url>//posts/two-pointers/</url>
+    <content><![CDATA[<blockquote>
+<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
+</blockquote>
+<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
+<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
+<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
+<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
+<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
+<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
+<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
+<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
+<hr>
+<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
+<p><strong>代码：</strong>  </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">5</span> ;</span><br><span class="line"><span class="type">int</span> a[N], b[N] ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b[i]) ;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &gt; m)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>) ;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[i] == b[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++ ;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            j++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>解题思想</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>自己画的一些画</title>
     <url>//posts/drawpic/</url>
     <content><![CDATA[<p>放假了闲着没事情干，便画了一些画，放在这儿，留此纪念。</p>
