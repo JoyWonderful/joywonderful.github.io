@@ -1,3 +1,4 @@
+https://joywonderful.github.io/pic/index.html
 https://joywonderful.github.io/404.html
 https://joywonderful.github.io/friends/index.html
 https://joywonderful.github.io/posts/two-pointers/
@@ -9,9 +10,8 @@ https://joywonderful.github.io/js/canvas-nest/package.json
 https://joywonderful.github.io/more/index.html
 https://joywonderful.github.io/posts/drawpic/
 https://joywonderful.github.io/rss-read/index.html
-https://joywonderful.github.io/pic/index.html
-https://joywonderful.github.io/categories/index.html
 https://joywonderful.github.io/about/index.html
+https://joywonderful.github.io/categories/index.html
 https://joywonderful.github.io/comments/index.html
 https://joywonderful.github.io/posts/xiaolianbi/
 https://joywonderful.github.io/posts/zhizhen/
