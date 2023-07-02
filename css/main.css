@@ -2788,7 +2788,8 @@ header.header {
   }
 }
 .post-body img {
-  border-radius: 3px;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px  rgba(0,0,0,0.06);
 }
 .site-brand-container {
   border-radius: 5px 5px 5px 5px;

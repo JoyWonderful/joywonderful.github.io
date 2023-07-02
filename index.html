@@ -202,13 +202,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -329,6 +329,175 @@
 <p>同时，我还用 doxygen 编了一份 <a class="btn" href="/gift/clrftodsp_8h.html">文档</a> 看着文档，你应该会用了吧。我用了 <code>Windows.h</code> 头文件，所以这个头文件只可以在 Windows 操作系统上使用。</p>
 <p>一个解释视频下载（建议2倍速播放）：<br><a target="_blank" rel="noopener" href="https://cowtransfer.com/s/cf313461bd9547"><code>https://cowtransfer.com/s/cf313461bd9547</code></a></p>
 <p>又及：视频被 github size limit of 100.00 MB 限制住了，只好传到云盘上给你下载，请谅解！</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/cpp-shujufanwei/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="JoyWonderful">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/cpp-shujufanwei/" class="post-title-link" itemprop="url">C++ 数据范围</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-02 17:30:34 / 修改时间：18:10:33" itemprop="dateCreated datePublished" datetime="2023-07-02T17:30:34+08:00">2023-07-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编程随记</span></a>
+        </span>
+    </span>
+
+  
+
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>572</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这就是一个随记，方便自己用的。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称(可加)</th>
+<th align="center">所占字节</th>
+<th align="left">数据范围(以 $2^n$ 表示)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>(signed) int</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>-2147483648</code> ~ <code>2147482647</code> ($-2^{31}$ ~ $2^{31}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned int</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>(signed) long (int)</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>-2147483648</code> ~ <code>2147483647</code> ($-2^{31}$ ~ $2^{31}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned long (int)</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>long long</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>-9223372036854775808</code> ~ <code>9223372036854775807</code> ($-2^{63}$ ~ $2^{63}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned long long</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>0</code> ~ <code>18446744073709551615</code> ($0$ ~ $2^{64}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>(signed) short (int)</code></td>
+<td align="center"><code>2</code></td>
+<td align="left"><code>-32768</code> ~ <code>32767</code> ($-2^{15}$ ~ $2^{15}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned short (int)</code></td>
+<td align="center"><code>2</code></td>
+<td align="left"><code>0</code> ~ <code>65535</code> ($0$ ~ $2^{16}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>float</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>3.4E +/- 38</code></td>
+</tr>
+<tr>
+<td align="left"><code>double</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>1.7E +/- 308</code></td>
+</tr>
+<tr>
+<td align="left"><code>long double</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>1.7E +/- 308</code></td>
+</tr>
+<tr>
+<td align="left"><code>bool</code></td>
+<td align="center"><code>1</code></td>
+<td align="left"><code>true</code> or <code>false</code> or <code>1</code> or <code>0</code></td>
+</tr>
+<tr>
+<td align="left"><code>char</code></td>
+<td align="center"><code>1</code></td>
+<td align="left"><code>-128</code> ~ <code>127</code> ($-2^{7}$ ~ $2^{7}-1$)</td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -667,125 +836,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/sort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="JoyWonderful">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JoyWonderful的小窝">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | JoyWonderful的小窝">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/sort/" class="post-title-link" itemprop="url">排序</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-10 17:21:38" itemprop="dateCreated datePublished" datetime="2023-06-10T17:21:38+08:00">2023-06-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-22 16:12:34" itemprop="dateModified" datetime="2023-06-22T16:12:34+08:00">2023-06-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
-        </span>
-    </span>
-
-  
-
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>11 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一些说在前面的要点"><a href="#一些说在前面的要点" class="headerlink" title="一些说在前面的要点"></a>一些说在前面的要点</h2><ul>
-<li><strong>稳定性</strong><ul>
-<li>在我们以下学过的排序算法中，只有<strong>选择排序</strong>不是稳定的。</li>
-<li>稳定性，就是有两个相同的数字，在排序后两个数字的相对位置不变。（前面的在前面，后面的在后面）</li>
-</ul>
-</li>
-<li><strong>逆序对</strong><ul>
-<li>前面的一个数字大于后面一个数字，这就叫做逆序对。</li>
-<li>例如 $5\ 1\ 2\ 3\ 4$ 中，有 $4$ 对逆序对。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/sort/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -818,7 +868,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">41 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
   </span>
 </div>
 

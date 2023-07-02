@@ -13,6 +13,92 @@
       </categories>
   </entry>
   <entry>
+    <title>C++ 数据范围</title>
+    <url>//posts/cpp-shujufanwei/</url>
+    <content><![CDATA[<p>这就是一个随记，方便自己用的。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称(可加)</th>
+<th align="center">所占字节</th>
+<th align="left">数据范围(以 $2^n$ 表示)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>(signed) int</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>-2147483648</code> ~ <code>2147482647</code> ($-2^{31}$ ~ $2^{31}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned int</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>(signed) long (int)</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>-2147483648</code> ~ <code>2147483647</code> ($-2^{31}$ ~ $2^{31}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned long (int)</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>long long</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>-9223372036854775808</code> ~ <code>9223372036854775807</code> ($-2^{63}$ ~ $2^{63}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned long long</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>0</code> ~ <code>18446744073709551615</code> ($0$ ~ $2^{64}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>(signed) short (int)</code></td>
+<td align="center"><code>2</code></td>
+<td align="left"><code>-32768</code> ~ <code>32767</code> ($-2^{15}$ ~ $2^{15}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>unsigned short (int)</code></td>
+<td align="center"><code>2</code></td>
+<td align="left"><code>0</code> ~ <code>65535</code> ($0$ ~ $2^{16}-1$)</td>
+</tr>
+<tr>
+<td align="left"><code>float</code></td>
+<td align="center"><code>4</code></td>
+<td align="left"><code>3.4E +/- 38</code></td>
+</tr>
+<tr>
+<td align="left"><code>double</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>1.7E +/- 308</code></td>
+</tr>
+<tr>
+<td align="left"><code>long double</code></td>
+<td align="center"><code>8</code></td>
+<td align="left"><code>1.7E +/- 308</code></td>
+</tr>
+<tr>
+<td align="left"><code>bool</code></td>
+<td align="center"><code>1</code></td>
+<td align="left"><code>true</code> or <code>false</code> or <code>1</code> or <code>0</code></td>
+</tr>
+<tr>
+<td align="left"><code>char</code></td>
+<td align="center"><code>1</code></td>
+<td align="left"><code>-128</code> ~ <code>127</code> ($-2^{7}$ ~ $2^{7}-1$)</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>编程随记</category>
+      </categories>
+      <tags>
+        <tag>语言入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>双指针-快慢指针</title>
     <url>//posts/two-pointers/</url>
     <content><![CDATA[<blockquote>
@@ -535,8 +621,8 @@ pie
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>函数，参数</tag>
         <tag>语言入门</tag>
+        <tag>函数，参数</tag>
       </tags>
   </entry>
   <entry>

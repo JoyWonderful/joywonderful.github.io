@@ -6,7 +6,7 @@
   <link href="https://joywonderful.github.io/atom.xml" rel="self"/>
   
   <link href="https://joywonderful.github.io/"/>
-  <updated>2023-06-26T10:44:40.725Z</updated>
+  <updated>2023-07-02T10:10:33.996Z</updated>
   <id>https://joywonderful.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>C++ 数据范围</title>
+    <link href="https://joywonderful.github.io/posts/cpp-shujufanwei/"/>
+    <id>https://joywonderful.github.io/posts/cpp-shujufanwei/</id>
+    <published>2023-07-02T09:30:34.000Z</published>
+    <updated>2023-07-02T10:10:33.996Z</updated>
+    
+    <content type="html"><![CDATA[<p>这就是一个随记，方便自己用的。</p><table><thead><tr><th align="left">名称(可加)</th><th align="center">所占字节</th><th align="left">数据范围(以 $2^n$ 表示)</th></tr></thead><tbody><tr><td align="left"><code>(signed) int</code></td><td align="center"><code>4</code></td><td align="left"><code>-2147483648</code> ~ <code>2147482647</code> ($-2^{31}$ ~ $2^{31}-1$)</td></tr><tr><td align="left"><code>unsigned int</code></td><td align="center"><code>4</code></td><td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td></tr><tr><td align="left"><code>(signed) long (int)</code></td><td align="center"><code>4</code></td><td align="left"><code>-2147483648</code> ~ <code>2147483647</code> ($-2^{31}$ ~ $2^{31}-1$)</td></tr><tr><td align="left"><code>unsigned long (int)</code></td><td align="center"><code>4</code></td><td align="left"><code>0</code> ~ <code>4294967295</code> ($0$ ~ $2^{32}-1$)</td></tr><tr><td align="left"><code>long long</code></td><td align="center"><code>8</code></td><td align="left"><code>-9223372036854775808</code> ~ <code>9223372036854775807</code> ($-2^{63}$ ~ $2^{63}-1$)</td></tr><tr><td align="left"><code>unsigned long long</code></td><td align="center"><code>8</code></td><td align="left"><code>0</code> ~ <code>18446744073709551615</code> ($0$ ~ $2^{64}-1$)</td></tr><tr><td align="left"><code>(signed) short (int)</code></td><td align="center"><code>2</code></td><td align="left"><code>-32768</code> ~ <code>32767</code> ($-2^{15}$ ~ $2^{15}-1$)</td></tr><tr><td align="left"><code>unsigned short (int)</code></td><td align="center"><code>2</code></td><td align="left"><code>0</code> ~ <code>65535</code> ($0$ ~ $2^{16}-1$)</td></tr><tr><td align="left"><code>float</code></td><td align="center"><code>4</code></td><td align="left"><code>3.4E +/- 38</code></td></tr><tr><td align="left"><code>double</code></td><td align="center"><code>8</code></td><td align="left"><code>1.7E +/- 308</code></td></tr><tr><td align="left"><code>long double</code></td><td align="center"><code>8</code></td><td align="left"><code>1.7E +/- 308</code></td></tr><tr><td align="left"><code>bool</code></td><td align="center"><code>1</code></td><td align="left"><code>true</code> or <code>false</code> or <code>1</code> or <code>0</code></td></tr><tr><td align="left"><code>char</code></td><td align="center"><code>1</code></td><td align="left"><code>-128</code> ~ <code>127</code> ($-2^{7}$ ~ $2^{7}-1$)</td></tr></tbody></table>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;这就是一个随记，方便自己用的。&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&quot;left&quot;&gt;名称(可加)&lt;/th&gt;
+&lt;th align=&quot;center&quot;&gt;所占字节&lt;/th&gt;
+&lt;th align=&quot;left&quot;&gt;数据范围(以 $2^n$ 表示)&lt;/th&gt;</summary>
+      
+    
+    
+    
+    <category term="编程随记" scheme="https://joywonderful.github.io/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/"/>
+    
+    
+    <category term="语言入门" scheme="https://joywonderful.github.io/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
   
   <entry>
     <title>双指针-快慢指针</title>
@@ -406,9 +436,9 @@
     <category term="课程笔记" scheme="https://joywonderful.github.io/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/"/>
     
     
-    <category term="函数，参数" scheme="https://joywonderful.github.io/tags/%E5%87%BD%E6%95%B0%EF%BC%8C%E5%8F%82%E6%95%B0/"/>
-    
     <category term="语言入门" scheme="https://joywonderful.github.io/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"/>
+    
+    <category term="函数，参数" scheme="https://joywonderful.github.io/tags/%E5%87%BD%E6%95%B0%EF%BC%8C%E5%8F%82%E6%95%B0/"/>
     
   </entry>
   
