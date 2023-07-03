@@ -221,7 +221,7 @@ h6 {
   font-size: 0.875em;
 }
 p {
-  margin: 0 0 20px;
+  margin: 0 0 1em;
 }
 a {
   border-bottom: 1px solid #999;
@@ -1905,12 +1905,15 @@ pre code {
 }
 .posts-expand .post-header {
   font-size: 1.125em;
-  margin-bottom: 60px;
+  margin-bottom: 25px;
   text-align: center;
 }
 .posts-expand .post-title {
   font-size: 1.5em;
   font-weight: normal;
+  text-align: left;
+  padding-left: 10px;
+  border-left: 8px solid #000000;
   margin: initial;
   overflow-wrap: break-word;
 }
@@ -1959,7 +1962,7 @@ pre code {
 .post-meta {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
 }
 :not(.post-meta-break) + .post-meta-item::before {
   content: '|';
