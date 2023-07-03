@@ -948,13 +948,16 @@ pre code {
 .pagination .next,
 .pagination .page-number {
   border-bottom: 0;
-  border-top: 1px solid #eee;
-  transition: border-color 0.2s ease-in-out;
+  /*border-top: 1px solid #eee;*/
+  border-radius: 2px;
+  box-shadow: 1px 1px rgba(0,0,0,0.08), -1px -1px rgba(0,0,0,0.08);
+  transition: all 0.4s ease-in-out;
 }
 .pagination .prev:hover,
 .pagination .next:hover,
 .pagination .page-number:hover {
-  border-top-color: var(--link-hover-color);
+  /*border-top-color: var(--link-hover-color);*/
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4);
 }
 @media (max-width: 767px) {
   .pagination {
@@ -2792,7 +2795,7 @@ header.header {
   box-shadow: 5px 5px 5px  rgba(0,0,0,0.06);
 }
 .site-brand-container {
-  border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 0px 0px;
 }
 @media (max-width: 767px) {
   .site-brand-container {
