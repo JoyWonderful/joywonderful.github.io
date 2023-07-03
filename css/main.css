@@ -950,7 +950,8 @@ pre code {
   border-bottom: 0;
   /*border-top: 1px solid #eee;*/
   border-radius: 2px;
-  box-shadow: 1px 1px rgba(0,0,0,0.08), -1px -1px rgba(0,0,0,0.08);
+  /*box-shadow: 1px 1px rgba(0,0,0,0.08), -1px -1px rgba(0,0,0,0.08);*/
+  border: 0.01px solid #c9c9c9;
   transition: all 0.4s ease-in-out;
 }
 .pagination .prev:hover,
@@ -2111,7 +2112,7 @@ pre code {
   }
 }
 .category-all-page .category-all-title {
-  text-align: center;
+  text-align: left;
 }
 .category-all-page .category-all {
   margin-top: 20px;
@@ -2135,6 +2136,10 @@ pre code {
 }
 .category-all-page .category-list-child {
   padding-left: 10px;
+}
+.category-all-page .category-list-link {
+  border-bottom: none;
+  transition: all 0.3s;
 }
 .event-list hr {
   background: #222;
@@ -2258,6 +2263,9 @@ ul.breadcrumb li:last-child {
   color: #ffffff;
   background-color: #000000;
   box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
+}
+.tag-cloud-title {
+  text-align: left;
 }
 .tag-cloud-0 {
   /*border-bottom-color: #aaa;*/

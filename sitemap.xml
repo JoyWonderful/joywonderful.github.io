@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joywonderful.github.io/posts/xiaolianbi/</loc>
+    
+    <lastmod>2023-07-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://joywonderful.github.io/friends/index.html</loc>
     
     <lastmod>2023-07-03</lastmod>
@@ -65,7 +74,7 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/js/canvas-nest/index.html</loc>
+    <loc>https://joywonderful.github.io/js/canvas-nest/README.html</loc>
     
     <lastmod>2023-06-25</lastmod>
     
@@ -74,7 +83,7 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/js/canvas-nest/README.html</loc>
+    <loc>https://joywonderful.github.io/js/canvas-nest/index.html</loc>
     
     <lastmod>2023-06-25</lastmod>
     
@@ -146,15 +155,6 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/posts/xiaolianbi/</loc>
-    
-    <lastmod>2023-06-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://joywonderful.github.io/posts/zhizhen/</loc>
     
     <lastmod>2023-06-22</lastmod>
@@ -174,15 +174,6 @@
   
   <url>
     <loc>https://joywonderful.github.io/posts/sort/</loc>
-    
-    <lastmod>2023-06-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://joywonderful.github.io/posts/test-tag-pulgins/</loc>
     
     <lastmod>2023-06-22</lastmod>
     
@@ -263,15 +254,6 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/posts/Hello/</loc>
-    
-    <lastmod>2023-06-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://joywonderful.github.io/posts/gift/</loc>
     
     <lastmod>2023-06-22</lastmod>
@@ -297,14 +279,7 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/tags/%E7%94%BB/</loc>
-    <lastmod>2023-07-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://joywonderful.github.io/tags/%E9%9D%99%E7%89%A9%E9%80%9F%E5%86%99/</loc>
+    <loc>https://joywonderful.github.io/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -332,7 +307,14 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/</loc>
+    <loc>https://joywonderful.github.io/tags/%E7%94%BB/</loc>
+    <lastmod>2023-07-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://joywonderful.github.io/tags/%E9%9D%99%E7%89%A9%E9%80%9F%E5%86%99/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -367,14 +349,14 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <loc>https://joywonderful.github.io/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/tags/%E5%A4%8D%E6%9D%82%E5%BA%A6/</loc>
+    <loc>https://joywonderful.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -439,7 +421,7 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/categories/%E7%90%90%E7%A2%8E/</loc>
+    <loc>https://joywonderful.github.io/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -453,7 +435,7 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/</loc>
+    <loc>https://joywonderful.github.io/categories/%E7%90%90%E7%A2%8E/</loc>
     <lastmod>2023-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
