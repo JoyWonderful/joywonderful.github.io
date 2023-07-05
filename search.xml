@@ -1,6 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>欢迎</title>
+    <url>//posts/gift/</url>
+    <content><![CDATA[<p>首先确认以下，您(?你)是不是我的同学(?张*谦)。不过，我猜也没有其他人跑到这个啥都没有的博客来看吧。好了，下面，就是我给你的一个头文件：<a href="/gift/clrftodsp.h" download="clrftodsp.h">clrftodsp.h</a> 这也算是礼物吧。</p>
+<p>同时，我还用 doxygen 编了一份 <a class="btn" href="/gift/clrftodsp_8h.html">文档</a> 看着文档，你应该会用了吧。我用了 <code>Windows.h</code> 头文件，所以这个头文件只可以在 Windows 操作系统上使用。</p>
+<p>一个解释视频下载（建议2倍速播放）：<br><a href="https://cowtransfer.com/s/cf313461bd9547"><code>https://cowtransfer.com/s/cf313461bd9547</code></a></p>
+<p>又及：视频被 github size limit of 100.00 MB 限制住了，只好传到云盘上给你下载，请谅解！</p>
+]]></content>
+      <categories>
+        <category>其他</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>递归</title>
+    <url>//posts/recursion/</url>
+    <content><![CDATA[<p>递归，就是一个函数自身调用自身。递归起到类似与循环的效果。但是，与循环不同，递归可以<strong>分支</strong>。如果循环一定是一条直线，那么递归可能是树形结构。</p>
+<h2 id="循环-gt-递归"><a href="#循环-gt-递归" class="headerlink" title="循环 -&gt; 递归"></a>循环 -&gt; 递归</h2><p>前面说了，循环和递归很像。那么，我们可以将 <code>for</code> 循环尝试转为递归。先来一个循环的示例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;qwq, %d\n&quot;</span>, n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，让我们来想一想，<code>for</code> 循环的括号中 3 个语句分别是干什么的呢？</p>
+<ol>
+<li><code>int i = 1;</code> 这是循环的<strong>初始化</strong>，定义了一个变量 $i$，将其赋值为 $1$。</li>
+<li><code>i &lt;= n;</code> 这是循环<strong>每次进行下去的条件</strong>，当 $i&gt;n$ 时即退出循环。</li>
+<li><code>i++</code> 这是循环<strong>每次结束后干的事</strong>，当执行完循环体时， $i$ 则加 $1$。</li>
+</ol>
+<p>这样回忆下来，可以发现，在 <code>for</code> 循环的括号中 3 个语句其实可以拆分出来。<span id="more"></span>如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>; <span class="comment">// int i = 1;</span></span><br><span class="line"><span class="keyword">for</span>( ; ; )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &gt; n) <span class="keyword">break</span>; <span class="comment">// i &lt;= n;</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;qwq, %d\n&quot;</span>, n);</span><br><span class="line">    i++ ; <span class="comment">// i++</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么，直接将 <code>for( ; ; )</code> 改一下就好了吧？就像这样子：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">rcsn</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &gt; n) <span class="keyword">break</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;qwq, %d\n&quot;</span>, n);</span><br><span class="line">    i++ ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>等等，只将 <code>for( ; ; )</code> 改为 <code>void rcsn()</code> 似乎不太对，少了什么语句，函数不会自动循环（递归）啊。还有，函数哪儿来的 <code>break;</code>？<br>是的，递归，就是要自己调用自己。函数的结束，是该使用 <code>return</code>。应该这样修改：</p>
+<figure class="highlight diff"><table><tr><td class="code"><pre><span class="line">int i = 1;</span><br><span class="line">void rcsn()</span><br><span class="line">&#123;</span><br><span class="line"><span class="deletion">-   if(i &gt; n) break;</span></span><br><span class="line"><span class="addition">+   if(i &gt; n) return;</span></span><br><span class="line">    printf(&quot;qwq, %d\n&quot;, n);</span><br><span class="line">    i++ ;</span><br><span class="line"><span class="addition">+   rcsn();</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，这样就可以完整地运行了：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">rcsn</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i &gt; n) <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;qwq, %d\n&quot;</span>, n);</span><br><span class="line">    i++ ;</span><br><span class="line">    <span class="built_in">rcsn</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="built_in">rcsn</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="递归的分步思想"><a href="#递归的分步思想" class="headerlink" title="递归的分步思想"></a>递归的分步思想</h2><p>前面说了，递归是可以分支的。那么，它其实比循环方便的多。就比如说，输入一个整数 $n$，按照字典序输出 $1 \sim n$ 数字不重复的排列。$1 \le n \le 9$。</p>
+<p>总不可能用 <code>if</code> 一个一个判断，然后来一个“循环 $n$ 嵌套”吧。而递归是<strong>可分支</strong>的。可以创建一个递归函数，在递归中使用 <code>for</code> 循环确定递归次数。用一个数组记录是否重复。代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="type">bool</span> flag[<span class="number">12</span>];</span><br><span class="line"><span class="type">int</span> a[<span class="number">15</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dg</span><span class="params">(<span class="type">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(id &gt; n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;    &quot;</span> &lt;&lt; a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(flag[i]) <span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">        flag[i] = <span class="number">1</span>;</span><br><span class="line">        a[id] = i;</span><br><span class="line">        <span class="built_in">dg</span>(id + <span class="number">1</span>);</span><br><span class="line">        flag[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::<span class="built_in">sync_with_stdio</span>(<span class="literal">false</span>);</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="built_in">dg</span>(<span class="number">1</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，递归并不是刚完成就返回，而是<strong>完成了整个分支</strong>才返回。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++ 数据范围</title>
     <url>//posts/cpp-shujufanwei/</url>
     <content><![CDATA[<p>这就是一个随记，方便自己用的。</p>
@@ -87,43 +136,34 @@
       </tags>
   </entry>
   <entry>
-    <title>差分</title>
-    <url>//posts/chafen/</url>
-    <content><![CDATA[<h2 id="什么是差分，差分与前缀和的关系"><a href="#什么是差分，差分与前缀和的关系" class="headerlink" title="什么是差分，差分与前缀和的关系"></a>什么是差分，差分与前缀和的关系</h2><p>差分也是一种<strong>优化算法</strong>。同时，差分是前缀和的逆运算，也就是说，前缀和也是差分的逆运算。因此，由前缀和数组可以求出差分数组，由差分数组也可以求出前缀和数组。</p>
-<p>假设数组 $a$ 是原数组，数组 $b$ 是差分数组，则：$b_i &#x3D; a_i - a_{i-1}$</p>
-<hr>
-<p>差分可以用于修改数组的操作。因为假设我需要将 $a_2$ $a_3$ $a_4$ 都加上 $2$ ，此时若使用前缀和则需要再使用递推重新求一遍前缀和，非常耗时。这时便可以使用差分数组。可以发现：<br>$$<br>\underbrace{b_1,\hspace{2mm} b_2}_{b_2 + 2 &#x3D; b_1} ,\hspace{2mm} b_3,\hspace{2mm} \overbrace{b_4,\hspace{2mm} b_5}^{b_5 - 2 &#x3D;b_4}<br>$$<br>因此，只需修改差分数组中的两个项，然后再通过前缀和是差分的逆运算，即可求出原数组，从而完成数组的修改。</p>
+    <title>双指针-快慢指针</title>
+    <url>//posts/two-pointers/</url>
+    <content><![CDATA[<blockquote>
+<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
+</blockquote>
+<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
+<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
+<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
+<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
+</ul>
 <span id="more"></span>
 
-<h2 id="具体例题（模板题）"><a href="#具体例题（模板题）" class="headerlink" title="具体例题（模板题）"></a>具体例题（模板题）</h2><h3 id="差分模板题"><a href="#差分模板题" class="headerlink" title="差分模板题"></a>差分模板题</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给出一个数字$n$表示有个数字，</p>
-<p>给出$n$ $n &lt;&#x3D; 10^5$个整数$a_1$,$a_2$,…$a_n$;</p>
-<p>给出一个数字$m$ $m &lt;&#x3D; 10^5$ 有$m$个修改：<br>每次询问给出三个整数$s$,$e$,$h$，使得 $a_s,a_{s+1}….a_{e}$每一个数加上h</p>
-<p>最后给出两个数字 $start$,$end$。求出${ \sum_{i &#x3D; start}^{end}} a_i $</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个整数 $n$ 表示有$n$ 个数</p>
-<p>第二行$n$个整数$a_1$,$a_2$,…$a_n$;</p>
-<p>第三行一个整数$m$，表示有$m$个修改</p>
-<p>接下来$m$行每次询问给出三个整数$s$,$e$,$h$，使得 $a_s,a_{s+1}….a_{e}$每一个数加上h</p>
-<p>最后给出两个数字 $start$,$end$。求出${ \sum_{i &#x3D; start}^{end}} a_i $</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>一个整数</p>
-<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h4><h5 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">1 2 3 4 5</span><br><span class="line">3</span><br><span class="line">1 2 1</span><br><span class="line">1 3 1</span><br><span class="line">4 5 1</span><br><span class="line">1 5</span><br></pre></td></tr></table></figure>
-
-<h5 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">22</span><br></pre></td></tr></table></figure>
-
-<h4 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h4><p>样例1解释</p>
-<p>第一次修改序列变成 2 3 3 4 5</p>
-<p>第二次修改序列变成 3 4 4 4 5</p>
-<p>第三次修改序列变成 3 4 4 5 6</p>
-<p>$0 &lt;&#x3D;$ $a_i$ 和 $h &lt;&#x3D; 10^4$</p>
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
+<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
+<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
+<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
+<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
 <hr>
-<p>同上，$b_{s-1} + h &#x3D; b_s, b_{e + 1} - h &#x3D; b_e$，即可使用前缀和倒退回原数组.</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="type">long</span> a[<span class="number">100002</span>], b[<span class="number">100002</span>], n, m, s, e, h, start, end, sum = <span class="number">0</span> ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;n) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        b[i] = a[i] - a[i - <span class="number">1</span>] ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld&quot;</span>, &amp;s, &amp;e, &amp;h) ;</span><br><span class="line">        b[s] += h ;</span><br><span class="line">        b[e + <span class="number">1</span>] -= h ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i] = a[i - <span class="number">1</span>] + b[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld&quot;</span>, &amp;start, &amp;end) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = start; i &lt;= end; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += a[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, sum) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
+<p><strong>代码：</strong>  </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">5</span> ;</span><br><span class="line"><span class="type">int</span> a[N], b[N] ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b[i]) ;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &gt; m)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>) ;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[i] == b[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++ ;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            j++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>课程笔记</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
-        <tag>前缀和，差分</tag>
-        <tag>优化</tag>
+        <tag>解题思想</tag>
       </tags>
   </entry>
   <entry>
@@ -142,257 +182,18 @@
       </tags>
   </entry>
   <entry>
-    <title>二分</title>
-    <url>//posts/erfen/</url>
-    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
-<p>此时，我们学的还是整数二分以及浮点二分。</p>
-<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
-<span id="more"></span>
-
-<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = m ;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (l + r) / <span class="number">2</span> ;</span><br><span class="line">        <span class="keyword">if</span>(x &gt; a[mid]) l = mid ;</span><br><span class="line">        <span class="keyword">else</span> r = mid ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
-<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(1+5)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(4+5)&#x2F;2&#x3D;4, a[\texttt{mid}]&#x3D;4, 4&#x3D;4, l&#x3D;3, r&#x3D;\texttt{mid}&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
-<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = m ;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (l + r) / <span class="number">2</span> ;</span><br><span class="line">        <span class="keyword">if</span>(x &gt; a[mid]) l = mid + <span class="number">1</span> ;</span><br><span class="line">        <span class="keyword">else</span> r = mid ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这就是整数二分的一个模板了。又或者：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x ;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line"><span class="type">int</span> l = <span class="number">1</span>, r = n ;</span><br><span class="line"><span class="keyword">while</span>(l &lt; r)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r + <span class="number">1</span>) / <span class="number">2</span> ;</span><br><span class="line">    <span class="keyword">if</span>(x &gt; a[mid]) l = mid ;</span><br><span class="line">    <span class="keyword">else</span> r = mid - <span class="number">1</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
-<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
-<p>好了，模版代码<del>大放送</del>：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> l = <span class="number">-1e10</span>, r = <span class="number">1e10</span> ; <span class="comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span></span><br><span class="line"><span class="keyword">while</span>(r - l &gt; <span class="number">1e-6</span>) <span class="comment">// 此处的数字同上，模板应为 1e-x</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> mid = (l + r) / <span class="number">2</span> ; <span class="comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        l = mid ; <span class="comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        r = mid ; <span class="comment">// 同上</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
-<li><input disabled="" type="checkbox"> That’s Good</li>
-</ul>
+    <title>一些六年级的小练笔</title>
+    <url>//posts/xiaolianbi/</url>
+    <content><![CDATA[<p>一些六年级写的小作文（小练笔），留作纪念。</p>
+<h2 id="主题：点面结合写“体检”300字以上"><a href="#主题：点面结合写“体检”300字以上" class="headerlink" title="主题：点面结合写“体检”300字以上"></a>主题：点面结合写“体检”300字以上</h2><p>同学们紧张地等待着，一年一度的体检开始了。<br>与往常不同的是，这次体检要抽血。验血区里，紧张的气氛非常明显。我一拿到<em><strong>条形码</strong></em>(当时验血有一个条形码，用来验证身份和当作标签)，就直奔验血区,怕时间长了自己会害怕。很快就轮到了我。我卷起袖子，将胳膊往桌上一放，马上扭过头闭上眼，不敢看针扎进我的胳膊里的样子。<span id="more"></span>医生开始抹酒精了，我觉得我一直在发抖。等了一会儿，我感到一丝疼痛，但很快就没有了。只听见软管松开的声音。“好了。”旁边的同学提醒我。我睁开眼，看见医生正在往试管上贴标签，我长舒一口气。幸好一次性就完成了。旁边同学问我：“疼吗？”我按紧棉花，苦笑道：“都一样”。<br>另外一边儿正在测血压，气氛很轻松，毕竟同学们习惯测血压了。她卷起袖子，医生帮她把仪器连接好，按下了“开始”键。只见那块连接仪器的布不断收缩、绷紧，仪器上的数字不断跳动、变化，然后定格，布又松弛了。医生在表格上龙飞凤舞地写下一行数字，又开始忙其他的了。<br>各种各样的检查结束了，同学们兴高采烈地走回了教室，如释重负。</p>
+<h2 id="主题：未知"><a href="#主题：未知" class="headerlink" title="主题：未知"></a>主题：未知</h2><p>老师一走，原本安静的班级马上热闹起来，比十个菜市场还吵。调皮大王马上抓住这一时机，放声大吼起一首歌“大河向东流啊……”一些同学被调皮大王逗得哈哈大笑，根本就不去写作业本了，也愉快地聊起天来。大组长，班长怎么管也没用。调皮大王更起劲了，拿起书本卷成筒状，凑到同学耳边大吼大唱。许多“小调皮”被吸引了，也毫无顾忌地转来转去，和旁边的同学愉快地大声聊天。随着调皮大王“嘿”地一声大吼，一位女同学差点儿被吓哭。跑操铃声想起，新任体育委员地调皮大王又来了兴致，催促吵吵闹闹的班级马上出来，在外面排好了歪歪扭扭的队伍。“小调皮”们在教室外还是安静不下来，直至别的班的老师过来，那吵吵闹闹的一群人才一哄而散。</p>
+<h2 id="主题：点面结合-大扫除-400字"><a href="#主题：点面结合-大扫除-400字" class="headerlink" title="主题：点面结合 大扫除 400字"></a>主题：点面结合 大扫除 400字</h2><p>很快，一盆盆水端了进来，同学们都拿着工具，对教室里脏的地方发动了“攻击”。同学们忘乎所以地忙碌着，仿佛这个世界上只有他手中的事情了。<br>他拿着一把扫帚，卖力地扫角落里一个落满灰尘的夹缝。地上那些明显的纸片都被他扫走了，他扫门后面，灰尘弥漫，但他手握扫帚，用力去扫角落的墙灰，很快，门后干干净净。这里的角落有一个柜子，他俯下身子，仔细地查看着柜子后面的灰尘，发现灰尘有一尺多高。他马上把扫帚探进柜子后面，半个身子差点儿都倒下去了，艰难的把一丁点儿灰尘扫了出来。他不甘心，拿了把小扫帚，用力搬开了柜子，手拿小扫帚，将所有灰尘都扫了出来。他还觉得不够干净，干脆直接上手，地上几块顽固的胶带就被他死了下来，丢进了灰尘堆。垃圾桶里虽然没有什么大型垃圾，灰尘却堆成了小山，这大部分是他的功劳。<br>她拿着一块湿抹布，握着小铲刀，擦着墙上的污垢和双面胶带。瓷砖已经有些发黑了，还有一些水笔的字迹，被摘除的布告后留下双面胶的痕迹。她不慌不忙，从容地擦着那些水笔的痕迹。手所滑过的地方，一切都亮了起来。但也有非常顽固的污垢，她用手指盖着布，上上下下用力地擦。扣。污垢撑不住，很快，墙上的污点完全没有了。双面胶牢牢地粘在墙上，经过长时间的风化，又硬又黏。她先用湿布擦那些胶，这样用铲子更好铲，“斩草除根”后，再用力擦一擦，墙上的双面胶一点也没有了。结白明亮的瓷砖倒映着她满意的微笑。<br>经过每一个同学的努力，教室里焕然一新。每个同学露出的，都是满意的微笑。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>琐碎</category>
       </categories>
       <tags>
-        <tag>基础算法</tag>
-        <tag>优化</tag>
-        <tag>二分</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>函数</title>
-    <url>//posts/function/</url>
-    <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
-<ol>
-<li>优化代码量</li>
-<li>让程序代码更加清晰明了</li>
-<li>调用时更加方便</li>
-</ol>
-<p>总之，函数的存在就是为了更加<strong>方便</strong>，<strong>清晰</strong>，<strong>快速</strong>。</p>
-<span id="more"></span>
-
-<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>方法：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">[函数类型] [函数名称]([参数])</span><br><span class="line">&#123;</span><br><span class="line">    [主体] ;</span><br><span class="line">    <span class="keyword">return</span> [] ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = x + y ;</span><br><span class="line">    <span class="keyword">return</span> ans ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>注意</strong>：当不返回(无<code>return</code>)时，函数类型应为<code>void</code>(表面含义<em>无类型</em>)。</p>
-<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>当你运行<strong>这段代码</strong>时：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">swap</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t = x ;</span><br><span class="line">    x = y ;</span><br><span class="line">    y = t ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b) ;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">swap</span>(a, b) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, a, b) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>你会发现<code>a</code>还是<code>a</code>，<code>b</code>还是<code>b</code>。</p>
-<p>这是因为<code>swap(int, int)</code>只是把<strong>函数内的</strong><code>x</code>和<code>y</code>交换了而已，<code>a</code>和<code>b</code>没有交换。</p>
-<p>因为<code>x</code>和<code>y</code>对于*<code>main</code>函数*来说只是形参，<code>x</code>和<code>y</code>只是拷了一份<code>a</code>和<code>b</code>。</p>
-<p>如果想交换<code>a</code>和<code>b</code>需要这样写：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">swap</span><span class="params">(<span class="type">int</span> &amp;x, <span class="type">int</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t = x ;</span><br><span class="line">    x = y ;</span><br><span class="line">    y = t ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b) ;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">swap</span>(a, b) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, a, b) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此时此刻，你使用<code>x</code>和<code>y</code>就相当于引用了<code>a</code>和<code>b</code>。</p>
-<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>函数名不可重复。</p>
-<p>但是有几种方法可以重复：</p>
-<ul>
-<li>函数参数类型不同</li>
-<li>函数参数数量不同</li>
-</ul>
-<p>比如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, n) ;</span><br><span class="line">    <span class="built_in">add</span>() ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><strong>注意：</strong>仅仅函数类型不同不足以区分两个函数！</p>
-<h2 id="拓展：主函数中的argc和argv-实际上我不懂"><a href="#拓展：主函数中的argc和argv-实际上我不懂" class="headerlink" title="拓展：主函数中的argc和argv 实际上我不懂"></a>拓展：主函数中的<code>argc</code>和<code>argv</code> <del>实际上我不懂</del></h2><p>用法：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br></pre></td></tr></table></figure>
-
-<p>或：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<p>含义：</p>
-<ol>
-<li><code>argc</code>：<strong>是argument count 的缩写，保存运行时传递给main函数的参数个数。</strong></li>
-<li><code>argv</code>：<strong>是argument vector 的缩写，保存运行时传递main函数的参数，类型是一个字符指针数组，每个元素是一个字符指针，指向一个命令行参数。</strong></li>
-</ol>
-<p>比如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sum: %d\n&quot;</span>, argc) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; argc; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;argc[%d], %s\n&quot;</span>, i, argv[i]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>打开命令行，<code>cd</code>文件所在文件夹，输入：<code>[file name].[file extension] hello world i am so happy</code></p>
-<p>结果为：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sum</span>: 7</span><br><span class="line">argc[0], 未命名1.exe</span><br><span class="line">argc[1], hello</span><br><span class="line">argc[2], world</span><br><span class="line">argc[3], i</span><br><span class="line">argc[4], am</span><br><span class="line">argc[5], so</span><br><span class="line">argc[6], happy</span><br></pre></td></tr></table></figure>
-
-<p>这就是<code>main</code>函数参数作用。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>语言入门</tag>
-        <tag>函数，参数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>函数递归</title>
-    <url>//posts/function-dugui/</url>
-    <content><![CDATA[<p><del>题外话：这章好像可以加入“函数”？但是太复杂了，单独拎出来</del></p>
-<h2 id="什么是函数递归"><a href="#什么是函数递归" class="headerlink" title="什么是函数递归"></a>什么是函数递归</h2><p><strong>函数递归</strong>，顾名思义，就是<em>不断地调用自己本身</em>，如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>) ;</span><br><span class="line">    <span class="built_in">main</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行，程序会不断输出<code>Hello World!</code>并换行。</p>
-<p>所以函数递归<strong>很像循环</strong>，但又和循环有些不同。<br>请问，循环可以传递参数吗？——当然不可以。</p>
-<span id="more"></span>
-
-<h2 id="递归正向反向"><a href="#递归正向反向" class="headerlink" title="递归正向反向"></a>递归正向反向</h2><p>当我们想输出数字的每一位是，就可以用递归：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">num</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> t = n % <span class="number">10</span> ;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, t) ;</span><br><span class="line">	n /= <span class="number">10</span> ;</span><br><span class="line">	<span class="built_in">num</span>(n) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n ;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n) ;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">num</span>(n) ;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>输入<code>114514</code>就会输出<code>4 1 5 4 1 1</code>，思路很清晰。</p>
-<p>可要是我想输出正向输出<code>1 1 4 5 1 4</code>呢？开数组？太麻烦了，递归就可以解决：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">num</span><span class="params">(<span class="type">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n &lt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> t = n % <span class="number">10</span> ;</span><br><span class="line">	n /= <span class="number">10</span> ;</span><br><span class="line">	<span class="built_in">num</span>(n) ;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, t) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> n ;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n) ;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">num</span>(n) ;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>没错，我们只是把<code>n /= 10 ;</code>，<code>printf(&quot;%d &quot;, &amp;t) ;</code>和<code>num(n) ;</code>调换了个位置。这是怎么实现的呢？</p>
-<p>来画个图：</p>
-<p>$$<br>\hspace{10.49cm} {\color{green}start} \to num(n) \to t_i&#x3D;n%10 \to n&#x3D;n&#x2F;10 \to num(n) \to ; … \<br>$$<br>$$<br>\hspace{17.35cm} \downarrow \<br>$$<br>$$<br>{\color{red}end} \gets printf(t_i) \gets printf(t_{i-1}) \gets printf(t_{i-2}) \gets printf(t_{i-3}) \gets \ …<br>$$<br>没错，在递归之后的代码都会被反推回去，因此就从最高位开始输出啦~</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>函数，参数</tag>
-        <tag>递归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>欢迎</title>
-    <url>//posts/gift/</url>
-    <content><![CDATA[<p>首先确认以下，您(?你)是不是我的同学(?张*谦)。不过，我猜也没有其他人跑到这个啥都没有的博客来看吧。好了，下面，就是我给你的一个头文件：<a href="/gift/clrftodsp.h" download="clrftodsp.h">clrftodsp.h</a> 这也算是礼物吧。</p>
-<p>同时，我还用 doxygen 编了一份 <a class="btn" href="/gift/clrftodsp_8h.html">文档</a> 看着文档，你应该会用了吧。我用了 <code>Windows.h</code> 头文件，所以这个头文件只可以在 Windows 操作系统上使用。</p>
-<p>一个解释视频下载（建议2倍速播放）：<br><a href="https://cowtransfer.com/s/cf313461bd9547"><code>https://cowtransfer.com/s/cf313461bd9547</code></a></p>
-<p>又及：视频被 github size limit of 100.00 MB 限制住了，只好传到云盘上给你下载，请谅解！</p>
-]]></content>
-      <categories>
-        <category>其他</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>命名空间</title>
-    <url>//posts/namespace/</url>
-    <content><![CDATA[<h2 id="C-命名空间的概念"><a href="#C-命名空间的概念" class="headerlink" title="C++命名空间的概念"></a>C++命名空间的概念</h2><p><strong>在同一个作用域中，不同的数据不能起同一个名字</strong>，但是C++命名空间概念的出现，提供了解决问题的方案。在不同的命名空间中，可以随意定义相同的名字。命名空间就是为了避免你包含的头文件中与你自己定义的任意类，数据，函数重名，造成令人迷惑的错误而产生的。</p>
-<span id="more"></span>
-
-<h2 id="定义命名空间"><a href="#定义命名空间" class="headerlink" title="定义命名空间"></a>定义命名空间</h2><p>我们可以自己定义一个命名空间，并且使用它。定义命名空间使用 <code>namespace</code> 关键字，使用命名空间使用 <code>namespace::subject</code> 使用命名空间中的函数，数据等。例如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> <span class="comment">// 方便演示，使用了C头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> mylib</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span> ;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>) ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> libbb</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">20</span>, c = <span class="number">30</span> ;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;HELLO WORLD!!!!\n&quot;</span>) ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d\n&quot;</span>, mylib::a, mylib::b, mylib::c) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d\n&quot;</span>, libbb::a, libbb::b, libbb::c) ;</span><br><span class="line">    mylib::<span class="built_in">hello</span>() ;</span><br><span class="line">    libbb::<span class="built_in">hello</span>() ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出 <code>1 2 3\n 10 20 30\n Hello World!\n HELLO WORLD!!!!\n</code>。在命名空间 $mylib$ 和 $libbb$ 中，三个变量和一个函数的名字相同，但是所调用的命名空间不同，结果也不一样。</p>
-<p>在C++中，大部分函数都在命名空间 $std$ 中，全称 $stdandard$ 。</p>
-<h2 id="using使用命名空间"><a href="#using使用命名空间" class="headerlink" title="using使用命名空间"></a><code>using</code>使用命名空间</h2><p>在上段程序中，我们可以在包含头文件后加入几句：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> mylib ;</span><br></pre></td></tr></table></figure>
-
-<p>这样 $mylib$ 命名空间里的 $a ~ b ~ c ~ hello()$ 可以直接写为它原本的样子，不用加上 <code>mylib::</code> 。这很方便。但是这种方法也有他的局限性，比如我再加入一句：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> libbb::a ;</span><br></pre></td></tr></table></figure>
-
-<p>这样 $libbb$ 命名空间里的 $a$ 使用时也不用加上 <code>libbb::</code> 了。但是再次出现了两个同样的 $a$ ，谁也分不清使用的到底是 $mylib$ 命名空间里的 $a$ 还是 $libbb$ 命名空间里的 $a$ ，因此会引发错误，这也是 <code>using</code> 的弊端。但是有时候只会用到一个命名空间里的东西时，就比如 $std$ ，就可以直接加上一句 <code>using namespace std ;</code> 这样子更方便，省的 <code>cin</code> 也要 <code>std::</code> ， <code>string</code> 也要 <code>std</code> 。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>语言入门</tag>
-        <tag>Cpp新概念</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前缀和</title>
-    <url>//posts/qianzhuihe/</url>
-    <content><![CDATA[<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>前缀和是一种<strong>优化算法</strong>，用于求区间和。若数据范围特别大，写 <code>for</code> 循环很可能会爆时间复杂度，就可以用上前缀和了。前缀和有<strong>一维前缀和</strong>和<strong>二维前缀和</strong>，我暂时还没有学二位前缀和，故在此不多赘述。</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一维前缀和需要把一个数组比如数组 $a[0]$ 到 $a[n]$ （$n$ 为 $a$ 数组长度 $-1$ ）储存到另一个数组中比如 数组 $b$。那么：$\sum_{i &#x3D; 1}^{a[i]} b[i]$ </p>
-<span id="more"></span>
-
-<p>我们发现：<br>$$<br>b[1] &#x3D; a[1] \<br>$$<br>$$<br>b[2] &#x3D; a[1] + a[2] \<br>$$<br>$$<br>b[3] &#x3D; a[1] + a[2] + a[3] \<br>$$<br>$$<br>… \<br>$$<br>$$<br>b[i - 1] &#x3D; a[1] + a[2] + … + a[i - 1] \<br>$$<br>$$<br>b[i] &#x3D; a[1] + a[2] + … + a[i - 1] + a[i]<br>$$<br>这正好是一个<strong>递推</strong>的过程，$b[1] &#x3D; a[1],, b[2] &#x3D; b[2] + a[2]…$</p>
-<p>同时，若 $l$ 为左边界， $r$ 为又边界，$b[r] - b[l - 1] &#x3D; a[r]$ 到 $a[l]$ 的区间和。</p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="前缀和模板"><a href="#前缀和模板" class="headerlink" title="前缀和模板"></a>前缀和模板</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给出一个数字$n$表示有个数字，</p>
-<p>给出$n$个整数$a_1$,$a_2$,…$a_n$;</p>
-<p>给出一个数字$m$ 有$m$个询问：<br>每次询问给出两个整数$s$,$e$，请求出 $a_s + a_{s+1}…a_e$</p>
-<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个整数$n$</p>
-<p>第二行$n$个整数$a_1$,$a_2$,…$a_n$;</p>
-<p>第三行一个整数$m$</p>
-<p>随后m行每行两个整数 s，e，($e &gt;&#x3D; s$)</p>
-<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>m个整数，每一个换一行</p>
-<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h4><h5 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">1 2 3 4 5</span><br><span class="line">3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">1 5</span><br></pre></td></tr></table></figure>
-
-<h5 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">5</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
-
-<h4 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h4><p>$n &lt;&#x3D; 10^5$,$a_i &lt;&#x3D; 10^4$。</p>
-<hr>
-<p>这道题目应该这样写：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a[<span class="number">100001</span>], b[<span class="number">100001</span>] ;</span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	b[<span class="number">1</span>] = a[<span class="number">1</span>] ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		b[i + <span class="number">1</span>] += b[i] + a[i + <span class="number">1</span>] ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;m) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> s, e ;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;s, &amp;e) ;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b[e] - b[s - <span class="number">1</span>]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>前缀和，差分</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>时间复杂度和空间复杂度</title>
-    <url>//posts/shijianfuzaduhekongjianfuzadu/</url>
-    <content><![CDATA[<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度，就是<strong>电脑运行一段程序所需要的时间</strong>。</p>
-<p>另外，电脑每秒可以运行<code>1e8</code>次。($x$ e $y$代表$x$乘10的$y$次方，即<code>100000000</code>次)</p>
-<p>时间复杂度记作$O$(n)。</p>
-<hr>
-<p>普通的时间复杂度**(常数时间)**记作$O$(1)，为一段最简单的程序的时间复杂度。</p>
-<p>如以下程序的时间复杂度为$O$(1)：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>没错，什么都没有干，只创建了一个变量。</p>
-<span id="more"></span>
-
-<hr>
-<p>其他时间复杂度(我所知道的很少，只会<code>O(n^n)</code>)，有几个循环时间复杂度就为^n。</p>
-<p>如以下程序的时间复杂度为$O$(i^2^)</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j ++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i) ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<hr>
-<p><del>老师的</del>练习:</p>
-<p><a href="https://www.luogu.com.cn/problem/U262459">U262459 数位和3 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)</a></p>
-<p>注意注意:</p>
-<p>这道题的数据范围很大，($0\le x \le10^6$)，双重循环直接炸。($O$(1000000^2^))</p>
-<p>所以需要:</p>
-<p><a href="https://www.luogu.com.cn/record/96951779">记录详情 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)</a></p>
-<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>和时间复杂度差不多，只不过这个是和<strong>内存</strong>有关的。</p>
-<p><del>不多讲了。</del>就比如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">100</span>] ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这里，我们定义了一个类型为<code>int</code>的数组，<code>int</code>占4字节，产生的空间就为$4 * 1000$字节。</p>
-<p>这就是<strong>空间复杂度</strong>。</p>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>语言入门</tag>
-        <tag>复杂度</tag>
+        <tag>作文</tag>
       </tags>
   </entry>
   <entry>
@@ -492,88 +293,40 @@
       </tags>
   </entry>
   <entry>
-    <title>双指针-快慢指针</title>
-    <url>//posts/two-pointers/</url>
-    <content><![CDATA[<blockquote>
-<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
-</blockquote>
-<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
-<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
-<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
-<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
-</ul>
+    <title>二分</title>
+    <url>//posts/erfen/</url>
+    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
+<p>此时，我们学的还是整数二分以及浮点二分。</p>
+<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
 <span id="more"></span>
 
-<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
-<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
-<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
-<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
-<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
-<hr>
-<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
-<p><strong>代码：</strong>  </p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N = <span class="number">1e5</span> + <span class="number">5</span> ;</span><br><span class="line"><span class="type">int</span> a[N], b[N] ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;n, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;b[i]) ;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> j = <span class="number">1</span> ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(j &gt; m)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;No\n&quot;</span>) ;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(a[i] == b[j])</span><br><span class="line">            &#123;</span><br><span class="line">                j++ ;</span><br><span class="line">                <span class="keyword">break</span> ;</span><br><span class="line">            &#125;</span><br><span class="line">            j++ ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Yes\n&quot;</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = m ;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (l + r) / <span class="number">2</span> ;</span><br><span class="line">        <span class="keyword">if</span>(x &gt; a[mid]) l = mid ;</span><br><span class="line">        <span class="keyword">else</span> r = mid ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
+<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(1+5)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(4+5)&#x2F;2&#x3D;4, a[\texttt{mid}]&#x3D;4, 4&#x3D;4, l&#x3D;3, r&#x3D;\texttt{mid}&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt{mid}]&#x3D;3, 4&gt;3, l&#x3D;\texttt{mid}&#x3D;3, r&#x3D;4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
+<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> x ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line">    <span class="type">int</span> l = <span class="number">1</span>, r = m ;</span><br><span class="line">    <span class="keyword">while</span>(l &lt; r)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> mid = (l + r) / <span class="number">2</span> ;</span><br><span class="line">        <span class="keyword">if</span>(x &gt; a[mid]) l = mid + <span class="number">1</span> ;</span><br><span class="line">        <span class="keyword">else</span> r = mid ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是整数二分的一个模板了。又或者：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> x ;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;x) ;</span><br><span class="line"><span class="type">int</span> l = <span class="number">1</span>, r = n ;</span><br><span class="line"><span class="keyword">while</span>(l &lt; r)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> mid = (l + r + <span class="number">1</span>) / <span class="number">2</span> ;</span><br><span class="line">    <span class="keyword">if</span>(x &gt; a[mid]) l = mid ;</span><br><span class="line">    <span class="keyword">else</span> r = mid - <span class="number">1</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
+<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
+<p>好了，模版代码<del>大放送</del>：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="type">double</span> l = <span class="number">-1e10</span>, r = <span class="number">1e10</span> ; <span class="comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span></span><br><span class="line"><span class="keyword">while</span>(r - l &gt; <span class="number">1e-6</span>) <span class="comment">// 此处的数字同上，模板应为 1e-x</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">double</span> mid = (l + r) / <span class="number">2</span> ; <span class="comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        l = mid ; <span class="comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        r = mid ; <span class="comment">// 同上</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
+<li><input disabled="" type="checkbox"> That’s Good</li>
+</ul>
+]]></content>
       <categories>
         <category>课程笔记</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
-        <tag>解题思想</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些六年级的小练笔</title>
-    <url>//posts/xiaolianbi/</url>
-    <content><![CDATA[<p>一些六年级写的小作文（小练笔），留作纪念。</p>
-<h2 id="主题：点面结合写“体检”300字以上"><a href="#主题：点面结合写“体检”300字以上" class="headerlink" title="主题：点面结合写“体检”300字以上"></a>主题：点面结合写“体检”300字以上</h2><p>同学们紧张地等待着，一年一度的体检开始了。<br>与往常不同的是，这次体检要抽血。验血区里，紧张的气氛非常明显。我一拿到<em><strong>条形码</strong></em>(当时验血有一个条形码，用来验证身份和当作标签)，就直奔验血区,怕时间长了自己会害怕。很快就轮到了我。我卷起袖子，将胳膊往桌上一放，马上扭过头闭上眼，不敢看针扎进我的胳膊里的样子。<span id="more"></span>医生开始抹酒精了，我觉得我一直在发抖。等了一会儿，我感到一丝疼痛，但很快就没有了。只听见软管松开的声音。“好了。”旁边的同学提醒我。我睁开眼，看见医生正在往试管上贴标签，我长舒一口气。幸好一次性就完成了。旁边同学问我：“疼吗？”我按紧棉花，苦笑道：“都一样”。<br>另外一边儿正在测血压，气氛很轻松，毕竟同学们习惯测血压了。她卷起袖子，医生帮她把仪器连接好，按下了“开始”键。只见那块连接仪器的布不断收缩、绷紧，仪器上的数字不断跳动、变化，然后定格，布又松弛了。医生在表格上龙飞凤舞地写下一行数字，又开始忙其他的了。<br>各种各样的检查结束了，同学们兴高采烈地走回了教室，如释重负。</p>
-<h2 id="主题：未知"><a href="#主题：未知" class="headerlink" title="主题：未知"></a>主题：未知</h2><p>老师一走，原本安静的班级马上热闹起来，比十个菜市场还吵。调皮大王马上抓住这一时机，放声大吼起一首歌“大河向东流啊……”一些同学被调皮大王逗得哈哈大笑，根本就不去写作业本了，也愉快地聊起天来。大组长，班长怎么管也没用。调皮大王更起劲了，拿起书本卷成筒状，凑到同学耳边大吼大唱。许多“小调皮”被吸引了，也毫无顾忌地转来转去，和旁边的同学愉快地大声聊天。随着调皮大王“嘿”地一声大吼，一位女同学差点儿被吓哭。跑操铃声想起，新任体育委员地调皮大王又来了兴致，催促吵吵闹闹的班级马上出来，在外面排好了歪歪扭扭的队伍。“小调皮”们在教室外还是安静不下来，直至别的班的老师过来，那吵吵闹闹的一群人才一哄而散。</p>
-<h2 id="主题：点面结合-大扫除-400字"><a href="#主题：点面结合-大扫除-400字" class="headerlink" title="主题：点面结合 大扫除 400字"></a>主题：点面结合 大扫除 400字</h2><p>很快，一盆盆水端了进来，同学们都拿着工具，对教室里脏的地方发动了“攻击”。同学们忘乎所以地忙碌着，仿佛这个世界上只有他手中的事情了。<br>他拿着一把扫帚，卖力地扫角落里一个落满灰尘的夹缝。地上那些明显的纸片都被他扫走了，他扫门后面，灰尘弥漫，但他手握扫帚，用力去扫角落的墙灰，很快，门后干干净净。这里的角落有一个柜子，他俯下身子，仔细地查看着柜子后面的灰尘，发现灰尘有一尺多高。他马上把扫帚探进柜子后面，半个身子差点儿都倒下去了，艰难的把一丁点儿灰尘扫了出来。他不甘心，拿了把小扫帚，用力搬开了柜子，手拿小扫帚，将所有灰尘都扫了出来。他还觉得不够干净，干脆直接上手，地上几块顽固的胶带就被他死了下来，丢进了灰尘堆。垃圾桶里虽然没有什么大型垃圾，灰尘却堆成了小山，这大部分是他的功劳。<br>她拿着一块湿抹布，握着小铲刀，擦着墙上的污垢和双面胶带。瓷砖已经有些发黑了，还有一些水笔的字迹，被摘除的布告后留下双面胶的痕迹。她不慌不忙，从容地擦着那些水笔的痕迹。手所滑过的地方，一切都亮了起来。但也有非常顽固的污垢，她用手指盖着布，上上下下用力地擦。扣。污垢撑不住，很快，墙上的污点完全没有了。双面胶牢牢地粘在墙上，经过长时间的风化，又硬又黏。她先用湿布擦那些胶，这样用铲子更好铲，“斩草除根”后，再用力擦一擦，墙上的双面胶一点也没有了。结白明亮的瓷砖倒映着她满意的微笑。<br>经过每一个同学的努力，教室里焕然一新。每个同学露出的，都是满意的微笑。</p>
-]]></content>
-      <categories>
-        <category>琐碎</category>
-      </categories>
-      <tags>
-        <tag>作文</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些有用的东西有没有用的东西</title>
-    <url>//posts/yixieyouyongdedongxiyoumei/</url>
-    <content><![CDATA[<h2 id="宏定义和类型定义"><a href="#宏定义和类型定义" class="headerlink" title="宏定义和类型定义"></a>宏定义和类型定义</h2><p><em>宏定义</em>，<strong>将一个指令导向另一个指令</strong>。宏定义属于<strong>预处理指令</strong>，使用规范为：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> [标识符] [常量]</span></span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<p>与变量不同的是：宏定义可以理解为把一个文本<strong>替换</strong>成另一个文本。比如说：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> a 3 + 2</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, a * <span class="number">3</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>和</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span> + <span class="number">2</span> ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, a * <span class="number">3</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用了 <code>#define</code> 的输出 $9$ ，使用了 <code>int</code> 的输出 $15$ 。这是因为 <code>#define</code> 只是把 $a$ 替换为了 $3+2$ ，因此先算 $2 \times 3&#x3D;6$ ，再算 $6+3&#x3D;9$ ，而 <code>int</code> 将 $a$ 定为 $5$ ，再算 $5 \times 3&#x3D;15$ 。从这些角度来看，<code>define</code> 只是一个“替换”的操作。</p>
-<hr>
-<p><em>类型定义</em>，<strong>将变量类型导向简单的标识符</strong>。类型定义属于<strong>语句</strong>，使用规范为：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> [变量类型] [标识符] ;</span><br></pre></td></tr></table></figure>
-
-<p>与 <code>#define</code> 不同的是：<code>#define</code> 属于<strong>预处理指令</strong>，需要在预处理器处理。而且 <code>#define</code> 可以将任何指令或字符指向标识符；而 <code>typedef</code> 属于<strong>语句</strong>，需要在编译器中编译。且 <code>typedef</code> 只支持将变量类型指向标识符。例如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pnt printf <span class="comment">// printf可以写成pnt</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> scn scanf <span class="comment">// scanf可以写成scn</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll ; <span class="comment">// long long可以写成ll</span></span><br><span class="line">    <span class="comment">// typedef scanf scn ; -&gt; 这句话是错误的</span></span><br><span class="line">    ll a ; <span class="comment">// 定义了变量a，类型为long long</span></span><br><span class="line">    <span class="built_in">scn</span>(<span class="string">&quot;%lld&quot;</span>, &amp;a) ;</span><br><span class="line">    <span class="built_in">pnt</span>(<span class="string">&quot;%lld&quot;</span>, a + <span class="number">1</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>无论是 <code>int</code> 还是 <code>double</code> 类型，他们都是变量，即随时可以改变。当想用到不用改变的量时，就要用到<strong>常量</strong>了。</p>
-<p>定义一个常量很简单，只需要在变量类型前加上一个 <code>const</code> 就行了。例如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">100</span> ;</span><br><span class="line"><span class="type">int</span> b[a] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125; ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b[i]) ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这里，我们建立了一个名为 $a$ 的常量，其值为 $100$ 。随后定义一个名为 $b$ 的数组，大小为 $a$ ， $a&#x3D;100$ ， $b$ 数组的大小就是 $100$ 。</p>
-<p><del>一般来说</del>对于我来说，常量的作用不算特别大，但是拿来定义数组却很方便。</p>
-<h2 id="有符号和无符号"><a href="#有符号和无符号" class="headerlink" title="有符号和无符号"></a>有符号和无符号</h2><p><em>有符号</em>， <code>signed</code> ，符号即为 $-$ ，在一般的数据定义中，<strong>都是</strong>有符号的类型。<em>无符号</em>， <code>unsigned</code> ，即<strong>没有</strong>复数，正数数据范围会大很多。比如普通的 <code>int</code> （ <code>signed int</code> ）数据范围是 $-2147483648 \sim 2147483647$ 而无符号 <code>int</code> （ <code>unsigned int</code> ）数据范围是 $0 \sim 4294967295$ ，这是因为 <code>unsigned int</code> 将附属部分拿来存正数部分，所以可以存的正数会大很多。</p>
-<p>在变量类型中，只有 <code>signed</code> 会被认作 <code>signed int</code> ；只有 <code>unsigned</code> 也会被认作 <code>unsigned int</code> ；不带 <code>signed</code> 和 <code>unsigned</code> 的任何数据类型都会被认做有符号 <code>signed</code> 数据类型。因此，在某些时候主函数 <code>int main()</code> 也可以写成 <code>signed main()</code> </p>
-<h1 id="END"><a href="#END" class="headerlink" title="END"></a>END</h1>]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>编译预处理</tag>
-        <tag>常量</tag>
+        <tag>优化</tag>
+        <tag>二分</tag>
       </tags>
   </entry>
   <entry>
@@ -622,6 +375,259 @@
       <tags>
         <tag>语言入门</tag>
         <tag>指针</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一些有用的东西有没有用的东西</title>
+    <url>//posts/yixieyouyongdedongxiyoumei/</url>
+    <content><![CDATA[<h2 id="宏定义和类型定义"><a href="#宏定义和类型定义" class="headerlink" title="宏定义和类型定义"></a>宏定义和类型定义</h2><p><em>宏定义</em>，<strong>将一个指令导向另一个指令</strong>。宏定义属于<strong>预处理指令</strong>，使用规范为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> [标识符] [常量]</span></span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<p>与变量不同的是：宏定义可以理解为把一个文本<strong>替换</strong>成另一个文本。比如说：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> a 3 + 2</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, a * <span class="number">3</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">3</span> + <span class="number">2</span> ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, a * <span class="number">3</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用了 <code>#define</code> 的输出 $9$ ，使用了 <code>int</code> 的输出 $15$ 。这是因为 <code>#define</code> 只是把 $a$ 替换为了 $3+2$ ，因此先算 $2 \times 3&#x3D;6$ ，再算 $6+3&#x3D;9$ ，而 <code>int</code> 将 $a$ 定为 $5$ ，再算 $5 \times 3&#x3D;15$ 。从这些角度来看，<code>define</code> 只是一个“替换”的操作。</p>
+<hr>
+<p><em>类型定义</em>，<strong>将变量类型导向简单的标识符</strong>。类型定义属于<strong>语句</strong>，使用规范为：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> [变量类型] [标识符] ;</span><br></pre></td></tr></table></figure>
+
+<p>与 <code>#define</code> 不同的是：<code>#define</code> 属于<strong>预处理指令</strong>，需要在预处理器处理。而且 <code>#define</code> 可以将任何指令或字符指向标识符；而 <code>typedef</code> 属于<strong>语句</strong>，需要在编译器中编译。且 <code>typedef</code> 只支持将变量类型指向标识符。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pnt printf <span class="comment">// printf可以写成pnt</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> scn scanf <span class="comment">// scanf可以写成scn</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">typedef</span> <span class="type">long</span> <span class="type">long</span> ll ; <span class="comment">// long long可以写成ll</span></span><br><span class="line">    <span class="comment">// typedef scanf scn ; -&gt; 这句话是错误的</span></span><br><span class="line">    ll a ; <span class="comment">// 定义了变量a，类型为long long</span></span><br><span class="line">    <span class="built_in">scn</span>(<span class="string">&quot;%lld&quot;</span>, &amp;a) ;</span><br><span class="line">    <span class="built_in">pnt</span>(<span class="string">&quot;%lld&quot;</span>, a + <span class="number">1</span>) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>无论是 <code>int</code> 还是 <code>double</code> 类型，他们都是变量，即随时可以改变。当想用到不用改变的量时，就要用到<strong>常量</strong>了。</p>
+<p>定义一个常量很简单，只需要在变量类型前加上一个 <code>const</code> 就行了。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> a = <span class="number">100</span> ;</span><br><span class="line"><span class="type">int</span> b[a] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125; ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b[i]) ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，我们建立了一个名为 $a$ 的常量，其值为 $100$ 。随后定义一个名为 $b$ 的数组，大小为 $a$ ， $a&#x3D;100$ ， $b$ 数组的大小就是 $100$ 。</p>
+<p><del>一般来说</del>对于我来说，常量的作用不算特别大，但是拿来定义数组却很方便。</p>
+<h2 id="有符号和无符号"><a href="#有符号和无符号" class="headerlink" title="有符号和无符号"></a>有符号和无符号</h2><p><em>有符号</em>， <code>signed</code> ，符号即为 $-$ ，在一般的数据定义中，<strong>都是</strong>有符号的类型。<em>无符号</em>， <code>unsigned</code> ，即<strong>没有</strong>复数，正数数据范围会大很多。比如普通的 <code>int</code> （ <code>signed int</code> ）数据范围是 $-2147483648 \sim 2147483647$ 而无符号 <code>int</code> （ <code>unsigned int</code> ）数据范围是 $0 \sim 4294967295$ ，这是因为 <code>unsigned int</code> 将附属部分拿来存正数部分，所以可以存的正数会大很多。</p>
+<p>在变量类型中，只有 <code>signed</code> 会被认作 <code>signed int</code> ；只有 <code>unsigned</code> 也会被认作 <code>unsigned int</code> ；不带 <code>signed</code> 和 <code>unsigned</code> 的任何数据类型都会被认做有符号 <code>signed</code> 数据类型。因此，在某些时候主函数 <code>int main()</code> 也可以写成 <code>signed main()</code> </p>
+<h1 id="END"><a href="#END" class="headerlink" title="END"></a>END</h1>]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>编译预处理</tag>
+        <tag>常量</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时间复杂度和空间复杂度</title>
+    <url>//posts/shijianfuzaduhekongjianfuzadu/</url>
+    <content><![CDATA[<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>时间复杂度，就是<strong>电脑运行一段程序所需要的时间</strong>。</p>
+<p>另外，电脑每秒可以运行<code>1e8</code>次。($x$ e $y$代表$x$乘10的$y$次方，即<code>100000000</code>次)</p>
+<p>时间复杂度记作$O$(n)。</p>
+<hr>
+<p>普通的时间复杂度**(常数时间)**记作$O$(1)，为一段最简单的程序的时间复杂度。</p>
+<p>如以下程序的时间复杂度为$O$(1)：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>没错，什么都没有干，只创建了一个变量。</p>
+<span id="more"></span>
+
+<hr>
+<p>其他时间复杂度(我所知道的很少，只会<code>O(n^n)</code>)，有几个循环时间复杂度就为^n。</p>
+<p>如以下程序的时间复杂度为$O$(i^2^)</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">10</span>; j ++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, i) ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><del>老师的</del>练习:</p>
+<p><a href="https://www.luogu.com.cn/problem/U262459">U262459 数位和3 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)</a></p>
+<p>注意注意:</p>
+<p>这道题的数据范围很大，($0\le x \le10^6$)，双重循环直接炸。($O$(1000000^2^))</p>
+<p>所以需要:</p>
+<p><a href="https://www.luogu.com.cn/record/96951779">记录详情 - 洛谷 | 计算机科学教育新生态 (luogu.com.cn)</a></p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><p>和时间复杂度差不多，只不过这个是和<strong>内存</strong>有关的。</p>
+<p><del>不多讲了。</del>就比如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a[<span class="number">100</span>] ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里，我们定义了一个类型为<code>int</code>的数组，<code>int</code>占4字节，产生的空间就为$4 * 1000$字节。</p>
+<p>这就是<strong>空间复杂度</strong>。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>语言入门</tag>
+        <tag>复杂度</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前缀和</title>
+    <url>//posts/qianzhuihe/</url>
+    <content><![CDATA[<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>前缀和是一种<strong>优化算法</strong>，用于求区间和。若数据范围特别大，写 <code>for</code> 循环很可能会爆时间复杂度，就可以用上前缀和了。前缀和有<strong>一维前缀和</strong>和<strong>二维前缀和</strong>，我暂时还没有学二位前缀和，故在此不多赘述。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一维前缀和需要把一个数组比如数组 $a[0]$ 到 $a[n]$ （$n$ 为 $a$ 数组长度 $-1$ ）储存到另一个数组中比如 数组 $b$。那么：$\sum_{i &#x3D; 1}^{a[i]} b[i]$ </p>
+<span id="more"></span>
+
+<p>我们发现：<br>$$<br>b[1] &#x3D; a[1] \<br>$$<br>$$<br>b[2] &#x3D; a[1] + a[2] \<br>$$<br>$$<br>b[3] &#x3D; a[1] + a[2] + a[3] \<br>$$<br>$$<br>… \<br>$$<br>$$<br>b[i - 1] &#x3D; a[1] + a[2] + … + a[i - 1] \<br>$$<br>$$<br>b[i] &#x3D; a[1] + a[2] + … + a[i - 1] + a[i]<br>$$<br>这正好是一个<strong>递推</strong>的过程，$b[1] &#x3D; a[1],, b[2] &#x3D; b[2] + a[2]…$</p>
+<p>同时，若 $l$ 为左边界， $r$ 为又边界，$b[r] - b[l - 1] &#x3D; a[r]$ 到 $a[l]$ 的区间和。</p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><h3 id="前缀和模板"><a href="#前缀和模板" class="headerlink" title="前缀和模板"></a>前缀和模板</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给出一个数字$n$表示有个数字，</p>
+<p>给出$n$个整数$a_1$,$a_2$,…$a_n$;</p>
+<p>给出一个数字$m$ 有$m$个询问：<br>每次询问给出两个整数$s$,$e$，请求出 $a_s + a_{s+1}…a_e$</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个整数$n$</p>
+<p>第二行$n$个整数$a_1$,$a_2$,…$a_n$;</p>
+<p>第三行一个整数$m$</p>
+<p>随后m行每行两个整数 s，e，($e &gt;&#x3D; s$)</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>m个整数，每一个换一行</p>
+<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h4><h5 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">1 2 3 4 5</span><br><span class="line">3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">1 5</span><br></pre></td></tr></table></figure>
+
+<h5 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">5</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
+
+<h4 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h4><p>$n &lt;&#x3D; 10^5$,$a_i &lt;&#x3D; 10^4$。</p>
+<hr>
+<p>这道题目应该这样写：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> a[<span class="number">100001</span>], b[<span class="number">100001</span>] ;</span><br><span class="line"><span class="type">int</span> n, m ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;a[i]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	b[<span class="number">1</span>] = a[<span class="number">1</span>] ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		b[i + <span class="number">1</span>] += b[i] + a[i + <span class="number">1</span>] ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;m) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="type">int</span> s, e ;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;s, &amp;e) ;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, b[e] - b[s - <span class="number">1</span>]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>前缀和，差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>命名空间</title>
+    <url>//posts/namespace/</url>
+    <content><![CDATA[<h2 id="C-命名空间的概念"><a href="#C-命名空间的概念" class="headerlink" title="C++命名空间的概念"></a>C++命名空间的概念</h2><p><strong>在同一个作用域中，不同的数据不能起同一个名字</strong>，但是C++命名空间概念的出现，提供了解决问题的方案。在不同的命名空间中，可以随意定义相同的名字。命名空间就是为了避免你包含的头文件中与你自己定义的任意类，数据，函数重名，造成令人迷惑的错误而产生的。</p>
+<span id="more"></span>
+
+<h2 id="定义命名空间"><a href="#定义命名空间" class="headerlink" title="定义命名空间"></a>定义命名空间</h2><p>我们可以自己定义一个命名空间，并且使用它。定义命名空间使用 <code>namespace</code> 关键字，使用命名空间使用 <code>namespace::subject</code> 使用命名空间中的函数，数据等。例如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span> <span class="comment">// 方便演示，使用了C头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> mylib</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>, b = <span class="number">2</span>, c = <span class="number">3</span> ;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>) ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">namespace</span> libbb</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>, b = <span class="number">20</span>, c = <span class="number">30</span> ;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;HELLO WORLD!!!!\n&quot;</span>) ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d\n&quot;</span>, mylib::a, mylib::b, mylib::c) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d %d\n&quot;</span>, libbb::a, libbb::b, libbb::c) ;</span><br><span class="line">    mylib::<span class="built_in">hello</span>() ;</span><br><span class="line">    libbb::<span class="built_in">hello</span>() ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出 <code>1 2 3\n 10 20 30\n Hello World!\n HELLO WORLD!!!!\n</code>。在命名空间 $mylib$ 和 $libbb$ 中，三个变量和一个函数的名字相同，但是所调用的命名空间不同，结果也不一样。</p>
+<p>在C++中，大部分函数都在命名空间 $std$ 中，全称 $stdandard$ 。</p>
+<h2 id="using使用命名空间"><a href="#using使用命名空间" class="headerlink" title="using使用命名空间"></a><code>using</code>使用命名空间</h2><p>在上段程序中，我们可以在包含头文件后加入几句：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> mylib ;</span><br></pre></td></tr></table></figure>
+
+<p>这样 $mylib$ 命名空间里的 $a ~ b ~ c ~ hello()$ 可以直接写为它原本的样子，不用加上 <code>mylib::</code> 。这很方便。但是这种方法也有他的局限性，比如我再加入一句：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> libbb::a ;</span><br></pre></td></tr></table></figure>
+
+<p>这样 $libbb$ 命名空间里的 $a$ 使用时也不用加上 <code>libbb::</code> 了。但是再次出现了两个同样的 $a$ ，谁也分不清使用的到底是 $mylib$ 命名空间里的 $a$ 还是 $libbb$ 命名空间里的 $a$ ，因此会引发错误，这也是 <code>using</code> 的弊端。但是有时候只会用到一个命名空间里的东西时，就比如 $std$ ，就可以直接加上一句 <code>using namespace std ;</code> 这样子更方便，省的 <code>cin</code> 也要 <code>std::</code> ， <code>string</code> 也要 <code>std</code> 。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>语言入门</tag>
+        <tag>Cpp新概念</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>函数</title>
+    <url>//posts/function/</url>
+    <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
+<ol>
+<li>优化代码量</li>
+<li>让程序代码更加清晰明了</li>
+<li>调用时更加方便</li>
+</ol>
+<p>总之，函数的存在就是为了更加<strong>方便</strong>，<strong>清晰</strong>，<strong>快速</strong>。</p>
+<span id="more"></span>
+
+<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>方法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">[函数类型] [函数名称]([参数])</span><br><span class="line">&#123;</span><br><span class="line">    [主体] ;</span><br><span class="line">    <span class="keyword">return</span> [] ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> ans = x + y ;</span><br><span class="line">    <span class="keyword">return</span> ans ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>注意</strong>：当不返回(无<code>return</code>)时，函数类型应为<code>void</code>(表面含义<em>无类型</em>)。</p>
+<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>当你运行<strong>这段代码</strong>时：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">swap</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t = x ;</span><br><span class="line">    x = y ;</span><br><span class="line">    y = t ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b) ;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">swap</span>(a, b) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, a, b) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你会发现<code>a</code>还是<code>a</code>，<code>b</code>还是<code>b</code>。</p>
+<p>这是因为<code>swap(int, int)</code>只是把<strong>函数内的</strong><code>x</code>和<code>y</code>交换了而已，<code>a</code>和<code>b</code>没有交换。</p>
+<p>因为<code>x</code>和<code>y</code>对于*<code>main</code>函数*来说只是形参，<code>x</code>和<code>y</code>只是拷了一份<code>a</code>和<code>b</code>。</p>
+<p>如果想交换<code>a</code>和<code>b</code>需要这样写：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">swap</span><span class="params">(<span class="type">int</span> &amp;x, <span class="type">int</span> &amp;y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> t = x ;</span><br><span class="line">    x = y ;</span><br><span class="line">    y = t ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> a, b ;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;a, &amp;b) ;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">swap</span>(a, b) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, a, b) ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此时此刻，你使用<code>x</code>和<code>y</code>就相当于引用了<code>a</code>和<code>b</code>。</p>
+<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>函数名不可重复。</p>
+<p>但是有几种方法可以重复：</p>
+<ul>
+<li>函数参数类型不同</li>
+<li>函数参数数量不同</li>
+</ul>
+<p>比如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b ;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello\n&quot;</span>) ;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="built_in">add</span>(<span class="number">1</span>, <span class="number">2</span>) ;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, n) ;</span><br><span class="line">    <span class="built_in">add</span>() ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">3</span><br><span class="line">Hello</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><strong>注意：</strong>仅仅函数类型不同不足以区分两个函数！</p>
+<h2 id="拓展：主函数中的argc和argv-实际上我不懂"><a href="#拓展：主函数中的argc和argv-实际上我不懂" class="headerlink" title="拓展：主函数中的argc和argv 实际上我不懂"></a>拓展：主函数中的<code>argc</code>和<code>argv</code> <del>实际上我不懂</del></h2><p>用法：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br></pre></td></tr></table></figure>
+
+<p>或：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> **argv)</span></span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>含义：</p>
+<ol>
+<li><code>argc</code>：<strong>是argument count 的缩写，保存运行时传递给main函数的参数个数。</strong></li>
+<li><code>argv</code>：<strong>是argument vector 的缩写，保存运行时传递main函数的参数，类型是一个字符指针数组，每个元素是一个字符指针，指向一个命令行参数。</strong></li>
+</ol>
+<p>比如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;sum: %d\n&quot;</span>, argc) ;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; argc; i ++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;argc[%d], %s\n&quot;</span>, i, argv[i]) ;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>打开命令行，<code>cd</code>文件所在文件夹，输入：<code>[file name].[file extension] hello world i am so happy</code></p>
+<p>结果为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sum</span>: 7</span><br><span class="line">argc[0], 未命名1.exe</span><br><span class="line">argc[1], hello</span><br><span class="line">argc[2], world</span><br><span class="line">argc[3], i</span><br><span class="line">argc[4], am</span><br><span class="line">argc[5], so</span><br><span class="line">argc[6], happy</span><br></pre></td></tr></table></figure>
+
+<p>这就是<code>main</code>函数参数作用。</p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>语言入门</tag>
+        <tag>函数，参数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>差分</title>
+    <url>//posts/chafen/</url>
+    <content><![CDATA[<h2 id="什么是差分，差分与前缀和的关系"><a href="#什么是差分，差分与前缀和的关系" class="headerlink" title="什么是差分，差分与前缀和的关系"></a>什么是差分，差分与前缀和的关系</h2><p>差分也是一种<strong>优化算法</strong>。同时，差分是前缀和的逆运算，也就是说，前缀和也是差分的逆运算。因此，由前缀和数组可以求出差分数组，由差分数组也可以求出前缀和数组。</p>
+<p>假设数组 $a$ 是原数组，数组 $b$ 是差分数组，则：$b_i &#x3D; a_i - a_{i-1}$</p>
+<hr>
+<p>差分可以用于修改数组的操作。因为假设我需要将 $a_2$ $a_3$ $a_4$ 都加上 $2$ ，此时若使用前缀和则需要再使用递推重新求一遍前缀和，非常耗时。这时便可以使用差分数组。可以发现：<br>$$<br>\underbrace{b_1,\hspace{2mm} b_2}_{b_2 + 2 &#x3D; b_1} ,\hspace{2mm} b_3,\hspace{2mm} \overbrace{b_4,\hspace{2mm} b_5}^{b_5 - 2 &#x3D;b_4}<br>$$<br>因此，只需修改差分数组中的两个项，然后再通过前缀和是差分的逆运算，即可求出原数组，从而完成数组的修改。</p>
+<span id="more"></span>
+
+<h2 id="具体例题（模板题）"><a href="#具体例题（模板题）" class="headerlink" title="具体例题（模板题）"></a>具体例题（模板题）</h2><h3 id="差分模板题"><a href="#差分模板题" class="headerlink" title="差分模板题"></a>差分模板题</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>给出一个数字$n$表示有个数字，</p>
+<p>给出$n$ $n &lt;&#x3D; 10^5$个整数$a_1$,$a_2$,…$a_n$;</p>
+<p>给出一个数字$m$ $m &lt;&#x3D; 10^5$ 有$m$个修改：<br>每次询问给出三个整数$s$,$e$,$h$，使得 $a_s,a_{s+1}….a_{e}$每一个数加上h</p>
+<p>最后给出两个数字 $start$,$end$。求出${ \sum_{i &#x3D; start}^{end}} a_i $</p>
+<h4 id="输入格式"><a href="#输入格式" class="headerlink" title="输入格式"></a>输入格式</h4><p>第一行一个整数 $n$ 表示有$n$ 个数</p>
+<p>第二行$n$个整数$a_1$,$a_2$,…$a_n$;</p>
+<p>第三行一个整数$m$，表示有$m$个修改</p>
+<p>接下来$m$行每次询问给出三个整数$s$,$e$,$h$，使得 $a_s,a_{s+1}….a_{e}$每一个数加上h</p>
+<p>最后给出两个数字 $start$,$end$。求出${ \sum_{i &#x3D; start}^{end}} a_i $</p>
+<h4 id="输出格式"><a href="#输出格式" class="headerlink" title="输出格式"></a>输出格式</h4><p>一个整数</p>
+<h4 id="样例-1"><a href="#样例-1" class="headerlink" title="样例 #1"></a>样例 #1</h4><h5 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入 #1"></a>样例输入 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">5</span><br><span class="line">1 2 3 4 5</span><br><span class="line">3</span><br><span class="line">1 2 1</span><br><span class="line">1 3 1</span><br><span class="line">4 5 1</span><br><span class="line">1 5</span><br></pre></td></tr></table></figure>
+
+<h5 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出 #1"></a>样例输出 #1</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">22</span><br></pre></td></tr></table></figure>
+
+<h4 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h4><p>样例1解释</p>
+<p>第一次修改序列变成 2 3 3 4 5</p>
+<p>第二次修改序列变成 3 4 4 4 5</p>
+<p>第三次修改序列变成 3 4 4 5 6</p>
+<p>$0 &lt;&#x3D;$ $a_i$ 和 $h &lt;&#x3D; 10^4$</p>
+<hr>
+<p>同上，$b_{s-1} + h &#x3D; b_s, b_{e + 1} - h &#x3D; b_e$，即可使用前缀和倒退回原数组.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std ;</span><br><span class="line"></span><br><span class="line"><span class="type">long</span> <span class="type">long</span> a[<span class="number">100002</span>], b[<span class="number">100002</span>], n, m, s, e, h, start, end, sum = <span class="number">0</span> ;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;n) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;a[i]) ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        b[i] = a[i] - a[i - <span class="number">1</span>] ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld&quot;</span>, &amp;m) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= m; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld %lld&quot;</span>, &amp;s, &amp;e, &amp;h) ;</span><br><span class="line">        b[s] += h ;</span><br><span class="line">        b[e + <span class="number">1</span>] -= h ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        a[i] = a[i - <span class="number">1</span>] + b[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%lld %lld&quot;</span>, &amp;start, &amp;end) ;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = start; i &lt;= end; i ++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += a[i] ;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%lld\n&quot;</span>, sum) ;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>前缀和，差分</tag>
+        <tag>优化</tag>
       </tags>
   </entry>
 </search>
