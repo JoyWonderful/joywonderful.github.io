@@ -485,6 +485,17 @@ figure.highlight {
   overflow: auto;
   position: relative;
 }
+figure.highlight::before {
+  content: attr(class);
+  color: #a8a8a8;
+  font-weight: 900;
+  font-size: 1.2em;
+  position: absolute;
+  right: .3rem;
+  top: .1em;
+  font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
+  text-transform: uppercase;
+}
 figure.highlight pre {
   border: 0;
   margin: 0;
@@ -1009,6 +1020,7 @@ pre code {
 .pagination .space {
   margin: 0;
   padding: 0;
+  color: #bcbcbc;
 }
 .comments {
   margin-top: 60px;
@@ -2293,7 +2305,7 @@ ul.breadcrumb li:last-child {
 {
   color: #ffffff;
   background-color: #000000;
-  box-shadow: 2px 2px 1px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 5px rgba(0,0,0,0.1);
 }
 .tag-cloud-title {
   text-align: left;
@@ -2599,12 +2611,15 @@ header.header {
 }
 .menu .menu-item {
   display: block;
-  margin: 0;
+  padding-left: 3px;
+  margin: 0.6px 0;
 }
 .menu .menu-item a {
   padding: 5px 20px;
+  width: 194px;
   position: relative;
   text-align: left;
+  border-radius: 4px;
   transition-property: background-color;
 }
 @media (max-width: 991px) {
@@ -2834,7 +2849,7 @@ header.header {
 }
 .post-body img {
   border-radius: 5px;
-  box-shadow: 5px 5px 5px  rgba(0,0,0,0.06);
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.06), -3px -3px 5px rgba(0,0,0,0.06);
 }
 .site-brand-container {
   border-radius: 5px 5px 0px 0px;
