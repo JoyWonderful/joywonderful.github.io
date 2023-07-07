@@ -415,6 +415,7 @@ figure.highlight .table-container {
   position: relative;
 }
 .copy-btn {
+  z-index: 7;
   color: #333;
   cursor: pointer;
   line-height: 1.6;
@@ -486,6 +487,7 @@ figure.highlight {
   position: relative;
 }
 figure.highlight::before {
+  z-index: 6;
   content: attr(class);
   color: #a8a8a8;
   font-weight: 900;
@@ -1850,7 +1852,7 @@ pre code {
 .post-body h4 .headerlink::before,
 .post-body h5 .headerlink::before,
 .post-body h6 .headerlink::before {
-  content: '\f0c1';
+  content: '\f0c6';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
 }
@@ -2567,6 +2569,7 @@ header.header {
 }
 .site-brand-container {
   background: var(--theme-color);
+  /*background-image: url(/pic/main-inn-pg.jpg);*/
 }
 @media (max-width: 991px) {
   .site-nav-on .site-brand-container {
