@@ -202,7 +202,7 @@ h4,
 h5,
 h6 {
   font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  font-weight: bold;
+  font-weight: 900;
   line-height: 1.5;
   margin: 30px 0 15px;
 }
@@ -756,7 +756,7 @@ pre code {
   font-size: 1.5em;
   left: 0.3em;
   position: absolute;
-  top: calc(50% - 1em);
+  top: calc(0% + 10px) /*calc(50% - 1em)*/;
 }
 .post-body .note.default {
   border-left-color: #777;
@@ -792,6 +792,7 @@ pre code {
 }
 .post-body .note.info {
   border-left-color: #428bca;
+  background-color: #e5f3ff;
 }
 .post-body .note.info h2,
 .post-body .note.info h3,
@@ -801,13 +802,14 @@ pre code {
   color: #428bca;
 }
 .post-body .note.info:not(.no-icon)::before {
-  content: '\f05a';
+  content: '\f0eb';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   color: #428bca;
 }
 .post-body .note.success {
   border-left-color: #5cb85c;
+  background-color: #e8ffe8;
 }
 .post-body .note.success h2,
 .post-body .note.success h3,
@@ -824,6 +826,7 @@ pre code {
 }
 .post-body .note.warning {
   border-left-color: #f0ad4e;
+  background-color: #fff4e2;
 }
 .post-body .note.warning h2,
 .post-body .note.warning h3,
@@ -833,13 +836,14 @@ pre code {
   color: #f0ad4e;
 }
 .post-body .note.warning:not(.no-icon)::before {
-  content: '\f06a';
+  content: '\f071';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   color: #f0ad4e;
 }
 .post-body .note.danger {
   border-left-color: #d9534f;
+  background-color: #ffe3e2;
 }
 .post-body .note.danger h2,
 .post-body .note.danger h3,
@@ -849,7 +853,7 @@ pre code {
   color: #d9534f;
 }
 .post-body .note.danger:not(.no-icon)::before {
-  content: '\f056';
+  content: '\f1e2';
   font-family: 'Font Awesome 6 Free';
   font-weight: 900;
   color: #d9534f;
