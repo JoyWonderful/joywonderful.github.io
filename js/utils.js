@@ -54,7 +54,7 @@ NexT.utils = {
       if (!CONFIG.copycode.enable) return;
       let target = element;
       if (CONFIG.copycode.style !== 'mac') target = element.querySelector('.table-container') || element;
-      target.insertAdjacentHTML('beforeend', '<div class="copy-btn"><i class="fa fa-copy fa-fw"></i></div>');
+      target.insertAdjacentHTML('beforeend', '<div class="copy-btn"><i class="fa fa-clipboard fa-fw"></i></div>');
       const button = element.querySelector('.copy-btn');
       button.addEventListener('click', () => {
         const lines = element.querySelector('.code') || element.querySelector('code');
@@ -62,7 +62,7 @@ NexT.utils = {
         if (navigator.clipboard) {
           // https://caniuse.com/mdn-api_clipboard_writetext
           navigator.clipboard.writeText(code).then(() => {
-            button.querySelector('i').className = 'fa fa-check-circle fa-fw';
+            button.querySelector('i').className = 'fa fa-clipboard-check fa-fw';
           }, () => {
             button.querySelector('i').className = 'fa fa-times-circle fa-fw';
           });
@@ -78,7 +78,7 @@ NexT.utils = {
           ta.setSelectionRange(0, code.length);
           ta.readOnly = false;
           const result = document.execCommand('copy');
-          button.querySelector('i').className = result ? 'fa fa-check-circle fa-fw' : 'fa fa-times-circle fa-fw';
+          button.querySelector('i').className = result ? 'fa fa-clipboard-check fa-fw' : 'fa fa-times-circle fa-fw';
           ta.blur(); // For iOS
           button.blur();
           document.body.removeChild(ta);
@@ -86,7 +86,7 @@ NexT.utils = {
       });
       element.addEventListener('mouseleave', () => {
         setTimeout(() => {
-          button.querySelector('i').className = 'fa fa-copy fa-fw';
+          button.querySelector('i').className = 'fa fa-clipboard fa-fw';
         }, 300);
       });
     });

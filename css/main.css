@@ -422,12 +422,16 @@ figure.highlight .table-container {
   opacity: 0;
   padding: 2px 6px;
   position: absolute;
-  transition: opacity 0.2s ease-in-out;
-  background: #fff;
-  border: 0;
+  transition: all 0.2s ease-in-out;
+  background: #ffffff;
+  border: solid #eee 1px;
   font-size: 0.8125em;
-  right: 0;
-  top: 0;
+  right: 3px;
+  top: 3px;
+  border-radius: 3px;
+}
+.copy-btn:hover {
+  background-color: #dadada;
 }
 code,
 kbd,
@@ -485,9 +489,12 @@ kbd {
 figure.highlight {
   overflow: auto;
   position: relative;
+  border: solid #f0f0f0 0.96px;
+  border-radius: 2.8px;
 }
 figure.highlight::before {
   z-index: 6;
+  opacity: 1;
   content: attr(class);
   color: #a8a8a8;
   font-weight: 900;
@@ -497,6 +504,7 @@ figure.highlight::before {
   top: .1em;
   font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
   text-transform: uppercase;
+  transition: all 2s;
 }
 figure.highlight pre {
   border: 0;
@@ -524,6 +532,7 @@ figure.highlight .gutter pre {
   padding-left: 10px;
   padding-right: 10px;
   text-align: right;
+  border-radius: 2.8px;
 }
 figure.highlight .code pre {
   padding-left: 10px;
