@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://joywonderful.github.io/more/index.html</loc>
+    
+    <lastmod>2023-07-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://joywonderful.github.io/pic/index.html</loc>
+    
+    <lastmod>2023-07-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://joywonderful.github.io/rss-read/index.html</loc>
     
     <lastmod>2023-07-10</lastmod>
@@ -38,15 +56,6 @@
   </url>
   
   <url>
-    <loc>https://joywonderful.github.io/more/index.html</loc>
-    
-    <lastmod>2023-07-06</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://joywonderful.github.io/friends/index.html</loc>
     
     <lastmod>2023-07-06</lastmod>
@@ -68,15 +77,6 @@
     <loc>https://joywonderful.github.io/posts/cpp-shujufanwei/</loc>
     
     <lastmod>2023-07-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://joywonderful.github.io/pic/index.html</loc>
-    
-    <lastmod>2023-07-01</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
