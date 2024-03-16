@@ -27,7 +27,7 @@
 <meta property="og:description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。  主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。  就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。  省流：The blog hosted on Github Pag">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-01T01:21:17.000Z">
-<meta property="article:modified_time" content="2024-03-16T14:10:12.324Z">
+<meta property="article:modified_time" content="2024-03-16T14:14:56.644Z">
 <meta property="article:author" content="JoyWonderful">
 <meta name="twitter:card" content="summary">
 
@@ -280,7 +280,8 @@
         const d1 = new Date(lrun.updated_at), d2 = new Date(lrun.created_at);
         const totdura = (d1.getTime() - d2.getTime()) / 1000;
 
-        const statstr = lrun.conclusion;
+        if(lrun.conclusion == null) var statstr = lrun.status;
+        else var statstr = lrun.conclusion;
         var staticon = '<i class="fa-solid fa-question fa-fw fa-sm" style="color:#111;margin-left:5px"></i>';
         if(statstr == "failure") staticon = '<i class="fa fa-xmark fa-fw fa-sm" style="color:#d1242f;margin-left:5px"></i>';
         else if(statstr == "success") staticon = '<i class="fa fa-check fa-fw fa-sm" style="color:#1a7f37;margin-left:5px"></i>';
