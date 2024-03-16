@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16x16.png">
+  <link rel="mask-icon" href="/images/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/webfonts/lxgw/lxgwwenkailite-regular.css"> 
+
+<link rel="stylesheet" href="/webfonts/fontawesome/fontawsm.min.css"> 
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="树也是一种数据结构，它是非线性数据结构，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 老师讲了一个小时。有点让人头疼（我咕了好多篇笔记了）。 树的概念前面前置芝士，简单说一下这些奇怪的名称：  树中的每一个元素称为结点 node。 两个结点之间的线称为边 edge。 通过几条边，这几条">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构：树的概念与储存">
+<meta property="og:url" content="https://joywonderful.github.io/posts/graph-tree/index.html">
+<meta property="og:site_name" content="JoyWonderful的小窝">
+<meta property="og:description" content="树也是一种数据结构，它是非线性数据结构，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 老师讲了一个小时。有点让人头疼（我咕了好多篇笔记了）。 树的概念前面前置芝士，简单说一下这些奇怪的名称：  树中的每一个元素称为结点 node。 两个结点之间的线称为边 edge。 通过几条边，这几条">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/16/VgfdiEJmDvSz2OB.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/16/SEGpmcFVrNv95w2.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png">
+<meta property="og:image" content="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png">
+<meta property="article:published_time" content="2023-07-27T11:34:23.000Z">
+<meta property="article:modified_time" content="2024-03-10T11:27:33.618Z">
+<meta property="article:author" content="JoyWonderful">
+<meta property="article:tag" content="基础算法">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="树">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png">
+
+
+<link rel="canonical" href="https://joywonderful.github.io/posts/graph-tree/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://joywonderful.github.io/posts/graph-tree/","path":"/posts/graph-tree/","title":"数据结构：树的概念与储存"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据结构：树的概念与储存 | JoyWonderful的小窝</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">JoyWonderful的小窝</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Be HardWorking Every Day.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+
+    <li class="menu-item menu-item-more"> 
+      <a rel="section" id="morebtn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+      <a href="/friends/" rel="section" id="morefriend" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+      <a href="/comments/" rel="section" id="morecomt" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+      <a href="/about/" rel="section" id="moreabt" class="morebtn-item"><i class="fa fa-circle-info fa-fw"></i>关于</a>
+    </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">树的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E9%9D%A2"><span class="nav-number">1.1.</span> <span class="nav-text">前面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E4%B8%80%E5%BC%A0%E5%9B%BE%E6%98%AF%E5%90%A6%E4%B8%BA%E6%A0%91"><span class="nav-number">1.2.</span> <span class="nav-text">判断一张图是否为树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">更多的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.4.</span> <span class="nav-text">二叉树的概念</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%91%E7%9A%84%E5%82%A8%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">树的储存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E7%94%A8%E4%B8%8D%E5%88%B0%E7%9A%84"><span class="nav-number">2.1.</span> <span class="nav-text">可能用不到的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E4%BC%9A%E7%94%A8%E5%88%B0%E7%9A%84"><span class="nav-number">2.2.</span> <span class="nav-text">可能会用到的</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">JoyWonderful</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/JoyWonderful/joywonderful.github.io" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;JoyWonderful&#x2F;joywonderful.github.io" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/graph-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="JoyWonderful">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据结构：树的概念与储存 | JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构：树的概念与储存
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-27 19:34:23" itemprop="dateCreated datePublished" datetime="2023-07-27T19:34:23+08:00">2023-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-10 19:27:33" itemprop="dateModified" datetime="2024-03-10T19:27:33+08:00">2024-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>树</strong>也是一种数据结构，它是<strong>非线性数据结构</strong>，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 <del>老师讲了一个小时</del>。有点让人头疼（我咕了好多篇笔记了）。</p>
+<h2 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h2><h3 id="前面"><a href="#前面" class="headerlink" title="前面"></a>前面</h3><p>前置芝士，简单说一下这些奇怪的名称：</p>
+<ul>
+<li>树中的每一个元素称为<strong>结点 node</strong>。</li>
+<li>两个结点之间的线称为<strong>边 edge</strong>。</li>
+<li>通过几条边，这几条边组成<strong>路径</strong>。</li>
+</ul>
+<span id="more"></span>
+
+<p>树的结点一般画为圆圈，树若画出来也就是几个结点（圆）和几条边（线）组成的图，比较形象化，实际的树的储存方式是通过<a href="/posts/lianbiao" style="border-bottom:none;">链表</a>中的数据域将一个个结点（元素）连接起来，比较麻烦，后面再说。<br>还有一个概念：树的边的个数比树的结点的个数少一。也就是说，假设树的结点的个数为 $n$，则树的边的个数为 $n-1$。</p>
+<h3 id="判断一张图是否为树"><a href="#判断一张图是否为树" class="headerlink" title="判断一张图是否为树"></a>判断一张图是否为树</h3><p>树最重要的就是<strong>每两个结点之间有且只有一条路径可以到达</strong>，也就是说，不可以形成环，不可以在一个树中无法到达所有结点。例如，下面就是一个树：<br><img src="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png" alt="graph-tree-1.png"><br>下面两张图不是树，他们分别违反了“不可以形成环”、“不可以在一个树中无法到达所有结点”。<br><img src="https://s2.loli.net/2023/12/16/VgfdiEJmDvSz2OB.png" alt="err-tree1"><br><img src="https://s2.loli.net/2023/12/16/SEGpmcFVrNv95w2.png" alt="err-tree2"></p>
+<h3 id="更多的概念"><a href="#更多的概念" class="headerlink" title="更多的概念"></a>更多的概念</h3><p>首先放一张图：<br><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="lizi"></p>
+<p>以这张图为例，来说下面的概念吧。<br><strong>根结点 root</strong>：根结点通常在最上方，是所有子结点的父结点。在上面的那张图中，结点 1 就是整张图的根结点。在上面的图中，根结点可以更换，也不会影响到什么，但是根结点一变就会让树形态发生变化（假如结点 2 是整个树的根结点，那么树会变<a href="#tree-root-node2">下面的图</a>）。一个树是必须要有根结点的，<span style="background-color:#efefef">根结点只有一个。</span><br><strong>父结点 parent（双亲结点） 子结点 child（孩子结点）</strong>：一个结点的分支就是那个结点的子结点，相反那个结点是分支结点的父结点。子结点通过父结点到达。例如结点 4 5 是结点 2 的子结点，结点 3 是结点 6 7 的父结点。<br><strong>兄弟结点</strong>：同一个父结点的子结点称为兄弟结点。例如结点 4 5 互为兄弟结点，6 7 互为兄弟结点。<br><strong>度</strong>：树的度就是一个结点子结点的个数。例如结点 2 的度就是 2，因为它只有两个子结点。<br><strong>深度</strong>：从<span style="background-color:#efefef">根结点</span>到当前结点的层数，根结点的深度是 1。例如，结点 1 深度为 1，结点 2 3 深度为 2，结点 4 5 6 7 深度为 3。<br><strong>叶子结点</strong>：一个结点的度为 0，就叫做叶子结点。例如结点 4 5 6 7 都是叶子结点。<br><strong>n 叉树</strong>：在树中，这个数是多少叉看度最多的结点，例如这个树就是二叉树（也比较特殊，后面讲）。<br><strong>子树</strong>：假设将树中任意一个度不为 0 的结点与它的父结点切断它们之间的边，那么断开的那一部分又能成为一个新的树，称为子树。例如结点 2 4 5 可以组成一个子树。</p>
+<p>还有一大堆子子孙孙祖先的什么的，懒得写了。说真的，感觉说多了意义不大。</p>
+<h3 id="二叉树的概念"><a href="#二叉树的概念" class="headerlink" title="二叉树的概念"></a>二叉树的概念</h3><p>n 叉树中，又出现了一个<strong>二叉树 Binary Tree</strong> 这么个奇怪的概念。什么左子树右孩子什么的不记了，就讲三个我认为比较重要的。</p>
+<p><strong>完美二叉树</strong>：<br>也叫做满二叉树。简单来说就是一个深度为 $n$ 的二叉树，拥有 $2^n - 1$ 个结点。看着的话就是若再增加一个结点使其继续为二叉树，深度就必须要加一了。刚才的示例图就是一个完美二叉树。<br><strong>完全二叉树</strong>：<br>完全二叉树的叶子结点可以不是满的，但是剩下的叶子结点必须都在图的左边。例如那张示例图若将结点 7 去掉，它就只是一个完全二叉树。<br><strong>完满二叉树</strong>：<br>完满二叉树的结点除了叶子结点以外其他结点的度都必须是 2。示例图若将结点 4 5 去掉，它就只是一个完满二叉树。</p>
+<div class="note warning"><p style="color:#f0ad4e;font-weight:bold;">注意：</p>
+这三个概念极易弄混淆，稍不注意就忘了。完美二叉树一定也是完全二叉树和完满二叉树，但完满二叉树不一定是完全二叉树和完美二叉树。（别说他晕，我也晕了）</div>
+
+<h2 id="树的储存"><a href="#树的储存" class="headerlink" title="树的储存"></a>树的储存</h2><p>一大堆基础概念，已经够呛了（悲）。学到树的储存已经开始逐渐迷惑。。。<br>一般来说，树也是不太可能用真正的指针链表来储存，毕竟太难写了，内存限制一般比时间限制够用一些，就用数组模拟链表。链表就是要关心指针域，下面就是一大堆奇奇怪怪的方法。</p>
+<h3 id="可能用不到的"><a href="#可能用不到的" class="headerlink" title="可能用不到的"></a>可能用不到的</h3><div class="note info"><p style="color:#428bca;font-weight:bold;">备注：</p>
+一般来说，这些方法用不太到，要么炸时间要么炸空间要么难实现。所以就按这种奇特的分类方法分类了，反正感觉用不到。这句话也兼下面。</div>
+
+<p><strong>父亲表示法</strong>：顾名思义，指针域指向父结点。<br><strong>孩子表示法</strong>：指针域指向子结点。<br><strong>父亲孩子表示法</strong>：双向链表结构，也没啥用。</p>
+<div class="note danger"><p style="color:#d9534f;font-weight:bold;">上述缺点：</p>
+很明显，父亲法若寻找一个子结点可能要遍历整个表，很耗时间；孩子法度一大肯定爆内存，因为将每个子结点都存了下来；父亲孩子更糟糕，内存更大了，没有意义。</div>
+
+<h3 id="可能会用到的"><a href="#可能会用到的" class="headerlink" title="可能会用到的"></a>可能会用到的</h3><p><strong>孩子兄弟表示法</strong>：适用于二叉树，也是一个双链表结构，一个结点连接其子结点和兄弟结点。<br><strong>邻接矩阵表示法</strong>：通过二维数组表示每个结点的关系，假设深度为 $k$，则空间复杂度为 $O(k^2)$。（已学废。。。）<br><strong>邻接表表示法</strong>：也叫链式前向星。（没弄太懂）</p>
+<hr>
+<p id="tree-root-node2">假设根结点为 2 时的情况：</p>
+
+<p><img src="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png" alt="node2"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 基础算法</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+              <a href="/tags/%E6%A0%91/" rel="tag"><i class="fa fa-tag"></i> 树</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/lianbiao/" rel="prev" title="线性数据结构：链表的模板">
+                  <i class="fa fa-angle-left"></i> 线性数据结构：链表的模板
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/bfs/" rel="next" title="广度优先搜索">
+                  广度优先搜索 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-paper-plane"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">JoyWonderful</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/js/third-party/search/search.js"></script> 
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

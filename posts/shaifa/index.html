@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16x16.png">
+  <link rel="mask-icon" href="/images/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/webfonts/lxgw/lxgwwenkailite-regular.css"> 
+
+<link rel="stylesheet" href="/webfonts/fontawesome/fontawsm.min.css"> 
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="筛法是快速找出质数的一种方法。平常没有使用任何筛法的的找质数的时间复杂度通常为 $O(\sqrt n)$，比较慢，但是筛法更快一些。我们学的筛法是埃氏筛和欧拉筛(线性筛)。平常的找质数方法是判断一个数是否能被 1 和它本生以外的数整除，但是筛法的思想不一样。筛法可以说是通常方法的逆向思维，挨个儿寻找当前数的倍数，打上标记，再继续寻找，最后没有被打上标记的就是质数。这种思想的时间复杂度快很多。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数论：质数筛法">
+<meta property="og:url" content="https://joywonderful.github.io/posts/shaifa/index.html">
+<meta property="og:site_name" content="JoyWonderful的小窝">
+<meta property="og:description" content="筛法是快速找出质数的一种方法。平常没有使用任何筛法的的找质数的时间复杂度通常为 $O(\sqrt n)$，比较慢，但是筛法更快一些。我们学的筛法是埃氏筛和欧拉筛(线性筛)。平常的找质数方法是判断一个数是否能被 1 和它本生以外的数整除，但是筛法的思想不一样。筛法可以说是通常方法的逆向思维，挨个儿寻找当前数的倍数，打上标记，再继续寻找，最后没有被打上标记的就是质数。这种思想的时间复杂度快很多。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-08T06:34:23.000Z">
+<meta property="article:modified_time" content="2024-03-10T11:29:48.495Z">
+<meta property="article:author" content="JoyWonderful">
+<meta property="article:tag" content="基础算法">
+<meta property="article:tag" content="数论">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://joywonderful.github.io/posts/shaifa/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://joywonderful.github.io/posts/shaifa/","path":"/posts/shaifa/","title":"数论：质数筛法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数论：质数筛法 | JoyWonderful的小窝</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">JoyWonderful的小窝</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Be HardWorking Every Day.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+
+    <li class="menu-item menu-item-more"> 
+      <a rel="section" id="morebtn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+      <a href="/friends/" rel="section" id="morefriend" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+      <a href="/comments/" rel="section" id="morecomt" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+      <a href="/about/" rel="section" id="moreabt" class="morebtn-item"><i class="fa fa-circle-info fa-fw"></i>关于</a>
+    </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B"><span class="nav-number">1.</span> <span class="nav-text">埃氏筛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E7%AD%9B"><span class="nav-number">2.</span> <span class="nav-text">线性筛</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">JoyWonderful</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/JoyWonderful/joywonderful.github.io" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;JoyWonderful&#x2F;joywonderful.github.io" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/shaifa/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="JoyWonderful">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数论：质数筛法 | JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数论：质数筛法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-08 14:34:23" itemprop="dateCreated datePublished" datetime="2023-08-08T14:34:23+08:00">2023-08-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-10 19:29:48" itemprop="dateModified" datetime="2024-03-10T19:29:48+08:00">2024-03-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">课程笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><strong>筛法</strong>是快速找出质数的一种方法。平常没有使用任何筛法的的找质数的时间复杂度通常为 $O(\sqrt n)$，比较慢，但是筛法更快一些。我们学的筛法是埃氏筛和欧拉筛(线性筛)。<br>平常的找质数方法是判断一个数是否能被 1 和它本生以外的数整除，但是筛法的思想不一样。筛法可以说是通常方法的逆向思维，挨个儿寻找当前数的倍数，打上标记，再继续寻找，最后没有被打上标记的就是质数。这种思想的时间复杂度快很多。</p>
+<span id="more"></span>
+
+<h2 id="埃氏筛"><a href="#埃氏筛" class="headerlink" title="埃氏筛"></a>埃氏筛</h2><p><strong>埃氏筛</strong>，全称其实是**埃拉托斯特尼筛法 (Eratosthenes)**。它的时间复杂度为 $O(n \log_2 \log_2 n)$，其实也就是刚才说的方法。这里放一个演示：</p>
+<p style="overflow-x:auto; white-space:nowrap;"><span style="font-family:consolas,monospace;">
+    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">这是初始的表</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> 3 <del style="color:#d9d9d9;">4</del> 5 <del style="color:#d9d9d9;">6</del> 7 <del style="color:#d9d9d9;">8</del> 9 <del style="color:#d9d9d9;">10</del> 11 <del style="color:#d9d9d9;">12</del> 13 <del style="color:#d9d9d9;">14</del> 15 <del style="color:#d9d9d9;">16</del> 17 <del style="color:#d9d9d9;">18</del> 19 <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">2 筛掉了 4 6 8 10 12 14 16 18 20，2 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> 5 <del style="color:#d9d9d9;">6</del> 7 <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> 11 <del style="color:#d9d9d9;">12</del> 13 <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> 17 <del style="color:#d9d9d9;">18</del> 19 <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">3 筛掉了 6 9 12 15 18，3 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">5 筛掉了 10 15 20，其实 5 已经大于 根号 20，剩下的数都是质数，可以退出了，但在这儿继续演示下去</span>
+    <br>
+    <span style="color:#e74c3c">-------------------- break; --------------------</span>  &ensp;&ensp;&ensp; <span style="font-family:LXGW WenKai Lite; color:#e74c3c">实际循环已经在这儿之前就退出了，但这里继续演示下去</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">7 筛掉了 14，7 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: LXGW WenKai Lite;">11 13 17 19 的倍数都不在数列中，它们都是倍数</span>
+</span></p>
+
+<p>最终，筛选出了 <code>2 3 5 7 11 13 17 19</code> 这 8 个质数。  </p>
+<p>埃氏筛的代码也比较简单：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> TEMP <span class="token operator">=</span> <span class="token number">1e6</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// 需要筛的数字的数量</span>
+<span class="token keyword">int</span> flag<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 记录是否是质数</span>
+<span class="token keyword">void</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">*</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">// 和普通的找质数一样</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// 找质数的倍数</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">+=</span> i<span class="token punctuation">)</span> <span class="token comment">// 从 i * 2 开始是因为不能标记质数，+= i 就是倍数</span>
+            <span class="token punctuation">&#123;</span>
+                flag<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> n<span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">is_prime</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    FILE <span class="token operator">*</span>fp <span class="token operator">=</span> <span class="token function">freopen</span><span class="token punctuation">(</span><span class="token string">"./ans.txt"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> <span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 测试文件用，可以注释掉。</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// 未被标记过，是质数</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 测试文件用，可以注释掉。</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>埃氏筛很快，上面数据 1000000 的代码一下就好了。<br>更具体的，可以去看一下 <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sieve/">OI Wiki</a>。</p>
+<h2 id="线性筛"><a href="#线性筛" class="headerlink" title="线性筛"></a>线性筛</h2><p>线性筛也叫<strong>欧拉筛</strong>，它的出现就是为了找到比埃氏筛还要快的筛法，是由欧拉发现的。在埃氏筛中，一个数可能会被筛很多次，上面的演示也表现出来了。而线性筛每个数只会筛一次，是 $O(n)$ 的时间复杂度。只不过一般来说埃氏筛也够用，一些卡掉埃氏筛的毒瘤数据除外，例如 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3383">洛谷 P3383</a>。</p>
+<p>就按照 洛谷 P3383 来，代码是这样的：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> TEMP <span class="token operator">=</span> <span class="token number">1e8</span> <span class="token operator">+</span> <span class="token number">12</span><span class="token punctuation">;</span>
+<span class="token keyword">bool</span> vis<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> pri<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">,</span> cnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            pri<span class="token punctuation">[</span>cnt<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> cnt<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">*</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">>=</span> n<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            vis<span class="token punctuation">[</span>i <span class="token operator">*</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">%</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">int</span> ns<span class="token punctuation">,</span> q<span class="token punctuation">;</span>
+<span class="token keyword">int</span> ans<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ns<span class="token punctuation">,</span> <span class="token operator">&amp;</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">is_prime</span><span class="token punctuation">(</span>ns<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// printf("done.\n");</span>
+    
+    <span class="token comment">// int cnt = 0;</span>
+    <span class="token comment">// for(int i = 2; i &lt;= ns; i++)</span>
+    <span class="token comment">// &#123;</span>
+    <span class="token comment">//     if(vis[i] == 0)</span>
+    <span class="token comment">//     &#123;</span>
+    <span class="token comment">//         printf("%d\n", i);</span>
+    <span class="token comment">//     &#125;</span>
+    <span class="token comment">// &#125;</span>
+    
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> q<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> temp<span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> pri<span class="token punctuation">[</span>temp <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/" rel="tag"><i class="fa fa-tag"></i> 基础算法</a>
+              <a href="/tags/%E6%95%B0%E8%AE%BA/" rel="tag"><i class="fa fa-tag"></i> 数论</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/huff-tree/" rel="prev" title="哈夫曼树和哈夫曼编码">
+                  <i class="fa fa-angle-left"></i> 哈夫曼树和哈夫曼编码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/jinzhi/" rel="next" title="有关进制的一些小记">
+                  有关进制的一些小记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-paper-plane"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">JoyWonderful</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/js/third-party/search/search.js"></script> 
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>

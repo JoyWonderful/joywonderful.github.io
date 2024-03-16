@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16x16.png">
+  <link rel="mask-icon" href="/images/icon.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/webfonts/lxgw/lxgwwenkailite-regular.css"> 
+
+<link rel="stylesheet" href="/webfonts/fontawesome/fontawsm.min.css"> 
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="又是一个闲着没事干的随记。。。直接进入正题吧。 考虑使用数组存储图片的链接，然后随机显示。随机显示数组图片自然需要随机数，而随机显示图片还需要查找元素，所以就写这些。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记录：JavaScript 随机显示图片&#x2F;随机数">
+<meta property="og:url" content="https://joywonderful.github.io/posts/js-random-pic/index.html">
+<meta property="og:site_name" content="JoyWonderful的小窝">
+<meta property="og:description" content="又是一个闲着没事干的随记。。。直接进入正题吧。 考虑使用数组存储图片的链接，然后随机显示。随机显示数组图片自然需要随机数，而随机显示图片还需要查找元素，所以就写这些。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://joywonderful.github.io/images/icon.png">
+<meta property="og:image" content="https://joywonderful.github.io/images/icon.png">
+<meta property="article:published_time" content="2023-08-26T03:45:14.000Z">
+<meta property="article:modified_time" content="2023-12-17T02:28:03.807Z">
+<meta property="article:author" content="JoyWonderful">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://joywonderful.github.io/images/icon.png">
+
+
+<link rel="canonical" href="https://joywonderful.github.io/posts/js-random-pic/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://joywonderful.github.io/posts/js-random-pic/","path":"/posts/js-random-pic/","title":"记录：JavaScript 随机显示图片/随机数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>记录：JavaScript 随机显示图片/随机数 | JoyWonderful的小窝</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">JoyWonderful的小窝</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Be HardWorking Every Day.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+
+    <li class="menu-item menu-item-more"> 
+      <a rel="section" id="morebtn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+      <a href="/friends/" rel="section" id="morefriend" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+      <a href="/comments/" rel="section" id="morecomt" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+      <a href="/about/" rel="section" id="moreabt" class="morebtn-item"><i class="fa fa-circle-info fa-fw"></i>关于</a>
+    </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%BB%8E-0-%E5%88%B0-n-%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">生成从 0 到 n 的随机数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="nav-number">2.</span> <span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">封装函数</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">JoyWonderful</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/JoyWonderful/joywonderful.github.io" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;JoyWonderful&#x2F;joywonderful.github.io" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://joywonderful.github.io/posts/js-random-pic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="JoyWonderful">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="记录：JavaScript 随机显示图片/随机数 | JoyWonderful的小窝">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记录：JavaScript 随机显示图片/随机数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-26 11:45:14" itemprop="dateCreated datePublished" datetime="2023-08-26T11:45:14+08:00">2023-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-12-17 10:28:03" itemprop="dateModified" datetime="2023-12-17T10:28:03+08:00">2023-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">编程随记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>又是一个闲着没事干的随记。。。直接进入正题吧。</p>
+<p>考虑使用数组存储图片的链接，然后随机显示。<br>随机显示数组图片自然需要随机数，而随机显示图片还需要查找元素，所以就写这些。</p>
+<span id="more"></span>
+
+<h2 id="生成从-0-到-n-的随机数"><a href="#生成从-0-到-n-的随机数" class="headerlink" title="生成从 0 到 n 的随机数"></a>生成从 0 到 n 的随机数</h2><p>JavaScript 有一个很强大的对象，<code>Math</code>，里面有很多属性以及方法，可以去看看 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math">MDN Web Docs <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a>。<br>这么多函数中，<code>Math.random()</code> 正是我们想要的函数，它可以生成小于 1 的随机（小）数。例如：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">></span>  Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span>· <span class="token number">0.8823149516270028</span></code></pre>
+
+<p>但是，它生成的随机数没有界限，而且还是小数。那么，我们可以先进行取整，再对它设置界限。<code>Math</code> 对象有一个函数 <code>round()</code> 可以对小数进行四舍五入，例如：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">></span>  Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token number">1.4</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>· <span class="token number">1</span>
+
+<span class="token operator">></span>  Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span><span class="token number">1.5</span><span class="token punctuation">)</span>
+<span class="token operator">&lt;</span>· <span class="token number">2</span></code></pre>
+
+<p>自然，<code>Math.round(Math.random())</code> 就可以确保随机数是整数了。至于限制，可以将 <code>Math.random()</code> 的结果乘上 n，就可以获取 0~n 的整数。例如，<code>Math.round(Math.random() * 7)</code> 可以获取 0~7 的随机数。</p>
+<h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><p>查找元素可以使用 <code>document.querySelectorAll(&quot;&quot;)</code> 来选择元素（选择器）。例如 <code>document.querySelectorAll(&quot;img&quot;);</code> 返回所有标签为 img 的元素。<br>例如：下面这段话的标签为 span，id 为 testsel，点击“更改文字”即可更改下面这段话。</p>
+<script>
+    function testsele() {
+        var selp = document.querySelectorAll("span#testsel");
+        selp[0].innerHTML = "这段文字被更改过了。";
+    }
+</script>
+<p style="border-radius:2px; border:1px solid #999;">
+    <span id="testsel" style="margin:2px;">我是一段文字。</span>
+    <br>
+    <a href="javascript:testsele()" class="btn" style="margin:5px;">更改文字</a>
+</p>
+
+<p>代码如下：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> selp <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">"span#testsel"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+selp<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">"这段文字被更改过了。"</span><span class="token punctuation">;</span></code></pre>
+
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>结合上面的内容，就可以做随机显示图片了。</p>
+<p>代码是这样的：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">var</span> picLink <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"https://s2.loli.net/2023/12/16/pz9HK4SACUaNoOl.jpg"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/12/16/hNZeUdKxq79s3Rp.jpg"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/12/16/FSTYoytCWcxhQEv.jpg"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/12/16/8bCe5rYSxuoHKdh.jpg"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/02/03/T1FbVC6SEgcIxzi.png"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/12/16/onqcjm8YaxXZ4Ds.jpg"</span><span class="token punctuation">,</span> <span class="token string">"https://s2.loli.net/2023/12/16/qZHx9oflL4wSjuv.jpg"</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> imgSel <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span><span class="token string">"img#random-pic"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> randomNumber <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>picLink<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+imgSel<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>src <span class="token operator">=</span> picLink<span class="token punctuation">[</span>randomNumber<span class="token punctuation">]</span><span class="token punctuation">;</span></code></pre>
+
+<script>
+    function showRandomPic() {
+        var picLink = ["https://s2.loli.net/2023/12/16/pz9HK4SACUaNoOl.jpg", "https://s2.loli.net/2023/12/16/hNZeUdKxq79s3Rp.jpg", "https://s2.loli.net/2023/12/16/FSTYoytCWcxhQEv.jpg", "https://s2.loli.net/2023/12/16/8bCe5rYSxuoHKdh.jpg", "https://s2.loli.net/2023/02/03/T1FbVC6SEgcIxzi.png", "https://s2.loli.net/2023/12/16/onqcjm8YaxXZ4Ds.jpg", "https://s2.loli.net/2023/12/16/qZHx9oflL4wSjuv.jpg"];
+        var imgSel = document.querySelectorAll("img#random-pic");
+        var randomNumber = Math.round(Math.random() * (picLink.length - 1));
+        console.log("[INFO] randomNumber: " + randomNumber + "\n[INFO] picLink: " + picLink[randomNumber]);
+        imgSel[0].src = picLink[randomNumber];
+    }
+    window.addEventListener("load", showRandomPic);
+</script>
+
+<p style="border-radius:2px; border:1px solid #999;">
+    <img id="random-pic" style="margin:3px; width:70%;" alt="img1" src="/images/icon.png">
+    <a href="javascript:showRandomPic()" class="btn" style="margin:5px;">换张图片？</a>
+</p>
+
+<h2 id="封装函数"><a href="#封装函数" class="headerlink" title="封装函数"></a>封装函数</h2><p style="border-radius:2px; border:1px solid #999;">
+    <img id="random-pic2" alt="img" style="margin:3px; width:70%;" src="/images/icon.png">
+    <a id="rdm-btn" class="btn" style="margin:5px;">换张图片？</a>
+</p>
+
+<script>
+    var imgArr = ["https://s2.loli.net/2023/12/16/pz9HK4SACUaNoOl.jpg", "https://s2.loli.net/2023/12/16/hNZeUdKxq79s3Rp.jpg", "https://s2.loli.net/2023/12/16/FSTYoytCWcxhQEv.jpg", "https://s2.loli.net/2023/12/16/8bCe5rYSxuoHKdh.jpg", "https://s2.loli.net/2023/02/03/T1FbVC6SEgcIxzi.png", "https://s2.loli.net/2023/12/16/onqcjm8YaxXZ4Ds.jpg", "https://s2.loli.net/2023/12/16/qZHx9oflL4wSjuv.jpg"];
+
+    function showRandomImage(ImgArray, Selector) {
+        return function() {
+            var imgSel = document.querySelectorAll(Selector);
+            var randomNumber = Math.round(Math.random() * (ImgArray.length - 1));
+            console.log("[INFO] randomNumber: " + randomNumber + "\n[INFO] picLink: " + ImgArray[randomNumber] + "\n[INFO] Listener return.");
+            imgSel[0].src = ImgArray[randomNumber];
+        }
+    }
+
+    const clkBtn = document.getElementById("rdm-btn");
+    clkBtn.addEventListener("click", showRandomImage(imgArr, "img#random-pic2"), false);
+</script>
+
+<p>就改了一点点而已，代码如下：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">showRandomImage</span><span class="token punctuation">(</span><span class="token parameter">ImgArray<span class="token punctuation">,</span> Selector</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">var</span> imgSel <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span>Selector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> randomNumber <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>ImgArray<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    imgSel<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>src <span class="token operator">=</span> ImgArray<span class="token punctuation">[</span>randomNumber<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>使用的时候，第一个参数填上图片链接的数组，第二个填上选择器。</p>
+<p>如果想使用 <code>addEventListener</code> 可以这样使用：</p>
+<pre class="language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">showRandomImage</span><span class="token punctuation">(</span><span class="token parameter">ImgArray<span class="token punctuation">,</span> Selector</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token comment">// 二次封装</span>
+        <span class="token keyword">var</span> imgSel <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelectorAll</span><span class="token punctuation">(</span>Selector<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> randomNumber <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">round</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token punctuation">(</span>ImgArray<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        imgSel<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>src <span class="token operator">=</span> ImgArray<span class="token punctuation">[</span>randomNumber<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">const</span> clkBtn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"rdm-btn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+clkBtn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token function">showRandomImage</span><span class="token punctuation">(</span>imgArr<span class="token punctuation">,</span> <span class="token string">"img#random-pic2"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>二次封装之后就可以正常使用。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/HTML/" rel="tag"><i class="fa fa-tag"></i> HTML</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/stdoi-snf-pnt/" rel="prev" title="scanf 和 printf 的格式符">
+                  <i class="fa fa-angle-left"></i> scanf 和 printf 的格式符
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/gdb-debug-file/" rel="next" title="使用 gdb 调试代码">
+                  使用 gdb 调试代码 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-paper-plane"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">JoyWonderful</span>
+  </div>
+
+    </div>
+  </footer>
+
+  
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="/js/third-party/search/search.js"></script> 
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">false</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+
+</body>
+</html>
