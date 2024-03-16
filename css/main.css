@@ -1078,7 +1078,7 @@ pre code {
   padding: 0 10px;
   border-radius: 5px 5px 0 0;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .site-brand-container {
     border-radius: 0;
   }
@@ -2429,14 +2429,10 @@ header.header {
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
   margin-top: 10px;
 }
-@media (max-width: 767px) {
-  header.header {
-    margin-top: 0;
-  }
-}
 @media (max-width: 991px) {
   header.header {
-    border-radius: initial;
+    margin-top: 0;
+    border-radius: 0;
   }
 }
 .main {

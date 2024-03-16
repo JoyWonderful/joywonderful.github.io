@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。 主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。 就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。 省流：The blog hosted on Github Pages">
+    <meta name="description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。  主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。  就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。  省流：The blog hosted on Github Pag">
 <meta property="og:type" content="website">
 <meta property="og:title" content="关于">
 <meta property="og:url" content="https://joywonderful.github.io/about/index.html">
 <meta property="og:site_name" content="JoyWonderful的小窝">
-<meta property="og:description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。 主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。 就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。 省流：The blog hosted on Github Pages">
+<meta property="og:description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。  主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。  就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。  省流：The blog hosted on Github Pag">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-01T01:21:17.000Z">
-<meta property="article:modified_time" content="2024-02-16T03:03:18.333Z">
+<meta property="article:modified_time" content="2024-03-16T14:10:12.324Z">
 <meta property="article:author" content="JoyWonderful">
 <meta name="twitter:card" content="summary">
 
@@ -215,36 +215,86 @@
       
       <div class="post-body">
           
-
 <p>这个博客是由 <a target="_blank" rel="noopener" href="https://hexo.io">Hexo <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a> 和主题 <a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT. <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a> 搭建支持的。做了很多美化工作。</p>
+
 <p>主要这个博客就是放一些我的见闻和看法，以及<strong>一大堆</strong>课程笔记的。<br>预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。</p>
+
 <p>就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？<br>你既然看到这里了，不如就在 <a href="/comments">留言板</a> 留个言吧。</p>
+
 <p>省流：<br>The blog hosted on Github Pages, use frame Hexo theme NexT.<br>不对，没有人在最后放上省流吧？</p>
-<script src="/js/my-mod-js/get-last-commit.js" type="module"></script>
 
 <style>
-    #github-commit-info a, #github-commit-info span {
-        color: #999;
-        font-size: 0.875em;
+    div#last-deploy-info {
+        display: flex;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+    div#last-deploy-info div {
+        margin-right: 25px;
+    }
+    div#last-deploy-info span.ititle {
+        color: #888;
+    }
+    div#last-deploy-info span.indexcnt {
+        color: #111;
+    }
+    div#last-deploy-info span, div#last-deploy-info a {
         font-family: consolas, Menlo, monospace;
-    }
-    #github-commit-info span {
-        margin-left: 15px;
-    }
-    #github-commit-info a {
         border-bottom: none;
-        transition: all 0.4s;
     }
-    #github-commit-info a:hover {
-        border-bottom: 1px solid #777;
-        color: #777;
+    div#last-deploy-info a:hover {
+        border-bottom: 1px solid #222222;
     }
 </style>
 
 <br>
 
-<div title="最后一次 commit 信息：(hash / message / date)" id="github-commit-info"></div>
+<div id="last-deploy-info">
+    <div id="dpi-cmt-id"></div>
+    <div id="dpi-stat"></div>
+    <div id="dpi-durat"></div>
+    <div id="dpi-update"></div>
+</div>
 
+<script>
+    fetch("https://api.github.com/repos/joywonderful/joywonderful.github.io/actions/runs?per_page=1").then((result) => {
+        if(!result.ok) {
+            console.error(result.status);
+            var emsgd = document.querySelector("#last-deploy-info");
+            emsgd.innerHTML = `Failed to fetch deploy data.<br>The server returned a status of ${result.status}.`;
+            emsgd.style.color = "#bd0000";
+        }
+        var remain = result.headers.get("X-Ratelimit-Remaining"); // 获取速率限制
+        console.debug("Ratelimit remaining: " + remain + "\nRate limit reset after: " + result.headers.get("X-Ratelimit-Reset"));
+        if(remain == "0") {
+            console.debug("Too many requests.");
+            var emsgd = document.querySelector("#last-deploy-info");
+            emsgd.innerHTML = `The number of requests is out of range.<br>Rate limit reset after: ${result.headers.get("X-Ratelimit-Reset")}.`;
+            emsgd.style.color = "#bd0000";
+        }
+        return result.json();
+    }).then((data) => {
+        lrun = data.workflow_runs[0];
+        var cmt_id = document.querySelector("#dpi-cmt-id"), stat = document.querySelector("#dpi-stat"), durat = document.querySelector("#dpi-durat"), update = document.querySelector("#dpi-update");
+
+        const d1 = new Date(lrun.updated_at), d2 = new Date(lrun.created_at);
+        const totdura = (d1.getTime() - d2.getTime()) / 1000;
+
+        const statstr = lrun.conclusion;
+        var staticon = '<i class="fa-solid fa-question fa-fw fa-sm" style="color:#111;margin-left:5px"></i>';
+        if(statstr == "failure") staticon = '<i class="fa fa-xmark fa-fw fa-sm" style="color:#d1242f;margin-left:5px"></i>';
+        else if(statstr == "success") staticon = '<i class="fa fa-check fa-fw fa-sm" style="color:#1a7f37;margin-left:5px"></i>';
+        else if(statstr == "in_progress" || statstr == "queued" || statstr == "waiting") staticon = '<i class="far fa-circle-dot fa-fw fa-sm" style="color:#dbab0a;margin-left:5px"></i>';
+        else if(statstr == "skipped" || statstr == "cancelled") staticon = '<i class="fa fa-ban fa-sm fa-fw fa-rotate-90" style="color:#656d76;margin-left:5px"></i>';
+
+        cmt_id.style.borderRight = "2px dashed #444";
+        cmt_id.style.paddingRight = "25px";
+        cmt_id.innerHTML = `<span class="ititle">Run_Id: </span><a href="${lrun.html_url}" target="_blank">#${lrun.run_number}</a><br><span class="ititle">Commit: </span><a href="https://github.com/JoyWonderful/joywonderful.github.io/commit/${lrun.head_commit.id}" target="_blank">${lrun.head_commit.id.slice(0, 7)}</a>`;
+        stat.innerHTML = `<span class="ititle">Status</span><br><span class="indexcnt">${statstr}</span>${staticon}`;
+        durat.innerHTML = `<span class="ititle">Total Duration</span><br><span class="indexcnt">${totdura}<span style="opacity:0.7;">sec</span></span>`;
+        update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
+    });
+</script>
       </div>
       
       
