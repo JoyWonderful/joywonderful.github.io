@@ -82,7 +82,6 @@
     margin: 0;
     padding: .2em .4em;
     border-radius: 3px;
-    border: none;
     background: var(--waline-bgcolor-light);
     font-size: 85%
 }
@@ -113,6 +112,8 @@
 
 [data-waline] pre code {
     padding: 0;
+    border: none;
+    text-shadow: none;
     background: rgba(0, 0, 0, 0);
     color: var(--waline-color);
     white-space: pre-wrap;
@@ -1193,7 +1194,8 @@
 .wl-content .token.operator,
 .wl-content .token.entity,
 .wl-content .token.url {
-    color: #67cdcc
+    color: #67cdcc;
+    background: none;
 }
 
 .wl-content .token.important,
