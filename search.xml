@@ -1,106 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>广度优先搜索</title>
-    <url>//posts/bfs/</url>
-    <content><![CDATA[<p>这不，刚学完<a style="border-bottom:none;" href="/posts/dfs">深搜</a>没多久，又来写广搜笔记了（话说我队列笔记还没来得急写呢）。<strong>广度优先搜索</strong>，广搜，英文为<strong>Breadth First Search</strong>，简称 <strong>BFS</strong>。是从一个结点向其他方向的结点不断扩散，如同一道水晕在湖面上荡漾开来。主要可以用来找路径<strong>权值一定</strong>的最短路径。<br>深搜可以用到队列先进先出的特性。当一个结点准备扩散时，即弹出队列，再将接下来扩散到结点加入队列。随后按照队首扩散、弹出，不断循环。这也是叫它广度优先搜索的原因。</p>
-<span id="more"></span>
-
-<p>例题：<a href="https://www.luogu.com.cn/problem/P2360">洛谷 P2360</a><br>广搜可以做，直接通过路径扩散就好。<br>代码：（想水博文 QwQ）</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-
-<span class="token keyword">struct</span> <span class="token class-name">node</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
-<span class="token keyword">char</span> themap<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> flag<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dist<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> bx<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> by<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> bz<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">void</span> <span class="token function">bfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> z<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    queue<span class="token operator">&lt;</span>node<span class="token operator">></span> q<span class="token punctuation">;</span>
-    node pdata<span class="token punctuation">;</span>
-    pdata<span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>z <span class="token operator">=</span> z<span class="token punctuation">;</span>
-    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>pdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    flag<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">while</span><span class="token punctuation">(</span>q<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        node p <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        q<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">int</span> tx <span class="token operator">=</span> p<span class="token punctuation">.</span>x <span class="token operator">+</span> bx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> ty <span class="token operator">=</span> p<span class="token punctuation">.</span>y <span class="token operator">+</span> by<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> tz <span class="token operator">=</span> p<span class="token punctuation">.</span>z <span class="token operator">+</span> bz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token comment">//cout &lt;&lt; tx &lt;&lt; " " &lt;&lt; ty &lt;&lt; " " &lt;&lt; tz &lt;&lt; endl;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>tx <span class="token operator">&lt;=</span> r <span class="token operator">&amp;&amp;</span> tx <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ty <span class="token operator">&lt;=</span> c <span class="token operator">&amp;&amp;</span> ty <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> tz <span class="token operator">&lt;=</span> l <span class="token operator">&amp;&amp;</span> tz <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flag<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'.'</span> <span class="token operator">||</span> themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                node tdata<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>x <span class="token operator">=</span> tx<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>y <span class="token operator">=</span> ty<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>z <span class="token operator">=</span> tz<span class="token punctuation">;</span>
-                q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                flag<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                dist<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> dist<span class="token punctuation">[</span>p<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> l <span class="token operator">>></span> r <span class="token operator">>></span> c<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> ex<span class="token punctuation">,</span> ey<span class="token punctuation">,</span> ez<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> r<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> c<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                cin <span class="token operator">>></span> themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'S'</span><span class="token punctuation">)</span>
-                <span class="token punctuation">&#123;</span>
-                    sx <span class="token operator">=</span> j<span class="token punctuation">;</span>
-                    sy <span class="token operator">=</span> k<span class="token punctuation">;</span>
-                    sz <span class="token operator">=</span> i<span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span>
-                <span class="token punctuation">&#123;</span>
-                    ex <span class="token operator">=</span> j<span class="token punctuation">;</span>
-                    ey <span class="token operator">=</span> k<span class="token punctuation">;</span>
-                    ez <span class="token operator">=</span> i<span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token function">bfs</span><span class="token punctuation">(</span>sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Trapped!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Escaped in "</span> <span class="token operator">&lt;&lt;</span> dist<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" minute(s)."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>搜索</tag>
-        <tag>队列</tag>
-        <tag>基础算法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>并查集概念</title>
     <url>//posts/bichaj/</url>
     <content><![CDATA[<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote>
@@ -510,6 +410,106 @@ ofstream outfile<span class="token punctuation">;</span>
       </tags>
   </entry>
   <entry>
+    <title>广度优先搜索</title>
+    <url>//posts/bfs/</url>
+    <content><![CDATA[<p>这不，刚学完<a style="border-bottom:none;" href="/posts/dfs">深搜</a>没多久，又来写广搜笔记了（话说我队列笔记还没来得急写呢）。<strong>广度优先搜索</strong>，广搜，英文为<strong>Breadth First Search</strong>，简称 <strong>BFS</strong>。是从一个结点向其他方向的结点不断扩散，如同一道水晕在湖面上荡漾开来。主要可以用来找路径<strong>权值一定</strong>的最短路径。<br>深搜可以用到队列先进先出的特性。当一个结点准备扩散时，即弹出队列，再将接下来扩散到结点加入队列。随后按照队首扩散、弹出，不断循环。这也是叫它广度优先搜索的原因。</p>
+<span id="more"></span>
+
+<p>例题：<a href="https://www.luogu.com.cn/problem/P2360">洛谷 P2360</a><br>广搜可以做，直接通过路径扩散就好。<br>代码：（想水博文 QwQ）</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">node</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
+<span class="token keyword">char</span> themap<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> flag<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dist<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> bx<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> by<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> bz<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">bfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> z<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    queue<span class="token operator">&lt;</span>node<span class="token operator">></span> q<span class="token punctuation">;</span>
+    node pdata<span class="token punctuation">;</span>
+    pdata<span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>z <span class="token operator">=</span> z<span class="token punctuation">;</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>pdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    flag<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span><span class="token punctuation">(</span>q<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        node p <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        q<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">int</span> tx <span class="token operator">=</span> p<span class="token punctuation">.</span>x <span class="token operator">+</span> bx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> ty <span class="token operator">=</span> p<span class="token punctuation">.</span>y <span class="token operator">+</span> by<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> tz <span class="token operator">=</span> p<span class="token punctuation">.</span>z <span class="token operator">+</span> bz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment">//cout &lt;&lt; tx &lt;&lt; " " &lt;&lt; ty &lt;&lt; " " &lt;&lt; tz &lt;&lt; endl;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>tx <span class="token operator">&lt;=</span> r <span class="token operator">&amp;&amp;</span> tx <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ty <span class="token operator">&lt;=</span> c <span class="token operator">&amp;&amp;</span> ty <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> tz <span class="token operator">&lt;=</span> l <span class="token operator">&amp;&amp;</span> tz <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flag<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'.'</span> <span class="token operator">||</span> themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                node tdata<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>x <span class="token operator">=</span> tx<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>y <span class="token operator">=</span> ty<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>z <span class="token operator">=</span> tz<span class="token punctuation">;</span>
+                q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                flag<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                dist<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> dist<span class="token punctuation">[</span>p<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> l <span class="token operator">>></span> r <span class="token operator">>></span> c<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ex<span class="token punctuation">,</span> ey<span class="token punctuation">,</span> ez<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> r<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> c<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                cin <span class="token operator">>></span> themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'S'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    sx <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    sy <span class="token operator">=</span> k<span class="token punctuation">;</span>
+                    sz <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    ex <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    ey <span class="token operator">=</span> k<span class="token punctuation">;</span>
+                    ez <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">bfs</span><span class="token punctuation">(</span>sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Trapped!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Escaped in "</span> <span class="token operator">&lt;&lt;</span> dist<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" minute(s)."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>搜索</tag>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++ 数据范围</title>
     <url>//posts/cpp-shujufanwei/</url>
     <content><![CDATA[<p>这就是一个随记，方便自己用的。</p>
@@ -727,8 +727,8 @@ string a<span class="token punctuation">[</span><span class="token number">103</
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>搜索</tag>
         <tag>基础算法</tag>
+        <tag>搜索</tag>
         <tag>递归</tag>
       </tags>
   </entry>
@@ -870,84 +870,6 @@ string a<span class="token punctuation">[</span><span class="token number">103</
       <categories>
         <category>琐碎</category>
       </categories>
-  </entry>
-  <entry>
-    <title>二分</title>
-    <url>//posts/erfen/</url>
-    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
-<p>此时，我们学的还是整数二分以及浮点二分。</p>
-<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
-<span id="more"></span>
-
-<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
-<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(1+5)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(4+5)/2=4, a[\texttt{mid}]=4, 4=4, l=3, r=\texttt{mid}=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
-<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>这就是整数二分的一个模板了。又或者：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> n <span class="token punctuation">;</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
-<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
-<p>好了，模版代码<del>大放送</del>：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1e10</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">1e10</span> <span class="token punctuation">;</span> <span class="token comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-6</span><span class="token punctuation">)</span> <span class="token comment">// 此处的数字同上，模板应为 1e-x</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span> <span class="token comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        l <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">else</span>
-    <span class="token punctuation">&#123;</span>
-        r <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 同上</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
-<li><input disabled="" type="checkbox"> That’s Good</li>
-</ul>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>优化</tag>
-      </tags>
   </entry>
   <entry>
     <title>消失效果</title>
@@ -1116,157 +1038,137 @@ string a<span class="token punctuation">[</span><span class="token number">103</
       </tags>
   </entry>
   <entry>
-    <title>函数</title>
-    <url>//posts/function/</url>
-    <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
-<ol>
-<li>优化代码量</li>
-<li>让程序代码更加清晰明了</li>
-<li>调用时更加方便</li>
-</ol>
-<p>总之，函数的存在就是为了更加<strong>方便</strong>，<strong>清晰</strong>，<strong>快速</strong>。</p>
+    <title>二分</title>
+    <url>//posts/erfen/</url>
+    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
+<p>此时，我们学的还是整数二分以及浮点二分。</p>
+<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
 <span id="more"></span>
 
-<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>方法：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>函数类型<span class="token punctuation">]</span> <span class="token punctuation">[</span>函数名称<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">[</span>参数<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#123;</span>
-    <span class="token punctuation">[</span>主体<span class="token punctuation">]</span> <span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
+<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(1+5)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(4+5)/2=4, a[\texttt{mid}]=4, 4=4, l=3, r=\texttt{mid}=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
+<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>这就是整数二分的一个模板了。又或者：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> n <span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<p>如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
+<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
+<p>好了，模版代码<del>大放送</del>：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1e10</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">1e10</span> <span class="token punctuation">;</span> <span class="token comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-6</span><span class="token punctuation">)</span> <span class="token comment">// 此处的数字同上，模板应为 1e-x</span>
 <span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> ans <span class="token operator">=</span> x <span class="token operator">+</span> y <span class="token punctuation">;</span>
-    <span class="token keyword">return</span> ans <span class="token punctuation">;</span>
+    <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span> <span class="token comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        l <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        r <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 同上</span>
+    <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<hr>
-<p><strong>注意</strong>：当不返回(无<code>return</code>)时，函数类型应为<code>void</code>(表面含义<em>无类型</em>)。</p>
-<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>当你运行<strong>这段代码</strong>时：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> t <span class="token operator">=</span> x <span class="token punctuation">;</span>
-    x <span class="token operator">=</span> y <span class="token punctuation">;</span>
-    y <span class="token operator">=</span> t <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    
-    <span class="token function">swap</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>你会发现<code>a</code>还是<code>a</code>，<code>b</code>还是<code>b</code>。</p>
-<p>这是因为<code>swap(int, int)</code>只是把<strong>函数内的</strong><code>x</code>和<code>y</code>交换了而已，<code>a</code>和<code>b</code>没有交换。</p>
-<p>因为<code>x</code>和<code>y</code>对于*<code>main</code>函数*来说只是形参，<code>x</code>和<code>y</code>只是拷了一份<code>a</code>和<code>b</code>。</p>
-<p>如果想交换<code>a</code>和<code>b</code>需要这样写：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> t <span class="token operator">=</span> x <span class="token punctuation">;</span>
-    x <span class="token operator">=</span> y <span class="token punctuation">;</span>
-    y <span class="token operator">=</span> t <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    
-    <span class="token function">swap</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>此时此刻，你使用<code>x</code>和<code>y</code>就相当于引用了<code>a</code>和<code>b</code>。</p>
-<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>函数名不可重复。</p>
-<p>但是有几种方法可以重复：</p>
+<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
 <ul>
-<li>函数参数类型不同</li>
-<li>函数参数数量不同</li>
+<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
+<li><input disabled="" type="checkbox"> That’s Good</li>
 </ul>
-<p>比如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> a <span class="token operator">+</span> b <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    
-    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>输出：</p>
-<pre class="language-markdown" data-language="markdown"><code class="language-markdown">3
-Hello</code></pre>
-
-<hr>
-<p><strong>注意：</strong>仅仅函数类型不同不足以区分两个函数！</p>
-<h2 id="拓展：主函数中的argc和argv-实际上我不懂"><a href="#拓展：主函数中的argc和argv-实际上我不懂" class="headerlink" title="拓展：主函数中的argc和argv 实际上我不懂"></a>拓展：主函数中的<code>argc</code>和<code>argv</code> <del>实际上我不懂</del></h2><p>用法：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
-
-<p>或：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span></code></pre>
-
-<hr>
-<p>含义：</p>
-<ol>
-<li><code>argc</code>：<strong>是argument count 的缩写，保存运行时传递给main函数的参数个数。</strong></li>
-<li><code>argv</code>：<strong>是argument vector 的缩写，保存运行时传递main函数的参数，类型是一个字符指针数组，每个元素是一个字符指针，指向一个命令行参数。</strong></li>
-</ol>
-<p>比如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum: %d\n"</span><span class="token punctuation">,</span> argc<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> argc<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-	<span class="token punctuation">&#123;</span>
-		<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"argc[%d], %s\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> argv<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-	<span class="token punctuation">&#125;</span>
-	
-	<span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>打开命令行，<code>cd</code>文件所在文件夹，输入：<code>[file name].[file extension] hello world i am so happy</code></p>
-<p>结果为：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">sum: <span class="token number">7</span>
-argc<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>, 未命名1.exe
-argc<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>, hello
-argc<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>, world
-argc<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>, i
-argc<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span>, am
-argc<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span>, so
-argc<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span>, happy</code></pre>
-
-<p>这就是<code>main</code>函数参数作用。</p>
 ]]></content>
       <categories>
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>语言入门</tag>
-        <tag>函数，参数</tag>
+        <tag>基础算法</tag>
+        <tag>优化</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 的连接 Github 小记</title>
+    <url>//posts/git-github/</url>
+    <content><![CDATA[<p>又是一个随记，方便自己使用的。<br>首先，得到 <a href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
+<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
+
+<p>就下载好了。</p>
+<span id="more"></span>
+<h2 id="使用-SSH-连接-Github"><a href="#使用-SSH-连接-Github" class="headerlink" title="使用 SSH 连接 Github"></a>使用 SSH 连接 Github</h2><p>首先确保拥有一个 Github 账号，打开终端，生成 SSH 密钥：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"email"</span></code></pre>
+
+<p>它的提示全部回车就可以了。”email” 是 Github 注册使用的邮箱地址。</p>
+<p>成功后会在用户文件夹（Windows 下通常是 <code>%USERPROFILE%</code> 环境变量，Linux 直接打开 <code>~/</code>）下生成一个 <code>.ssh</code> 文件夹，打开 <code>id_rsa.pub</code> 文件，复制里面的密钥后回到 Github 打开设置，找到 “<strong>SSH anf PGP keys</strong>“ 一栏，点击 “New SSH key”，Title 填上，将刚刚复制的密钥粘贴到 “Key” 一栏，点击 “Add SSH key” 保存。</p>
+<p><img src="https://s2.loli.net/2023/08/13/L3bmqAR1vf2whSM.png" alt="git-github.png"></p>
+<p>随后可以验证是否完成，打开终端输入：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+The authenticity of <span class="token function">host</span> <span class="token string">'github.com (IP ADDRESS)'</span> can<span class="token string">'t be established.
+RSA key fingerprint is (FINGERPRINT).
+Are you sure you want to continue connecting (yes/no)? yes #在这里输入 yes
+Hi (USER NAME)! You'</span>ve successfully authenticated, but GitHub does not provide shell access. <span class="token comment">#连接成功</span></code></pre>
+
+<h2 id="连接-Github-仓库"><a href="#连接-Github-仓库" class="headerlink" title="连接 Github 仓库"></a>连接 Github 仓库</h2><p>新建 Github 仓库。在电脑新建一个文件夹，创建一些文件，然后打开终端：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init
+Initialized empty Git repository <span class="token keyword">in</span> /.git/
+
+$ <span class="token function">git</span> <span class="token function">add</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span> <span class="token comment">#你可以不断 add，也可以直接 git add .</span>
+create mode <span class="token number">100644</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span>
+
+$ <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"The commit information"</span> <span class="token comment">#建议 commit 信息用英文写详细，养成好习惯</span>
+
+$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main <span class="token comment">#现在的 Github 默认为 main 分支</span>
+
+$ <span class="token function">git</span> remote <span class="token function">add</span> origin git@github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git <span class="token comment">#改成自己的用户名和仓库名</span>
+
+$ <span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
+Enumerating objects: <span class="token number">7735</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">4</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7413</span>/7413<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, <span class="token number">55.74</span> MiB <span class="token operator">|</span> <span class="token number">1.53</span> MiB/s, done.
+Total <span class="token number">7735</span> <span class="token punctuation">(</span>delta <span class="token number">2030</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>      
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2030</span>/2030<span class="token punctuation">)</span>, done.
+To github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git
+ * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main -<span class="token operator">></span> main
+branch <span class="token string">'main'</span> <span class="token builtin class-name">set</span> up to track <span class="token string">'origin/main'</span><span class="token builtin class-name">.</span></code></pre>
+
+<p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
+]]></content>
+      <categories>
+        <category>编程随记</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
@@ -1459,59 +1361,157 @@ gs             0x0      <span class="token number">0</span>
       </tags>
   </entry>
   <entry>
-    <title>Git 的连接 Github 小记</title>
-    <url>//posts/git-github/</url>
-    <content><![CDATA[<p>又是一个随记，方便自己使用的。<br>首先，得到 <a href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
-<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
-
-<p>就下载好了。</p>
+    <title>函数</title>
+    <url>//posts/function/</url>
+    <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
+<ol>
+<li>优化代码量</li>
+<li>让程序代码更加清晰明了</li>
+<li>调用时更加方便</li>
+</ol>
+<p>总之，函数的存在就是为了更加<strong>方便</strong>，<strong>清晰</strong>，<strong>快速</strong>。</p>
 <span id="more"></span>
-<h2 id="使用-SSH-连接-Github"><a href="#使用-SSH-连接-Github" class="headerlink" title="使用 SSH 连接 Github"></a>使用 SSH 连接 Github</h2><p>首先确保拥有一个 Github 账号，打开终端，生成 SSH 密钥：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"email"</span></code></pre>
 
-<p>它的提示全部回车就可以了。”email” 是 Github 注册使用的邮箱地址。</p>
-<p>成功后会在用户文件夹（Windows 下通常是 <code>%USERPROFILE%</code> 环境变量，Linux 直接打开 <code>~/</code>）下生成一个 <code>.ssh</code> 文件夹，打开 <code>id_rsa.pub</code> 文件，复制里面的密钥后回到 Github 打开设置，找到 “<strong>SSH anf PGP keys</strong>“ 一栏，点击 “New SSH key”，Title 填上，将刚刚复制的密钥粘贴到 “Key” 一栏，点击 “Add SSH key” 保存。</p>
-<p><img src="https://s2.loli.net/2023/08/13/L3bmqAR1vf2whSM.png" alt="git-github.png"></p>
-<p>随后可以验证是否完成，打开终端输入：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
-The authenticity of <span class="token function">host</span> <span class="token string">'github.com (IP ADDRESS)'</span> can<span class="token string">'t be established.
-RSA key fingerprint is (FINGERPRINT).
-Are you sure you want to continue connecting (yes/no)? yes #在这里输入 yes
-Hi (USER NAME)! You'</span>ve successfully authenticated, but GitHub does not provide shell access. <span class="token comment">#连接成功</span></code></pre>
+<h2 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h2><p>方法：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token punctuation">[</span>函数类型<span class="token punctuation">]</span> <span class="token punctuation">[</span>函数名称<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">[</span>参数<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token punctuation">[</span>主体<span class="token punctuation">]</span> <span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-<h2 id="连接-Github-仓库"><a href="#连接-Github-仓库" class="headerlink" title="连接 Github 仓库"></a>连接 Github 仓库</h2><p>新建 Github 仓库。在电脑新建一个文件夹，创建一些文件，然后打开终端：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init
-Initialized empty Git repository <span class="token keyword">in</span> /.git/
+<p>如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> ans <span class="token operator">=</span> x <span class="token operator">+</span> y <span class="token punctuation">;</span>
+    <span class="token keyword">return</span> ans <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-$ <span class="token function">git</span> <span class="token function">add</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span> <span class="token comment">#你可以不断 add，也可以直接 git add .</span>
-create mode <span class="token number">100644</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span>
+<hr>
+<p><strong>注意</strong>：当不返回(无<code>return</code>)时，函数类型应为<code>void</code>(表面含义<em>无类型</em>)。</p>
+<h2 id="形参和实参"><a href="#形参和实参" class="headerlink" title="形参和实参"></a>形参和实参</h2><p>当你运行<strong>这段代码</strong>时：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
 
-$ <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"The commit information"</span> <span class="token comment">#建议 commit 信息用英文写详细，养成好习惯</span>
+<span class="token keyword">int</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> t <span class="token operator">=</span> x <span class="token punctuation">;</span>
+    x <span class="token operator">=</span> y <span class="token punctuation">;</span>
+    y <span class="token operator">=</span> t <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main <span class="token comment">#现在的 Github 默认为 main 分支</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token function">swap</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
 
-$ <span class="token function">git</span> remote <span class="token function">add</span> origin git@github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git <span class="token comment">#改成自己的用户名和仓库名</span>
+<p>你会发现<code>a</code>还是<code>a</code>，<code>b</code>还是<code>b</code>。</p>
+<p>这是因为<code>swap(int, int)</code>只是把<strong>函数内的</strong><code>x</code>和<code>y</code>交换了而已，<code>a</code>和<code>b</code>没有交换。</p>
+<p>因为<code>x</code>和<code>y</code>对于*<code>main</code>函数*来说只是形参，<code>x</code>和<code>y</code>只是拷了一份<code>a</code>和<code>b</code>。</p>
+<p>如果想交换<code>a</code>和<code>b</code>需要这样写：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
 
-$ <span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
-Enumerating objects: <span class="token number">7735</span>, done.
-Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, done.
-Delta compression using up to <span class="token number">4</span> threads
-Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7413</span>/7413<span class="token punctuation">)</span>, done.
-Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, <span class="token number">55.74</span> MiB <span class="token operator">|</span> <span class="token number">1.53</span> MiB/s, done.
-Total <span class="token number">7735</span> <span class="token punctuation">(</span>delta <span class="token number">2030</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>      
-remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2030</span>/2030<span class="token punctuation">)</span>, done.
-To github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git
- * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main -<span class="token operator">></span> main
-branch <span class="token string">'main'</span> <span class="token builtin class-name">set</span> up to track <span class="token string">'origin/main'</span><span class="token builtin class-name">.</span></code></pre>
+<span class="token keyword">int</span> <span class="token function">swap</span><span class="token punctuation">(</span><span class="token keyword">int</span> <span class="token operator">&amp;</span>x<span class="token punctuation">,</span> <span class="token keyword">int</span> <span class="token operator">&amp;</span>y<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> t <span class="token operator">=</span> x <span class="token punctuation">;</span>
+    x <span class="token operator">=</span> y <span class="token punctuation">;</span>
+    y <span class="token operator">=</span> t <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
 
-<p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a<span class="token punctuation">,</span> b <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token function">swap</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>此时此刻，你使用<code>x</code>和<code>y</code>就相当于引用了<code>a</code>和<code>b</code>。</p>
+<h2 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h2><p>函数名不可重复。</p>
+<p>但是有几种方法可以重复：</p>
+<ul>
+<li>函数参数类型不同</li>
+<li>函数参数数量不同</li>
+</ul>
+<p>比如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>输出：</p>
+<pre class="language-markdown" data-language="markdown"><code class="language-markdown">3
+Hello</code></pre>
+
+<hr>
+<p><strong>注意：</strong>仅仅函数类型不同不足以区分两个函数！</p>
+<h2 id="拓展：主函数中的argc和argv-实际上我不懂"><a href="#拓展：主函数中的argc和argv-实际上我不懂" class="headerlink" title="拓展：主函数中的argc和argv 实际上我不懂"></a>拓展：主函数中的<code>argc</code>和<code>argv</code> <del>实际上我不懂</del></h2><p>用法：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span></code></pre>
+
+<p>或：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span><span class="token operator">*</span>argv<span class="token punctuation">)</span></code></pre>
+
+<hr>
+<p>含义：</p>
+<ol>
+<li><code>argc</code>：<strong>是argument count 的缩写，保存运行时传递给main函数的参数个数。</strong></li>
+<li><code>argv</code>：<strong>是argument vector 的缩写，保存运行时传递main函数的参数，类型是一个字符指针数组，每个元素是一个字符指针，指向一个命令行参数。</strong></li>
+</ol>
+<p>比如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std <span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token keyword">int</span> argc<span class="token punctuation">,</span> <span class="token keyword">char</span> <span class="token operator">*</span>argv<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"sum: %d\n"</span><span class="token punctuation">,</span> argc<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> argc<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"argc[%d], %s\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> argv<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	
+	<span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>打开命令行，<code>cd</code>文件所在文件夹，输入：<code>[file name].[file extension] hello world i am so happy</code></p>
+<p>结果为：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">sum: <span class="token number">7</span>
+argc<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>, 未命名1.exe
+argc<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>, hello
+argc<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>, world
+argc<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span>, i
+argc<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span>, am
+argc<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span>, so
+argc<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span>, happy</code></pre>
+
+<p>这就是<code>main</code>函数参数作用。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>语言入门</tag>
+        <tag>函数，参数</tag>
       </tags>
   </entry>
   <entry>
@@ -2856,95 +2856,6 @@ first:300, second:400, third:200</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>一些随笔记录和想法</title>
-    <url>//posts/seventh-lianbi/</url>
-    <content><![CDATA[<style>
-    .hide-blur {
-        filter: blur(5px);
-        transition: filter .1s
-    }
-    .hide-blur:hover {
-        filter: none;
-    }
-    .lianbi-block p:not(.pinyu) {
-        text-indent: 2ic;
-        line-height: 1.5;
-        margin-bottom: .2em;
-    }
-    .lianbi-block .lianbi-title {
-        font-weight: bold;
-        text-align: center;
-        display: block;
-    }
-    .lianbi-block .gdg {
-        text-decoration: #d60000 wavy underline;
-        text-decoration-thickness: 1px;
-    }
-    .lianbi-block .pinyu {
-        color: #d60000;
-        font-family: fangsong;
-        font-weight: 900;
-        line-height: 1.5;
-        text-align: right;
-        margin: 0 0 1em;
-        display: block;
-    }
-    .lianbi-block#lianbi3 del {
-        background-color: #999;
-    }
-</style>
-
-<p><strong>写在前面的废话：</strong><br>又是一篇分类于“琐碎”的文章。<br>加上这篇文章，这个分类下<del>才</del>有三篇文章。想来这个博客在运行 <code>hexo init</code> 之初，我就没想过写生活向的文章。如今“琐碎”下，一篇是画，两篇是作文收集，勉强算是透露了点生活向。<br>想想自己喜欢的，是 HTML, CSS, JavaScript 给我带来的<strong>样式美化</strong>、<strong>多样性</strong>和<strong>自主性</strong>。不然我怎么不记到 .txt 里呢？也不知初衷是什么，唉，这样弄又有些喧宾夺主了。多年后看到，也就微微一笑，笑自己写出的东西<span class="hide-blur" balloon-shown="up" aria-label="看它有什么用呢">古怪？</span>吧。</p>
-<span id="more"></span>
-
-<p>下面，红字和红色波浪线都是老师做的标记。红字是批语。红线大概是老师认为有想法的句子吧。<br><strong>按时间排序的文章：</strong></p>
-<h2 id="一"><a href="#一" class="headerlink" title="一"></a>一</h2><h3 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
-    <span class="lianbi-title" aria-label="这篇文章有些假，自己不太喜欢" balloon-shown="up">运动会跳高随记</span>
-    <p>我在操场上观看男子跳高。哪怕只讲跳高场地的气氛也是十分紧张激烈得了。运动员刚跳完，学生裁判和助理就飞快地冲上去把杆子重新架好，再用手推或脚踢将软垫重新压紧实，另一位运动员又跑步向前，一跃而起，脸上带着坚定和紧张。节奏之快，把观众观赛的热情都点燃了。</p>
-    <p>这时，一位跳高运动员吸引了我的注意。根据他服装上的号码牌，我得知他是四班的一名运动员。他起跳了，但没有跳过，带着杆子跌向软垫。我感觉，他脸上写满不甘心与不服输，他和教师裁判要求再跳一遍。于是，我看到他咬紧牙关，再次冲向调高杆，似乎把腿尽可能地抬高，落向软垫——但他又失败了，脚带动杆子滑落下来，杆子落到地上发出哗啦一声。这声音对他来说可能是震天动地的，意味着失败的响声。我看到他再一次向裁判要求重新跳。我从我们班作为跳高裁判助理的施同学口中得知，如果失败，这次起跳是最后一次了。<span class="gdg">忽地，我联想到了一个人的坚定和决绝，这是不太容易做到的。这一次，他像鸟儿一样轻捷，越过杆子，似乎还有些紧张，但稳稳地落到软垫上，他成功了。</span></p>
-    <p style="margin:0">我知道，在把杆子升高增加难度后，他最后一次失败了，退出了比追逐战还要激烈的跳高比赛。但能这样重复要求重新跳一次，连续跳三次的精神已经很好了，这是运动员的精神，因而留给我很深的印象。我坐在看台上喝奶茶时想到，尽管他是四班的，而我是三班的人。</p>
-    <p class="pinyu" style="margin-right:12ch;">运动精神感染每一个人.</p>
-</blockquote>
-
-<h3 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h3><p>这篇文章是开完运动会老师叫写的<del>（废话）</del>。个人认为这届初中运动会不如小学的时候有那种热情、激动、高兴等等开运动会的感觉了。一方面因为<strong aria-label="流感横行" balloon-shown="up" style="border-bottom:1px dotted">延期</strong>和<strong aria-label="三天缩水成两个下午" balloon-shown="up" style="border-bottom:1px dotted">运动会时间的缩短</strong>，更重要的另一方面<strong>运动会项目减少</strong>、就在<strong>一个操场</strong>看、<strong>不写通讯稿</strong>，对于我来说<span aria-label="从第一次运动会到现在，我就没参加过比赛" balloon-shown="up" style="border-bottom:1px dotted">乐趣</span>都没了。这篇作文 30% 都不算真实感受。<br>至于真实事件，主要是因为有同班同学在跳高场地那儿当助理（也就是扶扶杆子）便跑到那儿和同学聊聊天。男子跳高我们班没人参加，去那儿只为<strong>聊天</strong>（还顺便当好人帮同学扔橘子皮？）。四班体委跳高，看了看，感觉那种跳了三次的事件适合写到作文里，回家一想到就写了。</p>
-<p>至于老师的评语嘛，<span aria-label="包括句尾的一点" balloon-shown="up" style="border-bottom:1px dotted">原话是这样写的</span>，也不知道老师写这个是不是想到了什么。大概没什么别的深意。</p>
-<p><strong>题外话：</strong>那天有奶茶和泡芙供应，只喝了一瓶不知名品牌普通奶茶，味道还好。其他同学吃喝也蛮开心的。</p>
-<h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h3 id="记录-1"><a href="#记录-1" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
-    <span class="lianbi-title" aria-label="不好说自己写这篇文章时的精神状态" balloon-shown="up">周五那些琐碎事</span>
-    <p>此刻，我正坐在微格教室里，写这篇随记。自修的时间大家都很安静，只有教室里不知什么设备发出低沉且有规律的“咚咚”声，正是回忆和写作的耗时间，想想在一个半小时之前发生的琐事，我想。</p>
-    <p>下午，五点，同学们乱哄哄地换完了座位，准备排队出校。而包括我的四个人却还要留在学校里，这真的是一种很奇特的感觉，我在独自去往食堂时想到。几个同学吃完了饭回到教室，有打扫一会儿卫生才去微格教室准备上课。来到微格教室，看到教室的布局，让我想到了母校的微格教室，给人一种很宁静的感觉。原本着急上完课，着急回家的心绪也平静下来。在现在想，<span class="gdg">大概是这种平静才是名词里“素养”与“提升”的感觉，竟有一种置身世外的超然感。</span></p>
-    <p>这次科学老师上课，居然没有数学课那样急切，没有争分夺秒的感觉，甚至没有往常的节奏快。不知是我心里的主观认为还是微格教室的影响。还是给人一种宁静感，甚至悠闲，但又不是。现在想，那种感觉确实是<span class="gdg">安心学习的基础啊，不急功近利，而是宁静平和，甚至有限，轻松，太急躁反而容易犯错呢。我想。</span></p>
-    <p>平时的课一般上一个小时，数学课通常还要拖几分钟，因为任务太多了。但这次不一样，宁静的教室，没有是么非常紧迫的任务。科学老师只上了半个小时的课，刚好在第一节晚自习一半的铃声响起时讲完了作业，剩下的时间老师让我们自修。一切都是平静的。于是，我开始写随记，也就是开头呈现的景象，一切都给人以平静，安静的感觉。</p>
-    <p>想着想着，自修已经到了末尾，班里的同学开始吵闹起来，打破了原有的宁静，以及原有的那份奇特的心境。我意识到，我还要进行枯燥、有条不紊、节奏快的生活。生活的节奏很快，这种宁静是很难再找到了。我想找一句话来总结我的所思所想所写，但周围不再宁静，脑海中全是纷乱的思绪，如同一大片散乱的拼图，十分烦躁。突然几句话拨开纷乱的拼图“夫学须静也，才须学也。”“淫慢则不能励精，险躁则不能治性”。是的，无论干什么，都需要平静，需要宁静专一。宁静，不仅让人放松，还让人奋斗。</p>
-    <p>正准备盖上笔合上本子，却又有一个想法冒出来，我翻到前面看了看开头的自己，抿嘴笑了，添上一句话：</p>
-    <p style="margin:0">从本文开头到结尾，细微的自己变化和涂改状况能看出，这间教室和我在写这篇文章时的宁静与否吧？</p>
-    <span class="pinyu" style="margin-right:15ch">“静能生慧”，一直觉得你是个能<br>“沉得住气”的孩子，很棒哦！</span>
-</blockquote>
-
-<h3 id="想法-1"><a href="#想法-1" class="headerlink" title="想法"></a>想法</h3><p>因为那天开家长会，照理说是所有学生都不用上<span aria-label="“双减”政策，你值得拥有！" balloon-shown="up" style="border-bottom:1px dotted">晚自习</span>五点就回家的。但是我非常遗憾地参加了<del>光明<strong>优倍</strong>鲜牛奶班</del><strong aria-label="某重点中学搞出的“提前批”政策，导致所谓培优班出现" balloon-shown="up" style="border-bottom:1px dotted" class="hide-blur">培优班</strong>，得继续留在学校，上一个小时的<span class="hide-blur">培优班</span>，再写作业写到八点晚自习放学。就感觉很离谱，吐槽一下。<br>实际上，我们四个<span class="hide-blur">培优班</span>的同学吃完了饭确实<em>受老师委托</em>回到教室打扫卫生，才去的微格教室。平常的课都在二班旁边的普通教室上，这次去微格教室<span aria-label="家长会先在报告厅开，后来到各班教室开" balloon-shown="up" style="border-bottom:1px dotted">大概是为了不打扰家长会</span>吧。<br>那天语文课和科学课换了，上的是科学课。老师说就讲三十分钟作业，剩下时间自修，就那样做了。我大概写了五十分钟的其他作业，剩下的时间都拿来写上面这篇作文了。当时想不到写什么好，<span aria-label="每次我都这样做" balloon-shown="up" style="border-bottom:1px dotted">干脆直接写当时场景了</span>。其实也是想在作文里“诉说不易”吧。</p>
-<p>至于老师的评价。。。很难确定老师理解到的是我想写什么，甚至连我自己也不清楚了。也不知道老师为什么评价的字写得比上一篇大。</p>
-<p>附：真不想写“<span class="hide-blur">培优班</span>”三个字。</p>
-<h2 id="三"><a href="#三" class="headerlink" title="三"></a>三</h2><div class="note danger"><p style="color:#d9534f;margin-bottom:0px;font-weight:bold;">地名替换</p>
-<span>原作文中有真实地名，为了避免泄露信息，使用划掉的“占位”进行了替换。<br>显示为这样：</span>
-<span style="text-decoration:line-through;background-color:#999;">占位</span></div>
-
-<h3 id="记录-2"><a href="#记录-2" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block" id="lianbi3">
-    <span class="lianbi-title"><del>占位</del>旅途记</span>
-    <p>在<del>占位</del>，说起<del>占位岛</del>就让人想起连接<del>占位岛</del>与大陆的那座桥和“海洋”这个字眼来。又是两天后，坐在教室里，细细地回想两到四天前的事。</p>
-    <p>海洋和桥，自然是在路上看到的。从<del>占位</del>海边到<del>占位岛</del>上的路就值得一提。经过<del>（占位占线）</del>和<del>占位占路</del>，我看到了海、海港和船只。基本只在城区待着的我没见过这般略显壮观的景象，立刻被吸引了：<span class="gdg">一排排轮船靠在岸边，船身下的水些许浑黄，仿佛同船一起睡着。海港在休息，但不减其威严气势，自然很引人注目。</span>和庞大的轮船与广阔无垠的海比起来，“小”客车自然没趣。突然间想到“海洋文化”正是这种意蕴。客车走上山路，越走越高。刹那间，眼前凭空出现一座仿佛横跨海面的桥。我的目光立刻又被桥捉了去。桥的支点是在两边的山上的，桥下面没有柱子支撑，所以看起来仿佛悬浮在海面上，桥也很高。车接近了桥，越发显得小了。还没上桥，就已觉得桥下海之广袤。走在桥上，仿佛神话中天神自由在空中行走，越过海洋。</p>
-    <p>过了桥，便上了岛。又走了一会儿，到了活动基地。基地中发生的事反而没让我想到大海的悠远，似乎没什么特别让人印象深刻的事。海边桥上车中，自我上的一节课更让我印象深刻得多。</p>
-    <p style="margin:0">海的<span class="gdg">广阔，如广阔得胸怀，容纳着船只和桥。船只和桥也容纳着其他事物。它们相互包容，相对广阔包容相对渺小的。这是海洋的精神：</span>包容。同样地，我们也得学习传承海洋文化精神。想来，这也算是<del>占位</del>之旅给我带来的收获——包容和责任。</p>
-    <span class="pinyu" style="margin-right:3ch">多去外面走走，会有记很多不一样<br>的启示.</span>
-</blockquote>
-]]></content>
-      <categories>
-        <category>琐碎</category>
-      </categories>
-      <tags>
-        <tag>作文</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>前缀和</title>
     <url>//posts/qianzhuihe/</url>
     <content><![CDATA[<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>前缀和是一种<strong>优化算法</strong>，用于求区间和。若数据范围特别大，写 <code>for</code> 循环很可能会爆时间复杂度，就可以用上前缀和了。前缀和有<strong>一维前缀和</strong>和<strong>二维前缀和</strong>，我暂时还没有学二位前缀和，故在此不多赘述。</p>
@@ -3233,6 +3144,95 @@ void rcsn()
       <tags>
         <tag>基础算法</tag>
         <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一些随笔记录和想法</title>
+    <url>//posts/seventh-lianbi/</url>
+    <content><![CDATA[<style>
+    .hide-blur {
+        filter: blur(5px);
+        transition: filter .1s
+    }
+    .hide-blur:hover {
+        filter: none;
+    }
+    .lianbi-block p:not(.pinyu) {
+        text-indent: 2ic;
+        line-height: 1.5;
+        margin-bottom: .2em;
+    }
+    .lianbi-block .lianbi-title {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+    .lianbi-block .gdg {
+        text-decoration: #d60000 wavy underline;
+        text-decoration-thickness: 1px;
+    }
+    .lianbi-block .pinyu {
+        color: #d60000;
+        font-family: fangsong;
+        font-weight: 900;
+        line-height: 1.5;
+        text-align: right;
+        margin: 0 0 1em;
+        display: block;
+    }
+    .lianbi-block#lianbi3 del {
+        background-color: #999;
+    }
+</style>
+
+<p><strong>写在前面的废话：</strong><br>又是一篇分类于“琐碎”的文章。<br>加上这篇文章，这个分类下<del>才</del>有三篇文章。想来这个博客在运行 <code>hexo init</code> 之初，我就没想过写生活向的文章。如今“琐碎”下，一篇是画，两篇是作文收集，勉强算是透露了点生活向。<br>想想自己喜欢的，是 HTML, CSS, JavaScript 给我带来的<strong>样式美化</strong>、<strong>多样性</strong>和<strong>自主性</strong>。不然我怎么不记到 .txt 里呢？也不知初衷是什么，唉，这样弄又有些喧宾夺主了。多年后看到，也就微微一笑，笑自己写出的东西<span class="hide-blur" balloon-shown="up" aria-label="看它有什么用呢">古怪？</span>吧。</p>
+<span id="more"></span>
+
+<p>下面，红字和红色波浪线都是老师做的标记。红字是批语。红线大概是老师认为有想法的句子吧。<br><strong>按时间排序的文章：</strong></p>
+<h2 id="一"><a href="#一" class="headerlink" title="一"></a>一</h2><h3 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
+    <span class="lianbi-title" aria-label="这篇文章有些假，自己不太喜欢" balloon-shown="up">运动会跳高随记</span>
+    <p>我在操场上观看男子跳高。哪怕只讲跳高场地的气氛也是十分紧张激烈得了。运动员刚跳完，学生裁判和助理就飞快地冲上去把杆子重新架好，再用手推或脚踢将软垫重新压紧实，另一位运动员又跑步向前，一跃而起，脸上带着坚定和紧张。节奏之快，把观众观赛的热情都点燃了。</p>
+    <p>这时，一位跳高运动员吸引了我的注意。根据他服装上的号码牌，我得知他是四班的一名运动员。他起跳了，但没有跳过，带着杆子跌向软垫。我感觉，他脸上写满不甘心与不服输，他和教师裁判要求再跳一遍。于是，我看到他咬紧牙关，再次冲向调高杆，似乎把腿尽可能地抬高，落向软垫——但他又失败了，脚带动杆子滑落下来，杆子落到地上发出哗啦一声。这声音对他来说可能是震天动地的，意味着失败的响声。我看到他再一次向裁判要求重新跳。我从我们班作为跳高裁判助理的施同学口中得知，如果失败，这次起跳是最后一次了。<span class="gdg">忽地，我联想到了一个人的坚定和决绝，这是不太容易做到的。这一次，他像鸟儿一样轻捷，越过杆子，似乎还有些紧张，但稳稳地落到软垫上，他成功了。</span></p>
+    <p style="margin:0">我知道，在把杆子升高增加难度后，他最后一次失败了，退出了比追逐战还要激烈的跳高比赛。但能这样重复要求重新跳一次，连续跳三次的精神已经很好了，这是运动员的精神，因而留给我很深的印象。我坐在看台上喝奶茶时想到，尽管他是四班的，而我是三班的人。</p>
+    <p class="pinyu" style="margin-right:12ch;">运动精神感染每一个人.</p>
+</blockquote>
+
+<h3 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h3><p>这篇文章是开完运动会老师叫写的<del>（废话）</del>。个人认为这届初中运动会不如小学的时候有那种热情、激动、高兴等等开运动会的感觉了。一方面因为<strong aria-label="流感横行" balloon-shown="up" style="border-bottom:1px dotted">延期</strong>和<strong aria-label="三天缩水成两个下午" balloon-shown="up" style="border-bottom:1px dotted">运动会时间的缩短</strong>，更重要的另一方面<strong>运动会项目减少</strong>、就在<strong>一个操场</strong>看、<strong>不写通讯稿</strong>，对于我来说<span aria-label="从第一次运动会到现在，我就没参加过比赛" balloon-shown="up" style="border-bottom:1px dotted">乐趣</span>都没了。这篇作文 30% 都不算真实感受。<br>至于真实事件，主要是因为有同班同学在跳高场地那儿当助理（也就是扶扶杆子）便跑到那儿和同学聊聊天。男子跳高我们班没人参加，去那儿只为<strong>聊天</strong>（还顺便当好人帮同学扔橘子皮？）。四班体委跳高，看了看，感觉那种跳了三次的事件适合写到作文里，回家一想到就写了。</p>
+<p>至于老师的评语嘛，<span aria-label="包括句尾的一点" balloon-shown="up" style="border-bottom:1px dotted">原话是这样写的</span>，也不知道老师写这个是不是想到了什么。大概没什么别的深意。</p>
+<p><strong>题外话：</strong>那天有奶茶和泡芙供应，只喝了一瓶不知名品牌普通奶茶，味道还好。其他同学吃喝也蛮开心的。</p>
+<h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h3 id="记录-1"><a href="#记录-1" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
+    <span class="lianbi-title" aria-label="不好说自己写这篇文章时的精神状态" balloon-shown="up">周五那些琐碎事</span>
+    <p>此刻，我正坐在微格教室里，写这篇随记。自修的时间大家都很安静，只有教室里不知什么设备发出低沉且有规律的“咚咚”声，正是回忆和写作的耗时间，想想在一个半小时之前发生的琐事，我想。</p>
+    <p>下午，五点，同学们乱哄哄地换完了座位，准备排队出校。而包括我的四个人却还要留在学校里，这真的是一种很奇特的感觉，我在独自去往食堂时想到。几个同学吃完了饭回到教室，有打扫一会儿卫生才去微格教室准备上课。来到微格教室，看到教室的布局，让我想到了母校的微格教室，给人一种很宁静的感觉。原本着急上完课，着急回家的心绪也平静下来。在现在想，<span class="gdg">大概是这种平静才是名词里“素养”与“提升”的感觉，竟有一种置身世外的超然感。</span></p>
+    <p>这次科学老师上课，居然没有数学课那样急切，没有争分夺秒的感觉，甚至没有往常的节奏快。不知是我心里的主观认为还是微格教室的影响。还是给人一种宁静感，甚至悠闲，但又不是。现在想，那种感觉确实是<span class="gdg">安心学习的基础啊，不急功近利，而是宁静平和，甚至有限，轻松，太急躁反而容易犯错呢。我想。</span></p>
+    <p>平时的课一般上一个小时，数学课通常还要拖几分钟，因为任务太多了。但这次不一样，宁静的教室，没有是么非常紧迫的任务。科学老师只上了半个小时的课，刚好在第一节晚自习一半的铃声响起时讲完了作业，剩下的时间老师让我们自修。一切都是平静的。于是，我开始写随记，也就是开头呈现的景象，一切都给人以平静，安静的感觉。</p>
+    <p>想着想着，自修已经到了末尾，班里的同学开始吵闹起来，打破了原有的宁静，以及原有的那份奇特的心境。我意识到，我还要进行枯燥、有条不紊、节奏快的生活。生活的节奏很快，这种宁静是很难再找到了。我想找一句话来总结我的所思所想所写，但周围不再宁静，脑海中全是纷乱的思绪，如同一大片散乱的拼图，十分烦躁。突然几句话拨开纷乱的拼图“夫学须静也，才须学也。”“淫慢则不能励精，险躁则不能治性”。是的，无论干什么，都需要平静，需要宁静专一。宁静，不仅让人放松，还让人奋斗。</p>
+    <p>正准备盖上笔合上本子，却又有一个想法冒出来，我翻到前面看了看开头的自己，抿嘴笑了，添上一句话：</p>
+    <p style="margin:0">从本文开头到结尾，细微的自己变化和涂改状况能看出，这间教室和我在写这篇文章时的宁静与否吧？</p>
+    <span class="pinyu" style="margin-right:15ch">“静能生慧”，一直觉得你是个能<br>“沉得住气”的孩子，很棒哦！</span>
+</blockquote>
+
+<h3 id="想法-1"><a href="#想法-1" class="headerlink" title="想法"></a>想法</h3><p>因为那天开家长会，照理说是所有学生都不用上<span aria-label="“双减”政策，你值得拥有！" balloon-shown="up" style="border-bottom:1px dotted">晚自习</span>五点就回家的。但是我非常遗憾地参加了<del>光明<strong>优倍</strong>鲜牛奶班</del><strong aria-label="某重点中学搞出的“提前批”政策，导致所谓培优班出现" balloon-shown="up" style="border-bottom:1px dotted" class="hide-blur">培优班</strong>，得继续留在学校，上一个小时的<span class="hide-blur">培优班</span>，再写作业写到八点晚自习放学。就感觉很离谱，吐槽一下。<br>实际上，我们四个<span class="hide-blur">培优班</span>的同学吃完了饭确实<em>受老师委托</em>回到教室打扫卫生，才去的微格教室。平常的课都在二班旁边的普通教室上，这次去微格教室<span aria-label="家长会先在报告厅开，后来到各班教室开" balloon-shown="up" style="border-bottom:1px dotted">大概是为了不打扰家长会</span>吧。<br>那天语文课和科学课换了，上的是科学课。老师说就讲三十分钟作业，剩下时间自修，就那样做了。我大概写了五十分钟的其他作业，剩下的时间都拿来写上面这篇作文了。当时想不到写什么好，<span aria-label="每次我都这样做" balloon-shown="up" style="border-bottom:1px dotted">干脆直接写当时场景了</span>。其实也是想在作文里“诉说不易”吧。</p>
+<p>至于老师的评价。。。很难确定老师理解到的是我想写什么，甚至连我自己也不清楚了。也不知道老师为什么评价的字写得比上一篇大。</p>
+<p>附：真不想写“<span class="hide-blur">培优班</span>”三个字。</p>
+<h2 id="三"><a href="#三" class="headerlink" title="三"></a>三</h2><div class="note danger"><p style="color:#d9534f;margin-bottom:0px;font-weight:bold;">地名替换</p>
+<span>原作文中有真实地名，为了避免泄露信息，使用划掉的“占位”进行了替换。<br>显示为这样：</span>
+<span style="text-decoration:line-through;background-color:#999;">占位</span></div>
+
+<h3 id="记录-2"><a href="#记录-2" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block" id="lianbi3">
+    <span class="lianbi-title"><del>占位</del>旅途记</span>
+    <p>在<del>占位</del>，说起<del>占位岛</del>就让人想起连接<del>占位岛</del>与大陆的那座桥和“海洋”这个字眼来。又是两天后，坐在教室里，细细地回想两到四天前的事。</p>
+    <p>海洋和桥，自然是在路上看到的。从<del>占位</del>海边到<del>占位岛</del>上的路就值得一提。经过<del>（占位占线）</del>和<del>占位占路</del>，我看到了海、海港和船只。基本只在城区待着的我没见过这般略显壮观的景象，立刻被吸引了：<span class="gdg">一排排轮船靠在岸边，船身下的水些许浑黄，仿佛同船一起睡着。海港在休息，但不减其威严气势，自然很引人注目。</span>和庞大的轮船与广阔无垠的海比起来，“小”客车自然没趣。突然间想到“海洋文化”正是这种意蕴。客车走上山路，越走越高。刹那间，眼前凭空出现一座仿佛横跨海面的桥。我的目光立刻又被桥捉了去。桥的支点是在两边的山上的，桥下面没有柱子支撑，所以看起来仿佛悬浮在海面上，桥也很高。车接近了桥，越发显得小了。还没上桥，就已觉得桥下海之广袤。走在桥上，仿佛神话中天神自由在空中行走，越过海洋。</p>
+    <p>过了桥，便上了岛。又走了一会儿，到了活动基地。基地中发生的事反而没让我想到大海的悠远，似乎没什么特别让人印象深刻的事。海边桥上车中，自我上的一节课更让我印象深刻得多。</p>
+    <p style="margin:0">海的<span class="gdg">广阔，如广阔得胸怀，容纳着船只和桥。船只和桥也容纳着其他事物。它们相互包容，相对广阔包容相对渺小的。这是海洋的精神：</span>包容。同样地，我们也得学习传承海洋文化精神。想来，这也算是<del>占位</del>之旅给我带来的收获——包容和责任。</p>
+    <span class="pinyu" style="margin-right:3ch">多去外面走走，会有记很多不一样<br>的启示.</span>
+</blockquote>
+]]></content>
+      <categories>
+        <category>琐碎</category>
+      </categories>
+      <tags>
+        <tag>作文</tag>
       </tags>
   </entry>
   <entry>
@@ -3768,8 +3768,8 @@ void rcsn()
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>队列</tag>
         <tag>数据结构</tag>
+        <tag>队列</tag>
       </tags>
   </entry>
   <entry>

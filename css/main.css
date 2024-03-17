@@ -423,11 +423,11 @@ pre[class*="language-"].line-numbers > code {
   position: relative;
 }
 pre[class*="language-"] {
-  border-radius: 3px;
+  border-radius: 4px;
 }
 pre[class*="language-"]::before {
   content: attr(data-language);
-  opacity: 0.5;
+  opacity: 0.4;
   visibility: visible;
   font-weight: 700;
   position: absolute;
@@ -492,6 +492,8 @@ code {
 }
 code {
   border-radius: 3px;
+  border: 1px solid #eaeaea;
+  background-color: #f7f7f7;
   font-size: 0.875em;
   padding: 2px 4px;
   overflow-wrap: break-word;
@@ -558,6 +560,7 @@ pre {
 }
 pre code {
   background: none;
+  border: none;
   padding: 0;
   text-shadow: none;
 }
