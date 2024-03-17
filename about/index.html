@@ -27,7 +27,7 @@
 <meta property="og:description" content="这个博客是由 Hexo  和主题 NexT.  搭建支持的。做了很多美化工作。  主要这个博客就是放一些我的见闻和看法，以及一大堆课程笔记的。预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。  就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？你既然看到这里了，不如就在 留言板 留个言吧。  省流：The blog hosted on Github Pag">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-01T01:21:17.000Z">
-<meta property="article:modified_time" content="2024-03-16T14:14:56.644Z">
+<meta property="article:modified_time" content="2024-03-17T00:55:15.609Z">
 <meta property="article:author" content="JoyWonderful">
 <meta name="twitter:card" content="summary">
 
@@ -159,7 +159,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -170,7 +170,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">20</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -293,7 +293,7 @@
         cmt_id.innerHTML = `<span class="ititle">Run_Id: </span><a href="${lrun.html_url}" target="_blank">#${lrun.run_number}</a><br><span class="ititle">Commit: </span><a href="https://github.com/JoyWonderful/joywonderful.github.io/commit/${lrun.head_commit.id}" target="_blank">${lrun.head_commit.id.slice(0, 7)}</a>`;
         stat.innerHTML = `<span class="ititle">Status</span><br><span class="indexcnt">${statstr}</span>${staticon}`;
         durat.innerHTML = `<span class="ititle">Total Duration</span><br><span class="indexcnt">${totdura}<span style="opacity:0.7;">sec</span></span>`;
-        update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
+        update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()+1}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
     });
 </script>
       </div>
