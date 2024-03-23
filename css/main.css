@@ -424,6 +424,7 @@ pre[class*="language-"].line-numbers > code {
 }
 pre[class*="language-"] {
   border-radius: 4px;
+  position: relative;
 }
 pre[class*="language-"]::before {
   content: attr(data-language);
@@ -434,6 +435,15 @@ pre[class*="language-"]::before {
   right: 5px;
   top: 5px;
   transition: opacity 0.3s, visibility 0.3s;
+}
+pre[class*="language-"]::-webkit-scrollbar {
+  height: 6px;
+  background-color: #dfdfdf;
+  border-radius: 6px;
+}
+pre[class*="language-"]::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 6px;
 }
 .copy-btn {
   color: #333;
