@@ -74,6 +74,7 @@ NexT.utils = {
           const container = element.querySelector('.table-container') || element;
           box = document.createElement('div');
           box.className = 'code-container';
+          box.setAttribute('data-language', container.getAttribute('data-language')); // Add data language for 'relative' there -jywondf
           container.wrap(box);
 
           // add "notranslate" to prevent Google Translate from translating it, which also completely messes up the layout

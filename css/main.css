@@ -415,26 +415,25 @@ pre[class*="language-"].line-numbers > code {
   opacity: 1;
   visibility: visible;
 }
-.code-container:hover pre[class*="language-"]::before {
+.code-container:hover::before {
   opacity: 0;
   visibility: hidden;
 }
 .code-container {
   position: relative;
 }
-pre[class*="language-"] {
-  border-radius: 4px;
-  position: relative;
-}
-pre[class*="language-"]::before {
+.code-container::before {
   content: attr(data-language);
-  opacity: 0.4;
+  opacity: 0.3;
   visibility: visible;
   font-weight: 700;
+  font-family: consolas, Menlo, monospace, 'LXGW WenKai Lite';
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 6px;
   transition: opacity 0.3s, visibility 0.3s;
+}
+pre[class*="language-"] {
+  border-radius: 4px;
 }
 pre[class*="language-"]::-webkit-scrollbar {
   height: 6px;

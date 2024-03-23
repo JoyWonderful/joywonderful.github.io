@@ -1116,62 +1116,6 @@ string a<span class="token punctuation">[</span><span class="token number">103</
       </tags>
   </entry>
   <entry>
-    <title>Git 的连接 Github 小记</title>
-    <url>//posts/git-github/</url>
-    <content><![CDATA[<p>又是一个随记，方便自己使用的。<br>首先，得到 <a href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
-<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
-
-<p>就下载好了。</p>
-<span id="more"></span>
-<h2 id="使用-SSH-连接-Github"><a href="#使用-SSH-连接-Github" class="headerlink" title="使用 SSH 连接 Github"></a>使用 SSH 连接 Github</h2><p>首先确保拥有一个 Github 账号，打开终端，生成 SSH 密钥：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"email"</span></code></pre>
-
-<p>它的提示全部回车就可以了。”email” 是 Github 注册使用的邮箱地址。</p>
-<p>成功后会在用户文件夹（Windows 下通常是 <code>%USERPROFILE%</code> 环境变量，Linux 直接打开 <code>~/</code>）下生成一个 <code>.ssh</code> 文件夹，打开 <code>id_rsa.pub</code> 文件，复制里面的密钥后回到 Github 打开设置，找到 “<strong>SSH anf PGP keys</strong>“ 一栏，点击 “New SSH key”，Title 填上，将刚刚复制的密钥粘贴到 “Key” 一栏，点击 “Add SSH key” 保存。</p>
-<p><img src="https://s2.loli.net/2023/08/13/L3bmqAR1vf2whSM.png" alt="git-github.png"></p>
-<p>随后可以验证是否完成，打开终端输入：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
-The authenticity of <span class="token function">host</span> <span class="token string">'github.com (IP ADDRESS)'</span> can<span class="token string">'t be established.
-RSA key fingerprint is (FINGERPRINT).
-Are you sure you want to continue connecting (yes/no)? yes #在这里输入 yes
-Hi (USER NAME)! You'</span>ve successfully authenticated, but GitHub does not provide shell access. <span class="token comment">#连接成功</span></code></pre>
-
-<h2 id="连接-Github-仓库"><a href="#连接-Github-仓库" class="headerlink" title="连接 Github 仓库"></a>连接 Github 仓库</h2><p>新建 Github 仓库。在电脑新建一个文件夹，创建一些文件，然后打开终端：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init
-Initialized empty Git repository <span class="token keyword">in</span> /.git/
-
-$ <span class="token function">git</span> <span class="token function">add</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span> <span class="token comment">#你可以不断 add，也可以直接 git add .</span>
-create mode <span class="token number">100644</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span>
-
-$ <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"The commit information"</span> <span class="token comment">#建议 commit 信息用英文写详细，养成好习惯</span>
-
-$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main <span class="token comment">#现在的 Github 默认为 main 分支</span>
-
-$ <span class="token function">git</span> remote <span class="token function">add</span> origin git@github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git <span class="token comment">#改成自己的用户名和仓库名</span>
-
-$ <span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
-Enumerating objects: <span class="token number">7735</span>, done.
-Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, done.
-Delta compression using up to <span class="token number">4</span> threads
-Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7413</span>/7413<span class="token punctuation">)</span>, done.
-Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, <span class="token number">55.74</span> MiB <span class="token operator">|</span> <span class="token number">1.53</span> MiB/s, done.
-Total <span class="token number">7735</span> <span class="token punctuation">(</span>delta <span class="token number">2030</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>      
-remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2030</span>/2030<span class="token punctuation">)</span>, done.
-To github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git
- * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main -<span class="token operator">></span> main
-branch <span class="token string">'main'</span> <span class="token builtin class-name">set</span> up to track <span class="token string">'origin/main'</span><span class="token builtin class-name">.</span></code></pre>
-
-<p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
-]]></content>
-      <categories>
-        <category>编程随记</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数</title>
     <url>//posts/function/</url>
     <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
@@ -1512,6 +1456,62 @@ gs             0x0      <span class="token number">0</span>
       </categories>
       <tags>
         <tag>编译</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git 的连接 Github 小记</title>
+    <url>//posts/git-github/</url>
+    <content><![CDATA[<p>又是一个随记，方便自己使用的。<br>首先，得到 <a href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
+<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
+
+<p>就下载好了。</p>
+<span id="more"></span>
+<h2 id="使用-SSH-连接-Github"><a href="#使用-SSH-连接-Github" class="headerlink" title="使用 SSH 连接 Github"></a>使用 SSH 连接 Github</h2><p>首先确保拥有一个 Github 账号，打开终端，生成 SSH 密钥：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"email"</span></code></pre>
+
+<p>它的提示全部回车就可以了。”email” 是 Github 注册使用的邮箱地址。</p>
+<p>成功后会在用户文件夹（Windows 下通常是 <code>%USERPROFILE%</code> 环境变量，Linux 直接打开 <code>~/</code>）下生成一个 <code>.ssh</code> 文件夹，打开 <code>id_rsa.pub</code> 文件，复制里面的密钥后回到 Github 打开设置，找到 “<strong>SSH anf PGP keys</strong>“ 一栏，点击 “New SSH key”，Title 填上，将刚刚复制的密钥粘贴到 “Key” 一栏，点击 “Add SSH key” 保存。</p>
+<p><img src="https://s2.loli.net/2023/08/13/L3bmqAR1vf2whSM.png" alt="git-github.png"></p>
+<p>随后可以验证是否完成，打开终端输入：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+The authenticity of <span class="token function">host</span> <span class="token string">'github.com (IP ADDRESS)'</span> can<span class="token string">'t be established.
+RSA key fingerprint is (FINGERPRINT).
+Are you sure you want to continue connecting (yes/no)? yes #在这里输入 yes
+Hi (USER NAME)! You'</span>ve successfully authenticated, but GitHub does not provide shell access. <span class="token comment">#连接成功</span></code></pre>
+
+<h2 id="连接-Github-仓库"><a href="#连接-Github-仓库" class="headerlink" title="连接 Github 仓库"></a>连接 Github 仓库</h2><p>新建 Github 仓库。在电脑新建一个文件夹，创建一些文件，然后打开终端：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init
+Initialized empty Git repository <span class="token keyword">in</span> /.git/
+
+$ <span class="token function">git</span> <span class="token function">add</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span> <span class="token comment">#你可以不断 add，也可以直接 git add .</span>
+create mode <span class="token number">100644</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span>
+
+$ <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"The commit information"</span> <span class="token comment">#建议 commit 信息用英文写详细，养成好习惯</span>
+
+$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main <span class="token comment">#现在的 Github 默认为 main 分支</span>
+
+$ <span class="token function">git</span> remote <span class="token function">add</span> origin git@github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git <span class="token comment">#改成自己的用户名和仓库名</span>
+
+$ <span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
+Enumerating objects: <span class="token number">7735</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">4</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7413</span>/7413<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, <span class="token number">55.74</span> MiB <span class="token operator">|</span> <span class="token number">1.53</span> MiB/s, done.
+Total <span class="token number">7735</span> <span class="token punctuation">(</span>delta <span class="token number">2030</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>      
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2030</span>/2030<span class="token punctuation">)</span>, done.
+To github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git
+ * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main -<span class="token operator">></span> main
+branch <span class="token string">'main'</span> <span class="token builtin class-name">set</span> up to track <span class="token string">'origin/main'</span><span class="token builtin class-name">.</span></code></pre>
+
+<p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
+]]></content>
+      <categories>
+        <category>编程随记</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
       </tags>
   </entry>
   <entry>
