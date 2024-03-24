@@ -14,7 +14,7 @@
 
 
 <link rel="stylesheet" href="/webfonts/lxgw/lxgwwenkailite-regular.css"> 
-
+<link rel="stylesheet" href="/webfonts/firacode/fira_code.css"> 
 <link rel="stylesheet" href="/webfonts/fontawesome/fontawsm.min.css"> 
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"joywonderful.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
@@ -27,7 +27,7 @@
 <meta property="og:description" content=".TEX-B {         color: #000;     }   x 进制，代表着在这个计数方法中逢 x 进一，例如十进制就代表着逢十进一。我们平常在生活中用的都是十进制。进制一类的东西在 OI 中也比较重要CCF 喜欢考，计算机中的数据都是以二进制储存的，二进制也完美地利用了每一个比特。当然，只要有足够的表示方法，人们可以弄出三十二进制、六十四进制，甚至一千进制。闲的没事情干">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-12T02:00:41.000Z">
-<meta property="article:modified_time" content="2024-03-10T11:10:35.380Z">
+<meta property="article:modified_time" content="2024-03-24T10:10:39.913Z">
 <meta property="article:author" content="JoyWonderful">
 <meta property="article:tag" content="语言入门">
 <meta name="twitter:card" content="summary">
@@ -243,7 +243,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-10 19:10:35" itemprop="dateModified" datetime="2024-03-10T19:10:35+08:00">2024-03-10</time>
+      <time title="修改时间：2024-03-24 18:10:39" itemprop="dateModified" datetime="2024-03-24T18:10:39+08:00">2024-03-24</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -281,9 +281,8 @@
 <h4 id="十进制-gt-二进制"><a href="#十进制-gt-二进制" class="headerlink" title="十进制 -&gt; 二进制"></a>十进制 -&gt; 二进制</h4><p>可以使用短除法，将十进制除以二取余，直至商为零。最后将取余的结果倒序输出。<br>比如说，还是那个数字 $(89)_{10}$：</p>
 <p>$$<br>\begin{aligned}<br>2 \ | \underline{ \ \ \ \ \ \ \ \ } &amp;\underline{89 \ }<br>\\<br>2 \ | \underline{ \ \ \ \ \ \ \ } &amp;\underline{44 \ } \ \ \ \ \ \ \textbf{1}<br>\\<br>2 \ | \underline{ \ \ \ \ \ \ } &amp;\underline{22 \ } \ \ \ \ \ \ \textbf{0}<br>\\<br>2 \ | \underline{ \ \ \ \ \ } &amp;\underline{11 \ } \ \ \ \ \ \ \textbf{0}<br>\\<br>2 \ | \underline{ \ \ \ \ } &amp;\underline{\ \ 5 \ } \ \ \ \ \ \ \textbf{1}<br>\\<br>2 \ | \underline{ \ \ \ } &amp;\underline{\ \ 2 \ } \ \ \ \ \ \ \textbf{1}<br>\\<br>2 \ | \underline{ \ \ } &amp;\underline{\ \ 1 \ } \ \ \ \ \ \ \textbf{0}<br>\\<br>2 \ | &amp;\underline{\ \ 0 \ } \ \ \ \ \ \ \textbf{1}<br>\end{aligned}<br>$$</p>
 <p>最后，倒着输出即可得知 $(89)_{10} = (1011001)_2$ 。<br><del>ps: mathjax 没有特定的短除公式，只好用这种奇特的方法模拟短除。</del></p>
-<div class="note info"><p style="color:#428bca;font-weight:bold;">P.S. 另一种更方便的双向转换方法</p>
-
-<p><span style="margin-bottom: 0px;">可以发现，其实二进制十进制的互相转换都离不开 二的 i 次方，也可以将这张表记下来（也就是从右往左不断地乘二嘛），之后的转换会方便很多。</span><br>其实这张表也就是二的 i 次方：</p>
+<div class="note info"><p>P.S. 另一种更方便的双向转换方法</p>
+<p>可以发现，其实二进制十进制的互相转换都离不开 二的 i 次方，也可以将这张表记下来（也就是从右往左不断地乘二嘛），之后的转换会方便很多。<br>其实这张表也就是二的 i 次方：</p>
 <p>$$… 256 \ \ 128 \ \ 64 \ \ 32 \ \ 16 \ \ 8 \ \ 4 \ \ 2 \ \ 1$$</p>
 <div class="tabs" id="demo"><ul class="nav-tabs"><li class="tab active"><a href="#demo-1">二进制进制转十进制</a></li><li class="tab"><a href="#demo-2">十进制转二进制</a></li></ul><div class="tab-content"><div class="tab-pane active" id="demo-1"><p>这算是这张表最方便的用法了，还是 $(1011001)_2$</p>
 <table>
@@ -441,8 +440,7 @@ string <span class="token function">tentoy</span><span class="token punctuation"
 <p>$$<br>\therefore<br>(1010111)_{2} = (127)_{8}<br>$$</p></div><div class="tab-pane" id="binhex-2"><p>$$<br>\because<br>\underset{\text{十六进制：}}{\text{二进制：}} ( \underset{3}{\underline{11}} \ \underset{\text{A}}{\underline{1010}} \ \underset{1}{\underline{0001}} )_{2}<br>$$</p>
 <p>$$<br>\therefore<br>(1110100001)_{2} = (\text{3A1})_{16}<br>$$</p></div></div></div>
 
-<div class="note info"><p style="color:#428bca;font-weight:bold;">P.S. 二进制、八进制、十进制、十六进制在 C++ 中的表示方法（前缀）</p>
-
+<div class="note info"><p>P.S. 二进制、八进制、十进制、十六进制在 C++ 中的表示方法（前缀）</p>
 <p>以上这些进制自然有自己的表示方法。其中，二进制以 <code>0b</code> 开头；八进制以 <code>0</code> 开头；十进制就是平常的写法，没有任何前缀；十六进制以 <code>0x</code> 开头。<br>例如，以下代码会输出四个 <code>2147483647</code>。</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d %d\n"</span><span class="token punctuation">,</span> 
        <span class="token number">0b1111111111111111111111111111111</span><span class="token punctuation">,</span>  <span class="token comment">// 二进制</span>
@@ -488,14 +486,12 @@ string <span class="token function">tentoy</span><span class="token punctuation"
 <p>$$<br>\begin{matrix}<br>&amp; 1011001 \\<br>\text{^} &amp; 0111101 \\<br>\hline<br>&amp; 1100100<br>\end{matrix}<br>$$</p>
 <p>转为十进制就是 <span style="font-family:monospace;">89 ^ 61 = 100</span>。</p>
 <h3 id="左移-lt-lt-右移-gt-gt"><a href="#左移-lt-lt-右移-gt-gt" class="headerlink" title="左移 &lt;&lt; 右移 &gt;&gt;"></a>左移 <code>&lt;&lt;</code> 右移 <code>&gt;&gt;</code></h3><p>将所有二进制位全部左移，也就是将最左边的二进制位丢弃，右边补上一个 0。例如：<br><code>10110011 &lt;&lt; 1 = 01100110</code>。<br>右移也是一样，不过负数往左边补 1，正数补 0。</p>
-<div class="note info"><p style="color:#428bca;font-weight:bold;">P.S. 位运算时赋值</p>
-
+<div class="note info"><p>P.S. 位运算时赋值</p>
 <p>同 <code>+=</code> <code>-=</code> 等符号一样，位运算也可以在符号后面加上 <code>=</code>，<code>&gt;&gt;=</code> <code>^=</code> <code>&amp;=</code> <code>&lt;&lt;=</code> <code>|=</code> 等运算符都是可以的。</p>
 </div>
 
-<div class="note info"><p style="color:#428bca;font-weight:bold;">P.S. 位运算的一些使用技巧</p>
-位运算其实有很多奇怪的应用。例如：
-
+<div class="note info"><p>P.S. 位运算的一些使用技巧</p>
+<p>位运算其实有很多奇怪的应用。例如：</p>
 <ol>
 <li><strong>判断偶数奇数</strong>（能否被 2 整除）。0 是偶数 1 是奇数。<code>([number] &amp; 1) == 1</code> 相当于 <code>([number] % 2) == 1</code>，平常还是写 <code>[number] &amp; 1</code>。举个例子，<code>10 &amp; 1 = 0</code>、<code>13 &amp; 1 = 1</code>。</li>
 <li><strong>求 2 的几次方</strong>，<code>1 &lt;&lt; [number]</code> 就是求 2 的 [number] 次方。例如 <code>1 &lt;&lt; 10 = sqrt(2, 10) = 1024</code>。</li>
@@ -521,8 +517,7 @@ string <span class="token function">tentoy</span><span class="token punctuation"
 <h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>其实这才是计算机真正使用的二进制编码，前面的两种编码基本上只供学习和理解用。</p>
 <p>若那个二进制为正数，原码、反码和补码相同；若为负数，那么它的补码是它的反码加一。（请注意，二进制加法逢二进一）例如：</p>
 <p>$$<br>\begin{aligned}<br>(27)_{10} &amp;= [00011011]_{\text{原}} = [00011011]_{\text{反}} = [00011011]_{\text{补}}<br>\\<br>(-53)_{10} &amp;= [10110101]_{\text{原}} = [11001010]_{\text{反}} = [11001011]_{\text{补}}<br>\end{aligned}<br>$$</p>
-<div class="note info"><p style="color:#428bca;font-weight:bold;">P.S. 补码的快速转十进制方法</p>
-
+<div class="note info"><p>P.S. 补码的快速转十进制方法</p>
 <p>同普通二进制转十进制一样，可以弄一张差不多一样的表，不同的是，这张表的最左边的数（符号位）是负数。<br>还是以 8 位整型为例，这张表是这样的：</p>
 <p>$$-128 \ \ 64 \ \ 32 \ \ 16 \ \ 8 \ \ 4 \ \ 2 \ \ 1$$</p>
 <p>刚才的 -53 就可以以这种方法转换：</p>
