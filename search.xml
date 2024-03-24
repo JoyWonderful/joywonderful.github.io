@@ -1,19 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>二叉树的前序、中序、后序遍历</title>
-    <url>//posts/binarytree-fme/</url>
-    <content><![CDATA[<p>二叉树的前序遍历中序遍历和后序遍历是比较重要的<del>CCF办的比赛要考（雾</del>。可以通过这三个遍历的顺序结果确定整个树的结构。前序遍历是<strong>根左右</strong>，中序遍历是<strong>左根右</strong>，后序遍历是<strong>左右根</strong>。（不想多写什么了）</p>
-<h2 id="实践：前序遍历中序遍历确定树"><a href="#实践：前序遍历中序遍历确定树" class="headerlink" title="实践：前序遍历中序遍历确定树"></a>实践：前序遍历中序遍历确定树</h2><p>前序遍历：<code>1 2 4 3 5 6</code><br>中序遍历：<code>4 2 1 5 3 6</code></p>
-<p>先来看前序，由于前序遍历的顺序是根左右，那么 <code>1</code> 一定是整个树的根节点。<span id="more"></span>随后在中序遍历找到 <code>1</code>，即可判断这个二叉树的左子树和右子树，就是这样分开来：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;">2 4</span> <span style="border: solid 1px #555; border-radius: 2px;">3 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 2</span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 3 6</span></code><br>在继续分下去，得到：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;"><span style="border-bottom: solid 2px #ccc;">2</span> 4</span> <span style="border: solid 1px #555; border-radius: 2px;"><span style="border-bottom: solid 2px #111;">3</span> 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 <span style="border-bottom: solid 2px #ccc;">2</span></span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 <span style="border-bottom: solid 2px #111;">3</span> 6</span></code></p>
-<p>最终，得到这样一个树：<br><img src="https://s2.loli.net/2023/08/03/JqBMmjXIrFUk1L2.png"></p>
-]]></content>
+    <title>广度优先搜索</title>
+    <url>//posts/bfs/</url>
+    <content><![CDATA[<p>这不，刚学完<a style="border-bottom:none;" href="/posts/dfs">深搜</a>没多久，又来写广搜笔记了（话说我队列笔记还没来得急写呢）。<strong>广度优先搜索</strong>，广搜，英文为<strong>Breadth First Search</strong>，简称 <strong>BFS</strong>。是从一个结点向其他方向的结点不断扩散，如同一道水晕在湖面上荡漾开来。主要可以用来找路径<strong>权值一定</strong>的最短路径。<br>深搜可以用到队列先进先出的特性。当一个结点准备扩散时，即弹出队列，再将接下来扩散到结点加入队列。随后按照队首扩散、弹出，不断循环。这也是叫它广度优先搜索的原因。</p>
+<span id="more"></span>
+
+<p>例题：<a href="https://www.luogu.com.cn/problem/P2360">洛谷 P2360</a><br>广搜可以做，直接通过路径扩散就好。<br>代码：（想水博文 QwQ）</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">node</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
+<span class="token keyword">char</span> themap<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> flag<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dist<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> bx<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> by<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> bz<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">bfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> z<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    queue<span class="token operator">&lt;</span>node<span class="token operator">></span> q<span class="token punctuation">;</span>
+    node pdata<span class="token punctuation">;</span>
+    pdata<span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>z <span class="token operator">=</span> z<span class="token punctuation">;</span>
+    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>pdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    flag<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">while</span><span class="token punctuation">(</span>q<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        node p <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        q<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">int</span> tx <span class="token operator">=</span> p<span class="token punctuation">.</span>x <span class="token operator">+</span> bx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> ty <span class="token operator">=</span> p<span class="token punctuation">.</span>y <span class="token operator">+</span> by<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> tz <span class="token operator">=</span> p<span class="token punctuation">.</span>z <span class="token operator">+</span> bz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment">//cout &lt;&lt; tx &lt;&lt; " " &lt;&lt; ty &lt;&lt; " " &lt;&lt; tz &lt;&lt; endl;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>tx <span class="token operator">&lt;=</span> r <span class="token operator">&amp;&amp;</span> tx <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ty <span class="token operator">&lt;=</span> c <span class="token operator">&amp;&amp;</span> ty <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> tz <span class="token operator">&lt;=</span> l <span class="token operator">&amp;&amp;</span> tz <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flag<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'.'</span> <span class="token operator">||</span> themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                node tdata<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>x <span class="token operator">=</span> tx<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>y <span class="token operator">=</span> ty<span class="token punctuation">;</span>
+                tdata<span class="token punctuation">.</span>z <span class="token operator">=</span> tz<span class="token punctuation">;</span>
+                q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                flag<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                dist<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> dist<span class="token punctuation">[</span>p<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> l <span class="token operator">>></span> r <span class="token operator">>></span> c<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ex<span class="token punctuation">,</span> ey<span class="token punctuation">,</span> ez<span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> r<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> c<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                cin <span class="token operator">>></span> themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'S'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    sx <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    sy <span class="token operator">=</span> k<span class="token punctuation">;</span>
+                    sz <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">&#123;</span>
+                    ex <span class="token operator">=</span> j<span class="token punctuation">;</span>
+                    ey <span class="token operator">=</span> k<span class="token punctuation">;</span>
+                    ez <span class="token operator">=</span> i<span class="token punctuation">;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">bfs</span><span class="token punctuation">(</span>sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Trapped!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Escaped in "</span> <span class="token operator">&lt;&lt;</span> dist<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" minute(s)."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
-        <tag>树</tag>
+        <tag>搜索</tag>
+        <tag>队列</tag>
+        <tag>基础算法</tag>
       </tags>
   </entry>
   <entry>
@@ -141,103 +225,82 @@
       </tags>
   </entry>
   <entry>
-    <title>广度优先搜索</title>
-    <url>//posts/bfs/</url>
-    <content><![CDATA[<p>这不，刚学完<a style="border-bottom:none;" href="/posts/dfs">深搜</a>没多久，又来写广搜笔记了（话说我队列笔记还没来得急写呢）。<strong>广度优先搜索</strong>，广搜，英文为<strong>Breadth First Search</strong>，简称 <strong>BFS</strong>。是从一个结点向其他方向的结点不断扩散，如同一道水晕在湖面上荡漾开来。主要可以用来找路径<strong>权值一定</strong>的最短路径。<br>深搜可以用到队列先进先出的特性。当一个结点准备扩散时，即弹出队列，再将接下来扩散到结点加入队列。随后按照队首扩散、弹出，不断循环。这也是叫它广度优先搜索的原因。</p>
+    <title>个人意见：如何写出漂亮的代码</title>
+    <url>//posts/code-format/</url>
+    <content><![CDATA[<div class="note warning"><p style="color:#f0ad4e;font-weight:800;margin-bottom:0px;">创作说明：</p>
+<p style="margin-bottom:0px;">此文章仅为个人看法。您写代码的习惯可以依据您的个人喜好。此文章只是一些个人的建议。</p>
+<p style="margin-bottom:0px;">您在 OI 竞赛中，您<strong>完全可以</strong>不去注意代码风格。</p>
+<p style="margin-bottom:0px;">此文章的建议主要用于工程代码中。</p></div>
+
+<p>代码的维护还是很重要的。相信谁也不愿意去维护连自己都看得头晕的代码。在这里，我想给出一些个人建议，让代码的可读性强一些。大部分代码以 C++ 为例。这篇文章其实也是给自己看的。</p>
 <span id="more"></span>
 
-<p>例题：<a href="https://www.luogu.com.cn/problem/P2360">洛谷 P2360</a><br>广搜可以做，直接通过路径扩散就好。<br>代码：（想水博文 QwQ）</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<h2 id="空行与空格"><a href="#空行与空格" class="headerlink" title="空行与空格"></a><!--一、-->空行与空格</h2><p>无论是什么代码，空行往往代表着一个功能块，或是一个逻辑的结束，在适当的地方空行可以增强代码的可读性。空格也是这样。虽然一些地方的空格和空行会被编译器（或解释器）忽略，但是空行和空格必不可少。就比如说这样一个示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;string></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-
-<span class="token keyword">struct</span> <span class="token class-name">node</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> z<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> l<span class="token punctuation">,</span> r<span class="token punctuation">,</span> c<span class="token punctuation">;</span>
-<span class="token keyword">char</span> themap<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> flag<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">,</span> dist<span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">33</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> bx<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> by<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">int</span> bz<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span>  <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-<span class="token keyword">void</span> <span class="token function">bfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> z<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    queue<span class="token operator">&lt;</span>node<span class="token operator">></span> q<span class="token punctuation">;</span>
-    node pdata<span class="token punctuation">;</span>
-    pdata<span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span> pdata<span class="token punctuation">.</span>z <span class="token operator">=</span> z<span class="token punctuation">;</span>
-    q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>pdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    flag<span class="token punctuation">[</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-
-    <span class="token keyword">while</span><span class="token punctuation">(</span>q<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        node p <span class="token operator">=</span> q<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        q<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">int</span> tx <span class="token operator">=</span> p<span class="token punctuation">.</span>x <span class="token operator">+</span> bx<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> ty <span class="token operator">=</span> p<span class="token punctuation">.</span>y <span class="token operator">+</span> by<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token keyword">int</span> tz <span class="token operator">=</span> p<span class="token punctuation">.</span>z <span class="token operator">+</span> bz<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-            <span class="token comment">//cout &lt;&lt; tx &lt;&lt; " " &lt;&lt; ty &lt;&lt; " " &lt;&lt; tz &lt;&lt; endl;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>tx <span class="token operator">&lt;=</span> r <span class="token operator">&amp;&amp;</span> tx <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ty <span class="token operator">&lt;=</span> c <span class="token operator">&amp;&amp;</span> ty <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> tz <span class="token operator">&lt;=</span> l <span class="token operator">&amp;&amp;</span> tz <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flag<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'.'</span> <span class="token operator">||</span> themap<span class="token punctuation">[</span>tx<span class="token punctuation">]</span><span class="token punctuation">[</span>ty<span class="token punctuation">]</span><span class="token punctuation">[</span>tz<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                node tdata<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>x <span class="token operator">=</span> tx<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>y <span class="token operator">=</span> ty<span class="token punctuation">;</span>
-                tdata<span class="token punctuation">.</span>z <span class="token operator">=</span> tz<span class="token punctuation">;</span>
-                q<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>tdata<span class="token punctuation">)</span><span class="token punctuation">;</span>
-                flag<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                dist<span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>tdata<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">=</span> dist<span class="token punctuation">[</span>p<span class="token punctuation">.</span>x<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>y<span class="token punctuation">]</span><span class="token punctuation">[</span>p<span class="token punctuation">.</span>z<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    cin <span class="token operator">>></span> l <span class="token operator">>></span> r <span class="token operator">>></span> c<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">;</span>
-    <span class="token keyword">int</span> ex<span class="token punctuation">,</span> ey<span class="token punctuation">,</span> ez<span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> r<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> c<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                cin <span class="token operator">>></span> themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'S'</span><span class="token punctuation">)</span>
-                <span class="token punctuation">&#123;</span>
-                    sx <span class="token operator">=</span> j<span class="token punctuation">;</span>
-                    sy <span class="token operator">=</span> k<span class="token punctuation">;</span>
-                    sz <span class="token operator">=</span> i<span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-                <span class="token keyword">if</span><span class="token punctuation">(</span>themap<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span>
-                <span class="token punctuation">&#123;</span>
-                    ex <span class="token operator">=</span> j<span class="token punctuation">;</span>
-                    ey <span class="token operator">=</span> k<span class="token punctuation">;</span>
-                    ez <span class="token operator">=</span> i<span class="token punctuation">;</span>
-                <span class="token punctuation">&#125;</span>
-            <span class="token punctuation">&#125;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-
-    <span class="token function">bfs</span><span class="token punctuation">(</span>sx<span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sz<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Trapped!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-    <span class="token keyword">else</span> cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Escaped in "</span> <span class="token operator">&lt;&lt;</span> dist<span class="token punctuation">[</span>ex<span class="token punctuation">]</span><span class="token punctuation">[</span>ey<span class="token punctuation">]</span><span class="token punctuation">[</span>ez<span class="token punctuation">]</span> <span class="token operator">&lt;&lt;</span> <span class="token string">" minute(s)."</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
-
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    string s<span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">;</span>cin<span class="token operator">>></span>s<span class="token punctuation">;</span>cin<span class="token operator">>></span>a<span class="token punctuation">;</span>
+    cin<span class="token operator">>></span>b<span class="token punctuation">;</span>cin<span class="token operator">>></span>c<span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>s<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>a<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>b<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>c<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>]]></content>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>这段代码是可以编译的，但是逻辑很混乱。流输入输出符之间没有空格，也没有空行。这样导致可读性很差。</p>
+<p>一些建议：</p>
+<ul>
+<li><strong>关于空格</strong><ol>
+<li>在运算符之间尽量加上空格。</li>
+<li>逗号之后加上空格。例如 <code>int a, b, c;</code>。</li>
+<li>括号两边不必要加空格。例如应该这样 <code>if(n == 1)</code> 而不是这样 <code>if ( n == 1 )</code>。</li>
+<li>特殊的建议，C++ 逻辑运算符如 <code>&amp;&amp;</code> <code>||</code> 最好这样写： <code>if(i==1 || j!=2 &amp;&amp; k&gt;3)</code>。</li>
+</ol>
+</li>
+<li><strong>关于空行</strong><ol>
+<li>C++ 中（以及其他语言）确实可以使用语句分隔符 <code>;</code> 在一行完成几个操作。但完全不相关的操作最好不要放一行，也不要把一行代码弄得很长很长。</li>
+<li>不要完全没有空行，空行往往可以增加代码的可读性。在不同的功能代码或逻辑之间空行，不要将相关联的代码空开来。</li>
+</ol>
+</li>
+</ul>
+<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a><!--二、-->缩进</h2><p>很多代码都最好写缩进，哪怕有大括号也不例外。在 C++ 中，虽然不写它也没有关系，但这是一种编码习惯，也可以增强代码的可读性。在 Python 中，缩进更为重要，不写那就报错了。</p>
+<p>这里有一些错误示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">i <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span></code></pre>
+
+<p>C++ 的示例虽然不会报错，但是很不美观,看不出层次。Python 的缩进一个使用了 <code>Tab</code>，另一个使用了两个空格，导致 <code style="color:#fa0000">SyntaxError: unindent does not match any outer indentation level</code>。</p>
+<p>一些建议：</p>
+<ul>
+<li>缩进最好使用空格，不要使用 Tab 字符。</li>
+<li>遵循使用语言的缩进规则，不要弄出奇怪的缩进。例如 1 个空格。</li>
+<li>不要混用空格个数或 Tab。例如同样的层次，一个用 2 个空格，一个用 4 个空格。有些语言（例如 Python）会直接报错。</li>
+</ul>
+<h2 id="命名方法"><a href="#命名方法" class="headerlink" title="命名方法"></a><!--三、-->命名方法</h2><p>一段代码中应该尽量使用恰当的命名方法。不可以随意命名，命名应该表达元素的含义和作用避免使用冗余无意义的词汇。</p>
+<p>以下是常用的命名方法：</p>
+<ul>
+<li><strong>驼峰命名法</strong> 使用大小写混合的格式，单词间不适用空格或连接符。一般来说，类名的开头字母大写，例如 <code>GetConsoleInfo</code>, <code>PrintSystemVersion</code>；方法名、参数名、变量名开头字母小写，例如 <code>redGem</code>, <code>heroLife</code>。</li>
+<li><strong>匈牙利命名法</strong> 使用变量类型的缩写作为前缀，其余部分使用驼峰命名法。例如 <code>char cMyAnswer</code>, <code>int iPersonAge</code>, <code>double dManWeight</code>。</li>
+<li><strong>下划线命名法</strong> 使用下划线连接单词，大小写统一。例如 <code>clear_all</code>, <code>set_color</code>, <code>MAX_WIDTH</code>。</li>
+</ul>
+<p>建议：一般来说，常量、宏定义等全部使用大写，其他使用小写。</p>
+]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>编程随记</category>
       </categories>
       <tags>
-        <tag>基础算法</tag>
-        <tag>搜索</tag>
-        <tag>队列</tag>
+        <tag>优化</tag>
       </tags>
   </entry>
   <entry>
@@ -319,8 +382,8 @@
       </categories>
       <tags>
         <tag>基础算法</tag>
-        <tag>前缀和，差分</tag>
         <tag>优化</tag>
+        <tag>前缀和，差分</tag>
       </tags>
   </entry>
   <entry>
@@ -374,85 +437,6 @@ window<span class="token punctuation">.</span><span class="token function">close
       </categories>
       <tags>
         <tag>JavaScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>个人意见：如何写出漂亮的代码</title>
-    <url>//posts/code-format/</url>
-    <content><![CDATA[<div class="note warning"><p style="color:#f0ad4e;font-weight:800;margin-bottom:0px;">创作说明：</p>
-<p style="margin-bottom:0px;">此文章仅为个人看法。您写代码的习惯可以依据您的个人喜好。此文章只是一些个人的建议。</p>
-<p style="margin-bottom:0px;">您在 OI 竞赛中，您<strong>完全可以</strong>不去注意代码风格。</p>
-<p style="margin-bottom:0px;">此文章的建议主要用于工程代码中。</p></div>
-
-<p>代码的维护还是很重要的。相信谁也不愿意去维护连自己都看得头晕的代码。在这里，我想给出一些个人建议，让代码的可读性强一些。大部分代码以 C++ 为例。这篇文章其实也是给自己看的。</p>
-<span id="more"></span>
-
-<h2 id="空行与空格"><a href="#空行与空格" class="headerlink" title="空行与空格"></a><!--一、-->空行与空格</h2><p>无论是什么代码，空行往往代表着一个功能块，或是一个逻辑的结束，在适当的地方空行可以增强代码的可读性。空格也是这样。虽然一些地方的空格和空行会被编译器（或解释器）忽略，但是空行和空格必不可少。就比如说这样一个示例：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;string></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-    string s<span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">;</span>cin<span class="token operator">>></span>s<span class="token punctuation">;</span>cin<span class="token operator">>></span>a<span class="token punctuation">;</span>
-    cin<span class="token operator">>></span>b<span class="token punctuation">;</span>cin<span class="token operator">>></span>c<span class="token punctuation">;</span>
-    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>s<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>a<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>b<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>c<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>这段代码是可以编译的，但是逻辑很混乱。流输入输出符之间没有空格，也没有空行。这样导致可读性很差。</p>
-<p>一些建议：</p>
-<ul>
-<li><strong>关于空格</strong><ol>
-<li>在运算符之间尽量加上空格。</li>
-<li>逗号之后加上空格。例如 <code>int a, b, c;</code>。</li>
-<li>括号两边不必要加空格。例如应该这样 <code>if(n == 1)</code> 而不是这样 <code>if ( n == 1 )</code>。</li>
-<li>特殊的建议，C++ 逻辑运算符如 <code>&amp;&amp;</code> <code>||</code> 最好这样写： <code>if(i==1 || j!=2 &amp;&amp; k&gt;3)</code>。</li>
-</ol>
-</li>
-<li><strong>关于空行</strong><ol>
-<li>C++ 中（以及其他语言）确实可以使用语句分隔符 <code>;</code> 在一行完成几个操作。但完全不相关的操作最好不要放一行，也不要把一行代码弄得很长很长。</li>
-<li>不要完全没有空行，空行往往可以增加代码的可读性。在不同的功能代码或逻辑之间空行，不要将相关联的代码空开来。</li>
-</ol>
-</li>
-</ul>
-<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a><!--二、-->缩进</h2><p>很多代码都最好写缩进，哪怕有大括号也不例外。在 C++ 中，虽然不写它也没有关系，但这是一种编码习惯，也可以增强代码的可读性。在 Python 中，缩进更为重要，不写那就报错了。</p>
-<p>这里有一些错误示例：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-<span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<pre class="language-python" data-language="python"><code class="language-python">i <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">:</span>
-	<span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
-  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span></code></pre>
-
-<p>C++ 的示例虽然不会报错，但是很不美观,看不出层次。Python 的缩进一个使用了 <code>Tab</code>，另一个使用了两个空格，导致 <code style="color:#fa0000">SyntaxError: unindent does not match any outer indentation level</code>。</p>
-<p>一些建议：</p>
-<ul>
-<li>缩进最好使用空格，不要使用 Tab 字符。</li>
-<li>遵循使用语言的缩进规则，不要弄出奇怪的缩进。例如 1 个空格。</li>
-<li>不要混用空格个数或 Tab。例如同样的层次，一个用 2 个空格，一个用 4 个空格。有些语言（例如 Python）会直接报错。</li>
-</ul>
-<h2 id="命名方法"><a href="#命名方法" class="headerlink" title="命名方法"></a><!--三、-->命名方法</h2><p>一段代码中应该尽量使用恰当的命名方法。不可以随意命名，命名应该表达元素的含义和作用避免使用冗余无意义的词汇。</p>
-<p>以下是常用的命名方法：</p>
-<ul>
-<li><strong>驼峰命名法</strong> 使用大小写混合的格式，单词间不适用空格或连接符。一般来说，类名的开头字母大写，例如 <code>GetConsoleInfo</code>, <code>PrintSystemVersion</code>；方法名、参数名、变量名开头字母小写，例如 <code>redGem</code>, <code>heroLife</code>。</li>
-<li><strong>匈牙利命名法</strong> 使用变量类型的缩写作为前缀，其余部分使用驼峰命名法。例如 <code>char cMyAnswer</code>, <code>int iPersonAge</code>, <code>double dManWeight</code>。</li>
-<li><strong>下划线命名法</strong> 使用下划线连接单词，大小写统一。例如 <code>clear_all</code>, <code>set_color</code>, <code>MAX_WIDTH</code>。</li>
-</ul>
-<p>建议：一般来说，常量、宏定义等全部使用大写，其他使用小写。</p>
-]]></content>
-      <categories>
-        <category>编程随记</category>
-      </categories>
-      <tags>
-        <tag>优化</tag>
       </tags>
   </entry>
   <entry>
@@ -727,9 +711,25 @@ string a<span class="token punctuation">[</span><span class="token number">103</
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>基础算法</tag>
         <tag>搜索</tag>
+        <tag>基础算法</tag>
         <tag>递归</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树的前序、中序、后序遍历</title>
+    <url>//posts/binarytree-fme/</url>
+    <content><![CDATA[<p>二叉树的前序遍历中序遍历和后序遍历是比较重要的<del>CCF办的比赛要考（雾</del>。可以通过这三个遍历的顺序结果确定整个树的结构。前序遍历是<strong>根左右</strong>，中序遍历是<strong>左根右</strong>，后序遍历是<strong>左右根</strong>。（不想多写什么了）</p>
+<h2 id="实践：前序遍历中序遍历确定树"><a href="#实践：前序遍历中序遍历确定树" class="headerlink" title="实践：前序遍历中序遍历确定树"></a>实践：前序遍历中序遍历确定树</h2><p>前序遍历：<code>1 2 4 3 5 6</code><br>中序遍历：<code>4 2 1 5 3 6</code></p>
+<p>先来看前序，由于前序遍历的顺序是根左右，那么 <code>1</code> 一定是整个树的根节点。<span id="more"></span>随后在中序遍历找到 <code>1</code>，即可判断这个二叉树的左子树和右子树，就是这样分开来：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;">2 4</span> <span style="border: solid 1px #555; border-radius: 2px;">3 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 2</span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 3 6</span></code><br>在继续分下去，得到：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;"><span style="border-bottom: solid 2px #ccc;">2</span> 4</span> <span style="border: solid 1px #555; border-radius: 2px;"><span style="border-bottom: solid 2px #111;">3</span> 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 <span style="border-bottom: solid 2px #ccc;">2</span></span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 <span style="border-bottom: solid 2px #111;">3</span> 6</span></code></p>
+<p>最终，得到这样一个树：<br><img src="https://s2.loli.net/2023/08/03/JqBMmjXIrFUk1L2.png"></p>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -1038,84 +1038,6 @@ string a<span class="token punctuation">[</span><span class="token number">103</
       </tags>
   </entry>
   <entry>
-    <title>二分</title>
-    <url>//posts/erfen/</url>
-    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
-<p>此时，我们学的还是整数二分以及浮点二分。</p>
-<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
-<span id="more"></span>
-
-<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
-<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(1+5)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(4+5)/2=4, a[\texttt{mid}]=4, 4=4, l=3, r=\texttt{mid}=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
-<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-<p>这就是整数二分的一个模板了。又或者：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-<span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> n <span class="token punctuation">;</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
-    <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
-<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
-<p>好了，模版代码<del>大放送</del>：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1e10</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">1e10</span> <span class="token punctuation">;</span> <span class="token comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span>
-<span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-6</span><span class="token punctuation">)</span> <span class="token comment">// 此处的数字同上，模板应为 1e-x</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span> <span class="token comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        l <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">else</span>
-    <span class="token punctuation">&#123;</span>
-        r <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 同上</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
-<ul>
-<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
-<li><input disabled="" type="checkbox"> That’s Good</li>
-</ul>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>优化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>函数</title>
     <url>//posts/function/</url>
     <content><![CDATA[<h2 id="函数的作用"><a href="#函数的作用" class="headerlink" title="函数的作用"></a>函数的作用</h2><p>一般来说，我都是懂的。函数的总用比较简单：</p>
@@ -1267,6 +1189,84 @@ argc<span class="token punctuation">[</span><span class="token number">6</span><
       <tags>
         <tag>语言入门</tag>
         <tag>函数，参数</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二分</title>
+    <url>//posts/erfen/</url>
+    <content><![CDATA[<h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
+<p>此时，我们学的还是整数二分以及浮点二分。</p>
+<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
+<span id="more"></span>
+
+<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
+<p>$$<br>{\color{green}1 \ 2 \ 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(1+5)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=5) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ 5} \<br>$$<br>$$<br>(\texttt{mid}=(4+5)/2=4, a[\texttt{mid}]=4, 4=4, l=3, r=\texttt{mid}=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>{\color{red}1 \ 2 \ }{\color{green} 3 \ 4 \ }{\color{red}5} \<br>$$<br>$$<br>(\texttt{mid}=(3+4)/2=3, a[\texttt{mid}]=3, 4&gt;3, l=\texttt{mid}=3, r=4) \<br>$$<br>$$<br>\textup{…Forever…}<br>$$</p>
+<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>这就是整数二分的一个模板了。又或者：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> n <span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
+<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
+<p>好了，模版代码<del>大放送</del>：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1e10</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">1e10</span> <span class="token punctuation">;</span> <span class="token comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-6</span><span class="token punctuation">)</span> <span class="token comment">// 此处的数字同上，模板应为 1e-x</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span> <span class="token comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        l <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        r <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 同上</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
+<li><input disabled="" type="checkbox"> That’s Good</li>
+</ul>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>优化</tag>
       </tags>
   </entry>
   <entry>
@@ -1554,9 +1554,9 @@ branch <span class="token string">'main'</span> <span class="token builtin class
         <category>课程笔记</category>
       </categories>
       <tags>
+        <tag>基础算法</tag>
         <tag>数据结构</tag>
         <tag>树</tag>
-        <tag>基础算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2257,8 +2257,8 @@ body <span class="token punctuation">&#123;</span></span>
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>基础算法</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -2799,8 +2799,8 @@ first:300, second:400, third:200</code></pre>
         <category>课程笔记</category>
       </categories>
       <tags>
-        <tag>数据结构</tag>
         <tag>基础算法</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -3435,6 +3435,174 @@ first:300, second:400, third:200</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>scanf 和 printf 的格式符</title>
+    <url>//posts/stdoi-snf-pnt/</url>
+    <content><![CDATA[<p>又是一个随记，方便自己的使用。C++ 中的 <code>scanf</code> 和 <code>printf</code> 其实有很多比 <code>cin</code> <code>cout</code> 好用的地方，放在这里。</p>
+<span id="more"></span>
+
+<h2 id="scanf-的使用"><a href="#scanf-的使用" class="headerlink" title="scanf 的使用"></a>scanf 的使用</h2><h3 id="读入的格式"><a href="#读入的格式" class="headerlink" title="读入的格式"></a>读入的格式</h3><p>就直接上表格吧，先把一些特定的读入格式符放在这儿：</p>
+<details open>
+<summary>格式符</summary>
+
+<div class="tabs" id="scanf"><ul class="nav-tabs"><li class="tab active"><a href="#scanf-1">整数</a></li><li class="tab"><a href="#scanf-2">小数</a></li><li class="tab"><a href="#scanf-3">其他</a></li></ul><div class="tab-content"><div class="tab-pane active" id="scanf-1"><table>
+<thead>
+<tr>
+<th align="center">格式符</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>%d</code></td>
+<td align="left">读入 int 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%ld</code></td>
+<td align="left">读入 long 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%lld</code></td>
+<td align="left">读入 long long 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%hd</code></td>
+<td align="left">读入 short 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%u</code></td>
+<td align="left">读入 unsigned int 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%lu</code></td>
+<td align="left">读入 unsigned long 整型</td>
+</tr>
+<tr>
+<td align="center"><code>%llu</code></td>
+<td align="left">读入 unsigned long long 整型</td>
+</tr>
+</tbody></table></div><div class="tab-pane" id="scanf-2"><table>
+<thead>
+<tr>
+<th align="center">格式符</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>%f</code></td>
+<td align="left">读入 float 类型</td>
+</tr>
+<tr>
+<td align="center"><code>%lf</code></td>
+<td align="left">读入 double 类型</td>
+</tr>
+<tr>
+<td align="center"><code>%Lf</code></td>
+<td align="left">读入 long double 类型</td>
+</tr>
+</tbody></table></div><div class="tab-pane" id="scanf-3"><table>
+<thead>
+<tr>
+<th align="center">格式符</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>%c</code></td>
+<td align="left">读入 char 类型</td>
+</tr>
+<tr>
+<td align="center"><code>%s</code></td>
+<td align="left">读入字符串，也就是 char 数组</td>
+</tr>
+<tr>
+<td align="center"><code>%o</code></td>
+<td align="left">读入八进制整型</td>
+</tr>
+<tr>
+<td align="center"><code>%x</code></td>
+<td align="left">读入十六进制整型</td>
+</tr>
+</tbody></table></div></div></div>
+
+</details>
+
+<p>以上其实都是一些读入的格式。还有一些能让读入的格式更加丰富的格式化。</p>
+<h3 id="限制位数"><a href="#限制位数" class="headerlink" title="限制位数"></a>限制位数</h3><p>在以上的任何格式符的 % 后面加上数字 n，即读入的位数就是 n。例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%1d %1d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>假设输入 10345 则会输出 1 0。</p>
+<h3 id="只读入，不赋值"><a href="#只读入，不赋值" class="headerlink" title="只读入，不赋值"></a>只读入，不赋值</h3><p>在任何格式符的 % 后加上 *，就不会赋值给任何变量。例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">;</span>
+<span class="token keyword">long</span> <span class="token keyword">long</span> b<span class="token punctuation">;</span>
+<span class="token keyword">short</span> c<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %*lld %lld %hd"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %lld %hd"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>假设输入：</p>
+<pre class="language-none"><code class="language-none">2147483647 4294967295 11415612712638 128</code></pre>
+
+<p>则输出：</p>
+<pre class="language-none"><code class="language-none">2147483647 11415612712638 128</code></pre>
+
+<p>可见，scanf 忽略了第二个数字 4294967295。</p>
+<h2 id="printf-的使用"><a href="#printf-的使用" class="headerlink" title="printf 的使用"></a>printf 的使用</h2><p>其实它和 scanf 差不多。但是有多了精度，对齐什么的。</p>
+<h3 id="标识和宽度"><a href="#标识和宽度" class="headerlink" title="标识和宽度"></a>标识和宽度</h3><pre class="language-none"><code class="language-none">%[标识][宽度]</code></pre>
+
+<p>宽度其实和上面一样，只不过默认左对齐。标识就可以更改。</p>
+<table>
+<thead>
+<tr>
+<th align="center">标识</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>-</code></td>
+<td align="left">将宽度的数字右对齐</td>
+</tr>
+<tr>
+<td align="center"><code>+</code></td>
+<td align="left">正数显示正号</td>
+</tr>
+<tr>
+<td align="center"><code>#</code></td>
+<td align="left">和 <code>%o</code> 带有八进制前缀 0，和 <code>%x</code> 带有十六进制前缀 0x</td>
+</tr>
+<tr>
+<td align="center"><code>0</code></td>
+<td align="left">将宽度的空格变成 0</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d %d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">,</span> <span class="token operator">&amp;</span>d<span class="token punctuation">,</span> <span class="token operator">&amp;</span>e<span class="token punctuation">,</span> <span class="token operator">&amp;</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%010d|%10d|%-10d|\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// |往左填零      |宽度为十            |靠左                 |</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%+10d|%#10o|%#10x|\n"</span><span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// |若正数显示正号|更改为八进制，有0前缀|更改为十六进制，有0x前缀|</span>
+<span class="token comment">// 宽度全部为十。</span></code></pre>
+
+<p>假设输入：</p>
+<pre class="language-none"><code class="language-none">19283 1983 1283 12873 83287 7283</code></pre>
+
+<p>则会输出：</p>
+<pre class="language-none"><code class="language-none">|0000019283|      1983|1283      |
+|    +12873|   0242527|    0x1c73|</code></pre>
+
+<h3 id="精度"><a href="#精度" class="headerlink" title="精度"></a>精度</h3><p>用于小数，用 .n 标识保留 n 为小数。例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> p<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%.3lf\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 保留三位小数</span></code></pre>
+
+<p>假设输入 114514.1919810 会输出 114514.192。</p>
+]]></content>
+      <categories>
+        <category>编程随记</category>
+      </categories>
+      <tags>
+        <tag>语言入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>排序</title>
     <url>//posts/sort/</url>
     <content><![CDATA[<h2 id="一些说在前面的要点"><a href="#一些说在前面的要点" class="headerlink" title="一些说在前面的要点"></a>一些说在前面的要点</h2><ul>
@@ -3732,213 +3900,6 @@ first:300, second:400, third:200</code></pre>
         <tag>基础算法</tag>
         <tag>优化</tag>
         <tag>排序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据结构：队列和栈</title>
-    <url>//posts/stackandqueue/</url>
-    <content><![CDATA[<p>队列和栈都是线性数据结构，它们一个是先进先出，一个是先进后出，有着不同的使用场景。这两个数据结构基于链表，也可以用数组模拟这样的数据结构，通过 C++ 中 STL 提供的容器也可以更加方便快捷地实现。</p>
-<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>队列 (queue)</strong> 是在一端插入另一段删除的线性表，遵循<strong>先进先出</strong>，类似于排队，可以称为先进先出 (FIFO) 表。队列中，允许入队 (enqueue) 的一端为队尾，允许出队 (dequeue) 的一端为队头。以后的<a style="border-bottom:none;">广度优先搜索</a>就会用到它。</p>
-<span id="more"></span>
-
-<h3 id="数组模拟队列"><a href="#数组模拟队列" class="headerlink" title="数组模拟队列"></a>数组模拟队列</h3><p>使用数组模拟队列需要一个存储数据的数组，同时用变量标记队头和队尾。<br>假设队列数组名为 <code>q</code>，头指针为 <code>ql</code>，尾指针为 <code>qr</code>，则：</p>
-<p><strong>插入元素</strong>时，需要将队尾加上 1，假设元素为 <code>x</code>。结果：<code>q[++qr] = x;</code>；<br><strong>删除元素</strong>时，需要将队头指向下一个元素，由于这不是链表，直接执行即可。结果：<code>ql++;</code>；<br><strong>访问队首</strong>，直接 <code>q[ql];</code>；<br><strong>访问队尾</strong>，直接 <code>q[qr];</code>；<br><strong>清空队列</strong>时，头指针尾指针初始化，<code>ql = 1; qr = 0;</code>。</p>
-<p>可见，数组模拟队列和数组模拟链表的缺点一样，内存不是动态分配的。这导致若数据过大则内存可能超出限制，若比数组的大小还大那就越界了，队列就溢出了。</p>
-<h3 id="队列的溢出"><a href="#队列的溢出" class="headerlink" title="队列的溢出"></a>队列的溢出</h3><p>但由于数组是直接将队首队尾加来加去，可能会有队列（数组）前面还空着，但是队列溢出的情况这就叫做<strong>假溢出</strong>。若假溢出则需要使用循环队列，也就是说当尾指针超出数组，则将这一个元素从数组的开头放起。当然，若是真的全部存完了那有用的数据也会覆盖掉，这就是真溢出了。</p>
-<h3 id="STL-queue"><a href="#STL-queue" class="headerlink" title="STL queue"></a>STL queue</h3><p>STL 提供的容器 <code>queue</code>，需要引入 <code>&lt;queue&gt;</code> 头文件。通过模板，定义形式是这样：<code>queue&lt;[value type]&gt; name</code>。<br>成员函数的使用：</p>
-<ul>
-<li><code>front()</code> 返回队首值。</li>
-<li><code>back()</code> 返回队尾值。</li>
-<li><code>push([value])</code> 元素入队。</li>
-<li><code>pop()</code> 元素出队。</li>
-<li><code>empty()</code> 返回布尔值，表示队列是否为空。</li>
-<li><code>size()</code> 返回数值，表示队列里元素的数量。</li>
-</ul>
-<p>容器不会假溢出，但是若队列为空还要 <code>pop()</code> 就会溢出。</p>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>栈 (stack)<strong>是在同一端插入同一端弹出的表。元素可插入弹出的一段称为栈顶，另一端是栈底，遵循</strong>先进后出</strong>。</p>
-<p>STL stack 容器需要引入 <code>&lt;stack&gt;</code> 头文件。成员函数有：<br><code>top()</code> 返回栈顶值<br><code>push([value])</code> 插入<br><code>pop()</code> 弹出<br><code>empty()</code> 是否为空栈<br><code>size()</code> 返回元素数量</p>
-<p>同样的，容器没有上限，不会上溢出。但是若栈已空还要 <code>pop()</code> 就会造成<strong>下溢出</strong>。</p>
-<hr>
-<p><strong>附</strong>：visualgo 演示：  </p>
-<ul>
-<li>栈 <a href="https://visualgo.net/en/list?slide=4">https://visualgo.net/en/list?slide=4</a></li>
-<li>队列 <a href="https://visualgo.net/en/list?slide=5">https://visualgo.net/en/list?slide=5</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>课程笔记</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>scanf 和 printf 的格式符</title>
-    <url>//posts/stdoi-snf-pnt/</url>
-    <content><![CDATA[<p>又是一个随记，方便自己的使用。C++ 中的 <code>scanf</code> 和 <code>printf</code> 其实有很多比 <code>cin</code> <code>cout</code> 好用的地方，放在这里。</p>
-<span id="more"></span>
-
-<h2 id="scanf-的使用"><a href="#scanf-的使用" class="headerlink" title="scanf 的使用"></a>scanf 的使用</h2><h3 id="读入的格式"><a href="#读入的格式" class="headerlink" title="读入的格式"></a>读入的格式</h3><p>就直接上表格吧，先把一些特定的读入格式符放在这儿：</p>
-<details open>
-<summary>格式符</summary>
-
-<div class="tabs" id="scanf"><ul class="nav-tabs"><li class="tab active"><a href="#scanf-1">整数</a></li><li class="tab"><a href="#scanf-2">小数</a></li><li class="tab"><a href="#scanf-3">其他</a></li></ul><div class="tab-content"><div class="tab-pane active" id="scanf-1"><table>
-<thead>
-<tr>
-<th align="center">格式符</th>
-<th align="left">用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>%d</code></td>
-<td align="left">读入 int 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%ld</code></td>
-<td align="left">读入 long 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%lld</code></td>
-<td align="left">读入 long long 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%hd</code></td>
-<td align="left">读入 short 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%u</code></td>
-<td align="left">读入 unsigned int 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%lu</code></td>
-<td align="left">读入 unsigned long 整型</td>
-</tr>
-<tr>
-<td align="center"><code>%llu</code></td>
-<td align="left">读入 unsigned long long 整型</td>
-</tr>
-</tbody></table></div><div class="tab-pane" id="scanf-2"><table>
-<thead>
-<tr>
-<th align="center">格式符</th>
-<th align="left">用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>%f</code></td>
-<td align="left">读入 float 类型</td>
-</tr>
-<tr>
-<td align="center"><code>%lf</code></td>
-<td align="left">读入 double 类型</td>
-</tr>
-<tr>
-<td align="center"><code>%Lf</code></td>
-<td align="left">读入 long double 类型</td>
-</tr>
-</tbody></table></div><div class="tab-pane" id="scanf-3"><table>
-<thead>
-<tr>
-<th align="center">格式符</th>
-<th align="left">用途</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>%c</code></td>
-<td align="left">读入 char 类型</td>
-</tr>
-<tr>
-<td align="center"><code>%s</code></td>
-<td align="left">读入字符串，也就是 char 数组</td>
-</tr>
-<tr>
-<td align="center"><code>%o</code></td>
-<td align="left">读入八进制整型</td>
-</tr>
-<tr>
-<td align="center"><code>%x</code></td>
-<td align="left">读入十六进制整型</td>
-</tr>
-</tbody></table></div></div></div>
-
-</details>
-
-<p>以上其实都是一些读入的格式。还有一些能让读入的格式更加丰富的格式化。</p>
-<h3 id="限制位数"><a href="#限制位数" class="headerlink" title="限制位数"></a>限制位数</h3><p>在以上的任何格式符的 % 后面加上数字 n，即读入的位数就是 n。例如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%1d %1d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-
-<p>假设输入 10345 则会输出 1 0。</p>
-<h3 id="只读入，不赋值"><a href="#只读入，不赋值" class="headerlink" title="只读入，不赋值"></a>只读入，不赋值</h3><p>在任何格式符的 % 后加上 *，就不会赋值给任何变量。例如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">;</span>
-<span class="token keyword">long</span> <span class="token keyword">long</span> b<span class="token punctuation">;</span>
-<span class="token keyword">short</span> c<span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %*lld %lld %hd"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %lld %hd"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
-
-<p>假设输入：</p>
-<pre class="language-none"><code class="language-none">2147483647 4294967295 11415612712638 128</code></pre>
-
-<p>则输出：</p>
-<pre class="language-none"><code class="language-none">2147483647 11415612712638 128</code></pre>
-
-<p>可见，scanf 忽略了第二个数字 4294967295。</p>
-<h2 id="printf-的使用"><a href="#printf-的使用" class="headerlink" title="printf 的使用"></a>printf 的使用</h2><p>其实它和 scanf 差不多。但是有多了精度，对齐什么的。</p>
-<h3 id="标识和宽度"><a href="#标识和宽度" class="headerlink" title="标识和宽度"></a>标识和宽度</h3><pre class="language-none"><code class="language-none">%[标识][宽度]</code></pre>
-
-<p>宽度其实和上面一样，只不过默认左对齐。标识就可以更改。</p>
-<table>
-<thead>
-<tr>
-<th align="center">标识</th>
-<th align="left">作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>-</code></td>
-<td align="left">将宽度的数字右对齐</td>
-</tr>
-<tr>
-<td align="center"><code>+</code></td>
-<td align="left">正数显示正号</td>
-</tr>
-<tr>
-<td align="center"><code>#</code></td>
-<td align="left">和 <code>%o</code> 带有八进制前缀 0，和 <code>%x</code> 带有十六进制前缀 0x</td>
-</tr>
-<tr>
-<td align="center"><code>0</code></td>
-<td align="left">将宽度的空格变成 0</td>
-</tr>
-</tbody></table>
-<p>例如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d %d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">,</span> <span class="token operator">&amp;</span>c<span class="token punctuation">,</span> <span class="token operator">&amp;</span>d<span class="token punctuation">,</span> <span class="token operator">&amp;</span>e<span class="token punctuation">,</span> <span class="token operator">&amp;</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%010d|%10d|%-10d|\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// |往左填零      |宽度为十            |靠左                 |</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"|%+10d|%#10o|%#10x|\n"</span><span class="token punctuation">,</span> d<span class="token punctuation">,</span> e<span class="token punctuation">,</span> f<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// |若正数显示正号|更改为八进制，有0前缀|更改为十六进制，有0x前缀|</span>
-<span class="token comment">// 宽度全部为十。</span></code></pre>
-
-<p>假设输入：</p>
-<pre class="language-none"><code class="language-none">19283 1983 1283 12873 83287 7283</code></pre>
-
-<p>则会输出：</p>
-<pre class="language-none"><code class="language-none">|0000019283|      1983|1283      |
-|    +12873|   0242527|    0x1c73|</code></pre>
-
-<h3 id="精度"><a href="#精度" class="headerlink" title="精度"></a>精度</h3><p>用于小数，用 .n 标识保留 n 为小数。例如：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> p<span class="token punctuation">;</span>
-<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%lf"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%.3lf\n"</span><span class="token punctuation">,</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 保留三位小数</span></code></pre>
-
-<p>假设输入 114514.1919810 会输出 114514.192。</p>
-]]></content>
-      <categories>
-        <category>编程随记</category>
-      </categories>
-      <tags>
-        <tag>语言入门</tag>
       </tags>
   </entry>
   <entry>
@@ -4246,6 +4207,45 @@ Waline<span class="token punctuation">.</span><span class="token function">init<
       </categories>
       <tags>
         <tag>作文</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构：队列和栈</title>
+    <url>//posts/stackandqueue/</url>
+    <content><![CDATA[<p>队列和栈都是线性数据结构，它们一个是先进先出，一个是先进后出，有着不同的使用场景。这两个数据结构基于链表，也可以用数组模拟这样的数据结构，通过 C++ 中 STL 提供的容器也可以更加方便快捷地实现。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>队列 (queue)</strong> 是在一端插入另一段删除的线性表，遵循<strong>先进先出</strong>，类似于排队，可以称为先进先出 (FIFO) 表。队列中，允许入队 (enqueue) 的一端为队尾，允许出队 (dequeue) 的一端为队头。以后的<a style="border-bottom:none;">广度优先搜索</a>就会用到它。</p>
+<span id="more"></span>
+
+<h3 id="数组模拟队列"><a href="#数组模拟队列" class="headerlink" title="数组模拟队列"></a>数组模拟队列</h3><p>使用数组模拟队列需要一个存储数据的数组，同时用变量标记队头和队尾。<br>假设队列数组名为 <code>q</code>，头指针为 <code>ql</code>，尾指针为 <code>qr</code>，则：</p>
+<p><strong>插入元素</strong>时，需要将队尾加上 1，假设元素为 <code>x</code>。结果：<code>q[++qr] = x;</code>；<br><strong>删除元素</strong>时，需要将队头指向下一个元素，由于这不是链表，直接执行即可。结果：<code>ql++;</code>；<br><strong>访问队首</strong>，直接 <code>q[ql];</code>；<br><strong>访问队尾</strong>，直接 <code>q[qr];</code>；<br><strong>清空队列</strong>时，头指针尾指针初始化，<code>ql = 1; qr = 0;</code>。</p>
+<p>可见，数组模拟队列和数组模拟链表的缺点一样，内存不是动态分配的。这导致若数据过大则内存可能超出限制，若比数组的大小还大那就越界了，队列就溢出了。</p>
+<h3 id="队列的溢出"><a href="#队列的溢出" class="headerlink" title="队列的溢出"></a>队列的溢出</h3><p>但由于数组是直接将队首队尾加来加去，可能会有队列（数组）前面还空着，但是队列溢出的情况这就叫做<strong>假溢出</strong>。若假溢出则需要使用循环队列，也就是说当尾指针超出数组，则将这一个元素从数组的开头放起。当然，若是真的全部存完了那有用的数据也会覆盖掉，这就是真溢出了。</p>
+<h3 id="STL-queue"><a href="#STL-queue" class="headerlink" title="STL queue"></a>STL queue</h3><p>STL 提供的容器 <code>queue</code>，需要引入 <code>&lt;queue&gt;</code> 头文件。通过模板，定义形式是这样：<code>queue&lt;[value type]&gt; name</code>。<br>成员函数的使用：</p>
+<ul>
+<li><code>front()</code> 返回队首值。</li>
+<li><code>back()</code> 返回队尾值。</li>
+<li><code>push([value])</code> 元素入队。</li>
+<li><code>pop()</code> 元素出队。</li>
+<li><code>empty()</code> 返回布尔值，表示队列是否为空。</li>
+<li><code>size()</code> 返回数值，表示队列里元素的数量。</li>
+</ul>
+<p>容器不会假溢出，但是若队列为空还要 <code>pop()</code> 就会溢出。</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>栈 (stack)<strong>是在同一端插入同一端弹出的表。元素可插入弹出的一段称为栈顶，另一端是栈底，遵循</strong>先进后出</strong>。</p>
+<p>STL stack 容器需要引入 <code>&lt;stack&gt;</code> 头文件。成员函数有：<br><code>top()</code> 返回栈顶值<br><code>push([value])</code> 插入<br><code>pop()</code> 弹出<br><code>empty()</code> 是否为空栈<br><code>size()</code> 返回元素数量</p>
+<p>同样的，容器没有上限，不会上溢出。但是若栈已空还要 <code>pop()</code> 就会造成<strong>下溢出</strong>。</p>
+<hr>
+<p><strong>附</strong>：visualgo 演示：  </p>
+<ul>
+<li>栈 <a href="https://visualgo.net/en/list?slide=4">https://visualgo.net/en/list?slide=4</a></li>
+<li>队列 <a href="https://visualgo.net/en/list?slide=5">https://visualgo.net/en/list?slide=5</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>课程笔记</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>

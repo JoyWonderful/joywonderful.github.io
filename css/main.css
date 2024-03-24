@@ -427,7 +427,7 @@ pre[class*="language-"].line-numbers > code {
   opacity: 0.3;
   visibility: visible;
   font-weight: 700;
-  font-family: consolas, Menlo, monospace, 'LXGW WenKai Lite';
+  font-family: consolas, Menlo, 'Ubuntu Mono', monospace;
   position: absolute;
   right: 6px;
   transition: opacity 0.3s, visibility 0.3s;
@@ -497,7 +497,7 @@ pre figcaption a:hover {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, 'LXGW WenKai Lite';
+  font-family: consolas, Menlo, 'Ubuntu Mono', monospace;
 }
 code {
   border-radius: 3px;
