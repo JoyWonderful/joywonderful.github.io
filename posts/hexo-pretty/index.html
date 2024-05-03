@@ -64,7 +64,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-03-31T09:47:03+08:00">2024-03-31</time>
+                <time datetime="2024-05-03T16:39:51+08:00">2024-05-03</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -483,13 +483,13 @@ body <span class="token punctuation">&#123;</span></span>
 <pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">top</span><span class="token punctuation">:</span> <span class="token boolean important">true</span></code></pre>
 
 <p>可以给置顶的文章增加标识。在 source&#x2F;data 下新建文件 post-meta.njk：</p>
-<pre class="language-jinja" data-language="jinja"><code class="language-jinja">&#123;% if post.top %&#125;
-  &lt;div style&#x3D;&quot;padding-left: 8px;&quot;&gt;
-    &lt;span class&#x3D;&quot;post-meta-divider&quot; style&#x3D;&quot;padding-right: 8px;&quot;&gt;|&lt;&#x2F;span&gt;
-    &lt;span color&#x3D;black style&#x3D;&quot;color: #000000; font-weight: bold; padding-left: 4px;&quot;&gt; &lt;i class&#x3D;&quot;fa fa-thumbtack&quot;&gt;&lt;&#x2F;i&gt; &lt;&#x2F;span&gt;
-    &lt;span style&#x3D;&quot;color: #000000; font-weight: bold; padding-left: 4px;&quot;&gt; 置顶 &lt;&#x2F;span&gt;
-  &lt;&#x2F;div&gt;
-&#123;% endif %&#125;</code></pre>
+<pre class="language-django" data-language="django"><code class="language-django"><span class="token django language-django"><span class="token delimiter punctuation">&#123;%</span> <span class="token tag keyword">if</span> <span class="token variable">post</span><span class="token punctuation">.</span><span class="token variable">top</span> <span class="token delimiter punctuation">%&#125;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">padding-left</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post-meta-divider<span class="token punctuation">"</span></span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">padding-right</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span>|<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">color</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span>black</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">color</span><span class="token punctuation">:</span> #000000<span class="token punctuation">;</span> <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span> <span class="token property">padding-left</span><span class="token punctuation">:</span> 4px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>fa fa-thumbtack<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token special-attr"><span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span><span class="token value css language-css"><span class="token property">color</span><span class="token punctuation">:</span> #000000<span class="token punctuation">;</span> <span class="token property">font-weight</span><span class="token punctuation">:</span> bold<span class="token punctuation">;</span> <span class="token property">padding-left</span><span class="token punctuation">:</span> 4px<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span></span><span class="token punctuation">></span></span> 置顶 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token django language-django"><span class="token delimiter punctuation">&#123;%</span> <span class="token tag keyword">endif</span> <span class="token delimiter punctuation">%&#125;</span></span></code></pre>
 
 <p>打开主题配置文件 themes&#x2F;hexo-theme-next&#x2F;_config.yml，找到 <code>custom_file_path</code>，把 postMeta 的注释去掉。</p>
 <h2 id="写作"><a href="#写作" class="headerlink" title="写作"></a>写作</h2><p>运行 <code>hexo new name</code> 就可以在 source&#x2F;_posts 下新建一篇名为 name.md 的文章。原本是这样的：</p>
@@ -539,7 +539,7 @@ body <span class="token punctuation">&#123;</span></span>
 </div>
             </div>
         </main>
-        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <div class="back-to-top"><i class="fa fa-angles-up"></i><span class="progress"></span></div>
         <footer class="footer">
             © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
         </footer><noscript></noscript>

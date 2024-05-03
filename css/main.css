@@ -7,6 +7,13 @@ body {
   background-color: #eee;
   color: #555;
 }
+code:not([class*="language-"]) {
+  font-family: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+  padding: 0.125em 0.2em;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+}
 p {
   margin: 0 0 20px;
 }
@@ -26,6 +33,32 @@ img {
   max-width: 100%;
   border-radius: 3px;
   box-shadow: 5px 5px 5px rgba(0,0,0,0.06), -2px -2px 5px rgba(0,0,0,0.04);
+}
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  left: 12px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 6px;
+  background: #555;
+  color: #fafafa;
+  transform: translateY(32px);
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.back-to-top i[class^="fa"] {
+  margin-right: 8px;
+}
+.back-to-top.on {
+  transform: translateY(0);
+  visibility: visible;
+  opacity: 0.7;
+}
+.back-to-top.on:hover {
+  opacity: 1;
 }
 main.main {
   display: flex;
@@ -900,7 +933,6 @@ code[class*="language-"],
 pre[class*="language-"] {
   color: #393a34;
   font-family: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
-  border-radius: 3px;
   direction: ltr;
   text-align: left;
   white-space: pre;
@@ -915,6 +947,41 @@ pre[class*="language-"] {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
+}
+.code-container {
+  position: relative;
+}
+.code-container[data-language]::before {
+  content: attr(data-language);
+  position: absolute;
+  top: 0;
+  right: 5px;
+  font-size: 0.875rem;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.3s;
+}
+.code-container[data-language]:hover::before {
+  visibility: hidden;
+  opacity: 0;
+}
+.code-container .copy-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0.25em 0.3em;
+  font-size: 0.875em;
+  border: 1px solid #eee;
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.code-container:hover .copy-btn {
+  visibility: visible;
+  opacity: 1;
 }
 pre > code[class*="language-"] {
   font-size: 1em;
@@ -933,10 +1000,15 @@ code[class*="language-"] ::selection {
 }
 pre[class*="language-"] {
   padding: 1em;
+  border-radius: 3px;
   margin: 0 0 20px 0;
   overflow: auto;
   border: 1px solid #ddd;
   background-color: #fff;
+}
+pre[data-language="mathKatex"] {
+  border: none;
+  padding: 0;
 }
 :not(pre) > code[class*="language-"] {
   padding: 0.2em;

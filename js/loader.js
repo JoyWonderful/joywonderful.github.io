@@ -77,19 +77,61 @@ window.lite = {
             }
         });
         this.sectionTOCitem[idx].classList.add("toc-link-active");
+    },
+    registerBack2top: function() {
+        var target = document.querySelector(".back-to-top");
+        window.addEventListener("scroll", function() {
+            var scrollNowY = window.scrollY;
+            const contentHeight = document.body.scrollHeight - window.innerHeight;
+            target.querySelector("span.progress").innerHTML = Math.min(Math.round(100 * scrollNowY / contentHeight), 100) + "%";
+
+            if(scrollNowY > 50 && !target.classList.contains("on")) target.classList.add("on");
+            else if(scrollNowY <= 50 && target.classList.contains("on")) target.classList.remove("on");
+        });
+        target.addEventListener("click", function(){ anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" }) });
+    },
+    registerCodeCopy: function() {
+        var target = document.querySelectorAll("pre[class*=\"language-\"]:not([data-language=\"mathKatex\"])");
+        target.forEach((el) => {
+            let newEl = document.createElement("div");
+            newEl.className = "code-container";
+            if(el.hasAttribute("data-language")) newEl.setAttribute("data-language", el.getAttribute("data-language"));
+            el.parentNode.insertBefore(newEl, el);
+            el.parentNode.removeChild(el)
+            newEl.appendChild(el);
+        });
+        target = document.querySelectorAll("div.code-container");
+        target.forEach((el) => {
+            let newEl = document.createElement("div");
+            newEl.className = "copy-btn";
+            newEl.innerHTML = "<i class=\"fa fa-paste fa-fw\"></i>";
+            newEl.addEventListener("click", function() {
+                navigator.clipboard.writeText(el.querySelector("pre code").innerText).then(() => {
+                    el.querySelector(".copy-btn i").className = "far fa-circle-check fa-fw";
+                }, () => {
+                    el.querySelector(".copy-btn i").className = "fa fa-times-circle fa-fw";
+                });
+                setTimeout(() => {el.querySelector(".copy-btn i").className = "fa fa-paste fa-fw";}, 500);
+            });
+            el.appendChild(newEl);
+        })
     }
 }
 
 window.addEventListener("DOMContentLoaded", function() {
+    console.log("Hexo 7.2.0 <https://hexo.io/>\nTheme author is the author of this site.")
     lite.registerPjaxStart();
     lite.activeMenuItem();
+    lite.registerCodeCopy();
     lite.registerTOC();
     lite.activeTOC();
+    lite.registerBack2top();
     lite.renderKatex();
 });
 window.addEventListener("pjax:success", function() {
     anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
     lite.activeMenuItem();
+    lite.registerCodeCopy();
     lite.registerTOC();
     lite.activeTOC();
     lite.renderKatex();
