@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>个人意见：如何写出漂亮的代码 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A9%BA%E8%A1%8C%E4%B8%8E%E7%A9%BA%E6%A0%BC"><span class="toc-number">1.</span> <span class="toc-text">空行与空格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%A9%E8%BF%9B"><span class="toc-number">2.</span> <span class="toc-text">缩进</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">命名方法</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">个人意见：如何写出漂亮的代码</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-07T16:42:34+08:00">2023-07-07</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:37:07+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <div class="note warning"><p>创作说明：</p>
+<p>此文章仅为个人看法。您写代码的习惯可以依据您的个人喜好。此文章只是一些个人的建议。<br>您在 OI 竞赛中，您<strong>完全可以</strong>不去注意代码风格。<br>此文章的建议主要用于工程代码中。  </p>
+</div>
+
+<p>代码的维护还是很重要的。相信谁也不愿意去维护连自己都看得头晕的代码。在这里，我想给出一些个人建议，让代码的可读性强一些。大部分代码以 C++ 为例。这篇文章其实也是给自己看的。</p>
+<span id="more"></span>
+
+<h2 id="空行与空格"><a href="#空行与空格" class="headerlink" title="空行与空格"></a><!--一、-->空行与空格</h2><p>无论是什么代码，空行往往代表着一个功能块，或是一个逻辑的结束，在适当的地方空行可以增强代码的可读性。空格也是这样。虽然一些地方的空格和空行会被编译器（或解释器）忽略，但是空行和空格必不可少。就比如说这样一个示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span><span class="token string">&lt;string></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    string s<span class="token punctuation">,</span>a<span class="token punctuation">,</span>b<span class="token punctuation">,</span>c<span class="token punctuation">;</span>cin<span class="token operator">>></span>s<span class="token punctuation">;</span>cin<span class="token operator">>></span>a<span class="token punctuation">;</span>
+    cin<span class="token operator">>></span>b<span class="token punctuation">;</span>cin<span class="token operator">>></span>c<span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>s<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>a<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>b<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>cout<span class="token operator">&lt;&lt;</span><span class="token string">"Hello,"</span><span class="token operator">&lt;&lt;</span>c<span class="token operator">&lt;&lt;</span>endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>这段代码是可以编译的，但是逻辑很混乱。流输入输出符之间没有空格，也没有空行。这样导致可读性很差。</p>
+<p>一些建议：</p>
+<ul>
+<li><strong>关于空格</strong><ol>
+<li>在运算符之间尽量加上空格。</li>
+<li>逗号之后加上空格。例如 <code>int a, b, c;</code>。</li>
+<li>括号两边不必要加空格。例如应该这样 <code>if(n == 1)</code> 而不是这样 <code>if ( n == 1 )</code>。</li>
+<li>特殊的建议，C++ 逻辑运算符如 <code>&amp;&amp;</code> <code>||</code> 最好这样写： <code>if(i==1 || j!=2 &amp;&amp; k&gt;3)</code>。</li>
+</ol>
+</li>
+<li><strong>关于空行</strong><ol>
+<li>C++ 中（以及其他语言）确实可以使用语句分隔符 <code>;</code> 在一行完成几个操作。但完全不相关的操作最好不要放一行，也不要把一行代码弄得很长很长。</li>
+<li>不要完全没有空行，空行往往可以增加代码的可读性。在不同的功能代码或逻辑之间空行，不要将相关联的代码空开来。</li>
+</ol>
+</li>
+</ul>
+<h2 id="缩进"><a href="#缩进" class="headerlink" title="缩进"></a><!--二、-->缩进</h2><p>很多代码都最好写缩进，哪怕有大括号也不例外。在 C++ 中，虽然不写它也没有关系，但这是一种编码习惯，也可以增强代码的可读性。在 Python 中，缩进更为重要，不写那就报错了。</p>
+<p>这里有一些错误示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+<span class="token keyword">int</span> a<span class="token punctuation">,</span> b<span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> a <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">i <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	<span class="token keyword">print</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+  <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span></code></pre>
+
+<p>C++ 的示例虽然不会报错，但是很不美观,看不出层次。Python 的缩进一个使用了 <code>Tab</code>，另一个使用了两个空格，导致 <code style="color:#fa0000">SyntaxError: unindent does not match any outer indentation level</code>。</p>
+<p>一些建议：</p>
+<ul>
+<li>缩进最好使用空格，不要使用 Tab 字符。</li>
+<li>遵循使用语言的缩进规则，不要弄出奇怪的缩进。例如 1 个空格。</li>
+<li>不要混用空格个数或 Tab。例如同样的层次，一个用 2 个空格，一个用 4 个空格。有些语言（例如 Python）会直接报错。</li>
+</ul>
+<h2 id="命名方法"><a href="#命名方法" class="headerlink" title="命名方法"></a><!--三、-->命名方法</h2><p>一段代码中应该尽量使用恰当的命名方法。不可以随意命名，命名应该表达元素的含义和作用避免使用冗余无意义的词汇。</p>
+<p>以下是常用的命名方法：</p>
+<ul>
+<li><strong>驼峰命名法</strong> 使用大小写混合的格式，单词间不适用空格或连接符。一般来说，类名的开头字母大写，例如 <code>GetConsoleInfo</code>, <code>PrintSystemVersion</code>；方法名、参数名、变量名开头字母小写，例如 <code>redGem</code>, <code>heroLife</code>。</li>
+<li><strong>匈牙利命名法</strong> 使用变量类型的缩写作为前缀，其余部分使用驼峰命名法。例如 <code>char cMyAnswer</code>, <code>int iPersonAge</code>, <code>double dManWeight</code>。</li>
+<li><strong>下划线命名法</strong> 使用下划线连接单词，大小写统一。例如 <code>clear_all</code>, <code>set_color</code>, <code>MAX_WIDTH</code>。</li>
+</ul>
+<p>建议：一般来说，常量、宏定义等全部使用大写，其他使用小写。</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E4%BC%98%E5%8C%96/"><i class="fa fa-tag"></i> 优化</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/all-the-test/"><i class="fa fa-angle-left"></i> 测试全部渲染</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/recursion/">递归 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

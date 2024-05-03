@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>命名空间 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">true</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">C++命名空间的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">2.</span> <span class="toc-text">定义命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#using%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="toc-number">3.</span> <span class="toc-text">using使用命名空间</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">命名空间</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-05T20:21:43+08:00">2023-05-05</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:39:20+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="C-命名空间的概念"><a href="#C-命名空间的概念" class="headerlink" title="C++命名空间的概念"></a>C++命名空间的概念</h2><p><strong>在同一个作用域中，不同的数据不能起同一个名字</strong>，但是C++命名空间概念的出现，提供了解决问题的方案。在不同的命名空间中，可以随意定义相同的名字。命名空间就是为了避免你包含的头文件中与你自己定义的任意类，数据，函数重名，造成令人迷惑的错误而产生的。</p>
+<span id="more"></span>
+
+<h2 id="定义命名空间"><a href="#定义命名空间" class="headerlink" title="定义命名空间"></a>定义命名空间</h2><p>我们可以自己定义一个命名空间，并且使用它。定义命名空间使用 <code>namespace</code> 关键字，使用命名空间使用 <code>namespace::subject</code> 使用命名空间中的函数，数据等。例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span> <span class="token comment">// 方便演示，使用了C头文件</span></span>
+
+<span class="token keyword">namespace</span> mylib
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">3</span> <span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello World!\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">namespace</span> libbb
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">,</span> c <span class="token operator">=</span> <span class="token number">30</span> <span class="token punctuation">;</span>
+    <span class="token keyword">void</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"HELLO WORLD!!!!\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> mylib<span class="token double-colon punctuation">::</span>a<span class="token punctuation">,</span> mylib<span class="token double-colon punctuation">::</span>b<span class="token punctuation">,</span> mylib<span class="token double-colon punctuation">::</span>c<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> libbb<span class="token double-colon punctuation">::</span>a<span class="token punctuation">,</span> libbb<span class="token double-colon punctuation">::</span>b<span class="token punctuation">,</span> libbb<span class="token double-colon punctuation">::</span>c<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    mylib<span class="token double-colon punctuation">::</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    libbb<span class="token double-colon punctuation">::</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>输出 <code>1 2 3\n 10 20 30\n Hello World!\n HELLO WORLD!!!!\n</code>。在命名空间 $mylib$ 和 $libbb$ 中，三个变量和一个函数的名字相同，但是所调用的命名空间不同，结果也不一样。</p>
+<p>在C++中，大部分函数都在命名空间 $std$ 中，全称 $stdandard$ 。</p>
+<h2 id="using使用命名空间"><a href="#using使用命名空间" class="headerlink" title="using使用命名空间"></a><code>using</code>使用命名空间</h2><p>在上段程序中，我们可以在包含头文件后加入几句：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> <span class="token keyword">namespace</span> mylib <span class="token punctuation">;</span></code></pre>
+
+<p>这样 $mylib$ 命名空间里的 $a ~ b ~ c ~ hello()$ 可以直接写为它原本的样子，不用加上 <code>mylib::</code> 。这很方便。但是这种方法也有他的局限性，比如我再加入一句：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">using</span> libbb<span class="token double-colon punctuation">::</span>a <span class="token punctuation">;</span></code></pre>
+
+<p>这样 $libbb$ 命名空间里的 $a$ 使用时也不用加上 <code>libbb::</code> 了。但是再次出现了两个同样的 $a$ ，谁也分不清使用的到底是 $mylib$ 命名空间里的 $a$ 还是 $libbb$ 命名空间里的 $a$ ，因此会引发错误，这也是 <code>using</code> 的弊端。但是有时候只会用到一个命名空间里的东西时，就比如 $std$ ，就可以直接加上一句 <code>using namespace std ;</code> 这样子更方便，省的 <code>cin</code> 也要 <code>std::</code> ， <code>string</code> 也要 <code>std</code> 。</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fa fa-tag"></i> 语言入门</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/qianzhuihe/"><i class="fa fa-angle-left"></i> 前缀和</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/function/">函数 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

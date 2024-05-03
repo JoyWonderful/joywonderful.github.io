@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>递归 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">true</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF-%E9%80%92%E5%BD%92"><span class="toc-number">1.</span> <span class="toc-text">循环 -&gt; 递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%9A%84%E5%88%86%E6%AD%A5%E6%80%9D%E6%83%B3"><span class="toc-number">2.</span> <span class="toc-text">递归的分步思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%92%E5%BD%92%E7%9A%84%E5%88%86%E6%B2%BB%E6%80%9D%E6%83%B3"><span class="toc-number">3.</span> <span class="toc-text">递归的分治思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%AA%E6%9E%9D"><span class="toc-number">4.</span> <span class="toc-text">剪枝</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">递归</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-05T12:39:34+08:00">2023-07-05</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:39:36+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <blockquote>
+<p><strong>写递归的要点</strong><br>明白一个函数的作用并相信它能完成这个任务，千万不要跳进这个函数里面企图探究更多细节， 否则就会陷入无穷的细节无法自拔，人脑能压几个栈啊。<br><span style="display:block;text-align:right;">—— <a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/divide-and-conquer/#%E5%86%99%E9%80%92%E5%BD%92%E7%9A%84%E8%A6%81%E7%82%B9">OI-wiki</a></span></p>
+</blockquote>
+<p>递归，就是一个函数自身调用自身。递归起到类似与循环的效果。但是，与循环不同，递归可以<strong>分支</strong>。如果循环一定是一条直线，那么递归可能是树形结构。</p>
+<h2 id="循环-递归"><a href="#循环-递归" class="headerlink" title="循环 -&gt; 递归"></a>循环 -&gt; 递归</h2><p>前面说了，循环和递归很像。那么，我们可以将 <code>for</code> 循环尝试转为递归。先来一个循环的示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>首先，让我们来想一想，<code>for</code> 循环的括号中 3 个语句分别是干什么的呢？</p>
+<ol>
+<li><code>int i = 1;</code> 这是循环的<strong>初始化</strong>，定义了一个变量 $i$，将其赋值为 $1$。</li>
+<li><code>i &lt;= n;</code> 这是循环<strong>每次进行下去的条件</strong>，当 $i&gt;n$ 时即退出循环。</li>
+<li><code>i++</code> 这是循环<strong>每次结束后干的事</strong>，当执行完循环体时， $i$ 则加 $1$。</li>
+</ol>
+<p>这样回忆下来，可以发现，在 <code>for</code> 循环的括号中 3 个语句其实可以拆分出来。<span id="more"></span>如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment">// int i = 1;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token punctuation">;</span> <span class="token punctuation">;</span> <span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">></span> n<span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span> <span class="token comment">// i &lt;= n;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    i<span class="token operator">++</span> <span class="token punctuation">;</span> <span class="token comment">// i++</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>那么，直接将 <code>for( ; ; )</code> 改一下就好了吧？就像这样子：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">rcsn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">></span> n<span class="token punctuation">)</span> <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    i<span class="token operator">++</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>等等，只将 <code>for( ; ; )</code> 改为 <code>void rcsn()</code> 似乎不太对，少了什么语句，函数不会自动循环（递归）啊。还有，函数哪儿来的 <code>break;</code>？<br>是的，递归，就是要自己调用自己。函数的结束，是该使用 <code>return</code>。应该这样修改：</p>
+<pre class="language-diff" data-language="diff"><code class="language-diff"><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> int i = 1;
+</span><span class="token prefix unchanged"> </span><span class="token line"> void rcsn()
+</span><span class="token prefix unchanged"> </span><span class="token line"> &#123;
+</span></span><span class="token deleted-sign deleted"><span class="token prefix deleted">-</span><span class="token line">     if(i > n) break;
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">     if(i > n) return;
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line">     printf("qwq, %d\n", n);
+</span><span class="token prefix unchanged"> </span><span class="token line">     i++ ;
+</span></span><span class="token inserted-sign inserted"><span class="token prefix inserted">+</span><span class="token line">     rcsn();
+</span></span><span class="token unchanged"><span class="token prefix unchanged"> </span><span class="token line"> &#125;</span></span></code></pre>
+<p>好了，这样就可以完整地运行了：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">;</span>
+<span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">rcsn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">></span> n<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    i<span class="token operator">++</span> <span class="token punctuation">;</span>
+    <span class="token function">rcsn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">rcsn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="递归的分步思想"><a href="#递归的分步思想" class="headerlink" title="递归的分步思想"></a>递归的分步思想</h2><p>前面说了，递归是可以分支的。那么，它其实比循环方便的多。就比如说，输入一个整数 $n$，按照字典序输出 $1 \sim n$ 数字不重复的排列。$1 \le n \le 9$。</p>
+<p>总不可能用 <code>if</code> 一个一个判断，然后来一个“循环 $n$ 嵌套”吧。而递归是<strong>可分支</strong>的。可以创建一个递归函数，在递归中使用 <code>for</code> 循环确定递归次数。用一个数组记录是否重复。代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">;</span>
+<span class="token keyword">bool</span> flag<span class="token punctuation">[</span><span class="token number">12</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> a<span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">dg</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>id <span class="token operator">></span> n<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            cout <span class="token operator">&lt;&lt;</span> <span class="token string">"    "</span> <span class="token operator">&lt;&lt;</span> a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        cout <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+        
+        flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">[</span>id<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token function">dg</span><span class="token punctuation">(</span>id <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    ios<span class="token double-colon punctuation">::</span><span class="token function">sync_with_stdio</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    cin <span class="token operator">>></span> n<span class="token punctuation">;</span>
+    <span class="token function">dg</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>但是，递归并不是刚完成就返回，而是<strong>完成了整个分支</strong>才返回。以 $n&#x3D;3$ 为例，画个上面那个递归函数的图：<br><img src="https://mermaid.ink/svg/pako:eNqNVE1vgzAM_SsoJ1eiU81HPzjstON22W4Tl6ikLVKBKg2aprb_fSHVYhPUaRwQzzbvPduBi9h2lRKF2B27r-1BahO9vpdtZK-zsQjcfXaP1BUC4MyjBCAhlAKkhDKAjFAOkBNaAiwJrQBWhNYAa0IbgA0hXFj5BcODHeYHrSFkjtBaQuYJrSlkrtDaQueLdRzN589XvA5pX-diyRBLfO8ulg6x1E8gmj_ZoFam121YPc4E3I4n87MjvdxPMGTg1Y-5eca1N-3V6Sz9bqj_ld8QeVz7PYWqvHqcCbgdz8ZvmM17QYsOOXj9Y_Z_dOvUkUaETD-hg0STwZSO02TSozeCXKhxZ8voMDLlnI7khGf0xl8ak-5FLBqlG1lX9gO_DKWlMAfVqFIU9rFSO9kfTSnK9mZLZW-6j-92KwqjexWL_lRJo15qudey-Q2qqjadfrv_M9yvIxYn2X52nS3ZyeNZ3X4Adj46Eg"><br>（说明：圆圈中的数字是前进的顺序，从小到大；实线箭头和虚线箭头先走实线，走完以后再走虚线；箭头上的数字代表输出的值。</p>
+<h2 id="递归的分治思想"><a href="#递归的分治思想" class="headerlink" title="递归的分治思想"></a>递归的分治思想</h2><p>分治，就是将一个问题分解为多个问题，然后再进行解决。<del>用咱们老师的</del>一个词概括，就是：</p>
+<blockquote>
+<p style="text-align:center;">分而治之</p>
+</blockquote>
+<p>举个例子：一件工程做 100 个零件，接活的找了 10 个人帮忙，那 10 个人又去找了 10 个人，每一组的 10 个人做完了向上头汇报，上头 10 个人又向接活的人汇报。<br>这其实就是一个递归分治的过程，这么一个例子体现了分治的基本步骤：</p>
+<ol>
+<li><strong>分解</strong>：“接活的找了 10 个人帮忙，那 10 个人又去找了 10 个人” -&gt; 将原问题分解成子问题</li>
+<li><strong>解决</strong>：“每一组的 10 个人做完了” -&gt; 子问题独立求解</li>
+<li><strong>合并</strong>：“（10 个人做完了）向上头汇报，上头 10 个人又向接活的人汇报。” -&gt; 将子问题合并为原问题</li>
+</ol>
+<p>当分解到指定条件时，就开始解决——通常是直接返回特定的数据。</p>
+<p>题目举例：<a target="_blank" rel="noopener" href="https://codeforces.com/problemset/problem/1829/D">CodeForces 1829D</a><br>这道题目要分解为两个任务，第一是总金币数的三分之一，第二是总金币数的三分之二。分解停止开始解决的的条件有三个，分别是 $x&#x3D;&#x3D;m$（符合条件），$x&lt;m$（不符合条件），$x % 3 \ne 0$（不符合条件）。<br>可以这样想：若符合条件返回 $1$，不符合返回 $0$，将返回结果相加。若最终结果大于零，输出 <code>YES</code>，否则输出 <code>NO</code>。<br>代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">;</span>
+<span class="token keyword">int</span> t<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">dg</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>   
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">==</span> m<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">&lt;</span> m <span class="token operator">||</span> x <span class="token operator">%</span> <span class="token number">3</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    
+    
+    <span class="token keyword">int</span> ans1 <span class="token operator">=</span> <span class="token function">dg</span><span class="token punctuation">(</span>x <span class="token operator">/</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> ans2 <span class="token operator">=</span> <span class="token function">dg</span><span class="token punctuation">(</span>x <span class="token operator">/</span> <span class="token number">3</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// printf("ans1:%d, ans2:%d\n", ans1, ans2);</span>
+    
+    <span class="token keyword">return</span> ans1 <span class="token operator">+</span> ans2<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>t<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> t<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">,</span> <span class="token operator">&amp;</span>m<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token keyword">int</span> ans <span class="token operator">=</span> <span class="token function">dg</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// printf("ans:%d\n", ans);</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>ans <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"YES\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"NO\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h2><p><del>题外话：感觉和递归有关的分类都一团乱了，感觉 <a href="/posts/dfs" style="border-bottom:none">DFS</a> 原本应该放在同一篇文章里的，剪枝和分治也应该独立说一篇。</del></p>
+<p>简短的概述：<br>可以说，递归也就是<strong>暴力</strong>。暴力有两个代名词：枚举、递归。同枚举差不多，递归也有优化的方案，那就是<strong>剪枝</strong>。剪枝，顾名思义，就是把不需要的分支剪掉，把不可能的选项排除，在递归中，可以大大提升运行速度。  </p>
+<p>题目举例：<br><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1219">洛谷 P1219</a><br>这道题目是 <a href="/posts/dfs" style="border-bottom:none">DFS</a> 中比较经典的八皇后问题。在每行、每列、每个对角线上都只能有一个棋子（皇后）。那么，以下剪枝的几点可以确定：  </p>
+<ul>
+<li>当这一行放过以后，就开始放下一行，将这一行排除。</li>
+<li>当这一列放过以后，就将这一列打上标记，不再将棋子放在这一列。</li>
+<li>这一个对角线放过后，打上标记，不再将棋子放到对角线上</li>
+</ul>
+<p>但是，对角线的标记比较难弄，对角线似乎无法打标记。对角线的标记并不是无解，对角线的 (x,y) 是有规律的。引用原文图片来找规律。<br><strong>先看右斜的对角线有什么规律：</strong><br><img src="https://s2.loli.net/2023/12/16/K1HvhlyVkfStFWY.jpg" alt="blue-bhh"><br>可以看到，中间一条蓝色的线对应圈起来的坐标，(3,3) (5,5)；靠左一条蓝色的线对应划线的坐标，(4,2) (6,4)。不难看出，$3-3&#x3D;0&#x3D;5-5&#x3D;0; \hspace{5px} 4-2&#x3D;2&#x3D;6-4&#x3D;2$。可见，同一条右斜对角线上，x 坐标减 y 坐标的绝对值相等。但是相对的对角线上x 坐标减 y 坐标的绝对值也一样，这就比较麻烦。C++ 不能用负数，也不能两条对角线都是同一个标记。老师给了我们一个办法，将他们的差加上 20（别的数也行），问题就解决了。<br><strong>再看左斜的对角线有什么规律：</strong><br><img src="https://s2.loli.net/2023/12/16/IzMv2uQLaJOfNqw.jpg" alt="red-bhh"><br>同上，中间一条对应 (2,5) (5,2)，左上一条对应 (1,3) (3,1)。与右斜的对角线不同，它们不是差有规律而是和有规律。$2+5&#x3D;7&#x3D;5+2&#x3D;7; \hspace{5px} 1+3&#x3D;4&#x3D;3+1&#x3D;4$。那么，打标记时将 x+y 作为下标即可。</p>
+<p>加上<a href="/posts/dfs" style="border-bottom:none">深搜</a>，代码就出来了：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">bool</span> flagy<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">,</span> flagzx<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">,</span> flagyx<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> n<span class="token punctuation">;</span>
+<span class="token keyword">int</span> s<span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">void</span> <span class="token function">dfs</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">==</span> n <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		sum<span class="token operator">++</span> <span class="token punctuation">;</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>sum <span class="token operator">&lt;=</span> <span class="token number">3</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+			<span class="token punctuation">&#123;</span>
+				<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d "</span><span class="token punctuation">,</span> s<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			<span class="token punctuation">&#125;</span>
+			<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+		<span class="token keyword">return</span><span class="token punctuation">;</span>
+	<span class="token punctuation">&#125;</span>
+	
+	<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+	<span class="token punctuation">&#123;</span>
+		<span class="token keyword">if</span><span class="token punctuation">(</span>flagy<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flagzx<span class="token punctuation">[</span>x <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> flagyx<span class="token punctuation">[</span>x <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+		<span class="token punctuation">&#123;</span>
+			flagy<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+			flagzx<span class="token punctuation">[</span>x <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+			flagyx<span class="token punctuation">[</span>x <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+			s<span class="token punctuation">[</span>x<span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+			<span class="token function">dfs</span><span class="token punctuation">(</span>x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+			flagy<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+			flagzx<span class="token punctuation">[</span>x <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+			flagyx<span class="token punctuation">[</span>x <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">20</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+		<span class="token punctuation">&#125;</span>
+	<span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+	<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+	
+	<span class="token function">dfs</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+	<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> sum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/"><i class="fa fa-tag"></i> 基础算法</a>
+            <a href="/tags/%E9%80%92%E5%BD%92/"><i class="fa fa-tag"></i> 递归</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/code-format/"><i class="fa fa-angle-left"></i> 个人意见：如何写出漂亮的代码</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/cpp-shujufanwei/">C++ 数据范围 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

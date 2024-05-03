@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<div class="site-overview">
+    <div class="site-author">JoyWonderful</div>
+    <div class="site-stat">
+        <div class="site-stat-item">
+            <span class="site-stat-count">41</span>
+            <span class="site-stat-text">文章</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">3</span>
+            <span class="site-stat-text">分类</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">20</span>
+            <span class="site-stat-text">标签</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/code-format/">个人意见：如何写出漂亮的代码</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-07T16:42:34+08:00">2023-07-07</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:37:07+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <div class="note warning"><p>创作说明：</p>
+<p>此文章仅为个人看法。您写代码的习惯可以依据您的个人喜好。此文章只是一些个人的建议。<br>您在 OI 竞赛中，您<strong>完全可以</strong>不去注意代码风格。<br>此文章的建议主要用于工程代码中。  </p>
+</div>
+
+<p>代码的维护还是很重要的。相信谁也不愿意去维护连自己都看得头晕的代码。在这里，我想给出一些个人建议，让代码的可读性强一些。大部分代码以 C++ 为例。这篇文章其实也是给自己看的。</p>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/recursion/">递归</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-05T12:39:34+08:00">2023-07-05</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:39:36+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <blockquote>
+<p><strong>写递归的要点</strong><br>明白一个函数的作用并相信它能完成这个任务，千万不要跳进这个函数里面企图探究更多细节， 否则就会陷入无穷的细节无法自拔，人脑能压几个栈啊。<br><span style="display:block;text-align:right;">—— <a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/divide-and-conquer/#%E5%86%99%E9%80%92%E5%BD%92%E7%9A%84%E8%A6%81%E7%82%B9">OI-wiki</a></span></p>
+</blockquote>
+<p>递归，就是一个函数自身调用自身。递归起到类似与循环的效果。但是，与循环不同，递归可以<strong>分支</strong>。如果循环一定是一条直线，那么递归可能是树形结构。</p>
+<h2 id="循环-递归"><a href="#循环-递归" class="headerlink" title="循环 -&gt; 递归"></a>循环 -&gt; 递归</h2><p>前面说了，循环和递归很像。那么，我们可以将 <code>for</code> 循环尝试转为递归。先来一个循环的示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>首先，让我们来想一想，<code>for</code> 循环的括号中 3 个语句分别是干什么的呢？</p>
+<ol>
+<li><code>int i = 1;</code> 这是循环的<strong>初始化</strong>，定义了一个变量 $i$，将其赋值为 $1$。</li>
+<li><code>i &lt;= n;</code> 这是循环<strong>每次进行下去的条件</strong>，当 $i&gt;n$ 时即退出循环。</li>
+<li><code>i++</code> 这是循环<strong>每次结束后干的事</strong>，当执行完循环体时， $i$ 则加 $1$。</li>
+</ol>
+<p>这样回忆下来，可以发现，在 <code>for</code> 循环的括号中 3 个语句其实可以拆分出来。
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/cpp-shujufanwei/">C++ 数据范围</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-02T17:30:34+08:00">2023-07-02</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-03-10T19:26:24+08:00">2024-03-10</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>这就是一个随记，方便自己用的。</p>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/two-pointers/">双指针-快慢指针</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-06-26T18:00:45+08:00">2023-06-26</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:43:26+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <blockquote>
+<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
+</blockquote>
+<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
+<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
+<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
+<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
+</ul>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/drawpic/">自己画的一些画</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-06-23T13:48:32+08:00">2023-06-23</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-03-31T09:45:15+08:00">2024-03-31</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%90%90%E7%A2%8E/">琐碎</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <div class="note info"><p>附注：</p>
+<p>这个页面现在没意义了。<br><del>但由于它处于为数不多的“琐碎”分类</del>，此文章将保留。</p>
+</div>
+
+<p>放假了闲着没事情干，便画了一些画，放在这儿，留此纪念。</p>
+    </div>
+</div>
+
+
+<nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+</nav>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

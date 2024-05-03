@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Git 的连接 Github 小记 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-SSH-%E8%BF%9E%E6%8E%A5-Github"><span class="toc-number">1.</span> <span class="toc-text">使用 SSH 连接 Github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9E%E6%8E%A5-Github-%E4%BB%93%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">连接 Github 仓库</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">Git 的连接 Github 小记</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-13T17:23:21+08:00">2023-08-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:38:19+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>又是一个随记，方便自己使用的。<br>首先，得到 <a target="_blank" rel="noopener" href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
+<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
+
+<p>就下载好了。</p>
+<span id="more"></span>
+<h2 id="使用-SSH-连接-Github"><a href="#使用-SSH-连接-Github" class="headerlink" title="使用 SSH 连接 Github"></a>使用 SSH 连接 Github</h2><p>首先确保拥有一个 Github 账号，打开终端，生成 SSH 密钥：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ ssh-keygen <span class="token parameter variable">-t</span> rsa <span class="token parameter variable">-C</span> <span class="token string">"email"</span></code></pre>
+
+<p>它的提示全部回车就可以了。”email” 是 Github 注册使用的邮箱地址。</p>
+<p>成功后会在用户文件夹（Windows 下通常是 <code>%USERPROFILE%</code> 环境变量，Linux 直接打开 <code>~/</code>）下生成一个 <code>.ssh</code> 文件夹，打开 <code>id_rsa.pub</code> 文件，复制里面的密钥后回到 Github 打开设置，找到 “<strong>SSH anf PGP keys</strong>“ 一栏，点击 “New SSH key”，Title 填上，将刚刚复制的密钥粘贴到 “Key” 一栏，点击 “Add SSH key” 保存。</p>
+<p><img src="https://s2.loli.net/2023/08/13/L3bmqAR1vf2whSM.png" alt="git-github.png"></p>
+<p>随后可以验证是否完成，打开终端输入：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">ssh</span> <span class="token parameter variable">-T</span> git@github.com
+The authenticity of <span class="token function">host</span> <span class="token string">'github.com (IP ADDRESS)'</span> can<span class="token string">'t be established.
+RSA key fingerprint is (FINGERPRINT).
+Are you sure you want to continue connecting (yes/no)? yes #在这里输入 yes
+Hi (USER NAME)! You'</span>ve successfully authenticated, but GitHub does not provide shell access. <span class="token comment">#连接成功</span></code></pre>
+
+<h2 id="连接-Github-仓库"><a href="#连接-Github-仓库" class="headerlink" title="连接 Github 仓库"></a>连接 Github 仓库</h2><p>新建 Github 仓库。在电脑新建一个文件夹，创建一些文件，然后打开终端：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> init
+Initialized empty Git repository <span class="token keyword">in</span> /.git/
+
+$ <span class="token function">git</span> <span class="token function">add</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span> <span class="token comment">#你可以不断 add，也可以直接 git add .</span>
+create mode <span class="token number">100644</span> <span class="token punctuation">(</span>FILE NAME<span class="token punctuation">)</span>
+
+$ <span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">"The commit information"</span> <span class="token comment">#建议 commit 信息用英文写详细，养成好习惯</span>
+
+$ <span class="token function">git</span> branch <span class="token parameter variable">-M</span> main <span class="token comment">#现在的 Github 默认为 main 分支</span>
+
+$ <span class="token function">git</span> remote <span class="token function">add</span> origin git@github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git <span class="token comment">#改成自己的用户名和仓库名</span>
+
+$ <span class="token function">git</span> push <span class="token parameter variable">-u</span> origin main
+Enumerating objects: <span class="token number">7735</span>, done.
+Counting objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, done.
+Delta compression using up to <span class="token number">4</span> threads
+Compressing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7413</span>/7413<span class="token punctuation">)</span>, done.
+Writing objects: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">7735</span>/7735<span class="token punctuation">)</span>, <span class="token number">55.74</span> MiB <span class="token operator">|</span> <span class="token number">1.53</span> MiB/s, done.
+Total <span class="token number">7735</span> <span class="token punctuation">(</span>delta <span class="token number">2030</span><span class="token punctuation">)</span>, reused <span class="token number">0</span> <span class="token punctuation">(</span>delta <span class="token number">0</span><span class="token punctuation">)</span>, pack-reused <span class="token number">0</span>      
+remote: Resolving deltas: <span class="token number">100</span>% <span class="token punctuation">(</span><span class="token number">2030</span>/2030<span class="token punctuation">)</span>, done.
+To github.com:<span class="token punctuation">(</span><span class="token environment constant">USER</span> NAME<span class="token punctuation">)</span>/<span class="token punctuation">(</span>REPOSITORY NAME<span class="token punctuation">)</span>.git
+ * <span class="token punctuation">[</span>new branch<span class="token punctuation">]</span>      main -<span class="token operator">></span> main
+branch <span class="token string">'main'</span> <span class="token builtin class-name">set</span> up to track <span class="token string">'origin/main'</span><span class="token builtin class-name">.</span></code></pre>
+
+<p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Git/"><i class="fa fa-tag"></i> Git</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/dp-zobb/"><i class="fa fa-angle-left"></i> 动态规划：01 背包</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/jinzhi/">有关进制的一些小记 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

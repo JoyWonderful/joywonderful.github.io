@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>数据结构：队列和栈 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%9F%E5%88%97"><span class="toc-number">1.</span> <span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E6%A8%A1%E6%8B%9F%E9%98%9F%E5%88%97"><span class="toc-number">1.1.</span> <span class="toc-text">数组模拟队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%9F%E5%88%97%E7%9A%84%E6%BA%A2%E5%87%BA"><span class="toc-number">1.2.</span> <span class="toc-text">队列的溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#STL-queue"><span class="toc-number">1.3.</span> <span class="toc-text">STL queue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">2.</span> <span class="toc-text">栈</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">数据结构：队列和栈</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-30T18:56:32+08:00">2023-07-30</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:42:54+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>队列和栈都是线性数据结构，它们一个是先进先出，一个是先进后出，有着不同的使用场景。这两个数据结构基于链表，也可以用数组模拟这样的数据结构，通过 C++ 中 STL 提供的容器也可以更加方便快捷地实现。</p>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><p><strong>队列 (queue)</strong> 是在一端插入另一段删除的线性表，遵循<strong>先进先出</strong>，类似于排队，可以称为先进先出 (FIFO) 表。队列中，允许入队 (enqueue) 的一端为队尾，允许出队 (dequeue) 的一端为队头。以后的<a style="border-bottom:none;">广度优先搜索</a>就会用到它。</p>
+<span id="more"></span>
+
+<h3 id="数组模拟队列"><a href="#数组模拟队列" class="headerlink" title="数组模拟队列"></a>数组模拟队列</h3><p>使用数组模拟队列需要一个存储数据的数组，同时用变量标记队头和队尾。<br>假设队列数组名为 <code>q</code>，头指针为 <code>ql</code>，尾指针为 <code>qr</code>，则：</p>
+<p><strong>插入元素</strong>时，需要将队尾加上 1，假设元素为 <code>x</code>。结果：<code>q[++qr] = x;</code>；<br><strong>删除元素</strong>时，需要将队头指向下一个元素，由于这不是链表，直接执行即可。结果：<code>ql++;</code>；<br><strong>访问队首</strong>，直接 <code>q[ql];</code>；<br><strong>访问队尾</strong>，直接 <code>q[qr];</code>；<br><strong>清空队列</strong>时，头指针尾指针初始化，<code>ql = 1; qr = 0;</code>。</p>
+<p>可见，数组模拟队列和数组模拟链表的缺点一样，内存不是动态分配的。这导致若数据过大则内存可能超出限制，若比数组的大小还大那就越界了，队列就溢出了。</p>
+<h3 id="队列的溢出"><a href="#队列的溢出" class="headerlink" title="队列的溢出"></a>队列的溢出</h3><p>但由于数组是直接将队首队尾加来加去，可能会有队列（数组）前面还空着，但是队列溢出的情况这就叫做<strong>假溢出</strong>。若假溢出则需要使用循环队列，也就是说当尾指针超出数组，则将这一个元素从数组的开头放起。当然，若是真的全部存完了那有用的数据也会覆盖掉，这就是真溢出了。</p>
+<h3 id="STL-queue"><a href="#STL-queue" class="headerlink" title="STL queue"></a>STL queue</h3><p>STL 提供的容器 <code>queue</code>，需要引入 <code>&lt;queue&gt;</code> 头文件。通过模板，定义形式是这样：<code>queue&lt;[value type]&gt; name</code>。<br>成员函数的使用：</p>
+<ul>
+<li><code>front()</code> 返回队首值。</li>
+<li><code>back()</code> 返回队尾值。</li>
+<li><code>push([value])</code> 元素入队。</li>
+<li><code>pop()</code> 元素出队。</li>
+<li><code>empty()</code> 返回布尔值，表示队列是否为空。</li>
+<li><code>size()</code> 返回数值，表示队列里元素的数量。</li>
+</ul>
+<p>容器不会假溢出，但是若队列为空还要 <code>pop()</code> 就会溢出。</p>
+<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p><strong>栈 (stack)<strong>是在同一端插入同一端弹出的表。元素可插入弹出的一段称为栈顶，另一端是栈底，遵循</strong>先进后出</strong>。</p>
+<p>STL stack 容器需要引入 <code>&lt;stack&gt;</code> 头文件。成员函数有：<br><code>top()</code> 返回栈顶值<br><code>push([value])</code> 插入<br><code>pop()</code> 弹出<br><code>empty()</code> 是否为空栈<br><code>size()</code> 返回元素数量</p>
+<p>同样的，容器没有上限，不会上溢出。但是若栈已空还要 <code>pop()</code> 就会造成<strong>下溢出</strong>。</p>
+<hr>
+<p><strong>附</strong>：visualgo 演示：  </p>
+<ul>
+<li>栈 <a target="_blank" rel="noopener" href="https://visualgo.net/en/list?slide=4">https://visualgo.net/en/list?slide=4</a></li>
+<li>队列 <a target="_blank" rel="noopener" href="https://visualgo.net/en/list?slide=5">https://visualgo.net/en/list?slide=5</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E9%98%9F%E5%88%97/"><i class="fa fa-tag"></i> 队列</a>
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="fa fa-tag"></i> 数据结构</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/binarytree-fme/"><i class="fa fa-angle-left"></i> 二叉树的前序、中序、后序遍历</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/bfs/">广度优先搜索 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

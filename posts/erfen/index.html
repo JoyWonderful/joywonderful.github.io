@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>二分 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">true</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E7%9A%84%E6%84%8F%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">二分的意义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E4%BA%8C%E5%88%86%E7%9A%84%E4%B8%A4%E4%B8%AA%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">整数二分的两个模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BA%8C%E5%88%86"><span class="toc-number">3.</span> <span class="toc-text">浮点数二分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E5%88%86%E7%AD%94%E6%A1%88"><span class="toc-number">4.</span> <span class="toc-text">二分答案</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">二分</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-21T15:22:53+08:00">2023-05-21</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-03T08:33:08+08:00">2024-05-03</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
+<p>此时，我们学的还是整数二分以及浮点二分。</p>
+<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
+<span id="more"></span>
+
+<p>二分听起来还简单，但是实现起来<del>可能对我来说</del>还要多方面考虑。例如，当这样一段二分代码（假设数组 $a$ 的下标从 $1$ 开始）：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>此时， $l$ 或 $r$ 其实已经是正确答案了，但是它会陷入死循环。例如 $a$ 为 $1 \ 2 \ 3 \ 4 \ 5$， $x$ 为 $4$ 时，是这样的：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">&#123;\color&#123;green&#125;1 \ 2 \ 3 \ 4 \ 5&#125; \\
+(\texttt&#123;mid&#125;&#x3D;(1+5)&#x2F;2&#x3D;3, a[\texttt&#123;mid&#125;]&#x3D;3, 4&gt;3, l&#x3D;\texttt&#123;mid&#125;&#x3D;3, r&#x3D;5) \\
+&#123;\color&#123;red&#125;1 \ 2 \ &#125;&#123;\color&#123;green&#125; 3 \ 4 \ 5&#125; \\
+(\texttt&#123;mid&#125;&#x3D;(4+5)&#x2F;2&#x3D;4, a[\texttt&#123;mid&#125;]&#x3D;4, 4&#x3D;4, l&#x3D;3, r&#x3D;\texttt&#123;mid&#125;&#x3D;4) \\
+&#123;\color&#123;red&#125;1 \ 2 \ &#125;&#123;\color&#123;green&#125; 3 \ 4 \ &#125;&#123;\color&#123;red&#125;5&#125; \\
+(\texttt&#123;mid&#125;&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt&#123;mid&#125;]&#x3D;3, 4&gt;3, l&#x3D;\texttt&#123;mid&#125;&#x3D;3, r&#x3D;4) \\
+&#123;\color&#123;red&#125;1 \ 2 \ &#125;&#123;\color&#123;green&#125; 3 \ 4 \ &#125;&#123;\color&#123;red&#125;5&#125; \\
+(\texttt&#123;mid&#125;&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt&#123;mid&#125;]&#x3D;3, 4&gt;3, l&#x3D;\texttt&#123;mid&#125;&#x3D;3, r&#x3D;4) \\
+&#123;\color&#123;red&#125;1 \ 2 \ &#125;&#123;\color&#123;green&#125; 3 \ 4 \ &#125;&#123;\color&#123;red&#125;5&#125; \\
+(\texttt&#123;mid&#125;&#x3D;(3+4)&#x2F;2&#x3D;3, a[\texttt&#123;mid&#125;]&#x3D;3, 4&gt;3, l&#x3D;\texttt&#123;mid&#125;&#x3D;3, r&#x3D;4) \\
+\textup&#123;...Forever...&#125;</code></pre>
+
+<p>因此，我们为什么不把 $l$ 的赋值加上一个呢？这样就不会无限循环下去了。就像这样：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i <span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x <span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> m <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+        <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+<p>这就是整数二分的一个模板了。又或者：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span> x <span class="token punctuation">;</span>
+<span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>x<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token keyword">int</span> l <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> r <span class="token operator">=</span> n <span class="token punctuation">;</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>l <span class="token operator">&lt;</span> r<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">></span> a<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> l <span class="token operator">=</span> mid <span class="token punctuation">;</span>
+    <span class="token keyword">else</span> r <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="浮点数二分"><a href="#浮点数二分" class="headerlink" title="浮点数二分"></a>浮点数二分</h2><p>其实，任何一个算法都是相通的。二分也是一样。浮点二分可能比整数二分简单一些。<del>（出自于我们老师之口）</del></p>
+<p>但，最重要的就是<strong>精度问题</strong>。<br>它决定了 ${\texttt{TLE}}$ 和 $\texttt{WA}$ 以及 $\texttt{AC}$ 之间的差距。详见 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3743">洛谷P3743</a> 以及 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/record/list?user=857826&pid=P3743&language=28&orderBy=0&status=&page=1">我可怜的评测记录</a> 。这就是残酷的现实！代码是简单了很多，但是要确定<em><strong>精度</strong></em>!!!</p>
+<p>好了，模版代码<del>大放送</del>：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">double</span> l <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1e10</span><span class="token punctuation">,</span> r <span class="token operator">=</span> <span class="token number">1e10</span> <span class="token punctuation">;</span> <span class="token comment">// 此处数字仅作为一个演示值！！请不要把这个数字当成固定的写法，此处的数字应为题目提供的数据。</span>
+<span class="token keyword">while</span><span class="token punctuation">(</span>r <span class="token operator">-</span> l <span class="token operator">></span> <span class="token number">1e-6</span><span class="token punctuation">)</span> <span class="token comment">// 此处的数字同上，模板应为 1e-x</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">double</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>l <span class="token operator">+</span> r<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span> <span class="token punctuation">;</span> <span class="token comment">// 这就是老师所说的了：它是浮点，管他什么整除呢，除就是了！！！什么 mid r l ++ -- 的，去它的！！ (doge)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token comment">/*这里是判断条件，可以是check函数(二分答案)，可以是普通查找*/</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        l <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 此处仅为演示，请根据条件写 l=mid 或 r=mid</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        r <span class="token operator">=</span> mid <span class="token punctuation">;</span> <span class="token comment">// 同上</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="二分答案"><a href="#二分答案" class="headerlink" title="二分答案"></a>二分答案</h2><p>当我们想要枚举时，二分自然就是枚举的首选前提。一般来说，二分答案会写一个函数，传统名称为 <code>check</code> 。<br>其实它还是二分，只不过判断的条件由单一的 <code>valuname &gt; name[mid]</code> 变成了一个判断函数而已。<del>我是不是没讲清楚啊</del> $\texttt{\color{white}但也没什么好讲的了}$  </p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> Not Friendly</li>
+<li><input disabled="" type="checkbox"> That’s Good</li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/"><i class="fa fa-tag"></i> 基础算法</a>
+            <a href="/tags/%E4%BC%98%E5%8C%96/"><i class="fa fa-tag"></i> 优化</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/struct-class/"><i class="fa fa-angle-left"></i> C++类（结构体）</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/zhizhen/">指针 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

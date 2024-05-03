@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<div class="site-overview">
+    <div class="site-author">JoyWonderful</div>
+    <div class="site-stat">
+        <div class="site-stat-item">
+            <span class="site-stat-count">41</span>
+            <span class="site-stat-text">文章</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">3</span>
+            <span class="site-stat-text">分类</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">20</span>
+            <span class="site-stat-text">标签</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/gdb-debug-file/">使用 gdb 调试代码</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-30T11:09:49+08:00">2023-08-30</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2023-08-30T11:09:49+08:00">2023-08-30</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>这几天刚去学习了一下用 gdb 调试代码，在这儿记下来。</p>
+<p>首先，编译代码的时候需要加上 <code>-g</code> 选项，说明要加上调试信息，这样才可以正常调试。例如：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ g++ <span class="token parameter variable">-g</span> oi.cpp <span class="token parameter variable">-o</span> oi.exe</code></pre>
+
+<p>随后，即可使用 gdb 打开文件进行调试。直接使用 <code>gdb [file name]</code> 即可。</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ gdb oi
+GNU gdb <span class="token punctuation">(</span>GDB<span class="token punctuation">)</span> <span class="token number">7.8</span>.1
+Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2014</span> Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version <span class="token number">3</span> or later <span class="token operator">&lt;</span>http://gnu.org/licenses/gpl.html<span class="token operator">></span>
+<span class="token comment"># ...[很多信息]</span>
+For help, <span class="token builtin class-name">type</span> <span class="token string">"help"</span><span class="token builtin class-name">.</span>
+Type <span class="token string">"apropos word"</span> to search <span class="token keyword">for</span> commands related to <span class="token string">"word"</span><span class="token punctuation">..</span>.
+Reading symbols from oi<span class="token punctuation">..</span>.done. <span class="token comment"># 成功信息</span>
+<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span>  <span class="token comment"># 现在可以键入调试命令了</span></code></pre>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/stdoi-snf-pnt/">scanf 和 printf 的格式符</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-17T20:37:48+08:00">2023-08-17</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:43:02+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>又是一个随记，方便自己的使用。C++ 中的 <code>scanf</code> 和 <code>printf</code> 其实有很多比 <code>cin</code> <code>cout</code> 好用的地方，放在这里。</p>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/dp-zobb/">动态规划：01 背包</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-16T19:21:10+08:00">2023-08-16</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:37:35+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>背包问题是动态规划中很典型的一个问题。一个背包有特定的重量，去装重量为 w 价值为 d 的物品，在不超过背包重量上限的前提下使物品的价值和最高。<br>这个问题一看，就不是贪心可以做的来的。所以，就可以用上我们的<del>爆搜！！（暴力出奇迹）</del>动态规划来解决背包问题。</p>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/git-github/">Git 的连接 Github 小记</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-13T17:23:21+08:00">2023-08-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:38:19+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>又是一个随记，方便自己使用的。<br>首先，得到 <a target="_blank" rel="noopener" href="https://git-scm.com/downloads">官网下载</a>，随后测试一下：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">git</span> <span class="token parameter variable">-v</span>
+<span class="token function">git</span> version <span class="token punctuation">(</span>VERSION<span class="token punctuation">)</span></code></pre>
+
+<p>就下载好了。</p>
+    </div>
+</div>
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/jinzhi/">有关进制的一些小记</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-12T10:00:41+08:00">2023-08-12</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-03T08:10:31+08:00">2024-05-03</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>x 进制，代表着在这个计数方法中逢 x 进一，例如十进制就代表着<strong>逢十进一</strong>。<br>我们平常在生活中用的都是十进制。进制一类的东西在 OI 中也比较重要<del>CCF 喜欢考</del>，计算机中的数据都是以二进制储存的，二进制也完美地利用了每一个比特。当然，只要有足够的表示方法，人们可以弄出三十二进制、六十四进制，甚至一千进制。<del>闲的没事情干，</del>进制有关的以及进制之间的转换就是我想记下来的话题。</p>
+    </div>
+</div>
+
+
+<nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+</nav>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

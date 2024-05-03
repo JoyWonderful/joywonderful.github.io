@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>数论：质数筛法 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">true</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B"><span class="toc-number">1.</span> <span class="toc-text">埃氏筛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E7%AD%9B"><span class="toc-number">2.</span> <span class="toc-text">线性筛</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">数论：质数筛法</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-08T14:34:23+08:00">2023-08-08</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-03T08:55:35+08:00">2024-05-03</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p><strong>筛法</strong>是快速找出质数的一种方法。平常没有使用任何筛法的的找质数的时间复杂度通常为 $O(\sqrt n)$，比较慢，但是筛法更快一些。我们学的筛法是埃氏筛和欧拉筛(线性筛)。<br>平常的找质数方法是判断一个数是否能被 1 和它本生以外的数整除，但是筛法的思想不一样。筛法可以说是通常方法的逆向思维，挨个儿寻找当前数的倍数，打上标记，再继续寻找，最后没有被打上标记的就是质数。这种思想的时间复杂度快很多。</p>
+<span id="more"></span>
+
+<h2 id="埃氏筛"><a href="#埃氏筛" class="headerlink" title="埃氏筛"></a>埃氏筛</h2><p><strong>埃氏筛</strong>，全称其实是<strong>埃拉托斯特尼筛法</strong> <strong>(Eratosthenes)</strong>。它的时间复杂度为 $O(n \log_2 \log_2 n)$，其实也就是刚才说的方法。这里放一个演示：</p>
+<p style="overflow-x:auto; white-space:nowrap;"><span style="font-family:Consolas, Menlo, Monaco, 'Andale Mono', 'Ubuntu Mono', 'Courier New', monospace;">
+    2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 &ensp;&ensp;&ensp; <span style="font-family: lxgw;">这是初始的表</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> 3 <del style="color:#d9d9d9;">4</del> 5 <del style="color:#d9d9d9;">6</del> 7 <del style="color:#d9d9d9;">8</del> 9 <del style="color:#d9d9d9;">10</del> 11 <del style="color:#d9d9d9;">12</del> 13 <del style="color:#d9d9d9;">14</del> 15 <del style="color:#d9d9d9;">16</del> 17 <del style="color:#d9d9d9;">18</del> 19 <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: lxgw;">2 筛掉了 4 6 8 10 12 14 16 18 20，2 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> 5 <del style="color:#d9d9d9;">6</del> 7 <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> 11 <del style="color:#d9d9d9;">12</del> 13 <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> 17 <del style="color:#d9d9d9;">18</del> 19 <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: lxgw;">3 筛掉了 6 9 12 15 18，3 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: lxgw;">5 筛掉了 10 15 20，其实 5 已经大于 根号 20，剩下的数都是质数，可以退出了，但在这儿继续演示下去</span>
+    <br>
+    <span style="color:#e74c3c">-------------------- break; --------------------</span>  &ensp;&ensp;&ensp; <span style="font-family:lxgw; color:#e74c3c">实际循环已经在这儿之前就退出了，但这里继续演示下去</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: lxgw;">7 筛掉了 14，7 是质数</span>
+    <br>
+    <span style="font-weight:bold; color:#000000;">2</span> <span style="font-weight:bold; color:#000000;">3</span> <del style="color:#d9d9d9;">4</del> <span style="font-weight:bold; color:#000000;">5</span> <del style="color:#d9d9d9;">6</del> <span style="font-weight:bold; color:#000000;">7</span> <del style="color:#d9d9d9;">8</del> <del style="color:#d9d9d9;">9</del> <del style="color:#d9d9d9;">10</del> <span style="font-weight:bold; color:#000000;">11</span> <del style="color:#d9d9d9;">12</del> <span style="font-weight:bold; color:#000000;">13</span> <del style="color:#d9d9d9;">14</del> <del style="color:#d9d9d9;">15</del> <del style="color:#d9d9d9;">16</del> <span style="font-weight:bold; color:#000000;">17</span> <del style="color:#d9d9d9;">18</del> <span style="font-weight:bold; color:#000000;">19</span> <del style="color:#d9d9d9;">20</del>  &ensp;&ensp;&ensp; <span style="font-family: lxgw;">11 13 17 19 的倍数都不在数列中，它们都是倍数</span>
+</span></p>
+
+<p>最终，筛选出了 <code>2 3 5 7 11 13 17 19</code> 这 8 个质数。  </p>
+<p>埃氏筛的代码也比较简单：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> TEMP <span class="token operator">=</span> <span class="token number">1e6</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">;</span> <span class="token comment">// 需要筛的数字的数量</span>
+<span class="token keyword">int</span> flag<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment">// 记录是否是质数</span>
+<span class="token keyword">void</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">*</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token comment">// 和普通的找质数一样</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// 找质数的倍数</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> j <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> j <span class="token operator">+=</span> i<span class="token punctuation">)</span> <span class="token comment">// 从 i * 2 开始是因为不能标记质数，+= i 就是倍数</span>
+            <span class="token punctuation">&#123;</span>
+                flag<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> n<span class="token punctuation">;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">is_prime</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    FILE <span class="token operator">*</span>fp <span class="token operator">=</span> <span class="token function">freopen</span><span class="token punctuation">(</span><span class="token string">"./ans.txt"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> <span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 测试文件用，可以注释掉。</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment">// 未被标记过，是质数</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span>fp<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 测试文件用，可以注释掉。</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>埃氏筛很快，上面数据 1000000 的代码一下就好了。<br>更具体的，可以去看一下 <a target="_blank" rel="noopener" href="https://oi-wiki.org/math/number-theory/sieve/">OI Wiki</a>。</p>
+<h2 id="线性筛"><a href="#线性筛" class="headerlink" title="线性筛"></a>线性筛</h2><p>线性筛也叫<strong>欧拉筛</strong>，它的出现就是为了找到比埃氏筛还要快的筛法，是由欧拉发现的。在埃氏筛中，一个数可能会被筛很多次，上面的演示也表现出来了。而线性筛每个数只会筛一次，是 $O(n)$ 的时间复杂度。只不过一般来说埃氏筛也够用，一些卡掉埃氏筛的毒瘤数据除外，例如 <a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P3383">洛谷 P3383</a>。</p>
+<p>就按照 洛谷 P3383 来，代码是这样的：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token keyword">int</span> TEMP <span class="token operator">=</span> <span class="token number">1e8</span> <span class="token operator">+</span> <span class="token number">12</span><span class="token punctuation">;</span>
+<span class="token keyword">bool</span> vis<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> pri<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">,</span> cnt <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">is_prime</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> n<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>vis<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            pri<span class="token punctuation">[</span>cnt<span class="token operator">++</span><span class="token punctuation">]</span> <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> cnt<span class="token punctuation">;</span> <span class="token operator">++</span>j<span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">*</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">>=</span> n<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            vis<span class="token punctuation">[</span>i <span class="token operator">*</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">%</span> pri<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token keyword">int</span> ns<span class="token punctuation">,</span> q<span class="token punctuation">;</span>
+<span class="token keyword">int</span> ans<span class="token punctuation">[</span>TEMP<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>ns<span class="token punctuation">,</span> <span class="token operator">&amp;</span>q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">is_prime</span><span class="token punctuation">(</span>ns<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// printf("done.\n");</span>
+    
+    <span class="token comment">// int cnt = 0;</span>
+    <span class="token comment">// for(int i = 2; i &lt;= ns; i++)</span>
+    <span class="token comment">// &#123;</span>
+    <span class="token comment">//     if(vis[i] == 0)</span>
+    <span class="token comment">//     &#123;</span>
+    <span class="token comment">//         printf("%d\n", i);</span>
+    <span class="token comment">//     &#125;</span>
+    <span class="token comment">// &#125;</span>
+    
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> q<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> temp<span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>temp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d\n"</span><span class="token punctuation">,</span> pri<span class="token punctuation">[</span>temp <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/"><i class="fa fa-tag"></i> 基础算法</a>
+            <a href="/tags/%E6%95%B0%E8%AE%BA/"><i class="fa fa-tag"></i> 数论</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/jinzhi/"><i class="fa fa-angle-left"></i> 有关进制的一些小记</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/huff-tree/">哈夫曼树和哈夫曼编码 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

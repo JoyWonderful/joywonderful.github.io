@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>线性数据结构：链表的模板 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%99%AE%E9%80%9A%E7%9A%84%E9%93%BE%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text">普通的链表</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">线性数据结构：链表的模板</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-19T15:23:32+08:00">2023-07-19</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:39:12+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>链表类似于数组，与数组不同的是，链表可以更加方便地更改数据和删除数据。数组若想将中间的数据删除，则要非很大功夫，而链表就不同了，它的操作更加简单一些（后面说）。</p>
+<p>链表的数据组可以叫做“结点”，结点分成两个部分：一个是数据域，一个是指针域，数据域存数据，指针域指向下一个结点的数据地址。正是指针域将链表的每一个结点连在了一起。这种特性有一个好处：内存地址可以不连续，而数组的内存地址是必须要连续的。<br>比如内存还有 2GB 空闲，我申请了一个 1GB 大的数组，理论上是可以申请下来的，但占用的内存不一定完全是连续的。假设内存被一大堆东西占用的零零碎碎：确实有 2GB，但分成 4 个 500MB，这就申请不下来。而链表呢，可以充分利用内存碎片，通过指针变量，将分开的数据连在一起。</p>
+<span id="more"></span>
+
+<h2 id="普通的链表"><a href="#普通的链表" class="headerlink" title="普通的链表"></a>普通的链表</h2><p>链表还有一个好处：它是<strong>动态</strong>的，也就是说，使用的内存想申请就申请，想销毁就销毁(C&#x2F;C++中，其他语言我不确定)<br>，可以节约内存。<br>申请内存，可以用到 <code>&lt;malloc.h&gt;</code> 头文件中的 <code>malloc()</code> 函数，只有一个参数，填上你想要申请的内存大小(字节)，可以和 <code>sizeof</code> 一起用。但它返回的是 <code>void</code> 类型，所以最好在它前面加上一个类型强制转换。而销毁内存，则可以用到这个头文件中 <code>free()</code> 函数，一个参数，往里面填上地址（指针变量）即可销毁，但从此不可以再调用 使用这个内存的变量，若调用会报错，需要注意。</p>
+<p>无论什么链表，还要有一个头指针，以便寻找元素时更好的去找。链表的结点一般用一个结构体，结构体里面一个是数据(<code>data</code>)，一个是存着下一个结点数据地址的指针变量(<code>next</code>)。<br>示例代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
+    node <span class="token operator">*</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+node <span class="token operator">*</span>head<span class="token punctuation">;</span></code></pre>
+
+<p>首先说直接往末尾加上元素。先要判断链表是否为空，可以通过头指针 <code>head</code> 是否为空（<code>NULL</code>），若是第一个便创建新结点，申请为 <code>node</code> 类型的大小的内存，将那个结点的数据域赋值为加上的数据，再将结点的指针域设为 <code>NULL</code>（以防万一），将 <code>head</code> 设为新结点的地址。<br>否则通过指针域穷举当前指针域是否为 <code>NULL</code>，也就是最后一个元素，若到了最后一个元素，则申请内存，新建结点，数据域赋值，将上一个结点的指针域赋值为当前结点数据域的地址，将打钱结点指针域设为 <code>NULL</code>。<br>示例代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        head <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>插入也差不多，穷举到目标位置，申请内存，更改指针域。访问即是穷举，顺着指针走。更改数据还要穷举，将数据域改掉就好了。重点将删除。<br>首先，判断删除的是否是第一个，若是则将 <code>head</code> 更改为下一个结点的指针域。否则穷举目标，新建一个 <code>node</code> 类型的零时变量，将它赋值为删除目标的下一个结点的指针域，销毁准备删除的内存，将删除的地方的指针域赋值为那个零时变量。<br>完整代码：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">node</span> <span class="token comment">// 结点</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span> <span class="token comment">// 数据</span>
+    node <span class="token operator">*</span>next<span class="token punctuation">;</span> <span class="token comment">// 下一个结点的地址</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+node <span class="token operator">*</span>head<span class="token punctuation">;</span> <span class="token comment">// 指针变量</span>
+
+<span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span> <span class="token comment">// 往末尾追加元素，`data` 是要追加的数据</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 链表为空</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 申请内存</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span> <span class="token comment">// 存数据</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span> <span class="token comment">// 以防万一</span>
+        head <span class="token operator">=</span> New<span class="token punctuation">;</span> <span class="token comment">// 因为链表是空的，所以要给头指针赋值。</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span> <span class="token comment">// 开始遍历</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 条件的意思是不为链表的最后一个</span>
+        <span class="token punctuation">&#123;</span>
+            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 通过下一个结点的地址不但遍历</span>
+        <span class="token punctuation">&#125;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 同上的 `head==NULL`</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 插入， `x` 是要加的数据，`y` 表示在链表的第 `y` 个元素后插入数据</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    y<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        y<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 返回链表的第 `x` 个结点的数据</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 更改链表第 `x` 个结点的数据域为 `y`</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 删除链表第 `x` 个结点</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        head <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>head<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token operator">--</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 零时指针变量，下下个结点的指针域</span>
+    <span class="token function">free</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 销毁内存</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// main() 是示例</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 100</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 200</span>
+    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面加上 300</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 100 300 200</span>
+    <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删掉第一个元素</span>
+    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面插入 400</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 300 400 200</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>虽然代码注释讲了，为了更清楚，再说一遍输出：</p>
+<pre class="language-plain" data-language="plain"><code class="language-plain">first:100, second:300, third:200
+first:300, second:400, third:200</code></pre>
+<p><strong>附演示：</strong><a target="_blank" rel="noopener" href="https://visualgo.net/zh/list">https://visualgo.net/zh/list</a></p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/"><i class="fa fa-tag"></i> 基础算法</a>
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"><i class="fa fa-tag"></i> 数据结构</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/graph-tree/"><i class="fa fa-angle-left"></i> 数据结构：树的概念与储存</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/cpp-file/">C++ 文件操作 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

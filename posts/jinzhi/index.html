@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>有关进制的一些小记 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">true</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.</span> <span class="toc-text">进制转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%92%8C%E5%8D%81%E8%BF%9B%E5%88%B6%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.1.</span> <span class="toc-text">二进制和十进制的转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6-%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="toc-number">1.1.1.</span> <span class="toc-text">二进制 -&gt; 十进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6-%E4%BA%8C%E8%BF%9B%E5%88%B6"><span class="toc-number">1.1.2.</span> <span class="toc-text">十进制 -&gt; 二进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E8%BF%9B%E5%88%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.2.</span> <span class="toc-text">其他进制之间的转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8D%81%E8%BF%9B%E5%88%B6%E5%BD%93%E4%BD%9C%E5%AA%92%E4%BB%8B%E7%9A%84%E8%BD%AC%E6%8D%A2%EF%BC%88%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E8%BF%9B%E5%88%B6%E9%80%9A%E7%94%A8%EF%BC%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">使用十进制当作媒介的转换（对于所有进制通用）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E4%BA%8C%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%85%AB%E8%BF%9B%E5%88%B6%E3%80%81%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6"><span class="toc-number">1.2.2.</span> <span class="toc-text">将二进制转换为八进制、十六进制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.</span> <span class="toc-text">进制小数之间的转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8D%81%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0%E8%BD%AC-x-%E8%BF%9B%E5%88%B6"><span class="toc-number">1.3.1.</span> <span class="toc-text">十进制小数转 x 进制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#x-%E8%BF%9B%E5%88%B6%E5%B0%8F%E6%95%B0%E8%BD%AC%E5%8D%81%E8%BF%9B%E5%88%B6"><span class="toc-number">1.3.2.</span> <span class="toc-text">x 进制小数转十进制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">位运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E4%B8%8E%E8%BF%90%E7%AE%97"><span class="toc-number">2.1.</span> <span class="toc-text">按位与运算 &amp;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E6%88%96%E8%BF%90%E7%AE%97"><span class="toc-number">2.2.</span> <span class="toc-text">按位或运算 |</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E9%9D%9E%E8%BF%90%E7%AE%97"><span class="toc-number">2.3.</span> <span class="toc-text">按位非运算 ~</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%89%E4%BD%8D%E5%BC%82%E6%88%96"><span class="toc-number">2.4.</span> <span class="toc-text">按位异或 ^</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A6%E7%A7%BB"><span class="toc-number">2.5.</span> <span class="toc-text">左移 &lt;&lt; 右移 &gt;&gt;</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9A%84%E7%BC%96%E7%A0%81"><span class="toc-number">3.</span> <span class="toc-text">二进制的编码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81"><span class="toc-number">3.1.</span> <span class="toc-text">原码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E7%A0%81"><span class="toc-number">3.2.</span> <span class="toc-text">反码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%A5%E7%A0%81"><span class="toc-number">3.3.</span> <span class="toc-text">补码</span></a></li></ol></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">有关进制的一些小记</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-12T10:00:41+08:00">2023-08-12</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-03T08:10:31+08:00">2024-05-03</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>x 进制，代表着在这个计数方法中逢 x 进一，例如十进制就代表着<strong>逢十进一</strong>。<br>我们平常在生活中用的都是十进制。进制一类的东西在 OI 中也比较重要<del>CCF 喜欢考</del>，计算机中的数据都是以二进制储存的，二进制也完美地利用了每一个比特。当然，只要有足够的表示方法，人们可以弄出三十二进制、六十四进制，甚至一千进制。<del>闲的没事情干，</del>进制有关的以及进制之间的转换就是我想记下来的话题。</p>
+<span id="more"></span>
+
+<h2 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h2><h3 id="二进制和十进制的转换"><a href="#二进制和十进制的转换" class="headerlink" title="二进制和十进制的转换"></a>二进制和十进制的转换</h3><p>这是 <del>€€£</del> CCF 出的题中一定会多少考到一点的知识，比较重要。一般来说，x 进制的数记作 $(\text {number})_x$，例如二进制数 <span style="font-family:monospace;">1011</span> 记作 $(1011)_2$，十进制数 <span style="font-family:monospace;">114514</span> 记作 $(114514)_{10}$。</p>
+<h4 id="二进制-十进制"><a href="#二进制-十进制" class="headerlink" title="二进制 -&gt; 十进制"></a>二进制 -&gt; 十进制</h4><p>二进制的数从右往左每一位都有权值，第 <span style="font-family:monospace;">i</span> 位的权值为 $2^{(i - 1)}$。举个例子：二进制数 <span style="font-family:monospace;">1011001</span> 的每一位权值是：<br>$\mathbf{1} \to 2^6 \ \ \ \mathbf{0} \to 2^5 \ \ \ \mathbf{1} \to 2^4 \ \ \ \mathbf{1} \to 2^3 \ \ \ \mathbf{0} \to 2^2 \ \ \ \mathbf{0} \to 2^1 \ \ \ \mathbf{1} \to 2^0$。</p>
+<p>从二进制转换为十进制只需要将当前二进制位的值乘上权值即可。还是 <span style="font-family:monospace;">1011001</span>：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+&amp;(1011001)_2 \\
+&#x3D; \ &amp;(\mathbf&#123;1&#125; \times 2^6) + (\mathbf&#123;0&#125; \times 2^5) + (\mathbf&#123;1&#125; \times 2^4) + (\mathbf&#123;1&#125; \times 2^3) + (\mathbf&#123;0&#125; \times 2^2) + (\mathbf&#123;0&#125; \times 2^1) + (\mathbf&#123;1&#125; \times 2^0) \\
+&#x3D; \ &amp;64 + 0 + 16 + 8 + 0 + 0 + 1 \\
+&#x3D; \ &amp;(89)_&#123;10&#125;
+\end&#123;aligned&#125;</code></pre>
+
+<p>可见，二进制 <span style="font-family:monospace;">1011001</span> 转换为十进制是 <span style="font-family:monospace;">89</span>。<br><del>话说 hexo next 的 mathjax 渲染越来越奇怪了。。。</del></p>
+<h4 id="十进制-二进制"><a href="#十进制-二进制" class="headerlink" title="十进制 -&gt; 二进制"></a>十进制 -&gt; 二进制</h4><p>可以使用短除法，将十进制除以二取余，直至商为零。最后将取余的结果倒序输出。<br>比如说，还是那个数字 $(89)_{10}$：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+2 \ | \underline&#123; \ \ \ \ \ \ \ \ &#125; &amp;\underline&#123;89 \ &#125; \\
+2 \ | \underline&#123; \ \ \ \ \ \ \ &#125; &amp;\underline&#123;44 \ &#125; \ \ \ \ \ \ \textbf&#123;1&#125; \\
+2 \ | \underline&#123; \ \ \ \ \ \ &#125; &amp;\underline&#123;22 \ &#125; \ \ \ \ \ \ \textbf&#123;0&#125; \\
+2 \ | \underline&#123; \ \ \ \ \ &#125; &amp;\underline&#123;11 \ &#125; \ \ \ \ \ \ \textbf&#123;0&#125; \\
+2 \ | \underline&#123; \ \ \ \ &#125; &amp;\underline&#123;\ \ 5 \ &#125; \ \ \ \ \ \ \textbf&#123;1&#125; \\
+2 \ | \underline&#123; \ \ \ &#125; &amp;\underline&#123;\ \ 2 \ &#125; \ \ \ \ \ \ \textbf&#123;1&#125; \\
+2 \ | \underline&#123; \ \ &#125; &amp;\underline&#123;\ \ 1 \ &#125; \ \ \ \ \ \ \textbf&#123;0&#125; \\
+2 \ | &amp;\underline&#123;\ \ 0 \ &#125; \ \ \ \ \ \ \textbf&#123;1&#125;
+\end&#123;aligned&#125;</code></pre>
+
+<p>最后，倒着输出即可得知 $(89)_{10} &#x3D; (1011001)_2$ 。<br><del>ps: mathjax 没有特定的短除公式，只好用这种奇特的方法模拟短除。</del></p>
+<div class="note info"><p>P.S. 另一种更方便的双向转换方法</p>
+<p>可以发现，其实二进制十进制的互相转换都离不开 二的 i 次方，也可以将这张表记下来（也就是从右往左不断地乘二嘛），之后的转换会方便很多。<br>其实这张表也就是二的 i 次方：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">... 256 \ \ 128 \ \ 64 \ \ 32 \ \ 16 \ \ 8 \ \ 4 \ \ 2 \ \ 1</code></pre>
+
+<div class="tabs" id="demo"><ul class="nav-tabs"><li class="tab active"><a href="#demo-1">二进制进制转十进制</a></li><li class="tab"><a href="#demo-2">十进制转二进制</a></li></ul><div class="tab-content"><div class="tab-pane active" id="demo-1"><p>这算是这张表最方便的用法了，还是 $(1011001)_2$</p>
+<table>
+<thead>
+<tr>
+<th align="center">每一位</th>
+<th align="left">1</th>
+<th align="left">0</th>
+<th align="left">1</th>
+<th align="left">1</th>
+<th align="left">0</th>
+<th align="left">0</th>
+<th align="left">1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">每一位对应的权值</td>
+<td align="left">64</td>
+<td align="left">32</td>
+<td align="left">16</td>
+<td align="left">8</td>
+<td align="left">4</td>
+<td align="left">2</td>
+<td align="left">1</td>
+</tr>
+</tbody></table>
+<p>一代表着要加起来，否则不加起来，那么，这个二进制数等于这个十进制数：<br>$(1011001)_2 &#x3D; 64 + 16 + 8 + 1 &#x3D; (89)_{10}$</p></div><div class="tab-pane" id="demo-2"><p>同样的，也可以一位一位地尝试累加。假如十进制减去奶味的权值不小于 0，就减去，否则不减去，直至加起来的权值之和等于目标十进制数。例如十进制数 89：  </p>
+<table>
+<thead>
+<tr>
+<th align="center">权值表</th>
+<th align="left">64</th>
+<th align="left">32</th>
+<th align="left">16</th>
+<th align="left">8</th>
+<th align="left">4</th>
+<th align="left">2</th>
+<th align="left">1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">是否减去</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">1</td>
+<td align="left">1</td>
+<td align="left">0</td>
+<td align="left">0</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="center">过程备注</td>
+<td align="left">初始的值是 89，64 &lt; 89，就减去，89 - 64 &#x3D; 25。结果 <strong>1</strong>。</td>
+<td align="left">32 &gt; 25，不减去。结果 <strong>0</strong>。</td>
+<td align="left">16 &lt; 25，25 - 16 &#x3D; 9。结果 <strong>1</strong>。</td>
+<td align="left">8 &lt; 9，9 - 8 &#x3D; 1。结果 <strong>1</strong>。</td>
+<td align="left">4 &gt; 1。结果 <strong>0</strong>。</td>
+<td align="left">2 &gt; 1。结果 <strong>0</strong>。</td>
+<td align="left">1 &#x3D; 1，1 - 1 &#x3D; 0。结果 <strong>1</strong>。</td>
+</tr>
+</tbody></table>
+<p>可见：<br>$(89)_{10} &#x3D; (1011001)_2$</p></div></div></div>
+</div>
+
+<h3 id="其他进制之间的转换"><a href="#其他进制之间的转换" class="headerlink" title="其他进制之间的转换"></a>其他进制之间的转换</h3><p>像其他进制，比如十六进制，大于 <span style="font-family:monospace;">9</span> 时就可以用字母 <span style="font-family:monospace;">A B C D E F</span> 按照顺序代替数字。</p>
+<h4 id="使用十进制当作媒介的转换（对于所有进制通用）"><a href="#使用十进制当作媒介的转换（对于所有进制通用）" class="headerlink" title="使用十进制当作媒介的转换（对于所有进制通用）"></a>使用十进制当作媒介的转换（对于所有进制通用）</h4><p>其实，任何进制之间的转换都可以将那个进转换为十进制后再转换为目标进制。十进制也可以转换为任何进制。至于怎么转换，其实和 <a href="#二进制和十进制的转换"> <i class="fa-solid fa-hashtag" style="font-size:15px;"></i> 二进制和十进制之间的转换</a> 差不多。<br>同样的，x 进制转十进制 每一位的 每一位乘上每一位的权值 之和。例如：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+&amp;(1021102)_3 \\
+&#x3D; \ &amp;(\mathbf&#123;1&#125; \times 3^6) + (\mathbf&#123;0&#125; \times 3^5) + (\mathbf&#123;2&#125; \times 3^4) + (\mathbf&#123;1&#125; \times 3^3) + (\mathbf&#123;1&#125; \times 3^2) + (\mathbf&#123;0&#125; \times 3^1) + (\mathbf&#123;2&#125; \times 3^0) \\
+&#x3D; \ &amp;729 + 0 + 162 + 27 + 9 + 0 + 2 \\
+&#x3D; \ &amp;929
+\end&#123;aligned&#125;</code></pre>
+
+<p>$x$ 进制的从右往左数（从 1 开始数）第 $i$ 位的权值就是 $x^{(i - 1)}$。转换为十进制只需要将每一位的 每一位的权值乘那一位的数 加起来即可。</p>
+<p>十进制转 x 进制也可以用短除法，不断整除 x，取余，然后倒序输出。<br>照理说，将十进制作为媒介可以将任意进制转换为其他任意进制。<br>同样的，也可以通过代码更方便地实现（说一句，还是别人的代码写的好看，我写的屎山简直不忍直视，而且只能大到十六进制）：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstring></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cmath></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">xtoten</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> string s<span class="token punctuation">)</span> <span class="token comment">// x 进制转十进制</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> tensum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> cnt <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token comment">// 从右往左求权值</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> t<span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'0'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// 屎山代码的本质。。。</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'1'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'2'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'3'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'4'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'5'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'6'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'7'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">7</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'8'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'9'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'A'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'B'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'C'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'D'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'E'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">14</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token char">'F'</span><span class="token punctuation">)</span> t <span class="token operator">=</span> <span class="token number">15</span><span class="token punctuation">;</span>
+        tensum <span class="token operator">+=</span> t <span class="token operator">*</span> <span class="token function">pow</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> cnt<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// $x$ 进制的从右往左数（从 1 开始数）第 $i$ 位的权值就是 $x^&#123;(i - 1)&#125;$。</span>
+        cnt<span class="token operator">++</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> tensum<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+string <span class="token function">tentoy</span><span class="token punctuation">(</span><span class="token keyword">int</span> y<span class="token punctuation">,</span> <span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token comment">// 十进制转 x 进制</span>
+<span class="token punctuation">&#123;</span>
+    string ret <span class="token operator">=</span> <span class="token string">""</span> <span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span> <span class="token punctuation">;</span> <span class="token punctuation">;</span> <span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">int</span> t <span class="token operator">=</span> n <span class="token operator">%</span> y<span class="token punctuation">;</span> <span class="token comment">// 除以 x 剩下的余数</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'0'</span><span class="token punctuation">;</span> <span class="token comment">// 屎山依旧。。。</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'1'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'2'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'3'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">4</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'4'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">5</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'5'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">6</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'6'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">7</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'7'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">8</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'8'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">9</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'9'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">10</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'A'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">11</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'B'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">12</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'C'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">13</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'D'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">14</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'E'</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>t <span class="token operator">==</span> <span class="token number">15</span><span class="token punctuation">)</span> ret <span class="token operator">+=</span> <span class="token char">'F'</span><span class="token punctuation">;</span>
+        n <span class="token operator">/=</span> y<span class="token punctuation">;</span> <span class="token comment">// 整除</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">break</span> <span class="token punctuation">;</span> <span class="token comment">// 除到零为止</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> n<span class="token punctuation">,</span> m<span class="token punctuation">;</span>
+    string qwq<span class="token punctuation">;</span>
+    
+    cin <span class="token operator">>></span> n <span class="token operator">>></span> qwq <span class="token operator">>></span> m<span class="token punctuation">;</span> <span class="token comment">// n: x 进制;  qwq: 一个 x 进制的数;  m: 需要转换成的进制</span>
+    
+    string ans <span class="token operator">=</span> <span class="token function">tentoy</span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token function">xtoten</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> qwq<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> ans<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">>=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token comment">// 十进制转 x 进制需要倒序输出</span>
+    <span class="token punctuation">&#123;</span>
+        cout <span class="token operator">&lt;&lt;</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// 比如输入  3 1021102 10  会输出  929。</span>
+<span class="token comment">// 其实这个代码就是 洛谷 P1143 的代码 https://www.luogu.com.cn/problem/P1143</span></code></pre>
+
+<h4 id="将二进制转换为八进制、十六进制"><a href="#将二进制转换为八进制、十六进制" class="headerlink" title="将二进制转换为八进制、十六进制"></a>将二进制转换为八进制、十六进制</h4><p>注意一下，二进制并不可以直接转换为其他进制，只不过对于二进制转八进制、十六进制比较方便。若是这二进制转八进制或十六进制，要是嫌使用十进制作为媒介比较麻烦，那就可以用二进制作为媒介更加方便一些。  </p>
+<p>将二进制转换为八进制，可以从右往左三位三位分开来，再将那三位二进制转换为十进制，合起来（注意是字符意义上的合起来）就是八进制。十六进制则是四位四位分开来。这里举两个例子：</p>
+<div class="tabs" id="binhex"><ul class="nav-tabs"><li class="tab active"><a href="#binhex-1">二进制转八进制</a></li><li class="tab"><a href="#binhex-2">二进制转十六进制</a></li></ul><div class="tab-content"><div class="tab-pane active" id="binhex-1"><pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\because
+\underset&#123;\text&#123;八进制：&#125;&#125;&#123;\text&#123;二进制：&#125;&#125; ( \underset&#123;1&#125;&#123;\underline&#123;1&#125;&#125; \ \underset&#123;2&#125;&#123;\underline&#123;010&#125;&#125; \ \underset&#123;7&#125;&#123;\underline&#123;111&#125;&#125; )_&#123;2&#125;
+\\
+\therefore
+(1010111)_&#123;2&#125; &#x3D; (127)_&#123;8&#125;</code></pre></div><div class="tab-pane" id="binhex-2"><pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\because
+\underset&#123;\text&#123;十六进制：&#125;&#125;&#123;\text&#123;二进制：&#125;&#125; ( \underset&#123;3&#125;&#123;\underline&#123;11&#125;&#125; \ \underset&#123;\text&#123;A&#125;&#125;&#123;\underline&#123;1010&#125;&#125; \ \underset&#123;1&#125;&#123;\underline&#123;0001&#125;&#125; )_&#123;2&#125;
+\\
+\therefore
+(1110100001)_&#123;2&#125; &#x3D; (\text&#123;3A1&#125;)_&#123;16&#125;</code></pre></div></div></div>
+
+<div class="note info"><p>P.S. 二进制、八进制、十进制、十六进制在 C++ 中的表示方法（前缀）</p>
+<p>以上这些进制自然有自己的表示方法。其中，二进制以 <code>0b</code> 开头；八进制以 <code>0</code> 开头；十进制就是平常的写法，没有任何前缀；十六进制以 <code>0x</code> 开头。<br>例如，以下代码会输出四个 <code>2147483647</code>。</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d %d\n"</span><span class="token punctuation">,</span> 
+       <span class="token number">0b1111111111111111111111111111111</span><span class="token punctuation">,</span>  <span class="token comment">// 二进制</span>
+       <span class="token number">017777777777</span><span class="token punctuation">,</span>  <span class="token comment">// 八进制</span>
+       <span class="token number">2147483647</span><span class="token punctuation">,</span>  <span class="token comment">// 十进制</span>
+       <span class="token number">0x7fffffff</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 十六进制</span></code></pre></div>
+
+<h3 id="进制小数之间的转换"><a href="#进制小数之间的转换" class="headerlink" title="进制小数之间的转换"></a>进制小数之间的转换</h3><p>进制小数也是 CCF 要考的一点，恰好在某个模拟赛上做到了，更新一下下。</p>
+<h4 id="十进制小数转-x-进制"><a href="#十进制小数转-x-进制" class="headerlink" title="十进制小数转 x 进制"></a>十进制小数转 x 进制</h4><p>简单来说就是小数点前面正常转换，小数点之后乘 x 取整，正常输出。例如十进制 0.3 转换为二进制：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+&amp;0.3 \times 2 &#x3D; \mathbf&#123;0&#125;.6 \\
+\text&#123;二进制小数：&#125;&amp;0.\mathbf&#123;0&#125; \\
+\\
+&amp;0.6 \times 2 &#x3D; \mathbf&#123;1&#125;.2 \\
+\text&#123;二进制小数：&#125;&amp;0.0\mathbf&#123;1&#125; \\
+\\
+&amp;0.2 \times 2 &#x3D; \mathbf&#123;0&#125;.4 \\
+\text&#123;二进制小数：&#125;&amp;0.01\mathbf&#123;0&#125; \\
+\\
+&amp;0.4 \times 2 &#x3D; \mathbf&#123;0&#125;.8 \\
+\text&#123;二进制小数：&#125;&amp;0.010\mathbf&#123;0&#125; \\
+\\
+&amp;0.8 \times 2 &#x3D; \mathbf&#123;1&#125;.6 \\
+\text&#123;二进制小数：&#125;&amp;0.0100\mathbf&#123;1&#125; \\
+\\
+&amp;0.6 \times 2 &#x3D; \mathbf&#123;1&#125;.2 \\
+\text&#123;二进制小数：&#125;&amp;0.01001\mathbf&#123;1&#125; \\
+\\
+&amp;...
+\end&#123;aligned&#125;</code></pre>
+
+<p>最后可以得出：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">(0.3)_&#123;10&#125; &#x3D; (0.0\dot&#123;1&#125;00\dot&#123;1&#125;)</code></pre>
+
+<p>注：无限循环小数</p>
+<h4 id="x-进制小数转十进制"><a href="#x-进制小数转十进制" class="headerlink" title="x 进制小数转十进制"></a>x 进制小数转十进制</h4><p>其实和整数位很像，不过从左往右第 i 位的权值是 -i。不写了吧。。。</p>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><p>位运算是一个比较<del>毒瘤</del>有趣的运算，是二进制的运算。当然也可以通过位运算做一些与平常的（逻辑）运算符等价的运算，但速度更快。</p>
+<h3 id="按位与运算"><a href="#按位与运算" class="headerlink" title="按位与运算 &amp;"></a>按位与运算 <code>&amp;</code></h3><p>将两个二进制的每一位逐个比较，若这一位都为 1 则得出 1，否则得出 0。若这两个二进制数字位数不同可以在前面补零。</p>
+<pre class="language-none"><code class="language-none">1 &amp; 1 &#x3D; 1;
+0 &amp; 0 &#x3D; 0;
+1 &amp; 0 &#x3D; 0;
+0 &amp; 1 &#x3D; 0;</code></pre>
+
+<p>这个运算符还有一个备选关键字：<code>bitand</code>，比如 <code>10 &amp; 3</code> 等价于 <code>10 bitand 3</code>。<br>其实所有位运算也可以在 C++ 中用十进制直接运算，例如 <code>10 &amp; 3</code>，用 <code>0b</code> 前缀也行，也就是 <code>0b1010 &amp; 0b11</code> 或 <code>0b1010 &amp; 0b0011</code>。<br>举个更详细的例子：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;matrix&#125;
+&amp; 1011001 \\
+\&amp; &amp; 0111101 \\
+\hline
+&amp; 0011001
+\end&#123;matrix&#125;</code></pre>
+
+<p>转为十进制就是 <span style="font-family:monospace;">89 &amp; 61 &#x3D; 15</span>。</p>
+<h3 id="按位或运算"><a href="#按位或运算" class="headerlink" title="按位或运算 |"></a>按位或运算 <code>|</code></h3><p>两个二进制的每一位比较，若有一个为 1 则得出 1，否则得出 0。同样的，若这两个二进制数字位数不同可以在前面补零。</p>
+<pre class="language-none"><code class="language-none">1 | 1 &#x3D; 1;
+0 | 0 &#x3D; 0;
+1 | 0 &#x3D; 1;
+0 | 1 &#x3D; 1;</code></pre>
+
+<p>这个运算符也有一个备选关键字 <code>bitor</code>，<code>10 | 3</code> 等价于 <code>10 bitor 3</code>。<br>例子：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;matrix&#125;
+&amp; 1011001 \\
+| &amp; 0111101 \\
+\hline
+&amp; 1111101
+\end&#123;matrix&#125;</code></pre>
+
+<p>转为十进制就是 <span style="font-family:monospace;">89 | 61 &#x3D; 125</span>。</p>
+<h3 id="按位非运算"><a href="#按位非运算" class="headerlink" title="按位非运算 ~"></a>按位非运算 <code>~</code></h3><p>这算是最简单的运算符了，即将每一位取反。例如 <code>~0</code> 就等于 1，<code>~1</code> 就等于 0。<br>例子：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;matrix&#125;
+\sim &amp; 0111101 \\
+\hline
+&amp; 1000010
+\end&#123;matrix&#125;</code></pre>
+
+<h3 id="按位异或"><a href="#按位异或" class="headerlink" title="按位异或 ^"></a>按位异或 <code>^</code></h3><p>其实就是比较每一位是否相同，若相同为 <code>0</code>， 不相同为 <code>1</code>。</p>
+<pre class="language-none"><code class="language-none">1 ^ 1 &#x3D; 0; 
+0 ^ 0 &#x3D; 0; 
+1 ^ 0 &#x3D; 1; 
+0 ^ 1 &#x3D; 1;</code></pre>
+
+<p>C++ 中也有备选关键字，就是 <code>xor</code>。<code>10 ^ 3</code> 等价于 <code>10 xor 3</code>。<br>例如：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;matrix&#125;
+&amp; 1011001 \\
+\text&#123;\textasciicircum&#125; &amp; 0111101 \\
+\hline
+&amp; 1100100
+\end&#123;matrix&#125;</code></pre>
+
+<p>转为十进制就是 <span style="font-family:monospace;">89 ^ 61 &#x3D; 100</span>。</p>
+<h3 id="左移"><a href="#左移" class="headerlink" title="左移 &lt;&lt; 右移 &gt;&gt;"></a>左移 <code>&lt;&lt;</code> 右移 <code>&gt;&gt;</code></h3><p>将所有二进制位全部左移，也就是将最左边的二进制位丢弃，右边补上一个 0。例如：<br><code>10110011 &lt;&lt; 1 = 01100110</code>。<br>右移也是一样，不过负数往左边补 1，正数补 0。</p>
+<div class="note info"><p>P.S. 位运算时赋值</p>
+<p>同 <code>+=</code> <code>-=</code> 等符号一样，位运算也可以在符号后面加上 <code>=</code>，<code>&gt;&gt;=</code> <code>^=</code> <code>&amp;=</code> <code>&lt;&lt;=</code> <code>|=</code> 等运算符都是可以的。</p>
+</div>
+
+<div class="note info"><p>P.S. 位运算的一些使用技巧</p>
+<p>位运算其实有很多奇怪的应用。例如：</p>
+<ol>
+<li><strong>判断偶数奇数</strong>（能否被 2 整除）。0 是偶数 1 是奇数。<code>([number] &amp; 1) == 1</code> 相当于 <code>([number] % 2) == 1</code>，平常还是写 <code>[number] &amp; 1</code>。举个例子，<code>10 &amp; 1 = 0</code>、<code>13 &amp; 1 = 1</code>。</li>
+<li><strong>求 2 的几次方</strong>，<code>1 &lt;&lt; [number]</code> 就是求 2 的 [number] 次方。例如 <code>1 &lt;&lt; 10 = sqrt(2, 10) = 1024</code>。</li>
+<li><strong>交换 <code>a b</code> 两个数字</strong>。可以 <code>a ^= b; b ^= a; a ^= b</code>，效率比普通交换要高。</li>
+<li><strong>正数变负数，负数变正数</strong>。假设一个数字 <code>n</code>，只需要 <code>~n + 1</code> 就可以转变该数正负号。例如 <code>~1024 + 1 = -1024</code>、<code>~-114 + 1 = 114</code>。（在 “补码” 中，详见下面的二进制编码）</li>
+<li><strong>除以 2</strong>，使用 <code>[number] &gt;&gt; 1</code>。例如 <code>100 &gt;&gt; 1</code> 等价于 <code>100 / 2</code>，再比如 <code>int a = 1024; a &gt;&gt;= 1; printf(&quot;%d\n&quot;, a);</code> 输出 <code>512</code>。</li>
+</ol>
+<p>其他的应用，这里不写了，有兴趣可以去网上找更多的。</p>
+</div>
+
+<h2 id="二进制的编码"><a href="#二进制的编码" class="headerlink" title="二进制的编码"></a>二进制的编码</h2><p>其实，刚才讲的（个别除外）二进制都是二进制中编码的一种：<strong>原码</strong>。二进制一共有三个编码：<strong>原码</strong>、<strong>反码</strong>和<strong>补码</strong>，计算机中真正使用的是<strong>补码</strong>。<br>这些编码都要规定它们的位数，否则就弄不清楚到底是正数还是负数了。在下面的随记中，我用的是<strong>8 位整型</strong>。其实在 C++ 中，<code>int</code> 是 32 位整型。确定位数很重要，例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">int</span>       a <span class="token operator">=</span> <span class="token number">0b11111111111111111111111111111111</span><span class="token punctuation">;</span>
+<span class="token keyword">long</span> <span class="token keyword">long</span> b <span class="token operator">=</span> <span class="token number">0b11111111111111111111111111111111</span><span class="token punctuation">;</span> <span class="token comment">// int a 格式化了一下，更方便看</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %lld\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>会输出 <code>-1 4294967295</code>。因为 <code>int</code> 是 32 位整型，而 <code>long long 是</code> 64 位。补码的第一位是符号位，若为 1 就是负数。而我给的二进制是 32 位，第一位是 1，<code>int</code> 就是负数。</p>
+<p>原码、反码、补码的表示是将二进制用中括号括起来，再右下角写上 “原” “反”或“补”。例如 $[00001010]_{\text{原}}$、$[11101110]_{\text{补}}$。</p>
+<h3 id="原码"><a href="#原码" class="headerlink" title="原码"></a>原码</h3><p>原码、反码以及补码的最左边的那一位都是<strong>符号位</strong>。例如 $[00000001]_{\text{原}}$ 是十进制的 1，而 $[10000001]_{\text{原}}$ 是十进制的 -1。</p>
+<p>在原码中，除符号位外，剩下的二进制都是按照 <a href="#二进制-gt-十进制"> <i class="fa-solid fa-hashtag" style="font-size:15px;"></i> 二进制转十进制</a> 一样。若符号位是 1 那就将转换的十进制加个负号。例如：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+(5)_&#123;10&#125; &amp;&#x3D; [00000101]_&#123;\text&#123;原&#125;&#125; \\
+(-12)_&#123;10&#125; &amp;&#x3D; [10001100]_&#123;\text&#123;原&#125;&#125;
+\end&#123;aligned&#125;</code></pre>
+
+<h3 id="反码"><a href="#反码" class="headerlink" title="反码"></a>反码</h3><p>原码变成反码，若原码是正数（符号位为 0）则不需要做任何改变；若原码是负数（符号位为 1）则将除符号位以外的位全部取反。例如：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+(24)_&#123;10&#125; &amp;&#x3D; [00011000]_&#123;\text&#123;原&#125;&#125; &#x3D; [00011000]_&#123;\text&#123;反&#125;&#125; \\
+(-17)_&#123;10&#125; &amp;&#x3D; [10010001]_&#123;\text&#123;原&#125;&#125; &#x3D; [11101110]_&#123;\text&#123;反&#125;&#125;
+\end&#123;aligned&#125;</code></pre>
+
+<h3 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h3><p>其实这才是计算机真正使用的二进制编码，前面的两种编码基本上只供学习和理解用。</p>
+<p>若那个二进制为正数，原码、反码和补码相同；若为负数，那么它的补码是它的反码加一。（请注意，二进制加法逢二进一）例如：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+(27)_&#123;10&#125; &amp;&#x3D; [00011011]_&#123;\text&#123;原&#125;&#125; &#x3D; [00011011]_&#123;\text&#123;反&#125;&#125; &#x3D; [00011011]_&#123;\text&#123;补&#125;&#125; \\
+(-53)_&#123;10&#125; &amp;&#x3D; [10110101]_&#123;\text&#123;原&#125;&#125; &#x3D; [11001010]_&#123;\text&#123;反&#125;&#125; &#x3D; [11001011]_&#123;\text&#123;补&#125;&#125;
+\end&#123;aligned&#125;</code></pre>
+
+<div class="note info"><p>P.S. 补码的快速转十进制方法</p>
+<p>同普通二进制转十进制一样，可以弄一张差不多一样的表，不同的是，这张表的最左边的数（符号位）是负数。<br>还是以 8 位整型为例，这张表是这样的：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">-128 \ \ 64 \ \ 32 \ \ 16 \ \ 8 \ \ 4 \ \ 2 \ \ 1</code></pre>
+
+<p>刚才的 -53 就可以以这种方法转换：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;aligned&#125;
+&amp;[11001011]_&#123;\text&#123;补&#125;&#125; \\
+&#x3D; &amp;-128 + 64 + 0 + 0 + 8 + 0 + 2 + 1 \\
+&#x3D; &amp;(-53)_&#123;10&#125;
+\end&#123;aligned&#125;</code></pre>
+</div>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fa fa-tag"></i> 语言入门</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/git-github/"><i class="fa fa-angle-left"></i> Git 的连接 Github 小记</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/shaifa/">数论：质数筛法 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

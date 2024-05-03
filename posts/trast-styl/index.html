@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>样式过渡动画 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-number">1.</span> <span class="toc-text">下划线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%A1%E5%85%A5%E6%B7%A1%E5%87%BA"><span class="toc-number">1.1.</span> <span class="toc-text">淡入淡出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%9F%90%E4%B8%AA%E6%96%B9%E5%90%91%E5%87%BA%E7%8E%B0"><span class="toc-number">1.2.</span> <span class="toc-text">从某个方向出现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF%E4%B8%8A%E5%8D%87%E5%88%B0%E8%83%8C%E6%99%AF%E8%89%B2"><span class="toc-number">2.</span> <span class="toc-text">下划线上升到背景色</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E6%8C%89%E9%92%AE"><span class="toc-number">3.</span> <span class="toc-text">模拟按钮</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">样式过渡动画</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2024-03-17T09:13:44+08:00">2024-03-17</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-05T16:08:25+08:00">2024-04-05</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>一些可以用到 <code>:hover</code> 状态上的样式过渡。</p>
+<p>以下的效果主要是通过 <strong>伪元素</strong> 实现的。感觉麻烦，直接加上 <code>transition: all .4s ease-in-out</code>。把下面那些记在这儿是方便自己以后用。<del>“感觉麻烦…”这句话也是给自己看的（逃</del></p>
+<span id="more"></span>
+
+<h2 id="下划线"><a href="#下划线" class="headerlink" title="下划线"></a>下划线</h2><p>这里的样式过渡适用于<strong>从无下划线到有下划线</strong>的样式过渡。</p>
+<h3 id="淡入淡出"><a href="#淡入淡出" class="headerlink" title="淡入淡出"></a>淡入淡出</h3><p>这里更改下划线的颜色，或者说是 <code>border-bottom-color</code>。因为直接设置过渡 <code>border</code> 不会有效果。</p>
+<style>
+    .post-body span.egunlcolor {
+        border-bottom: 1px solid transparent;
+        cursor: pointer;
+        transition: border-bottom-color .2s;
+    }
+    .post-body span.egunlcolor:hover {
+        border-bottom-color: #555;
+    }
+</style>
+
+<p>代码比较简单：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">span</span> <span class="token punctuation">&#123;</span> <span class="token comment">/* 这里的选择器改成要用的元素，所有的状态、颜色和数值也是，下同 */</span>
+    <span class="token property">border-bottom</span><span class="token punctuation">:</span> 1px solid transparent<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> border-bottom-color .2s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">span:hover</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">border-bottom-color</span><span class="token punctuation">:</span> #555<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p><span class="egunlcolor">鼠标放在这里，效果就是这个样子</span></p>
+<h3 id="从某个方向出现"><a href="#从某个方向出现" class="headerlink" title="从某个方向出现"></a>从某个方向出现</h3><p>这里更改下划线（伪元素）的长度，或者说是 <code>transform:scaleX()</code>。</p>
+<style>
+    .post-body div.egunderline span {
+        margin-bottom: 5px;
+        cursor: pointer;
+        position: relative;
+    }
+    .post-body div.egunderline span::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background-color: #555;
+        transform: scaleX(0);
+        transform-origin: inherit;
+        transition: transform .2s;
+    }
+    .post-body div.egunderline span:hover::before {
+        transform: scaleX(1);
+    }
+    .post-body div.egunderline span#egleftirighto:hover::before {
+        transform-origin: left;
+    }
+</style>
+
+<p>代码是这样的：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">span</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 5px<span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">span::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">bottom</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 2px<span class="token punctuation">;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> #555<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">scaleX</span><span class="token punctuation">(</span>0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">transform-origin</span><span class="token punctuation">:</span> right<span class="token punctuation">;</span> <span class="token comment">/* , center, left */</span> <span class="token comment">/* 更改这里可以把动画的位置改变 */</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> transform .2s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">span:hover::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">scaleX</span><span class="token punctuation">(</span>1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/* transform-origin: left; */</span> <span class="token comment">/* 上一处设为 right  这里设为 left  有左进右出的效果 */</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>效果：</p>
+<div class="egunderline" style="margin-bottom:20px;">
+    <span style="transform-origin:left;">下划线从<strong>左</strong>出现：<code>transform-origin:left;</code></span><br>
+    <span style="transform-origin:center;">下划线从<strong>中间</strong>出现：<code>transform-origin:right;</code></span><br>
+    <span style="transform-origin:right;">下划线从<strong>右</strong>出现：<code>transform-origin:right;</code></span><br>
+</div>
+
+<p>还可以把未触发状态下的 <code>transform-origin</code> 与触发状态下的值分别改成 <code>left</code> 和 <code>right</code>，像这样子：</p>
+<div class="egunderline" style="margin-bottom:20px;"><span style="transform-origin:right;" id="egleftirighto">左边出现，右边消失&ensp;的效果</span></div>
+
+<h2 id="下划线上升到背景色"><a href="#下划线上升到背景色" class="headerlink" title="下划线上升到背景色"></a>下划线上升到背景色</h2><p>比较适用于链接。其实是通过 <code>box-shadow</code> 的 <code>inset</code> 和 y偏移量 实现的。</p>
+<p>代码是：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">.post-body span.egultobg</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">box-shadow</span><span class="token punctuation">:</span> inset 0px -1px 0 0 #555<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> box-shadow .2s<span class="token punctuation">,</span> color .2s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">.post-body span.egultobg:hover</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">box-shadow</span><span class="token punctuation">:</span> inset 0px -1lh 0 0 #555<span class="token punctuation">;</span> <span class="token comment">/* 注意：lh 单位一些浏览器还不支持 */</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<style>
+    .post-body span.egultobg {
+        box-shadow: inset 0px -1px 0 0 #555;
+        transition: box-shadow .2s, color .2s;
+        cursor: pointer;
+    }
+    .post-body span.egultobg:hover {
+        box-shadow: inset 0px -1.5em 0 0 #555;
+        color: #eee;
+    }
+</style>
+
+<p><span class="egultobg">下划线上升为背景色</span></p>
+<h2 id="模拟按钮"><a href="#模拟按钮" class="headerlink" title="模拟按钮"></a>模拟按钮</h2><p>就是加上一些 <code>box-shadow</code> 和 <code>padding</code> 啦。代码：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">button.egprsbtn</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">--egprs-bgcolor</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+    <span class="token property">--egprs-color</span><span class="token punctuation">:</span> #555<span class="token punctuation">;</span>
+    <span class="token property">--egprs-hvbgc</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+    <span class="token property">--egprs-btnhei</span><span class="token punctuation">:</span> 4px<span class="token punctuation">;</span>
+    <span class="token property">cursor</span><span class="token punctuation">:</span> pointer<span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> 15px 15px <span class="token function">calc</span><span class="token punctuation">(</span>15px + <span class="token function">var</span><span class="token punctuation">(</span>--egprs-btnhei<span class="token punctuation">)</span><span class="token punctuation">)</span> 15px<span class="token punctuation">;</span>
+    <span class="token property">border-radius</span><span class="token punctuation">:</span> 8px<span class="token punctuation">;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 2px solid <span class="token function">var</span><span class="token punctuation">(</span>--egprs-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--egprs-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--egprs-bgcolor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">box-shadow</span><span class="token punctuation">:</span> 0 <span class="token function">var</span><span class="token punctuation">(</span>--egprs-btnhei<span class="token punctuation">)</span> 0 0 <span class="token function">var</span><span class="token punctuation">(</span>--egprs-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> transform .2s<span class="token punctuation">,</span> color .2s<span class="token punctuation">,</span> box-shadow .2s<span class="token punctuation">,</span> background-color .2s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">button.egprsbtn:hover</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--egprs-hvbgc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">button.egprsbtn:active</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--egprs-bgcolor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">var</span><span class="token punctuation">(</span>--egprs-color<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">box-shadow</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translateY</span><span class="token punctuation">(</span><span class="token function">var</span><span class="token punctuation">(</span>--egprs-btnhei<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<style>
+    button.egprsbtn {
+        --egprs-bgcolor: #fff;
+        --egprs-color: #555;
+        --egprs-hvbgc: #eee;
+        --egprs-btnhei: 4px;
+        cursor: pointer;
+        padding: 15px 15px calc(15px + var(--egprs-btnhei)) 15px;
+        border-radius: 8px;
+        border: 2px solid var(--egprs-color);
+        color: var(--egprs-color);
+        background-color: var(--egprs-bgcolor);
+        box-shadow: 0 var(--egprs-btnhei) 0 0 var(--egprs-color);
+        transition: transform .2s, color .2s, box-shadow .2s, background-color .2s;
+    }
+    button.egprsbtn:hover {
+        background-color: var(--egprs-hvbgc);
+    }
+    button.egprsbtn:active {
+        color: var(--egprs-bgcolor);
+        background-color: var(--egprs-color);
+        box-shadow: none;
+        transform: translateY(var(--egprs-btnhei))
+    }
+</style>
+
+<p><button class="egprsbtn">按钮的样式</button></p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/CSS/"><i class="fa fa-tag"></i> CSS</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/binarytree/"><i class="fa fa-angle-left"></i> 二叉树的性质</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/chrome-ext/">更改 Edge 新标签页 —— 简单浏览器扩展 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

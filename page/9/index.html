@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<div class="site-overview">
+    <div class="site-author">JoyWonderful</div>
+    <div class="site-stat">
+        <div class="site-stat-item">
+            <span class="site-stat-count">41</span>
+            <span class="site-stat-text">文章</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">3</span>
+            <span class="site-stat-text">分类</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">20</span>
+            <span class="site-stat-text">标签</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/chafen/">差分</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-02T17:47:43+08:00">2023-05-02</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-03T08:52:51+08:00">2024-05-03</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="什么是差分，差分与前缀和的关系"><a href="#什么是差分，差分与前缀和的关系" class="headerlink" title="什么是差分，差分与前缀和的关系"></a>什么是差分，差分与前缀和的关系</h2><p>差分也是一种<strong>优化算法</strong>。同时，差分是前缀和的逆运算，也就是说，前缀和也是差分的逆运算。因此，由前缀和数组可以求出差分数组，由差分数组也可以求出前缀和数组。</p>
+<p>假设数组 $a$ 是原数组，数组 $b$ 是差分数组，则：$b_i &#x3D; a_i - a_{i-1}$</p>
+<hr>
+
+<p>差分可以用于修改数组的操作。因为假设我需要将 $a_2$ $a_3$ $a_4$ 都加上 $2$ ，此时若使用前缀和则需要再使用递推重新求一遍前缀和，非常耗时。这时便可以使用差分数组。可以发现：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\underbrace&#123;b_1,\hspace&#123;2mm&#125; b_2&#125;_&#123;b_2 + 2 &#x3D; b_1&#125; ,\hspace&#123;2mm&#125; b_3,\hspace&#123;2mm&#125; \overbrace&#123;b_4,\hspace&#123;2mm&#125; b_5&#125;^&#123;b_5 - 2 &#x3D;b_4&#125;</code></pre>
+
+<p>因此，只需修改差分数组中的两个项，然后再通过前缀和是差分的逆运算，即可求出原数组，从而完成数组的修改。</p>
+    </div>
+</div>
+
+
+<nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+</nav>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

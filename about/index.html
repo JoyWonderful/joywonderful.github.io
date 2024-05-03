@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>关于 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<div class="site-overview">
+    <div class="site-author">JoyWonderful</div>
+    <div class="site-stat">
+        <div class="site-stat-item">
+            <span class="site-stat-count">41</span>
+            <span class="site-stat-text">文章</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">3</span>
+            <span class="site-stat-text">分类</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">20</span>
+            <span class="site-stat-text">标签</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">关于</h2>
+    </header>
+    <div class="post-body">
+        
+<p>这个博客是由 <a target="_blank" rel="noopener" href="https://hexo.io">Hexo <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a> 和主题 <a target="_blank" rel="noopener" href="https://theme-next.js.org/">NexT. <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a> 搭建支持的。做了很多美化工作。</p>
+
+<p>主要这个博客就是放一些我的见闻和看法，以及<strong>一大堆</strong>课程笔记的。<br>预计这个地方也没人来看，没什么意义嘛。快半年了，也写了挺多篇笔记的。</p>
+
+<p>就这样折腾来折腾去，这奇怪作风的博客终于被我弄好了，但它变的更奇怪了？<br>你既然看到这里了，不如就在 <a href="/comments">留言板</a> 留个言吧。</p>
+
+<p>省流：<br>The blog hosted on Github Pages, use frame Hexo theme NexT.<br>不对，没有人在最后放上省流吧？</p>
+
+<style>
+    div#last-deploy-info {
+        display: flex;
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+    div#last-deploy-info div {
+        margin-right: 25px;
+    }
+    div#last-deploy-info span.ititle {
+        color: #888;
+    }
+    div#last-deploy-info span.indexcnt {
+        color: #111;
+    }
+    div#last-deploy-info span, div#last-deploy-info a {
+        font-family: consolas, Menlo, monospace;
+        border-bottom: none;
+    }
+    div#last-deploy-info a:hover {
+        border-bottom: 1px solid #222222;
+    }
+</style>
+
+<br>
+
+<div id="last-deploy-info">
+    <div id="dpi-cmt-id"></div>
+    <div id="dpi-stat"></div>
+    <div id="dpi-durat"></div>
+    <div id="dpi-update"></div>
+</div>
+
+<script>
+    fetch("https://api.github.com/repos/joywonderful/joywonderful.github.io/actions/runs?per_page=1").then((result) => {
+        if(!result.ok) {
+            console.error(result.status);
+            var emsgd = document.querySelector("#last-deploy-info");
+            emsgd.innerHTML = `Failed to fetch deploy data.<br>The server returned a status of ${result.status}.`;
+            emsgd.style.color = "#bd0000";
+        }
+        var remain = result.headers.get("X-Ratelimit-Remaining"); // 获取速率限制
+        console.debug("Ratelimit remaining: " + remain + "\nRate limit reset after: " + result.headers.get("X-Ratelimit-Reset"));
+        if(remain == "0") {
+            console.debug("Too many requests.");
+            var emsgd = document.querySelector("#last-deploy-info");
+            emsgd.innerHTML = `The number of requests is out of range.<br>Rate limit reset after: ${result.headers.get("X-Ratelimit-Reset")}.`;
+            emsgd.style.color = "#bd0000";
+        }
+        return result.json();
+    }).then((data) => {
+        lrun = data.workflow_runs[0];
+        var cmt_id = document.querySelector("#dpi-cmt-id"), stat = document.querySelector("#dpi-stat"), durat = document.querySelector("#dpi-durat"), update = document.querySelector("#dpi-update");
+
+        const d1 = new Date(lrun.updated_at), d2 = new Date(lrun.created_at);
+        const totdura = (d1.getTime() - d2.getTime()) / 1000;
+
+        if(lrun.conclusion == null) var statstr = lrun.status;
+        else var statstr = lrun.conclusion;
+        var staticon = '<i class="fa-solid fa-question fa-fw fa-sm" style="color:#111;margin-left:5px"></i>';
+        if(statstr == "failure") staticon = '<i class="fa fa-xmark fa-fw fa-sm" style="color:#d1242f;margin-left:5px"></i>';
+        else if(statstr == "success") staticon = '<i class="fa fa-check fa-fw fa-sm" style="color:#1a7f37;margin-left:5px"></i>';
+        else if(statstr == "in_progress" || statstr == "queued" || statstr == "waiting") staticon = '<i class="far fa-circle-dot fa-fw fa-sm" style="color:#dbab0a;margin-left:5px"></i>';
+        else if(statstr == "skipped" || statstr == "cancelled") staticon = '<i class="fa fa-ban fa-sm fa-fw fa-rotate-90" style="color:#656d76;margin-left:5px"></i>';
+
+        cmt_id.style.borderRight = "2px dashed #444";
+        cmt_id.style.paddingRight = "25px";
+        cmt_id.innerHTML = `<span class="ititle">Run_Id: </span><a href="${lrun.html_url}" target="_blank">#${lrun.run_number}</a><br><span class="ititle">Commit: </span><a href="https://github.com/JoyWonderful/joywonderful.github.io/commit/${lrun.head_commit.id}" target="_blank">${lrun.head_commit.id.slice(0, 7)}</a>`;
+        stat.innerHTML = `<span class="ititle">Status</span><br><span class="indexcnt">${statstr}</span>${staticon}`;
+        durat.innerHTML = `<span class="ititle">Total Duration</span><br><span class="indexcnt">${totdura}<span style="opacity:0.7;">sec</span></span>`;
+        update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()+1}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
+    });
+</script>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

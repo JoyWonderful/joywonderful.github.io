@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>C++类（结构体） | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">1.</span> <span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">创建一个类</span></a></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">C++类（结构体）</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-31T19:16:45+08:00">2023-05-31</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:43:12+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">课程笔记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><p>结构体使用 <code>struct</code> 关键字定义。<del>对于目前的我来说，没什么要记的。</del>例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">test</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">,</span> num<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>a<span class="token punctuation">;</span>
+a<span class="token punctuation">.</span>val<span class="token punctuation">;</span></code></pre>
+
+<span id="more"></span>
+
+<p>需要记的是：<br>当使用该类型的指针变量时，访问其子元素应使用 <code>-&gt;</code> 而不是直接使用 <code>.</code>，也可以通过解地址（但比较麻烦）的写法：<code>(*a).val</code>。<br>例子：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">test</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> val<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+test a<span class="token punctuation">,</span> <span class="token operator">*</span>b<span class="token punctuation">,</span> c<span class="token punctuation">;</span> <span class="token comment">// b 是指针变量</span>
+
+b <span class="token operator">=</span> <span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+a<span class="token punctuation">.</span>val <span class="token operator">=</span> <span class="token number">114</span><span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span>val<span class="token punctuation">,</span> b<span class="token operator">-></span>val<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>b<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 因为 b 存储 a 的地址，又 `b->val` 和 `(*b).val` 相同，输出为：</span>
+<span class="token comment">// 114 114 114</span>
+
+c<span class="token punctuation">.</span>val <span class="token operator">=</span> <span class="token number">810</span><span class="token punctuation">;</span>
+b <span class="token operator">=</span> <span class="token operator">&amp;</span>c<span class="token punctuation">;</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d\n"</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span>val<span class="token punctuation">,</span> b<span class="token operator">-></span>val<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token operator">*</span>b<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 同上解释。输出为：</span>
+<span class="token comment">// 810 810 810</span>
+
+b<span class="token operator">-></span>val <span class="token operator">=</span> <span class="token number">70</span><span class="token punctuation">;</span> <span class="token comment">// 相当于 `(*b).val=70;`。由于 b 存储 c 的地址，c 的 val 的值被改变了。</span>
+b <span class="token operator">=</span> <span class="token operator">&amp;</span>a<span class="token punctuation">;</span>
+<span class="token punctuation">(</span><span class="token operator">*</span>b<span class="token punctuation">)</span><span class="token punctuation">.</span>val <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">;</span> <span class="token comment">// 同上，相当于 `b->val=80;`。b 存 a 的地址，a.val 被改变了。</span>
+<span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span>val<span class="token punctuation">,</span> c<span class="token punctuation">.</span>val<span class="token punctuation">,</span> b<span class="token operator">-></span>val<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// b 还指向 a，a, c 分别被改为 80, 70。则输出为：</span>
+<span class="token comment">// 80 70 80</span></code></pre>
+
+
+<h2 id="创建一个类"><a href="#创建一个类" class="headerlink" title="创建一个类"></a>创建一个类</h2><p><strong>类</strong>类似于结构体，只不过他是C++独有的而已。对于我这个入门者来说，类几乎等于结构体，只不过他出现了一种概念：公有 <code>public</code> 私有 <code>private</code> 受保护的 <code>protected</code> 。当然，对于我来说，除了 <code>public</code> 能用，其他的<strong>都不能用</strong>。<del>我还是<strong>太蒻了</strong>。捂脸.jpg</del> 但是继承类似乎可以用。例如：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">myclass</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">public</span> <span class="token operator">:</span>
+        <span class="token keyword">int</span> a <span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token operator">:</span>
+        <span class="token keyword">int</span> b <span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token operator">:</span>
+        <span class="token keyword">int</span> c <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>对于我来说，除了 a 都不能用。<br>好像也没啥能记的了。再次捂脸.jpg</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8/"><i class="fa fa-tag"></i> 语言入门</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/sort/"><i class="fa fa-angle-left"></i> 排序</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/erfen/">二分 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>

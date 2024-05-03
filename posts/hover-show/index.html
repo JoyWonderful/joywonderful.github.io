@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>CSS 鼠标悬浮窗口效果 | Some Notes</title>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-nav-left"></div>
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                        <div class="site-nav-right"></div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="site-overview">
+    <div class="site-author">JoyWonderful</div>
+    <div class="site-stat">
+        <div class="site-stat-item">
+            <span class="site-stat-count">41</span>
+            <span class="site-stat-text">文章</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">3</span>
+            <span class="site-stat-text">分类</span>
+        </div>
+        <div class="site-stat-item">
+            <span class="site-stat-count">20</span>
+            <span class="site-stat-text">标签</span>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">CSS 鼠标悬浮窗口效果</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-11-12T11:45:14+08:00">2023-11-12</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-04-13T13:38:48+08:00">2024-04-13</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/%E7%BC%96%E7%A8%8B%E9%9A%8F%E8%AE%B0/">编程随记</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>最近弄的 github 卡片，弄了半天弄出来的鼠标悬浮显示文字的效果。使用 CSS 伪元素弄出来的小提示。但是不适合 <code>overflow: hidden;</code> 的元素。不管怎么说，还是很好用的，忘掉了就不太好，也就放到博客里来了。</p>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="left">代码</th>
+<th align="left">效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>&lt;span aria-label=&quot;左边提示&quot; balloon-shown=&quot;left&quot;&gt;鼠标&lt;/span&gt;</code></td>
+<td align="left"><span aria-label="左边提示" balloon-shown="left">鼠标</span></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;span aria-label=&quot;右边提示&quot; balloon-shown=&quot;right&quot;&gt;悬浮&lt;/span&gt;</code></td>
+<td align="left"><span aria-label="右边提示" balloon-shown="right">悬浮</span></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;span aria-label=&quot;上边提示&quot; balloon-shown=&quot;up&quot;&gt;文字&lt;/span&gt;</code></td>
+<td align="left"><span aria-label="上边提示" balloon-shown="up">文字</span></td>
+</tr>
+<tr>
+<td align="left"><code>&lt;span aria-label=&quot;上边提示&quot; balloon-shown=&quot;down&quot;&gt;提示&lt;/span&gt;</code></td>
+<td align="left"><span aria-label="下边提示" balloon-shown="down">提示</span></td>
+</tr>
+</tbody></table>
+<style>
+    [aria-label][balloon-shown] {
+        position: relative;
+    }
+    [aria-label][balloon-shown="left"]::before {
+        border: 5px solid transparent;
+        border-left-color: #202335;
+    }
+    [aria-label][balloon-shown="right"]::before {
+        border: 5px solid transparent;
+        border-right-color: #202335;
+    }
+    [aria-label][balloon-shown="up"]::before {
+        border: 5px solid transparent;
+        border-top-color: #202335;
+    }
+    [aria-label][balloon-shown="down"]::before {
+        border: 5px solid transparent;
+        border-bottom-color: #202335;
+    }
+    [aria-label][balloon-shown]::before {
+        width: 0;
+        height: 0;
+        /* pointer-events: none; */ /* 让鼠标无法悬浮在所弹出的伪元素上 */
+        z-index: 10;
+        content: "";
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .4s, transform .4s, visibility .4s;
+    }
+    [aria-label][balloon-shown]::after {
+        opacity: 0;
+        z-index: 10;
+        /* pointer-events: none; */ /* 让鼠标无法悬浮在所弹出的伪元素上 */
+        visibility: hidden;
+        background-color: #202335;
+        content: attr(aria-label);
+        white-space: nowrap;
+        border-radius: 2px;
+        position: absolute;
+        padding: .5em 1em;
+        transition: opacity .4s, transform .4s, visibility .4s;
+        color: #eee;
+    }
+    [aria-label][balloon-shown]:hover::after, [aria-label][balloon-shown]:hover::before {
+        opacity: 0.9;
+        visibility: visible;
+    }
+    [aria-label][balloon-shown="left"]::after {
+        margin-right: 10px;
+    }
+    [aria-label][balloon-shown="left"]::after, [aria-label][balloon-shown="left"]::before {
+        right: 100%;
+        top: 50%;
+        transform: translate(5px, -50%);
+    }
+    [aria-label][balloon-shown="right"]::after {
+        margin-left: 10px;
+    }
+    [aria-label][balloon-shown="right"]::after, [aria-label][balloon-shown="right"]::before {
+        left: 100%;
+        top: 50%;
+        transform: translate(-5px, -50%);
+    }
+    [aria-label][balloon-shown="left"]:hover::after, [aria-label][balloon-shown="left"]:hover::before, [aria-label][balloon-shown="right"]:hover::after, [aria-label][balloon-shown="right"]:hover::before {
+        transform: translate(0, -50%);
+    }
+    [aria-label][balloon-shown="up"]::after {
+        margin-bottom: 10px;
+    }
+    [aria-label][balloon-shown="up"]::after, [aria-label][balloon-shown="up"]::before {
+        bottom: 100%;
+        left: 50%;
+        transform: translate(-50%, 5px);
+    }
+    [aria-label][balloon-shown="down"]::after {
+        margin-top: 10px;
+    }
+    [aria-label][balloon-shown="down"]::after, [aria-label][balloon-shown="down"]::before {
+        left: 50%;
+        top: 100%;
+        transform: translate(-50%, -5px);
+    }
+    [aria-label][balloon-shown="up"]:hover::after, [aria-label][balloon-shown="up"]:hover::before, [aria-label][balloon-shown="down"]:hover::after, [aria-label][balloon-shown="down"]:hover::before {
+        transform: translate(-50%, 0);
+    }
+</style>
+
+<p>代码是这样的：</p>
+<pre class="language-css" data-language="css"><code class="language-css"><span class="token selector">[aria-label][balloon-shown]</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="left"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 5px solid transparent<span class="token punctuation">;</span>
+    <span class="token property">border-left-color</span><span class="token punctuation">:</span> #202335<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="right"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 5px solid transparent<span class="token punctuation">;</span>
+    <span class="token property">border-right-color</span><span class="token punctuation">:</span> #202335<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="up"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 5px solid transparent<span class="token punctuation">;</span>
+    <span class="token property">border-top-color</span><span class="token punctuation">:</span> #202335<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="down"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> 5px solid transparent<span class="token punctuation">;</span>
+    <span class="token property">border-bottom-color</span><span class="token punctuation">:</span> #202335<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token comment">/* pointer-events: none; */</span> <span class="token comment">/* 让鼠标无法悬浮在所弹出的伪元素上 */</span>
+    <span class="token property">z-index</span><span class="token punctuation">:</span> 10<span class="token punctuation">;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">visibility</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> opacity .4s<span class="token punctuation">,</span> transform .4s<span class="token punctuation">,</span> visibility .4s<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown]::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+    <span class="token property">z-index</span><span class="token punctuation">:</span> 10<span class="token punctuation">;</span>
+    <span class="token comment">/* pointer-events: none; */</span> <span class="token comment">/* 让鼠标无法悬浮在所弹出的伪元素上 */</span>
+    <span class="token property">visibility</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> #202335<span class="token punctuation">;</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token function">attr</span><span class="token punctuation">(</span>aria-label<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>
+    <span class="token property">border-radius</span><span class="token punctuation">:</span> 2px<span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">padding</span><span class="token punctuation">:</span> .5em 1em<span class="token punctuation">;</span>
+    <span class="token property">transition</span><span class="token punctuation">:</span> opacity .4s<span class="token punctuation">,</span> transform .4s<span class="token punctuation">,</span> visibility .4s<span class="token punctuation">;</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> #eee<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown]:hover::after, [aria-label][balloon-shown]:hover::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">opacity</span><span class="token punctuation">:</span> 0.9<span class="token punctuation">;</span>
+    <span class="token property">visibility</span><span class="token punctuation">:</span> visible<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="left"]::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-right</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="left"]::after, [aria-label][balloon-shown="left"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">right</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>5px<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="right"]::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-left</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="right"]::after, [aria-label][balloon-shown="right"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-5px<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="left"]:hover::after, [aria-label][balloon-shown="left"]:hover::before, [aria-label][balloon-shown="right"]:hover::after, [aria-label][balloon-shown="right"]:hover::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>0<span class="token punctuation">,</span> -50%<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="up"]::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="up"]::after, [aria-label][balloon-shown="up"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">bottom</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-50%<span class="token punctuation">,</span> 5px<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="down"]::after</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">margin-top</span><span class="token punctuation">:</span> 10px<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="down"]::after, [aria-label][balloon-shown="down"]::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> 50%<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-50%<span class="token punctuation">,</span> -5px<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token selector">[aria-label][balloon-shown="up"]:hover::after, [aria-label][balloon-shown="up"]:hover::before, [aria-label][balloon-shown="down"]:hover::after, [aria-label][balloon-shown="down"]:hover::before</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-50%<span class="token punctuation">,</span> 0<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>使用时这样使用：</p>
+<pre class="language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>标签</span> <span class="token attr-name">aria-label</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>文字<span class="token punctuation">"</span></span> <span class="token attr-name">balloon-shown</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>up<span class="token punctuation">"</span></span><span class="token attr-name">或"down"或"left"或"right"</span><span class="token punctuation">></span></span>文字<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>标签</span><span class="token punctuation">></span></span></code></pre>
+
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/HTML/"><i class="fa fa-tag"></i> HTML</a>
+            <a href="/tags/CSS/"><i class="fa fa-tag"></i> CSS</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/bichaj/"><i class="fa fa-angle-left"></i> 并查集概念</a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/gdb-debug-file/">使用 gdb 调试代码 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-up-long"></i><span class="progress"></span></div>
+        <footer class="footer">
+            © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer><noscript></noscript>
+
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex/katex.min.js"></script>
+
+
+<script src="/js/lib/katex/auto-render.min.js"></script>
+
+    </body>
+</html>
