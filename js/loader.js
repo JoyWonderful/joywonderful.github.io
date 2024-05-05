@@ -175,6 +175,15 @@ window.lite = {
                 return;
             }
             searchic.className = "fa fa-info fa-fw";
+            resultitems.sort((x, y) => {
+                if(x.includedCount > y.includedCount) return -1;
+                else if(x.includedCount < y.includedCount) return 1;
+                else {
+                    if(x.hitCount > y.hitCount) return -1;
+                    else if(x.hitCount < y.includedCount) return 1;
+                    else return 0;
+                }
+            }); console.log(resultitems);
             resultcon.innerHTML = "<ul>" + resultitems.map(result => result.item).join('') + "</ul>";
             pjax.refresh(resultcon);
         });
