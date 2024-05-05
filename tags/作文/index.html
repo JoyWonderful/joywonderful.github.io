@@ -39,6 +39,7 @@
                                 <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板&emsp; || guestbook</a>
                                 <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于&emsp;&emsp; || about</a>
                             </li>
+                            <li class="menu-item"><a class="menu-search"><i class="fa fa-search fa-fw"></i>搜索</a></li>
                         </ul>
                     </nav>
                 </header>
@@ -89,7 +90,16 @@
 
             </div>
         </main>
-        <div class="back-to-top"><i class="fa fa-angles-up"></i><span class="progress"></span></div>
+        <div class="back-to-top"><i class="fa fa-angles-up"></i><span class="progress"></span></div><div class="search-overlay">
+    <div class="search-container">
+        <div class="input-header">
+            <span class="search-icon"><i></i></span>
+            <input type="search" placeholder="请稍候..." autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" class="search-input">
+            <span><i class="fa fa-circle-xmark search-close"></i></span>
+        </div>
+        <div class="result-container"></div>
+    </div>
+</div>
         <footer class="footer">
             © 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
         </footer><noscript></noscript>
@@ -107,6 +117,9 @@
 
 
 <script src="/js/lib/katex/auto-render.min.js"></script>
+
+
+<script src="/js/lib/search.js"></script>
 
     </body>
 </html>

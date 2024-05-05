@@ -16,7 +16,7 @@ window.lite = {
     activeMenuItem: function() {
         const nowloc = new URL(window.location.href).pathname;
         document.querySelectorAll(".menu-item a.menu-item-active").forEach((el) => {el.classList.remove("menu-item-active");});
-        document.querySelectorAll(".menu-item a:not(.menu-more-btn)").forEach((el) => {
+        document.querySelectorAll(".menu-item a:not(.menu-more-btn):not(.menu-search)").forEach((el) => {
             const elpath = new URL(el.href).pathname;
             if(nowloc === elpath) {
                 el.classList.add("menu-item-active");
@@ -136,6 +136,48 @@ window.lite = {
                 });
             }
         });
+    },
+    registerLocalSearch: function() {
+        const locSearch = new LocalSearch({ path: "/search.xml" });
+        const searchcon = document.querySelector(".search-overlay");
+        const resultcon = searchcon.querySelector(".result-container");
+        document.querySelector(".main-menu a.menu-search").addEventListener("click", () => {
+            searchcon.classList.add("active");
+            if(!locSearch.isfetched) locSearch.fetchData();
+        });
+        searchcon.querySelector(".search-close").addEventListener("click", () => {
+            searchcon.classList.remove("active");
+        });
+
+        const inputBox = searchcon.querySelector("input.search-input");
+        const searchic = searchcon.querySelector(".search-icon i");
+        inputBox.disabled = true;
+        resultcon.innerHTML = "<span>等待索引文件加载，请稍候...</span>";
+        searchic.className = "fa fa-spinner fa-spin-pulse fa-fw";
+        window.addEventListener("search:loaded", () => {
+            inputBox.disabled = false;
+            inputBox.placeholder = "键入以进行搜索";
+            resultcon.innerHTML = "<span>直接键入以搜索文章,上限 80 字符</span>";
+            searchic.className = "fa fa-search fa-fw";
+        })
+        inputBox.addEventListener("input", () => {
+            if(!locSearch.isfetched) return;
+            const searchText = inputBox.value.trim().toLowerCase();
+            if(searchText.length == 0) {
+                resultcon.innerHTML = "<span>直接键入以搜索文章,上限 80 字符</span>";
+                searchic.className = "fa fa-search fa-fw";
+                return;
+            }
+            let resultitems = locSearch.getResultItems(searchText.split(/[-\s]+/));
+            if(resultitems.length == 0) {
+                resultcon.innerHTML = "<span>没有匹配的结果,换个关键词吧</span>";
+                searchic.className = "fa fa-file-circle-xmark fa-fw";
+                return;
+            }
+            searchic.className = "fa fa-info fa-fw";
+            resultcon.innerHTML = "<ul>" + resultitems.map(result => result.item).join('') + "</ul>";
+            pjax.refresh(resultcon);
+        });
     }
 }
 
@@ -149,9 +191,11 @@ window.addEventListener("DOMContentLoaded", function() {
     lite.registerBack2top();
     lite.registerTabClick();
     lite.renderKatex();
+    lite.registerLocalSearch();
 });
 window.addEventListener("pjax:success", function() {
     if(!window.location.hash) anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
+    const sa = document.querySelector(".search-overlay.active"); if(sa) {sa.classList.remove("active");}
     lite.activeMenuItem();
     lite.registerCodeCopy();
     lite.registerTOC();
