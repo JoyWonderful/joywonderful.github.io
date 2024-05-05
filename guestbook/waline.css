@@ -82,12 +82,13 @@
     margin: 0;
     padding: .2em .4em;
     border-radius: 3px;
-    background: var(--waline-bgcolor-light);
+    background: #fff;
     font-size: 85%
 }
 
 [data-waline] pre {
     overflow: auto;
+    border: 1px solid #ddd;
     padding: 10px;
     line-height: 1.45
 }
@@ -358,7 +359,7 @@
     outline: transparent solid 1.5px;
     padding: 0;
     font-size: .875em;
-    font-family: "Fira Code VF";
+    font-family: "lxgw";
     transition: all .25s ease;
     resize: vertical
 }
@@ -368,7 +369,7 @@
     border: none;
     color: var(--waline-color);
     outline: none;
-    font-family: "Fira Code VF";
+    font-family: "lxgw";
     transition: all .25s ease
 }
 
@@ -1091,130 +1092,6 @@
 
 .wl-reaction-item.active .wl-reaction-text {
     color: var(--waline-theme-color)
-}
-
-.wl-content pre,
-.wl-content pre[class*=language-] {
-    overflow: auto;
-    margin: .75rem 0;
-    padding: 1rem 1.25rem;
-    border-radius: 6px;
-    background: var(--waline-code-bgcolor);
-    line-height: 1.4
-}
-
-.wl-content pre code,
-.wl-content pre[class*=language-] code {
-    padding: 0;
-    border-radius: 0;
-    background: rgba(0, 0, 0, 0) !important;
-    color: #bbb;
-    direction: ltr
-}
-
-.wl-content code[class*=language-],
-.wl-content pre[class*=language-] {
-    background: none;
-    color: #ccc;
-    font-size: 1em;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-wrap: normal;
-    word-break: normal;
-    tab-size: 4;
-    hyphens: none
-}
-
-.wl-content pre[class*=language-] {
-    overflow: auto
-}
-
-.wl-content :not(pre)>code[class*=language-],
-.wl-content pre[class*=language-] {
-    background: #2d2d2d
-}
-
-.wl-content :not(pre)>code[class*=language-] {
-    padding: .1em;
-    border-radius: .3em;
-    white-space: normal
-}
-
-.wl-content .token.comment,
-.wl-content .token.block-comment,
-.wl-content .token.prolog,
-.wl-content .token.doctype,
-.wl-content .token.cdata {
-    color: #999
-}
-
-.wl-content .token.punctuation {
-    color: #ccc
-}
-
-.wl-content .token.tag,
-.wl-content .token.attr-name,
-.wl-content .token.namespace,
-.wl-content .token.deleted {
-    color: #e2777a
-}
-
-.wl-content .token.function-name {
-    color: #6196cc
-}
-
-.wl-content .token.boolean,
-.wl-content .token.number,
-.wl-content .token.function {
-    color: #f08d49
-}
-
-.wl-content .token.property,
-.wl-content .token.class-name,
-.wl-content .token.constant,
-.wl-content .token.symbol {
-    color: #f8c555
-}
-
-.wl-content .token.selector,
-.wl-content .token.important,
-.wl-content .token.atrule,
-.wl-content .token.keyword,
-.wl-content .token.builtin {
-    color: #cc99cd
-}
-
-.wl-content .token.string,
-.wl-content .token.char,
-.wl-content .token.attr-value,
-.wl-content .token.regex,
-.wl-content .token.variable {
-    color: #7ec699
-}
-
-.wl-content .token.operator,
-.wl-content .token.entity,
-.wl-content .token.url {
-    color: #67cdcc;
-    background: none;
-}
-
-.wl-content .token.important,
-.wl-content .token.bold {
-    font-weight: bold
-}
-
-.wl-content .token.italic {
-    font-style: italic
-}
-
-.wl-content .token.entity {
-    cursor: help
-}
-
-.wl-content .token.inserted {
-    color: green
 }
 
 .wl-recent-item p {

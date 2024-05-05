@@ -9,6 +9,7 @@ window.lite = {
                 ".main-inner",
                 ".site-sidebar"
             ],
+            cacheBust: false,
             scrollTo: false
         });
     },
@@ -38,6 +39,7 @@ window.lite = {
                 throwOnError: false
             });
             document.querySelectorAll("code.language-mathKatex").forEach((el) => {
+                el.parentNode.className = "katex-display";
                 katex.render(el.innerText, el.parentElement, {throwOnError: false});
             });
         }
@@ -115,25 +117,46 @@ window.lite = {
             });
             el.appendChild(newEl);
         })
+    },
+    registerTabClick: function() {
+        var target = document.querySelectorAll(".tabs");
+        if(!target.length) return;
+        target.forEach((el) => {
+            var tgtNav = el.querySelectorAll(".nav-tabs .tab");
+            var tgtPane = el.querySelectorAll(".tab-content .tab-pane");
+            for(let i = 0; i < tgtNav.length; i++) {
+                tgtNav[i].addEventListener("click", (event) => {
+                    event.preventDefault();
+                    let actedNv = el.querySelector(".nav-tabs .tab.active");
+                    if(actedNv) actedNv.classList.remove("active");
+                    tgtNav[i].classList.add("active");
+                    let actedPn = el.querySelector(".tab-content .tab-pane.active");
+                    if(actedPn) actedPn.classList.remove("active");
+                    tgtPane[i].classList.add("active");
+                });
+            }
+        });
     }
 }
 
 window.addEventListener("DOMContentLoaded", function() {
-    console.log("Hexo 7.2.0 <https://hexo.io/>\nTheme author is the author of this site.")
+    console.log("Hexo 7.2.0 https://hexo.io/ \nTheme author is the author of this site.")
     lite.registerPjaxStart();
     lite.activeMenuItem();
     lite.registerCodeCopy();
     lite.registerTOC();
     lite.activeTOC();
     lite.registerBack2top();
+    lite.registerTabClick();
     lite.renderKatex();
 });
 window.addEventListener("pjax:success", function() {
-    anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
+    if(!window.location.hash) anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
     lite.activeMenuItem();
     lite.registerCodeCopy();
     lite.registerTOC();
     lite.activeTOC();
+    lite.registerTabClick();
     lite.renderKatex();
 });
 window.addEventListener("scroll", function() {
