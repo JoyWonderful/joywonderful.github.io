@@ -183,7 +183,7 @@ window.lite = {
                     else if(x.hitCount < y.includedCount) return 1;
                     else return 0;
                 }
-            }); console.log(resultitems);
+            });
             resultcon.innerHTML = "<ul>" + resultitems.map(result => result.item).join('') + "</ul>";
             pjax.refresh(resultcon);
         });
