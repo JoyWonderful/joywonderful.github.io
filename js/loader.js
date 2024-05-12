@@ -187,6 +187,17 @@ window.lite = {
             resultcon.innerHTML = "<ul>" + resultitems.map(result => result.item).join('') + "</ul>";
             pjax.refresh(resultcon);
         });
+    },
+    pjaxReqProg: {
+        prog: 0,
+        set: function(val) {
+            this.prog = val;
+            var target = document.querySelector(".back-to-top");
+            target.style.zIndex = "50";
+            target.classList.add("on");
+            target.querySelector("i").className = "fa fa-circle-notch fa-spin fa-fw";
+            target.querySelector("span.progress").innerHTML = val;
+        }
     }
 }
 
@@ -205,6 +216,7 @@ window.addEventListener("DOMContentLoaded", function() {
 window.addEventListener("pjax:success", function() {
     if(!window.location.hash) anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
     const sa = document.querySelector(".search-overlay.active"); if(sa) {sa.classList.remove("active");}
+    document.querySelector(".back-to-top i").className = "fa fa fa-angles-up fa-fw"; document.querySelector(".back-to-top").style.zIndex = "auto"; window.dispatchEvent(new Event("scroll"));
     lite.activeMenuItem();
     lite.registerCodeCopy();
     lite.registerTOC();
