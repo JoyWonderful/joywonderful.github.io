@@ -205,7 +205,7 @@
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>搜索</tag>
@@ -331,7 +331,7 @@
 <p>例如：<br><a href="https://www.luogu.com.cn/problem/P1551" target="_blank">[洛谷 P1151] 亲戚</a><br><a href="https://www.luogu.com.cn/problem/P3367" target="_blank">[洛谷 P3367] 并查集</a></p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -387,7 +387,7 @@
 <p>可以去看看<a href="https://www.luogu.com.cn/training/491819">这个题单</a>，以及“<a href="/posts/binarytree-fme/#%E5%89%8D%E3%80%81%E4%B8%AD%E3%80%81%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BB%A3%E7%A0%81">二叉树的前序、中序、后序遍历</a>”的代码部分，里面有关于遍历的信息。<br>开头也说过，这篇文章并没有追加到“二叉树的前序、中序、后序遍历”这篇文章上是因为新建一篇文章比较醒目。</p>
 </div>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>树</tag>
@@ -473,7 +473,7 @@ void dfs(int x) // 中序：左根右
 <p>最终，得到这样一个树：<br><img src="https://s2.loli.net/2023/08/03/JqBMmjXIrFUk1L2.png"></p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>树</tag>
@@ -560,7 +560,7 @@ void dfs(int x) // 中序：左根右
     <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -615,7 +615,7 @@ window<span class="token punctuation">.</span><span class="token function">close
 <p><strong>图片们：</strong><br><img src="https://s11.ax1x.com/2024/02/25/pFanNbn.jpg" alt="edgentp" id="edgentp" loading="lazy"><br><img src="https://s11.ax1x.com/2024/03/02/pF04Xcj.png" alt="ntpstroage" id="ntpstroage" loading="lazy"><br><img src="https://s11.ax1x.com/2024/03/02/pF0oghT.png" alt="localntp" id="localntp" loading="lazy"></p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -693,7 +693,7 @@ window<span class="token punctuation">.</span><span class="token function">close
 <p>建议：一般来说，常量、宏定义等全部使用大写，其他使用小写。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>优化</tag>
@@ -748,7 +748,7 @@ ofstream outfile<span class="token punctuation">;</span>
 <p>这段代码会向当前目录下 <code>text.txt</code> 写入 <code>&quot;text\n&quot;</code> 和 <code>&quot;P\n&quot;</code>。<br>程序结束，最好<strong>关闭文件</strong>，使用 <code>[file object].close()</code>，虽然不关闭文件也没关系。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -881,7 +881,7 @@ string a<span class="token punctuation">[</span><span class="token number">103</
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>搜索</tag>
@@ -971,7 +971,7 @@ string a<span class="token punctuation">[</span><span class="token number">103</
 </tbody></table>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -1096,7 +1096,7 @@ string a<span class="token punctuation">[</span><span class="token number">103</
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>搜索</tag>
@@ -1261,7 +1261,7 @@ string a<span class="token punctuation">[</span><span class="token number">103</
 <!-- https://ncase.me/trust/ -->
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -1418,7 +1418,7 @@ argc<span class="token punctuation">[</span><span class="token number">6</span><
 <p>这就是<code>main</code>函数参数作用。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -1437,7 +1437,7 @@ argc<span class="token punctuation">[</span><span class="token number">6</span><
 <p><img src="https://s2.loli.net/2023/12/16/FSTYoytCWcxhQEv.jpg" alt="pencil-box"><br><img src="https://s2.loli.net/2023/12/16/pz9HK4SACUaNoOl.jpg" alt="naozhong"></p>
 ]]></content>
       <categories>
-        <category>琐碎</category>
+        <category>Others</category>
       </categories>
   </entry>
   <entry>
@@ -1522,7 +1522,7 @@ argc<span class="token punctuation">[</span><span class="token number">6</span><
 </ul>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -1712,7 +1712,7 @@ gs             0x0      <span class="token number">0</span>
 <p><code>quit</code> 命令。<br>简写为 <code>q</code>。<br>退出 gdb 调试。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>编译</tag>
@@ -1894,7 +1894,7 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>搜索</tag>
@@ -1951,7 +1951,7 @@ branch <span class="token string">'main'</span> <span class="token builtin class
 <p>打开 Github，可以看到 Commit 记录和提交的文件。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>Git</tag>
@@ -1998,7 +1998,7 @@ branch <span class="token string">'main'</span> <span class="token builtin class
 <p><img src="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png" alt="node2"></p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -2458,7 +2458,7 @@ body <span class="token punctuation">&#123;</span></span>
 </div>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>HTML</tag>
@@ -2676,7 +2676,7 @@ body <span class="token punctuation">&#123;</span></span>
 
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>HTML</tag>
@@ -2707,7 +2707,7 @@ body <span class="token punctuation">&#123;</span></span>
 <h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><p>基于哈夫曼树，按照字符出现的频率（也就是哈夫曼树中的权值）进行二进制编码。<br>也就是用哈夫曼树对一串字符进行编码，可以认为左子树是 0，右子树是 1。（说不清楚啊）<br>哈夫曼编码是<strong>贪心</strong>的思想，为了使信息量最小化，可以用到哈夫曼树。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -2761,7 +2761,7 @@ body <span class="token punctuation">&#123;</span></span>
 <p>这样 $libbb$ 命名空间里的 $a$ 使用时也不用加上 <code>libbb::</code> 了。但是再次出现了两个同样的 $a$ ，谁也分不清使用的到底是 $mylib$ 命名空间里的 $a$ 还是 $libbb$ 命名空间里的 $a$ ，因此会引发错误，这也是 <code>using</code> 的弊端。但是有时候只会用到一个命名空间里的东西时，就比如 $std$ ，就可以直接加上一句 <code>using namespace std ;</code> 这样子更方便，省的 <code>cin</code> 也要 <code>std::</code> ， <code>string</code> 也要 <code>std</code> 。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -3116,7 +3116,7 @@ string <span class="token function">tentoy</span><span class="token punctuation"
 </div>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -3272,7 +3272,7 @@ first:300, second:400, third:200</code></pre>
 <p><strong>附演示：</strong><a href="https://visualgo.net/zh/list">https://visualgo.net/zh/list</a></p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -3353,7 +3353,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 	<span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -3576,7 +3576,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <span class="token punctuation">&#125;</span></code></pre>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -3666,7 +3666,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 </blockquote>
 ]]></content>
       <categories>
-        <category>琐碎</category>
+        <category>Others</category>
       </categories>
       <tags>
         <tag>作文</tag>
@@ -3739,7 +3739,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <p>这就是<strong>空间复杂度</strong>。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -3866,7 +3866,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <span class="token punctuation">&#125;</span></code></pre>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -4255,7 +4255,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <p>想要用的时候，就直接 <code>sort(&amp;a[0], &amp;a[n])</code> 或者 <code>sort(a, a + n)</code> 就可以了。写排序函数 <code>cmp</code> 时，想交换就 <code>return true</code> ，否则就 <code>return false</code> 。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -4295,7 +4295,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 </ul>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>队列</tag>
@@ -4459,7 +4459,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <p>假设输入 114514.1919810 会输出 114514.192。</p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -4632,7 +4632,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <p><button class="egprsbtn">按钮的样式</button></p>
 ]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>CSS</tag>
@@ -4647,7 +4647,7 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
 <h2 id="主题：点面结合-大扫除-400字"><a href="#主题：点面结合-大扫除-400字" class="headerlink" title="主题：点面结合 大扫除 400字"></a>主题：点面结合 大扫除 400字</h2><p>很快，一盆盆水端了进来，同学们都拿着工具，对教室里脏的地方发动了“攻击”。同学们忘乎所以地忙碌着，仿佛这个世界上只有他手中的事情了。<br>他拿着一把扫帚，卖力地扫角落里一个落满灰尘的夹缝。地上那些明显的纸片都被他扫走了，他扫门后面，灰尘弥漫，但他手握扫帚，用力去扫角落的墙灰，很快，门后干干净净。这里的角落有一个柜子，他俯下身子，仔细地查看着柜子后面的灰尘，发现灰尘有一尺多高。他马上把扫帚探进柜子后面，半个身子差点儿都倒下去了，艰难的把一丁点儿灰尘扫了出来。他不甘心，拿了把小扫帚，用力搬开了柜子，手拿小扫帚，将所有灰尘都扫了出来。他还觉得不够干净，干脆直接上手，地上几块顽固的胶带就被他死了下来，丢进了灰尘堆。垃圾桶里虽然没有什么大型垃圾，灰尘却堆成了小山，这大部分是他的功劳。<br>她拿着一块湿抹布，握着小铲刀，擦着墙上的污垢和双面胶带。瓷砖已经有些发黑了，还有一些水笔的字迹，被摘除的布告后留下双面胶的痕迹。她不慌不忙，从容地擦着那些水笔的痕迹。手所滑过的地方，一切都亮了起来。但也有非常顽固的污垢，她用手指盖着布，上上下下用力地擦。扣。污垢撑不住，很快，墙上的污点完全没有了。双面胶牢牢地粘在墙上，经过长时间的风化，又硬又黏。她先用湿布擦那些胶，这样用铲子更好铲，“斩草除根”后，再用力擦一擦，墙上的双面胶一点也没有了。结白明亮的瓷砖倒映着她满意的微笑。<br>经过每一个同学的努力，教室里焕然一新。每个同学露出的，都是满意的微笑。</p>
 ]]></content>
       <categories>
-        <category>琐碎</category>
+        <category>Others</category>
       </categories>
       <tags>
         <tag>作文</tag>
@@ -4701,7 +4701,7 @@ b <span class="token operator">=</span> <span class="token operator">&amp;</span
 <p>对于我来说，除了 a 都不能用。<br>好像也没啥能记的了。再次捂脸.jpg</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -4765,7 +4765,7 @@ b <span class="token operator">=</span> <span class="token operator">&amp;</span
     <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>基础算法</tag>
@@ -4801,7 +4801,7 @@ Waline<span class="token punctuation">.</span><span class="token function">init<
     <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>]]></content>
       <categories>
-        <category>编程随记</category>
+        <category>Programming</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
@@ -4882,7 +4882,7 @@ Waline<span class="token punctuation">.</span><span class="token function">init<
 <p>因此，我们得出结论：<strong>数组的本质就是指针</strong>。</p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
@@ -4966,10 +4966,21 @@ Waline<span class="token punctuation">.</span><span class="token function">init<
 <p>在变量类型中，只有 <code>signed</code> 会被认作 <code>signed int</code> ；只有 <code>unsigned</code> 也会被认作 <code>unsigned int</code> ；不带 <code>signed</code> 和 <code>unsigned</code> 的任何数据类型都会被认做有符号 <code>signed</code> 数据类型。因此，在某些时候主函数 <code>int main()</code> 也可以写成 <code>signed main()</code> </p>
 ]]></content>
       <categories>
-        <category>课程笔记</category>
+        <category>CourseNotes</category>
       </categories>
       <tags>
         <tag>语言入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最短路</title>
+    <url>//posts/shortest-pth/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>图论</tag>
       </tags>
   </entry>
 </search>
