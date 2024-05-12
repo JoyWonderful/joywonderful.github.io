@@ -1284,6 +1284,24 @@ code[class*="language-css"] {
 .katex-display {
   overflow: auto hidden;
 }
+.pjax-prog {
+  position: fixed;
+  top: 0;
+  background: rgba(17,17,17,0.533);
+  color: #fff;
+  padding: 0.25em;
+  width: 100%;
+  z-index: 60;
+  -webkit-user-select: none;
+  user-select: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.pjax-prog.active {
+  visibility: visible;
+  opacity: 1;
+}
 ::selection {
   background: #c0c0c0;
   color: #fff;
