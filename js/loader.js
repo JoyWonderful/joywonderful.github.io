@@ -156,7 +156,7 @@ window.lite = {
         searchic.className = "fa fa-spinner fa-spin-pulse fa-fw";
         window.addEventListener("search:loaded", () => {
             inputBox.disabled = false;
-            inputBox.placeholder = "键入以进行搜索";
+            inputBox.placeholder = "键入以进行搜索,用空格(' ')和'-'分割关键词";
             resultcon.innerHTML = "<span>直接键入以搜索文章,上限 80 字符</span>";
             searchic.className = "fa fa-search fa-fw";
         })
