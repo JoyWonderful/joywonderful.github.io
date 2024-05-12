@@ -143,7 +143,7 @@
     }
 </style>
 
-<div class="frienddiv" style="">
+<div class="frienddiv">
     <div class="friendcon">
         <a href="https://github.com/Lxandqy" title="Github" rel="noopener me" target="_blank">
             <img src="https://avatars.githubusercontent.com/u/65651714?v=4" class="friendicon">
@@ -182,109 +182,7 @@
     <a target="_blank" rel="noopener" href="https://forms.office.com/r/kfku3EmH0M">收录或更新友链</a>
 </div>
 
-<script>
-    function genAllTalk() {
-        var alldiv = document.querySelectorAll("div.frienddiv");
-        var allFriConDiv = alldiv[0].querySelectorAll("div.friendcon");
-        var allATitle = document.querySelectorAll(".friendcon a");
-        for(let i = 0; i < allFriConDiv.length; i++) {
-            var tophei = allFriConDiv[i].offsetTop;
-            var lefthei = allFriConDiv[i].offsetLeft;
-            var friTalk = allFriConDiv[i].querySelectorAll("p.friendtalk")[0].innerHTML;
-            var friName = allFriConDiv[i].querySelectorAll("p.friendname")[0].innerHTML;
-            var visTitle = allATitle[i].title;
-            
-            var genDiv = document.createElement("div");
-            var genFriName = document.createElement("p");
-            var genFriTalk = document.createElement("p");
-            var genVisTitle = document.createElement("p");
 
-            genDiv.style.position = "absolute";
-            genDiv.style.left = String(lefthei) + "px";
-            genDiv.style.backgroundColor = "#333";
-            genDiv.style.color = "#eee";
-            genDiv.style.minWidth = String(allFriConDiv[i].clientWidth) + "px";
-            genDiv.style.maxWidth = String(allFriConDiv[i].clientWidth) + "px";
-            genDiv.style.borderRadius = "3px";
-            genDiv.id = String(i) + "alltalk";
-            genDiv.style.opacity = "0";
-            genDiv.style.visibility = "hidden";
-            genDiv.style.transform = "translate(0, -10px)";
-            genDiv.style.transition = "all 0.3s"
-
-            genFriName.innerHTML = friName;
-            genFriName.className = "friendname";
-
-            genFriTalk.innerHTML = friTalk;
-            genFriTalk.style.lineHeight = "18px";
-            genFriTalk.style.paddingLeft = "15px";
-            genFriTalk.style.paddingBottom = "10px";
-            genFriTalk.style.margin = "5px 10px 0 0";
-            genFriTalk.style.fontSize = "15px";
-            
-            var visInfo = '链接TA的 ';
-            if(visTitle == "Github") visInfo += '<i class="fab fa-github fa-fw"></i>Github';
-            else if(visTitle == "Blog") visInfo += '<i class="fa fa-blog fa-fw"></i>个人博客';
-            else if(visTitle == "LuoGu") visInfo += '<i class="fa fa-list-check fa-fw"></i>洛谷'
-            genVisTitle.innerHTML = visInfo;
-            genVisTitle.style.lineHeight = "18px";
-            genVisTitle.style.paddingLeft = "15px";
-            genVisTitle.style.paddingBottom = "10px";
-            genVisTitle.style.margin = "5px 10px 0 0";
-            genVisTitle.style.fontSize = "15px";
-
-            genDiv.appendChild(genFriName);
-            genDiv.appendChild(genFriTalk);
-            genDiv.appendChild(genVisTitle);
-            alldiv[0].appendChild(genDiv);
-            var hei = genDiv.clientHeight;
-            genDiv.style.top = String(tophei + allFriConDiv[i].clientHeight + 5) + "px";
-        }
-    }
-    var setzindex = -114514, setopa = -114514, thelastid = "-114514";
-    function showAllTalk(id) {
-        return function() {
-            var showtalk = document.getElementById(id + "alltalk");
-            showtalk.style.visibility = "visible";
-            showtalk.style.transform = "translate(0, 0)";
-            showtalk.style.opacity = "0.9";
-        }
-    }
-    function hideAllTalk(id) {
-        return function() {
-            var hidetalk = document.getElementById(id + "alltalk");
-            hidetalk.style.opacity = "0";
-            hidetalk.style.transform = "translate(0, -10px)";
-            hidetalk.style.visibility = "hidden";
-        }
-    }
-    function addEveAllTalk() {
-        var alldiv = document.querySelectorAll("div.frienddiv");
-        var allFriConDiv = alldiv[0].querySelectorAll("div.friendcon");
-        for(let i = 0; i < allFriConDiv.length; i++) {
-            allFriConDiv[i].addEventListener("mouseenter", showAllTalk(String(i)));
-            allFriConDiv[i].addEventListener("mouseleave", hideAllTalk(String(i)));
-        }
-    }
-    function resizeTalkEl() {
-        var alldiv = document.querySelectorAll("div.frienddiv");
-        var allFriConDiv = alldiv[0].querySelectorAll("div.friendcon");
-        for(let i = 0; i < allFriConDiv.length; i++) {
-            var elem = document.getElementById(String(i) + "alltalk");
-            elem.style.left = String(allFriConDiv[i].offsetLeft) + "px";
-            var hei = elem.clientHeight;
-            elem.style.top = String(allFriConDiv[i].offsetTop + allFriConDiv[i].clientHeight + 5) + "px";
-            elem.style.maxWidth = String(allFriConDiv[i].clientWidth) + "px";
-            elem.style.minWidth = String(allFriConDiv[i].clientWidth) + "px";
-            console.log(elem.style.maxWidth);
-        }
-    }
-    window.addEventListener("DOMContentLoaded", genAllTalk);
-    window.addEventListener("pjax:success", genAllTalk);
-    window.addEventListener("DOMContentLoaded", addEveAllTalk);
-    window.addEventListener("pjax:success", addEveAllTalk);
-    window.addEventListener("resize", resizeTalkEl);
-</script>
 
     </div>
 </div>
