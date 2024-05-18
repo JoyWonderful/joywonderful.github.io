@@ -127,6 +127,7 @@ main.main {
 @media (max-width: 991px) {
   main.main {
     width: calc(100% - 10px);
+    flex-direction: column;
   }
 }
 .main-inner {
@@ -134,8 +135,18 @@ main.main {
   width: calc(100% - 252px);
   margin-top: 10px;
 }
+@media (max-width: 991px) {
+  .main-inner {
+    width: 100%;
+  }
+}
 .column {
   width: 240px;
+}
+@media (max-width: 991px) {
+  .column {
+    width: 100%;
+  }
 }
 .column header {
   margin-top: 10px;
@@ -188,6 +199,12 @@ main.main {
   margin: auto;
   padding-left: 5%;
 }
+@media (max-width: 991px) {
+  .site-nav .main-menu li.menu-item {
+    display: inline-block;
+    padding: 0;
+  }
+}
 .site-nav .main-menu li.menu-item i[class^="fa"] {
   margin-right: 8px;
 }
@@ -201,6 +218,11 @@ main.main {
   border-radius: 3px;
   line-height: 2;
   cursor: pointer;
+}
+@media (max-width: 991px) {
+  .site-nav .main-menu li.menu-item a {
+    display: inline-block;
+  }
 }
 .site-nav .main-menu li.menu-item a::after {
   background: #555;
@@ -231,6 +253,12 @@ main.main {
   position: absolute;
   top: calc(50% - 12px);
   width: 0.25rem;
+}
+@media (max-width: 991px) {
+  .site-nav .main-menu li.menu-item a.menu-item-active::before {
+    content: none;
+    display: none;
+  }
 }
 .site-nav .main-menu li.menu-item .morebtn-item {
   visibility: hidden;
@@ -264,6 +292,11 @@ main.main {
   background-color: #fff;
   max-height: calc(90dvh - 24px);
   overflow-y: auto;
+}
+@media (max-width: 991px) {
+  .site-sidebar {
+    display: none;
+  }
 }
 .site-overview {
   display: flex;
