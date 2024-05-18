@@ -33,6 +33,7 @@ window.lite = {
         if(!enable) return;
         var enableKatex = enable.innerHTML;
         if(enableKatex === "true") {
+            this.pjaxReqProg.set("加载完成<br>本页有 KaTeX 公式需要渲染，请耐心等待"); this.pjaxReqProg.destroy(2000);
             renderMathInElement(document.body, {
                 delimiters: [{left: "$", right: "$", display: false}],
                 throwOnError: false
@@ -188,14 +189,21 @@ window.lite = {
         });
     },
     pjaxReqProg: {
+        tmObj: 0,
         set: function(str) {
             var target = document.querySelector("aside.pjax-prog");
+            if(target.hasAttribute("data-timeout")) {
+                clearTimeout(this.tmObj);
+                target.removeAttribute("data-timeout");
+            }
             target.classList.add("active");
             target.innerHTML = str;
         },
-        destroy: function() {
+        destroy: function(delay) {
             var target = document.querySelector("aside.pjax-prog");
-            setTimeout(() => {target.classList.remove("active")}, 1000);
+            if(target.hasAttribute("data-timeout")) clearTimeout(this.tmObj);
+            else target.setAttribute("data-timeout", "");
+            this.tmObj = setTimeout(() => {target.classList.remove("active");target.removeAttribute("data-timeout")}, delay);
         }
     }
 }
@@ -215,7 +223,7 @@ window.addEventListener("DOMContentLoaded", function() {
 window.addEventListener("pjax:success", function() {
     if(!window.location.hash) anime({ targets: document.scrollingElement, scrollTop: 0, duration: 200, easing: "linear" });
     const sa = document.querySelector(".search-overlay.active"); if(sa) {sa.classList.remove("active");}
-    lite.pjaxReqProg.set("加载完成"); lite.pjaxReqProg.destroy();
+    lite.pjaxReqProg.set("加载完成"); lite.pjaxReqProg.destroy(1000);
     lite.activeMenuItem();
     lite.registerCodeCopy();
     lite.registerTOC();
@@ -224,5 +232,5 @@ window.addEventListener("pjax:success", function() {
     lite.renderKatex();
 });
 window.addEventListener("pjax:send", () => {lite.pjaxReqProg.set("加载中，请稍候...");});
-window.addEventListener("pjax:error", function() {lite.pjaxReqProg.set("加载失败，请尝试在新标签页内打开"); lite.pjaxReqProg.destroy();});
+window.addEventListener("pjax:error", function() {lite.pjaxReqProg.set("加载失败，请尝试在新标签页内打开"); lite.pjaxReqProg.destroy(1000);});
 window.addEventListener("scroll", function() {lite.activeTOC();});

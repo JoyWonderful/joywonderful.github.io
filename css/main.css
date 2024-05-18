@@ -953,7 +953,10 @@ footer.footer {
   color: #d9534f;
   margin-bottom: 10px;
 }
-.post-body .note :last-child {
+.post-body .note :last-child:not(.tab-pane *) {
+  margin-bottom: 0;
+}
+.post-body .note .code-container:last-child > pre[class*="language-"] {
   margin-bottom: 0;
 }
 .post-body .tabs {
@@ -1301,6 +1304,9 @@ code[class*="language-css"] {
 .pjax-prog.active {
   visibility: visible;
   opacity: 1;
+  max-height: 3em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 ::selection {
   background: #c0c0c0;
