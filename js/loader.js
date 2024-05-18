@@ -1,9 +1,8 @@
 // pjax set
 window.lite = {
     registerPjaxStart: function() {
-        if(window.CFG_disablepjax) return;
         window.pjax = new Pjax({
-            elements: "a[href^=\"/\"]:not([href=\"/guestbook/\"])",
+            elements: "a[href^=\"/\"]",
             selectors: [
                 "title",
                 ".main-inner",
