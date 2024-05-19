@@ -47,7 +47,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">42</span>
+            <span class="site-stat-count">43</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -55,7 +55,7 @@
             <span class="site-stat-text">分类</span>
         </div>
         <div class="site-stat-item">
-            <span class="site-stat-count">21</span>
+            <span class="site-stat-count">22</span>
             <span class="site-stat-text">标签</span>
         </div>
     </div>
@@ -65,6 +65,33 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/chrome-ext/">更改 Edge 新标签页 —— 简单浏览器扩展</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2024-03-02T17:13:45+08:00">2024-03-02</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:36:12+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/Programming/">Programming</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>这是记录写简单的一个 Chomium 扩展的一篇文章。<br>主要是用扩展覆盖默认标签页，随后 HTML 引用 JS 进行（模拟）重定向到 chrome-search:&#x2F;&#x2F;local-ntp&#x2F;local-ntp.html。</p>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>浏览器扩展都需要 <strong>manifest.json</strong> 文件。先新建一个文件夹，在里面添加了这个文件。</p>
+<p>由于需要覆盖新标签页，需要 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/chrome_url_overrides"><code>chrome_url_overrides.newtab</code></a> 属性。它可以覆盖新的标签页，指定为扩展（文件夹）内的 HTML 文件（不能使用第三方 URL）。<br>随后还需要增加必要的值：<code>name</code>，<code>version</code> 和 <code>manifest_version</code>。它们分别对应扩展显示的名字，显示的版本和 manifest 的版本，manifest 的版本填 3 就可以了。</p>
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/waline-set/">Waline 评论加入记录</a></h2>
@@ -210,34 +237,6 @@
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></code></pre>
 
 <p>代码和示例请看下面。</p>
-    </div>
-</div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/bichaj/">并查集概念</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-11-26T10:29:30+08:00">2023-11-26</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote>
-<p>又有好长时间没有写过课程笔记了啊~<br><span style="display:block;text-align:right">—— by JoyWonderful</span></p>
-</blockquote>
-<p><strong>并查集</strong>就是将一些集合融合，然后查询某个数字和某个数字是否在这个集合里<del>（蒟蒻奇怪的自我理解，大概也没人看这句话）</del>。<br>并查集有一个思想，一个元素的父亲为自己，这是<strong>初始化</strong>时会用到的。</p>
     </div>
 </div>
 
