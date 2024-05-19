@@ -71,18 +71,23 @@
     <div class="post-body">
         
 <p>这个博客是由 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo <i class="fa fa-arrow-up-right-from-square" style="font-size:15px;"></i></a> 搭建支持的。</p>
-
-<p>主要这个博客就是放一些我的见闻和看法，以及<strong>一大堆</strong>课程笔记的。<br></p>
-
+<p>主要这个博客就是放一些我的见闻和看法，以及<strong>一大堆</strong>课程笔记的。</p>
 <p>你既然看到这里了，不如就在 <a href="/guestbook/">留言板</a> 留个言吧。</p>
 
-<p><strong>Github Pages Deploy Status:</strong></p>
+
+
+<br>
+<p style="text-align:center;color:#777;font-size:.875rem;margin-top:30px">以下是一些信息</p>
+
+
+<p style="margin-bottom:5px"><strong>Github Pages Deploy Status:</strong></p>
 
 <style>
     div#last-deploy-info {
         display: flex;
         white-space: nowrap;
         overflow-x: auto;
+        margin-bottom: 20px;
     }
     div#last-deploy-info div {
         margin-right: 25px;
@@ -100,11 +105,13 @@
     div#last-deploy-info a:hover {
         border-bottom: 1px solid #222222;
     }
+    div#last-deploy-info #dpi-waiting {
+        color: #999;
+    }
 </style>
 
-<br>
-
 <div id="last-deploy-info">
+    <span id="dpi-waiting">Please wait...</span>
     <div id="dpi-cmt-id"></div>
     <div id="dpi-stat"></div>
     <div id="dpi-durat"></div>
@@ -129,6 +136,8 @@
         }
         return result.json();
     }).then((data) => {
+        document.querySelector("#dpi-waiting").style.display = "none";
+
         lrun = data.workflow_runs[0];
         var cmt_id = document.querySelector("#dpi-cmt-id"), stat = document.querySelector("#dpi-stat"), durat = document.querySelector("#dpi-durat"), update = document.querySelector("#dpi-update");
 
@@ -151,6 +160,12 @@
         update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()+1}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
     });
 </script>
+
+
+<p style="margin-bottom:5px"><strong>NPM Dependencies which this Site are Using:</strong></p>
+
+<pre class="language-none"><code class="language-none">hexo: ^7.2.0<br>hexo-deployer-git: ^4.0.0<br>hexo-generator-archive: ^2.0.0<br>hexo-generator-category: ^2.0.0<br>hexo-generator-index: ^3.0.0<br>hexo-generator-searchdb: ^1.4.1<br>hexo-generator-tag: ^2.0.0<br>hexo-renderer-marked: ^6.3.0<br>hexo-renderer-stylus: ^3.0.1<br>hexo-server: ^3.0.0<br></code></pre>
+
     </div>
 </div>
             </div>
