@@ -39,8 +39,8 @@ window.lite = {
                 throwOnError: false
             });
             document.querySelectorAll("code.language-mathKatex").forEach((el) => {
-                el.parentNode.className = "katex-display";
-                katex.render(el.innerText, el.parentElement, {throwOnError: false});
+                el.parentNode.className = "";
+                katex.render(el.innerText, el.parentElement, {throwOnError: false, displayMode: true});
             });
         }
     },

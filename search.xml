@@ -338,63 +338,6 @@
       </tags>
   </entry>
   <entry>
-    <title>二叉树的性质</title>
-    <url>//posts/binarytree/</url>
-    <content><![CDATA[<p>原本像在别的文章的基础上再加的，但是还是新建了一个文章。主要就是讲一下昨天老师讲过的东西。<br>对于二叉树和其他树什么的，可以再看看“<a href="/tags/%E6%A0%91">树</a>”这个标签里的几篇文章。这里主要讲的都是二叉树的性质。</p>
-<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>二叉树得符合树的特点，同时树上度最大的结点不得超过 2。<span id="more"></span>即：</p>
-<ol>
-<li>树的特点<ul>
-<li>无向联通图，没有环</li>
-<li>有 $n$ 个结点，$n - 1$ 条边</li>
-</ul>
-</li>
-<li>二叉树的类型<ul>
-<li>空树</li>
-<li>当有结点时，结点应最多只有 $2$ 个子树</li>
-</ul>
-</li>
-</ol>
-<p>另一个说法就是：一棵不为空的树，其根结点的度不大于 $2$，且它的左子树和右子树也都为二叉树的树（这是递归的说法）。</p>
-<h2 id="几种类型"><a href="#几种类型" class="headerlink" title="几种类型"></a>几种类型</h2><p>这里只说之前没有记过的类型，之前两（三）种类型看<a href="/posts/graph-tree/#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5">这篇</a>。</p>
-<h3 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h3><p>二叉树上的任意一个结点，其<strong>左子树上的所有数（权值）都小于它，右子树上的所有数（权值）都大于它</strong>。就是按照中序遍历（看<a href="/posts/binarytree-fme">这篇</a>）该二叉搜索树，得到的（权值）数列是有序的。<br>同二叉树的定义（递归说法）一样，二叉搜索树的左子树和右子树都是二叉搜索树。二叉搜索树的基本操作最优时间复杂度为 $O(\log n)$，最差为 $O(n)$（$n$ 为结点数）。<del>但目前还没有学二叉搜索树的应用。</del></p>
-<p>例如，下面的图片就是一个二叉搜索树(csAcademy graph editor 炸了，只能用 mermaid 生成的图片凑合)：</p>
-<p><img src="https://s2.loli.net/2024/03/31/2gVfskEiGev4pCn.png" alt="bitree-search.png"></p>
-<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>这里以平衡树中的 AVL 树来说。它的<strong>左子树的深度和右子树的深度的差不大于</strong> $1$。例如完全二叉树就是衡二叉树。<br>平衡二叉树的主要用途就是减小时间复杂度，不会像链一样遍历速度很慢。当一棵理想的平衡二叉树的节点数为 $n$ 时，遍历的时间复杂度应为 $O(\log n)$。</p>
-<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
-<li>结点数量<ul>
-<li>一棵深度为 $i$ 的二叉树最多（即完美（满）二叉树）有 $2^i - 1$ 个结点。</li>
-<li>因为二叉树的深度为 $j$ 的一层最多有 $2^{j - 1}$ 个结点。</li>
-</ul>
-</li>
-<li>叶子节点数为 $x$ 的二叉树，则它度数为二的结点个数为 $x - 1$</li>
-<li>对于<strong>完全二叉树</strong><ul>
-<li>具有 $n$ 个叶子结点的完全二叉树的深度为 $\lfloor \log_2 n \rfloor + 1$</li>
-<li>若对有 $n$ 个结点的完全二叉树按层从上到下，从左到右依次编号为 $1, 2, …, n - 1, n$，对于任意结点编号为 $i$ 则：<ul>
-<li>若 $2 \times i &gt; n$ 则它是叶子结点，否则其左节点编号为 $2 \times i$，（当 $2 \times i &lt; n$ 时）右结点编号为 $2 \times i + 1$</li>
-<li>当 $i \ne 1$（非根结点）其双亲结点编号为 $\lfloor i \div 2 \rfloor$</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-<div class="note success"><p>做例子的图：</p>
-<p>这是一个完美（满）二叉树，也是完全二叉树。</p>
-<p><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="tree"></p>
-<p>可以发现其结点符合上面的规则。</p>
-</div>
-
-<div class="note info"><p>存储和遍历</p>
-<p>可以去看看<a href="https://www.luogu.com.cn/training/491819">这个题单</a>，以及“<a href="/posts/binarytree-fme/#%E5%89%8D%E3%80%81%E4%B8%AD%E3%80%81%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BB%A3%E7%A0%81">二叉树的前序、中序、后序遍历</a>”的代码部分，里面有关于遍历的信息。<br>开头也说过，这篇文章并没有追加到“二叉树的前序、中序、后序遍历”这篇文章上是因为新建一篇文章比较醒目。</p>
-</div>]]></content>
-      <categories>
-        <category>CourseNotes</category>
-      </categories>
-      <tags>
-        <tag>树</tag>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>二叉树的前序、中序、后序遍历</title>
     <url>//posts/binarytree-fme/</url>
     <content><![CDATA[<p>二叉树的前序遍历中序遍历和后序遍历是比较重要的<del>CCF办的比赛要考（雾</del>。可以通过这三个遍历的顺序结果确定整个树的结构。前序遍历是<strong>根左右</strong>，中序遍历是<strong>左根右</strong>，后序遍历是<strong>左右根</strong>。（不想多写什么了）</p>
@@ -476,8 +419,65 @@ void dfs(int x) // 中序：左根右
         <category>CourseNotes</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>数据结构</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>二叉树的性质</title>
+    <url>//posts/binarytree/</url>
+    <content><![CDATA[<p>原本像在别的文章的基础上再加的，但是还是新建了一个文章。主要就是讲一下昨天老师讲过的东西。<br>对于二叉树和其他树什么的，可以再看看“<a href="/tags/%E6%A0%91">树</a>”这个标签里的几篇文章。这里主要讲的都是二叉树的性质。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>二叉树得符合树的特点，同时树上度最大的结点不得超过 2。<span id="more"></span>即：</p>
+<ol>
+<li>树的特点<ul>
+<li>无向联通图，没有环</li>
+<li>有 $n$ 个结点，$n - 1$ 条边</li>
+</ul>
+</li>
+<li>二叉树的类型<ul>
+<li>空树</li>
+<li>当有结点时，结点应最多只有 $2$ 个子树</li>
+</ul>
+</li>
+</ol>
+<p>另一个说法就是：一棵不为空的树，其根结点的度不大于 $2$，且它的左子树和右子树也都为二叉树的树（这是递归的说法）。</p>
+<h2 id="几种类型"><a href="#几种类型" class="headerlink" title="几种类型"></a>几种类型</h2><p>这里只说之前没有记过的类型，之前两（三）种类型看<a href="/posts/graph-tree/#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5">这篇</a>。</p>
+<h3 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h3><p>二叉树上的任意一个结点，其<strong>左子树上的所有数（权值）都小于它，右子树上的所有数（权值）都大于它</strong>。就是按照中序遍历（看<a href="/posts/binarytree-fme">这篇</a>）该二叉搜索树，得到的（权值）数列是有序的。<br>同二叉树的定义（递归说法）一样，二叉搜索树的左子树和右子树都是二叉搜索树。二叉搜索树的基本操作最优时间复杂度为 $O(\log n)$，最差为 $O(n)$（$n$ 为结点数）。<del>但目前还没有学二叉搜索树的应用。</del></p>
+<p>例如，下面的图片就是一个二叉搜索树(csAcademy graph editor 炸了，只能用 mermaid 生成的图片凑合)：</p>
+<p><img src="https://s2.loli.net/2024/03/31/2gVfskEiGev4pCn.png" alt="bitree-search.png"></p>
+<h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>这里以平衡树中的 AVL 树来说。它的<strong>左子树的深度和右子树的深度的差不大于</strong> $1$。例如完全二叉树就是衡二叉树。<br>平衡二叉树的主要用途就是减小时间复杂度，不会像链一样遍历速度很慢。当一棵理想的平衡二叉树的节点数为 $n$ 时，遍历的时间复杂度应为 $O(\log n)$。</p>
+<h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
+<li>结点数量<ul>
+<li>一棵深度为 $i$ 的二叉树最多（即完美（满）二叉树）有 $2^i - 1$ 个结点。</li>
+<li>因为二叉树的深度为 $j$ 的一层最多有 $2^{j - 1}$ 个结点。</li>
+</ul>
+</li>
+<li>叶子节点数为 $x$ 的二叉树，则它度数为二的结点个数为 $x - 1$</li>
+<li>对于<strong>完全二叉树</strong><ul>
+<li>具有 $n$ 个叶子结点的完全二叉树的深度为 $\lfloor \log_2 n \rfloor + 1$</li>
+<li>若对有 $n$ 个结点的完全二叉树按层从上到下，从左到右依次编号为 $1, 2, …, n - 1, n$，对于任意结点编号为 $i$ 则：<ul>
+<li>若 $2 \times i &gt; n$ 则它是叶子结点，否则其左节点编号为 $2 \times i$，（当 $2 \times i &lt; n$ 时）右结点编号为 $2 \times i + 1$</li>
+<li>当 $i \ne 1$（非根结点）其双亲结点编号为 $\lfloor i \div 2 \rfloor$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="note success"><p>做例子的图：</p>
+<p>这是一个完美（满）二叉树，也是完全二叉树。</p>
+<p><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="tree"></p>
+<p>可以发现其结点符合上面的规则。</p>
+</div>
+
+<div class="note info"><p>存储和遍历</p>
+<p>可以去看看<a href="https://www.luogu.com.cn/training/491819">这个题单</a>，以及“<a href="/posts/binarytree-fme/#%E5%89%8D%E3%80%81%E4%B8%AD%E3%80%81%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BB%A3%E7%A0%81">二叉树的前序、中序、后序遍历</a>”的代码部分，里面有关于遍历的信息。<br>开头也说过，这篇文章并没有追加到“二叉树的前序、中序、后序遍历”这篇文章上是因为新建一篇文章比较醒目。</p>
+</div>]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -1776,6 +1776,55 @@ branch <span class="token string">'main'</span> <span class="token builtin class
       </tags>
   </entry>
   <entry>
+    <title>数据结构：树的概念与储存</title>
+    <url>//posts/graph-tree/</url>
+    <content><![CDATA[<p><strong>树</strong>也是一种数据结构，它是<strong>非线性数据结构</strong>，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 <del>老师讲了一个小时</del>。有点让人头疼（我咕了好多篇笔记了）。</p>
+<h2 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h2><h3 id="前面"><a href="#前面" class="headerlink" title="前面"></a>前面</h3><p>前置芝士，简单说一下这些奇怪的名称：</p>
+<ul>
+<li>树中的每一个元素称为<strong>结点 node</strong>。</li>
+<li>两个结点之间的线称为<strong>边 edge</strong>。</li>
+<li>通过几条边，这几条边组成<strong>路径</strong>。</li>
+</ul>
+<span id="more"></span>
+
+<p>树的结点一般画为圆圈，树若画出来也就是几个结点（圆）和几条边（线）组成的图，比较形象化，实际的树的储存方式是通过<a href="/posts/lianbiao" style="border-bottom:none;">链表</a>中的数据域将一个个结点（元素）连接起来，比较麻烦，后面再说。<br>还有一个概念：树的边的个数比树的结点的个数少一。也就是说，假设树的结点的个数为 $n$，则树的边的个数为 $n-1$。</p>
+<h3 id="判断一张图是否为树"><a href="#判断一张图是否为树" class="headerlink" title="判断一张图是否为树"></a>判断一张图是否为树</h3><p>树最重要的就是<strong>每两个结点之间有且只有一条路径可以到达</strong>，也就是说，不可以形成环，不可以在一个树中无法到达所有结点。例如，下面就是一个树：<br><img src="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png" alt="graph-tree-1.png"><br>下面两张图不是树，他们分别违反了“不可以形成环”、“不可以在一个树中无法到达所有结点”。<br><img src="https://s2.loli.net/2023/12/16/VgfdiEJmDvSz2OB.png" alt="err-tree1"><br><img src="https://s2.loli.net/2023/12/16/SEGpmcFVrNv95w2.png" alt="err-tree2"></p>
+<h3 id="更多的概念"><a href="#更多的概念" class="headerlink" title="更多的概念"></a>更多的概念</h3><p>首先放一张图：<br><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="lizi"></p>
+<p>以这张图为例，来说下面的概念吧。<br><strong>根结点 root</strong>：根结点通常在最上方，是所有子结点的父结点。在上面的那张图中，结点 1 就是整张图的根结点。在上面的图中，根结点可以更换，也不会影响到什么，但是根结点一变就会让树形态发生变化（假如结点 2 是整个树的根结点，那么树会变<a href="#tree-root-node2">下面的图</a>）。一个树是必须要有根结点的，<span style="background-color:#efefef">根结点只有一个。</span><br><strong>父结点 parent（双亲结点） 子结点 child（孩子结点）</strong>：一个结点的分支就是那个结点的子结点，相反那个结点是分支结点的父结点。子结点通过父结点到达。例如结点 4 5 是结点 2 的子结点，结点 3 是结点 6 7 的父结点。<br><strong>兄弟结点</strong>：同一个父结点的子结点称为兄弟结点。例如结点 4 5 互为兄弟结点，6 7 互为兄弟结点。<br><strong>度</strong>：树的度就是一个结点子结点的个数。例如结点 2 的度就是 2，因为它只有两个子结点。<br><strong>深度</strong>：从<span style="background-color:#efefef">根结点</span>到当前结点的层数，根结点的深度是 1。例如，结点 1 深度为 1，结点 2 3 深度为 2，结点 4 5 6 7 深度为 3。<br><strong>叶子结点</strong>：一个结点的度为 0，就叫做叶子结点。例如结点 4 5 6 7 都是叶子结点。<br><strong>n 叉树</strong>：在树中，这个数是多少叉看度最多的结点，例如这个树就是二叉树（也比较特殊，后面讲）。<br><strong>子树</strong>：假设将树中任意一个度不为 0 的结点与它的父结点切断它们之间的边，那么断开的那一部分又能成为一个新的树，称为子树。例如结点 2 4 5 可以组成一个子树。</p>
+<p>还有一大堆子子孙孙祖先的什么的，懒得写了。说真的，感觉说多了意义不大。</p>
+<h3 id="二叉树的概念"><a href="#二叉树的概念" class="headerlink" title="二叉树的概念"></a>二叉树的概念</h3><p>n 叉树中，又出现了一个<strong>二叉树 Binary Tree</strong> 这么个奇怪的概念。什么左子树右孩子什么的不记了，就讲三个我认为比较重要的。</p>
+<p><strong>完美二叉树</strong>：<br>也叫做满二叉树。简单来说就是一个深度为 $n$ 的二叉树，拥有 $2^n - 1$ 个结点。看着的话就是若再增加一个结点使其继续为二叉树，深度就必须要加一了。刚才的示例图就是一个完美二叉树。<br><strong>完全二叉树</strong>：<br>完全二叉树的叶子结点可以不是满的，但是剩下的叶子结点必须都在图的左边。例如那张示例图若将结点 7 去掉，它就只是一个完全二叉树。<br><strong>完满二叉树</strong>：<br>完满二叉树的结点除了叶子结点以外其他结点的度都必须是 2。示例图若将结点 4 5 去掉，它就只是一个完满二叉树。</p>
+<div class="note warning"><p>注意：</p>
+<p>这三个概念极易弄混淆，稍不注意就忘了。完美二叉树一定也是完全二叉树和完满二叉树，但完满二叉树不一定是完全二叉树和完美二叉树。（别说他晕，我也晕了）</p>
+</div>
+
+<h2 id="树的储存"><a href="#树的储存" class="headerlink" title="树的储存"></a>树的储存</h2><p>一大堆基础概念，已经够呛了（悲）。学到树的储存已经开始逐渐迷惑。。。<br>一般来说，树也是不太可能用真正的指针链表来储存，毕竟太难写了，内存限制一般比时间限制够用一些，就用数组模拟链表。链表就是要关心指针域，下面就是一大堆奇奇怪怪的方法。</p>
+<h3 id="可能用不到的"><a href="#可能用不到的" class="headerlink" title="可能用不到的"></a>可能用不到的</h3><div class="note info"><p>备注：</p>
+<p>一般来说，这些方法用不太到，要么炸时间要么炸空间要么难实现。所以就按这种奇特的分类方法分类了，反正感觉用不到。这句话也兼下面。</p>
+</div>
+
+<p><strong>父亲表示法</strong>：顾名思义，指针域指向父结点。<br><strong>孩子表示法</strong>：指针域指向子结点。<br><strong>父亲孩子表示法</strong>：双向链表结构，也没啥用。</p>
+<div class="note danger"><p>上述缺点：</p>
+<p>很明显，父亲法若寻找一个子结点可能要遍历整个表，很耗时间；孩子法度一大肯定爆内存，因为将每个子结点都存了下来；父亲孩子更糟糕，内存更大了，没有意义。</p>
+</div>
+
+<h3 id="可能会用到的"><a href="#可能会用到的" class="headerlink" title="可能会用到的"></a>可能会用到的</h3><p><strong>孩子兄弟表示法</strong>：适用于二叉树，也是一个双链表结构，一个结点连接其子结点和兄弟结点。<br><strong>邻接矩阵表示法</strong>：见<a href="/posts/graph-search/#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5%EF%BC%88%E4%B8%80%E8%88%AC%E4%B8%8D%E7%94%A8%EF%BC%89">这里</a>。<br><strong>邻接表表示法</strong>：也看上面。</p>
+<hr>
+
+<p id="tree-root-node2">假设根结点为 2 时的情况：</p>
+
+<p><img src="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png" alt="node2"></p>
+]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>数据结构</tag>
+        <tag>树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>普通图的储存和遍历</title>
     <url>//posts/graph-search/</url>
     <content><![CDATA[<p>其实之前也写过关于<a href="/posts/graph-tree/#%E6%A0%91%E7%9A%84%E5%82%A8%E5%AD%98">图的储存</a>的文章，但是没写全，也没有写代码。在这里把最近复习的重新补上来。<br>这里只讲了三种储存：邻接矩阵、邻接表、链式前向星，对于遍历，只记录写法较简单的邻接表。</p>
@@ -1956,55 +2005,6 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
       <tags>
         <tag>搜索</tag>
         <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据结构：树的概念与储存</title>
-    <url>//posts/graph-tree/</url>
-    <content><![CDATA[<p><strong>树</strong>也是一种数据结构，它是<strong>非线性数据结构</strong>，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 <del>老师讲了一个小时</del>。有点让人头疼（我咕了好多篇笔记了）。</p>
-<h2 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h2><h3 id="前面"><a href="#前面" class="headerlink" title="前面"></a>前面</h3><p>前置芝士，简单说一下这些奇怪的名称：</p>
-<ul>
-<li>树中的每一个元素称为<strong>结点 node</strong>。</li>
-<li>两个结点之间的线称为<strong>边 edge</strong>。</li>
-<li>通过几条边，这几条边组成<strong>路径</strong>。</li>
-</ul>
-<span id="more"></span>
-
-<p>树的结点一般画为圆圈，树若画出来也就是几个结点（圆）和几条边（线）组成的图，比较形象化，实际的树的储存方式是通过<a href="/posts/lianbiao" style="border-bottom:none;">链表</a>中的数据域将一个个结点（元素）连接起来，比较麻烦，后面再说。<br>还有一个概念：树的边的个数比树的结点的个数少一。也就是说，假设树的结点的个数为 $n$，则树的边的个数为 $n-1$。</p>
-<h3 id="判断一张图是否为树"><a href="#判断一张图是否为树" class="headerlink" title="判断一张图是否为树"></a>判断一张图是否为树</h3><p>树最重要的就是<strong>每两个结点之间有且只有一条路径可以到达</strong>，也就是说，不可以形成环，不可以在一个树中无法到达所有结点。例如，下面就是一个树：<br><img src="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png" alt="graph-tree-1.png"><br>下面两张图不是树，他们分别违反了“不可以形成环”、“不可以在一个树中无法到达所有结点”。<br><img src="https://s2.loli.net/2023/12/16/VgfdiEJmDvSz2OB.png" alt="err-tree1"><br><img src="https://s2.loli.net/2023/12/16/SEGpmcFVrNv95w2.png" alt="err-tree2"></p>
-<h3 id="更多的概念"><a href="#更多的概念" class="headerlink" title="更多的概念"></a>更多的概念</h3><p>首先放一张图：<br><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="lizi"></p>
-<p>以这张图为例，来说下面的概念吧。<br><strong>根结点 root</strong>：根结点通常在最上方，是所有子结点的父结点。在上面的那张图中，结点 1 就是整张图的根结点。在上面的图中，根结点可以更换，也不会影响到什么，但是根结点一变就会让树形态发生变化（假如结点 2 是整个树的根结点，那么树会变<a href="#tree-root-node2">下面的图</a>）。一个树是必须要有根结点的，<span style="background-color:#efefef">根结点只有一个。</span><br><strong>父结点 parent（双亲结点） 子结点 child（孩子结点）</strong>：一个结点的分支就是那个结点的子结点，相反那个结点是分支结点的父结点。子结点通过父结点到达。例如结点 4 5 是结点 2 的子结点，结点 3 是结点 6 7 的父结点。<br><strong>兄弟结点</strong>：同一个父结点的子结点称为兄弟结点。例如结点 4 5 互为兄弟结点，6 7 互为兄弟结点。<br><strong>度</strong>：树的度就是一个结点子结点的个数。例如结点 2 的度就是 2，因为它只有两个子结点。<br><strong>深度</strong>：从<span style="background-color:#efefef">根结点</span>到当前结点的层数，根结点的深度是 1。例如，结点 1 深度为 1，结点 2 3 深度为 2，结点 4 5 6 7 深度为 3。<br><strong>叶子结点</strong>：一个结点的度为 0，就叫做叶子结点。例如结点 4 5 6 7 都是叶子结点。<br><strong>n 叉树</strong>：在树中，这个数是多少叉看度最多的结点，例如这个树就是二叉树（也比较特殊，后面讲）。<br><strong>子树</strong>：假设将树中任意一个度不为 0 的结点与它的父结点切断它们之间的边，那么断开的那一部分又能成为一个新的树，称为子树。例如结点 2 4 5 可以组成一个子树。</p>
-<p>还有一大堆子子孙孙祖先的什么的，懒得写了。说真的，感觉说多了意义不大。</p>
-<h3 id="二叉树的概念"><a href="#二叉树的概念" class="headerlink" title="二叉树的概念"></a>二叉树的概念</h3><p>n 叉树中，又出现了一个<strong>二叉树 Binary Tree</strong> 这么个奇怪的概念。什么左子树右孩子什么的不记了，就讲三个我认为比较重要的。</p>
-<p><strong>完美二叉树</strong>：<br>也叫做满二叉树。简单来说就是一个深度为 $n$ 的二叉树，拥有 $2^n - 1$ 个结点。看着的话就是若再增加一个结点使其继续为二叉树，深度就必须要加一了。刚才的示例图就是一个完美二叉树。<br><strong>完全二叉树</strong>：<br>完全二叉树的叶子结点可以不是满的，但是剩下的叶子结点必须都在图的左边。例如那张示例图若将结点 7 去掉，它就只是一个完全二叉树。<br><strong>完满二叉树</strong>：<br>完满二叉树的结点除了叶子结点以外其他结点的度都必须是 2。示例图若将结点 4 5 去掉，它就只是一个完满二叉树。</p>
-<div class="note warning"><p>注意：</p>
-<p>这三个概念极易弄混淆，稍不注意就忘了。完美二叉树一定也是完全二叉树和完满二叉树，但完满二叉树不一定是完全二叉树和完美二叉树。（别说他晕，我也晕了）</p>
-</div>
-
-<h2 id="树的储存"><a href="#树的储存" class="headerlink" title="树的储存"></a>树的储存</h2><p>一大堆基础概念，已经够呛了（悲）。学到树的储存已经开始逐渐迷惑。。。<br>一般来说，树也是不太可能用真正的指针链表来储存，毕竟太难写了，内存限制一般比时间限制够用一些，就用数组模拟链表。链表就是要关心指针域，下面就是一大堆奇奇怪怪的方法。</p>
-<h3 id="可能用不到的"><a href="#可能用不到的" class="headerlink" title="可能用不到的"></a>可能用不到的</h3><div class="note info"><p>备注：</p>
-<p>一般来说，这些方法用不太到，要么炸时间要么炸空间要么难实现。所以就按这种奇特的分类方法分类了，反正感觉用不到。这句话也兼下面。</p>
-</div>
-
-<p><strong>父亲表示法</strong>：顾名思义，指针域指向父结点。<br><strong>孩子表示法</strong>：指针域指向子结点。<br><strong>父亲孩子表示法</strong>：双向链表结构，也没啥用。</p>
-<div class="note danger"><p>上述缺点：</p>
-<p>很明显，父亲法若寻找一个子结点可能要遍历整个表，很耗时间；孩子法度一大肯定爆内存，因为将每个子结点都存了下来；父亲孩子更糟糕，内存更大了，没有意义。</p>
-</div>
-
-<h3 id="可能会用到的"><a href="#可能会用到的" class="headerlink" title="可能会用到的"></a>可能会用到的</h3><p><strong>孩子兄弟表示法</strong>：适用于二叉树，也是一个双链表结构，一个结点连接其子结点和兄弟结点。<br><strong>邻接矩阵表示法</strong>：见<a href="/posts/graph-search/#%E9%82%BB%E6%8E%A5%E7%9F%A9%E9%98%B5%EF%BC%88%E4%B8%80%E8%88%AC%E4%B8%8D%E7%94%A8%EF%BC%89">这里</a>。<br><strong>邻接表表示法</strong>：也看上面。</p>
-<hr>
-
-<p id="tree-root-node2">假设根结点为 2 时的情况：</p>
-
-<p><img src="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png" alt="node2"></p>
-]]></content>
-      <categories>
-        <category>CourseNotes</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>树</tag>
-        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -2224,6 +2224,37 @@ vector<span class="token operator">&lt;</span>node<span class="token operator">>
       <tags>
         <tag>HTML</tag>
         <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>哈夫曼树和哈夫曼编码</title>
+    <url>//posts/huff-tree/</url>
+    <content><![CDATA[<p>更前面的知识：<a style="border-bottom:none;" href="/posts/graph-tree">树的概念</a><br>先来说说前面的芝士：</p>
+<ul>
+<li><strong>路径长度</strong> 从根结点到目标结点经过的结点数量（边的数量）。</li>
+<li><strong>权值</strong> 一个结点的权值可以是人为赋予的一个数。</li>
+<li><strong>结点的带权路径长度</strong> 从根节点到当前结点的路径长度乘结点的权值。</li>
+<li><strong>树的带权路径长度</strong> 整个树中叶子结点的带权路径长度总和。</li>
+</ul>
+<p>哈夫曼树是二叉树，且哈夫曼树的带权路径长度最小，哈夫曼编码会用到。</p>
+<span id="more"></span>
+
+<h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><p>前面写了，哈夫曼树的带权路径长度最小，若想带权路径最小，则权值小的结点的路径长，权值大的结点路径短。哈夫曼树构建的结点都必须是叶子结点，例如用 1 2 5 6 构建的哈夫曼树是这样的：<br><img src="https://s2.loli.net/2023/12/16/pcyXsqGt9DjiPQL.png" alt="哈夫曼树示例"><br>这个树的带权路径长度为 25。</p>
+<p>构造过程：</p>
+<ol>
+<li>选出权值两个最小的结点合并；</li>
+<li>将两个点从将要合并的结点序列中删除，加入两个结点的和；</li>
+<li>重复以上步骤，直至达到要求。</li>
+</ol>
+<p>演示：<br><img src="https://s2.loli.net/2023/12/16/nZzqTchylwDC1Jj.png" alt="demo"></p>
+<h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><p>基于哈夫曼树，按照字符出现的频率（也就是哈夫曼树中的权值）进行二进制编码。<br>也就是用哈夫曼树对一串字符进行编码，可以认为左子树是 0，右子树是 1。（说不清楚啊）<br>哈夫曼编码是<strong>贪心</strong>的思想，为了使信息量最小化，可以用到哈夫曼树。</p>
+]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -2685,194 +2716,6 @@ body <span class="token punctuation">&#123;</span></span>
       </tags>
   </entry>
   <entry>
-    <title>哈夫曼树和哈夫曼编码</title>
-    <url>//posts/huff-tree/</url>
-    <content><![CDATA[<p>更前面的知识：<a style="border-bottom:none;" href="/posts/graph-tree">树的概念</a><br>先来说说前面的芝士：</p>
-<ul>
-<li><strong>路径长度</strong> 从根结点到目标结点经过的结点数量（边的数量）。</li>
-<li><strong>权值</strong> 一个结点的权值可以是人为赋予的一个数。</li>
-<li><strong>结点的带权路径长度</strong> 从根节点到当前结点的路径长度乘结点的权值。</li>
-<li><strong>树的带权路径长度</strong> 整个树中叶子结点的带权路径长度总和。</li>
-</ul>
-<p>哈夫曼树是二叉树，且哈夫曼树的带权路径长度最小，哈夫曼编码会用到。</p>
-<span id="more"></span>
-
-<h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><p>前面写了，哈夫曼树的带权路径长度最小，若想带权路径最小，则权值小的结点的路径长，权值大的结点路径短。哈夫曼树构建的结点都必须是叶子结点，例如用 1 2 5 6 构建的哈夫曼树是这样的：<br><img src="https://s2.loli.net/2023/12/16/pcyXsqGt9DjiPQL.png" alt="哈夫曼树示例"><br>这个树的带权路径长度为 25。</p>
-<p>构造过程：</p>
-<ol>
-<li>选出权值两个最小的结点合并；</li>
-<li>将两个点从将要合并的结点序列中删除，加入两个结点的和；</li>
-<li>重复以上步骤，直至达到要求。</li>
-</ol>
-<p>演示：<br><img src="https://s2.loli.net/2023/12/16/nZzqTchylwDC1Jj.png" alt="demo"></p>
-<h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><p>基于哈夫曼树，按照字符出现的频率（也就是哈夫曼树中的权值）进行二进制编码。<br>也就是用哈夫曼树对一串字符进行编码，可以认为左子树是 0，右子树是 1。（说不清楚啊）<br>哈夫曼编码是<strong>贪心</strong>的思想，为了使信息量最小化，可以用到哈夫曼树。</p>
-]]></content>
-      <categories>
-        <category>CourseNotes</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>线性数据结构：链表的模板</title>
-    <url>//posts/lianbiao/</url>
-    <content><![CDATA[<p>链表类似于数组，与数组不同的是，链表可以更加方便地更改数据和删除数据。数组若想将中间的数据删除，则要非很大功夫，而链表就不同了，它的操作更加简单一些（后面说）。</p>
-<p>链表的数据组可以叫做“结点”，结点分成两个部分：一个是数据域，一个是指针域，数据域存数据，指针域指向下一个结点的数据地址。正是指针域将链表的每一个结点连在了一起。这种特性有一个好处：内存地址可以不连续，而数组的内存地址是必须要连续的。<br>比如内存还有 2GB 空闲，我申请了一个 1GB 大的数组，理论上是可以申请下来的，但占用的内存不一定完全是连续的。假设内存被一大堆东西占用的零零碎碎：确实有 2GB，但分成 4 个 500MB，这就申请不下来。而链表呢，可以充分利用内存碎片，通过指针变量，将分开的数据连在一起。</p>
-<span id="more"></span>
-
-<h2 id="普通的链表"><a href="#普通的链表" class="headerlink" title="普通的链表"></a>普通的链表</h2><p>链表还有一个好处：它是<strong>动态</strong>的，也就是说，使用的内存想申请就申请，想销毁就销毁(C&#x2F;C++中，其他语言我不确定)<br>，可以节约内存。<br>申请内存，可以用到 <code>&lt;malloc.h&gt;</code> 头文件中的 <code>malloc()</code> 函数，只有一个参数，填上你想要申请的内存大小(字节)，可以和 <code>sizeof</code> 一起用。但它返回的是 <code>void</code> 类型，所以最好在它前面加上一个类型强制转换。而销毁内存，则可以用到这个头文件中 <code>free()</code> 函数，一个参数，往里面填上地址（指针变量）即可销毁，但从此不可以再调用 使用这个内存的变量，若调用会报错，需要注意。</p>
-<p>无论什么链表，还要有一个头指针，以便寻找元素时更好的去找。链表的结点一般用一个结构体，结构体里面一个是数据(<code>data</code>)，一个是存着下一个结点数据地址的指针变量(<code>next</code>)。<br>示例代码如下：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
-    node <span class="token operator">*</span>next<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-node <span class="token operator">*</span>head<span class="token punctuation">;</span></code></pre>
-
-<p>首先说直接往末尾加上元素。先要判断链表是否为空，可以通过头指针 <code>head</code> 是否为空（<code>NULL</code>），若是第一个便创建新结点，申请为 <code>node</code> 类型的大小的内存，将那个结点的数据域赋值为加上的数据，再将结点的指针域设为 <code>NULL</code>（以防万一），将 <code>head</code> 设为新结点的地址。<br>否则通过指针域穷举当前指针域是否为 <code>NULL</code>，也就是最后一个元素，若到了最后一个元素，则申请内存，新建结点，数据域赋值，将上一个结点的指针域赋值为当前结点数据域的地址，将打钱结点指针域设为 <code>NULL</code>。<br>示例代码如下：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        head <span class="token operator">=</span> New<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">else</span>
-    <span class="token punctuation">&#123;</span>
-        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>插入也差不多，穷举到目标位置，申请内存，更改指针域。访问即是穷举，顺着指针走。更改数据还要穷举，将数据域改掉就好了。重点将删除。<br>首先，判断删除的是否是第一个，若是则将 <code>head</code> 更改为下一个结点的指针域。否则穷举目标，新建一个 <code>node</code> 类型的零时变量，将它赋值为删除目标的下一个结点的指针域，销毁准备删除的内存，将删除的地方的指针域赋值为那个零时变量。<br>完整代码：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h></span></span>
-<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-
-<span class="token keyword">struct</span> <span class="token class-name">node</span> <span class="token comment">// 结点</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">int</span> x<span class="token punctuation">;</span> <span class="token comment">// 数据</span>
-    node <span class="token operator">*</span>next<span class="token punctuation">;</span> <span class="token comment">// 下一个结点的地址</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-
-node <span class="token operator">*</span>head<span class="token punctuation">;</span> <span class="token comment">// 指针变量</span>
-
-<span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span> <span class="token comment">// 往末尾追加元素，`data` 是要追加的数据</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 链表为空</span>
-    <span class="token punctuation">&#123;</span>
-        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 申请内存</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span> <span class="token comment">// 存数据</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span> <span class="token comment">// 以防万一</span>
-        head <span class="token operator">=</span> New<span class="token punctuation">;</span> <span class="token comment">// 因为链表是空的，所以要给头指针赋值。</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">else</span>
-    <span class="token punctuation">&#123;</span>
-        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span> <span class="token comment">// 开始遍历</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 条件的意思是不为链表的最后一个</span>
-        <span class="token punctuation">&#123;</span>
-            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 通过下一个结点的地址不但遍历</span>
-        <span class="token punctuation">&#125;</span>
-        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 同上的 `head==NULL`</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
-        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 插入， `x` 是要加的数据，`y` 表示在链表的第 `y` 个元素后插入数据</span>
-<span class="token punctuation">&#123;</span>
-    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    y<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        y<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 返回链表的第 `x` 个结点的数据</span>
-<span class="token punctuation">&#123;</span>
-    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 更改链表第 `x` 个结点的数据域为 `y`</span>
-<span class="token punctuation">&#123;</span>
-    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> y<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">void</span> <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 删除链表第 `x` 个结点</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        head <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>head<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
-    x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token operator">--</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
-        x<span class="token operator">--</span> <span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-    node <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 零时指针变量，下下个结点的指针域</span>
-    <span class="token function">free</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 销毁内存</span>
-    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> t<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// main() 是示例</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 100</span>
-    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 200</span>
-    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面加上 300</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 100 300 200</span>
-    <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删掉第一个元素</span>
-    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面插入 400</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 300 400 200</span>
-    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>虽然代码注释讲了，为了更清楚，再说一遍输出：</p>
-<pre class="language-plain" data-language="plain"><code class="language-plain">first:100, second:300, third:200
-first:300, second:400, third:200</code></pre>
-<p><strong>附演示：</strong><a href="https://visualgo.net/zh/list">https://visualgo.net/zh/list</a></p>
-]]></content>
-      <categories>
-        <category>CourseNotes</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>数据结构</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>有关进制的一些小记</title>
     <url>//posts/jinzhi/</url>
     <content><![CDATA[<p>x 进制，代表着在这个计数方法中逢 x 进一，例如十进制就代表着<strong>逢十进一</strong>。<br>我们平常在生活中用的都是十进制。进制一类的东西在 OI 中也比较重要<del>CCF 喜欢考</del>，计算机中的数据都是以二进制储存的，二进制也完美地利用了每一个比特。当然，只要有足够的表示方法，人们可以弄出三十二进制、六十四进制，甚至一千进制。<del>闲的没事情干，</del>进制有关的以及进制之间的转换就是我想记下来的话题。</p>
@@ -3228,6 +3071,163 @@ string <span class="token function">tentoy</span><span class="token punctuation"
       </tags>
   </entry>
   <entry>
+    <title>线性数据结构：链表的模板</title>
+    <url>//posts/lianbiao/</url>
+    <content><![CDATA[<p>链表类似于数组，与数组不同的是，链表可以更加方便地更改数据和删除数据。数组若想将中间的数据删除，则要非很大功夫，而链表就不同了，它的操作更加简单一些（后面说）。</p>
+<p>链表的数据组可以叫做“结点”，结点分成两个部分：一个是数据域，一个是指针域，数据域存数据，指针域指向下一个结点的数据地址。正是指针域将链表的每一个结点连在了一起。这种特性有一个好处：内存地址可以不连续，而数组的内存地址是必须要连续的。<br>比如内存还有 2GB 空闲，我申请了一个 1GB 大的数组，理论上是可以申请下来的，但占用的内存不一定完全是连续的。假设内存被一大堆东西占用的零零碎碎：确实有 2GB，但分成 4 个 500MB，这就申请不下来。而链表呢，可以充分利用内存碎片，通过指针变量，将分开的数据连在一起。</p>
+<span id="more"></span>
+
+<h2 id="普通的链表"><a href="#普通的链表" class="headerlink" title="普通的链表"></a>普通的链表</h2><p>链表还有一个好处：它是<strong>动态</strong>的，也就是说，使用的内存想申请就申请，想销毁就销毁(C&#x2F;C++中，其他语言我不确定)<br>，可以节约内存。<br>申请内存，可以用到 <code>&lt;malloc.h&gt;</code> 头文件中的 <code>malloc()</code> 函数，只有一个参数，填上你想要申请的内存大小(字节)，可以和 <code>sizeof</code> 一起用。但它返回的是 <code>void</code> 类型，所以最好在它前面加上一个类型强制转换。而销毁内存，则可以用到这个头文件中 <code>free()</code> 函数，一个参数，往里面填上地址（指针变量）即可销毁，但从此不可以再调用 使用这个内存的变量，若调用会报错，需要注意。</p>
+<p>无论什么链表，还要有一个头指针，以便寻找元素时更好的去找。链表的结点一般用一个结构体，结构体里面一个是数据(<code>data</code>)，一个是存着下一个结点数据地址的指针变量(<code>next</code>)。<br>示例代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">struct</span> <span class="token class-name">node</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span>
+    node <span class="token operator">*</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+node <span class="token operator">*</span>head<span class="token punctuation">;</span></code></pre>
+
+<p>首先说直接往末尾加上元素。先要判断链表是否为空，可以通过头指针 <code>head</code> 是否为空（<code>NULL</code>），若是第一个便创建新结点，申请为 <code>node</code> 类型的大小的内存，将那个结点的数据域赋值为加上的数据，再将结点的指针域设为 <code>NULL</code>（以防万一），将 <code>head</code> 设为新结点的地址。<br>否则通过指针域穷举当前指针域是否为 <code>NULL</code>，也就是最后一个元素，若到了最后一个元素，则申请内存，新建结点，数据域赋值，将上一个结点的指针域赋值为当前结点数据域的地址，将打钱结点指针域设为 <code>NULL</code>。<br>示例代码如下：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        head <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>插入也差不多，穷举到目标位置，申请内存，更改指针域。访问即是穷举，顺着指针走。更改数据还要穷举，将数据域改掉就好了。重点将删除。<br>首先，判断删除的是否是第一个，若是则将 <code>head</code> 更改为下一个结点的指针域。否则穷举目标，新建一个 <code>node</code> 类型的零时变量，将它赋值为删除目标的下一个结点的指针域，销毁准备删除的内存，将删除的地方的指针域赋值为那个零时变量。<br>完整代码：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;malloc.h></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">struct</span> <span class="token class-name">node</span> <span class="token comment">// 结点</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">int</span> x<span class="token punctuation">;</span> <span class="token comment">// 数据</span>
+    node <span class="token operator">*</span>next<span class="token punctuation">;</span> <span class="token comment">// 下一个结点的地址</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+
+node <span class="token operator">*</span>head<span class="token punctuation">;</span> <span class="token comment">// 指针变量</span>
+
+<span class="token keyword">void</span> <span class="token function">push</span><span class="token punctuation">(</span><span class="token keyword">int</span> data<span class="token punctuation">)</span> <span class="token comment">// 往末尾追加元素，`data` 是要追加的数据</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 链表为空</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 申请内存</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span> <span class="token comment">// 存数据</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span> <span class="token comment">// 以防万一</span>
+        head <span class="token operator">=</span> New<span class="token punctuation">;</span> <span class="token comment">// 因为链表是空的，所以要给头指针赋值。</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">&#123;</span>
+        node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span> <span class="token comment">// 开始遍历</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">!=</span> <span class="token constant">NULL</span><span class="token punctuation">)</span> <span class="token comment">// 条件的意思是不为链表的最后一个</span>
+        <span class="token punctuation">&#123;</span>
+            s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 通过下一个结点的地址不但遍历</span>
+        <span class="token punctuation">&#125;</span>
+        node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 同上的 `head==NULL`</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> data<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token constant">NULL</span><span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 插入， `x` 是要加的数据，`y` 表示在链表的第 `y` 个元素后插入数据</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    y<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>y<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        y<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>New <span class="token operator">=</span> <span class="token punctuation">(</span>node <span class="token operator">*</span><span class="token punctuation">)</span> <span class="token function">malloc</span><span class="token punctuation">(</span><span class="token keyword">sizeof</span><span class="token punctuation">(</span>node<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>New<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> New<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">int</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 返回链表的第 `x` 个结点的数据</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">,</span> <span class="token keyword">int</span> y<span class="token punctuation">)</span> <span class="token comment">// 更改链表第 `x` 个结点的数据域为 `y`</span>
+<span class="token punctuation">&#123;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>x <span class="token operator">=</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">void</span> <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token punctuation">)</span> <span class="token comment">// 删除链表第 `x` 个结点</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>x <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        head <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>head<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>s <span class="token operator">=</span> head<span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span>x<span class="token operator">--</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        x<span class="token operator">--</span> <span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    node <span class="token operator">*</span>t <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">;</span> <span class="token comment">// 零时指针变量，下下个结点的指针域</span>
+    <span class="token function">free</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 销毁内存</span>
+    <span class="token punctuation">(</span><span class="token operator">*</span>s<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> t<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// main() 是示例</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 100</span>
+    <span class="token function">push</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在末尾追加 200</span>
+    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">300</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面加上 300</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 100 300 200</span>
+    <span class="token function">deletes</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 删掉第一个元素</span>
+    <span class="token function">insert</span><span class="token punctuation">(</span><span class="token number">400</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 在第一个结点的后面插入 400</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"first:%d, second:%d, third:%d\n"</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">find</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 链表现在为 300 400 200</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>虽然代码注释讲了，为了更清楚，再说一遍输出：</p>
+<pre class="language-plain" data-language="plain"><code class="language-plain">first:100, second:300, third:200
+first:300, second:400, third:200</code></pre>
+<p><strong>附演示：</strong><a href="https://visualgo.net/zh/list">https://visualgo.net/zh/list</a></p>
+]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>命名空间</title>
     <url>//posts/namespace/</url>
     <content><![CDATA[<h2 id="C-命名空间的概念"><a href="#C-命名空间的概念" class="headerlink" title="C++命名空间的概念"></a>C++命名空间的概念</h2><p><strong>在同一个作用域中，不同的数据不能起同一个名字</strong>，但是C++命名空间概念的出现，提供了解决问题的方案。在不同的命名空间中，可以随意定义相同的名字。命名空间就是为了避免你包含的头文件中与你自己定义的任意类，数据，函数重名，造成令人迷惑的错误而产生的。</p>
@@ -3359,6 +3359,95 @@ b[i] &#x3D; a[1] + a[2] + ... + a[i - 1] + a[i] \\
       <tags>
         <tag>基础算法</tag>
         <tag>前缀和，差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>一些随笔记录和想法</title>
+    <url>//posts/seventh-lianbi/</url>
+    <content><![CDATA[<style>
+    .hide-blur {
+        filter: blur(5px);
+        transition: filter .1s
+    }
+    .hide-blur:hover {
+        filter: none;
+    }
+    .lianbi-block p:not(.pinyu) {
+        text-indent: 2ic;
+        line-height: 1.5;
+        margin-bottom: .2em;
+    }
+    .lianbi-block .lianbi-title {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+    .lianbi-block .gdg {
+        text-decoration: #d60000 wavy underline;
+        text-decoration-thickness: 1px;
+    }
+    .lianbi-block .pinyu {
+        color: #d60000;
+        font-family: fangsong;
+        font-weight: 900;
+        line-height: 1.5;
+        text-align: right;
+        margin: 0 0 1em;
+        display: block;
+    }
+    .lianbi-block#lianbi3 del {
+        background-color: #999;
+    }
+</style>
+
+<p><strong>写在前面的废话：</strong><br>又是一篇分类于“琐碎”的文章。<br>加上这篇文章，这个分类下<del>才</del>有三篇文章。想来这个博客在运行 <code>hexo init</code> 之初，我就没想过写生活向的文章。如今“琐碎”下，一篇是画，两篇是作文收集，勉强算是透露了点生活向。<br>想想自己喜欢的，是 HTML, CSS, JavaScript 给我带来的<strong>样式美化</strong>、<strong>多样性</strong>和<strong>自主性</strong>。不然我怎么不记到 .txt 里呢？也不知初衷是什么，唉，这样弄又有些喧宾夺主了。多年后看到，也就微微一笑，笑自己写出的东西<span class="hide-blur" balloon-shown="up" aria-label="看它有什么用呢">古怪？</span>吧。</p>
+<span id="more"></span>
+
+<p>下面，红字和红色波浪线都是老师做的标记。红字是批语。红线大概是老师认为有想法的句子吧。<br><strong>按时间排序的文章：</strong></p>
+<h2 id="一"><a href="#一" class="headerlink" title="一"></a>一</h2><h3 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
+    <span class="lianbi-title" aria-label="这篇文章有些假，自己不太喜欢" balloon-shown="up">运动会跳高随记</span>
+    <p>我在操场上观看男子跳高。哪怕只讲跳高场地的气氛也是十分紧张激烈得了。运动员刚跳完，学生裁判和助理就飞快地冲上去把杆子重新架好，再用手推或脚踢将软垫重新压紧实，另一位运动员又跑步向前，一跃而起，脸上带着坚定和紧张。节奏之快，把观众观赛的热情都点燃了。</p>
+    <p>这时，一位跳高运动员吸引了我的注意。根据他服装上的号码牌，我得知他是四班的一名运动员。他起跳了，但没有跳过，带着杆子跌向软垫。我感觉，他脸上写满不甘心与不服输，他和教师裁判要求再跳一遍。于是，我看到他咬紧牙关，再次冲向调高杆，似乎把腿尽可能地抬高，落向软垫——但他又失败了，脚带动杆子滑落下来，杆子落到地上发出哗啦一声。这声音对他来说可能是震天动地的，意味着失败的响声。我看到他再一次向裁判要求重新跳。我从我们班作为跳高裁判助理的施同学口中得知，如果失败，这次起跳是最后一次了。<span class="gdg">忽地，我联想到了一个人的坚定和决绝，这是不太容易做到的。这一次，他像鸟儿一样轻捷，越过杆子，似乎还有些紧张，但稳稳地落到软垫上，他成功了。</span></p>
+    <p style="margin:0">我知道，在把杆子升高增加难度后，他最后一次失败了，退出了比追逐战还要激烈的跳高比赛。但能这样重复要求重新跳一次，连续跳三次的精神已经很好了，这是运动员的精神，因而留给我很深的印象。我坐在看台上喝奶茶时想到，尽管他是四班的，而我是三班的人。</p>
+    <p class="pinyu" style="margin-right:12ch;">运动精神感染每一个人.</p>
+</blockquote>
+
+<h3 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h3><p>这篇文章是开完运动会老师叫写的<del>（废话）</del>。个人认为这届初中运动会不如小学的时候有那种热情、激动、高兴等等开运动会的感觉了。一方面因为<strong aria-label="流感横行" balloon-shown="up" style="border-bottom:1px dotted">延期</strong>和<strong aria-label="三天缩水成两个下午" balloon-shown="up" style="border-bottom:1px dotted">运动会时间的缩短</strong>，更重要的另一方面<strong>运动会项目减少</strong>、就在<strong>一个操场</strong>看、<strong>不写通讯稿</strong>，对于我来说<span aria-label="从第一次运动会到现在，我就没参加过比赛" balloon-shown="up" style="border-bottom:1px dotted">乐趣</span>都没了。这篇作文 30% 都不算真实感受。<br>至于真实事件，主要是因为有同班同学在跳高场地那儿当助理（也就是扶扶杆子）便跑到那儿和同学聊聊天。男子跳高我们班没人参加，去那儿只为<strong>聊天</strong>（还顺便当好人帮同学扔橘子皮？）。四班体委跳高，看了看，感觉那种跳了三次的事件适合写到作文里，回家一想到就写了。</p>
+<p>至于老师的评语嘛，<span aria-label="包括句尾的一点" balloon-shown="up" style="border-bottom:1px dotted">原话是这样写的</span>，也不知道老师写这个是不是想到了什么。大概没什么别的深意。</p>
+<p><strong>题外话：</strong>那天有奶茶和泡芙供应，只喝了一瓶不知名品牌普通奶茶，味道还好。其他同学吃喝也蛮开心的。</p>
+<h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h3 id="记录-1"><a href="#记录-1" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
+    <span class="lianbi-title" aria-label="不好说自己写这篇文章时的精神状态" balloon-shown="up">周五那些琐碎事</span>
+    <p>此刻，我正坐在微格教室里，写这篇随记。自修的时间大家都很安静，只有教室里不知什么设备发出低沉且有规律的“咚咚”声，正是回忆和写作的耗时间，想想在一个半小时之前发生的琐事，我想。</p>
+    <p>下午，五点，同学们乱哄哄地换完了座位，准备排队出校。而包括我的四个人却还要留在学校里，这真的是一种很奇特的感觉，我在独自去往食堂时想到。几个同学吃完了饭回到教室，有打扫一会儿卫生才去微格教室准备上课。来到微格教室，看到教室的布局，让我想到了母校的微格教室，给人一种很宁静的感觉。原本着急上完课，着急回家的心绪也平静下来。在现在想，<span class="gdg">大概是这种平静才是名词里“素养”与“提升”的感觉，竟有一种置身世外的超然感。</span></p>
+    <p>这次科学老师上课，居然没有数学课那样急切，没有争分夺秒的感觉，甚至没有往常的节奏快。不知是我心里的主观认为还是微格教室的影响。还是给人一种宁静感，甚至悠闲，但又不是。现在想，那种感觉确实是<span class="gdg">安心学习的基础啊，不急功近利，而是宁静平和，甚至有限，轻松，太急躁反而容易犯错呢。我想。</span></p>
+    <p>平时的课一般上一个小时，数学课通常还要拖几分钟，因为任务太多了。但这次不一样，宁静的教室，没有是么非常紧迫的任务。科学老师只上了半个小时的课，刚好在第一节晚自习一半的铃声响起时讲完了作业，剩下的时间老师让我们自修。一切都是平静的。于是，我开始写随记，也就是开头呈现的景象，一切都给人以平静，安静的感觉。</p>
+    <p>想着想着，自修已经到了末尾，班里的同学开始吵闹起来，打破了原有的宁静，以及原有的那份奇特的心境。我意识到，我还要进行枯燥、有条不紊、节奏快的生活。生活的节奏很快，这种宁静是很难再找到了。我想找一句话来总结我的所思所想所写，但周围不再宁静，脑海中全是纷乱的思绪，如同一大片散乱的拼图，十分烦躁。突然几句话拨开纷乱的拼图“夫学须静也，才须学也。”“淫慢则不能励精，险躁则不能治性”。是的，无论干什么，都需要平静，需要宁静专一。宁静，不仅让人放松，还让人奋斗。</p>
+    <p>正准备盖上笔合上本子，却又有一个想法冒出来，我翻到前面看了看开头的自己，抿嘴笑了，添上一句话：</p>
+    <p style="margin:0">从本文开头到结尾，细微的自己变化和涂改状况能看出，这间教室和我在写这篇文章时的宁静与否吧？</p>
+    <span class="pinyu" style="margin-right:15ch">“静能生慧”，一直觉得你是个能<br>“沉得住气”的孩子，很棒哦！</span>
+</blockquote>
+
+<h3 id="想法-1"><a href="#想法-1" class="headerlink" title="想法"></a>想法</h3><p>因为那天开家长会，照理说是所有学生都不用上<span aria-label="“双减”政策，你值得拥有！" balloon-shown="up" style="border-bottom:1px dotted">晚自习</span>五点就回家的。但是我非常遗憾地参加了<del>光明<strong>优倍</strong>鲜牛奶班</del><strong aria-label="某重点中学搞出的“提前批”政策，导致所谓培优班出现" balloon-shown="up" style="border-bottom:1px dotted" class="hide-blur">培优班</strong>，得继续留在学校，上一个小时的<span class="hide-blur">培优班</span>，再写作业写到八点晚自习放学。就感觉很离谱，吐槽一下。<br>实际上，我们四个<span class="hide-blur">培优班</span>的同学吃完了饭确实<em>受老师委托</em>回到教室打扫卫生，才去的微格教室。平常的课都在二班旁边的普通教室上，这次去微格教室<span aria-label="家长会先在报告厅开，后来到各班教室开" balloon-shown="up" style="border-bottom:1px dotted">大概是为了不打扰家长会</span>吧。<br>那天语文课和科学课换了，上的是科学课。老师说就讲三十分钟作业，剩下时间自修，就那样做了。我大概写了五十分钟的其他作业，剩下的时间都拿来写上面这篇作文了。当时想不到写什么好，<span aria-label="每次我都这样做" balloon-shown="up" style="border-bottom:1px dotted">干脆直接写当时场景了</span>。其实也是想在作文里“诉说不易”吧。</p>
+<p>至于老师的评价。。。很难确定老师理解到的是我想写什么，甚至连我自己也不清楚了。也不知道老师为什么评价的字写得比上一篇大。</p>
+<p>附：真不想写“<span class="hide-blur">培优班</span>”三个字。</p>
+<h2 id="三"><a href="#三" class="headerlink" title="三"></a>三</h2><div class="note danger"><p>地名替换</p>
+<p>原作文中有真实地名，为了避免泄露信息，使用划掉的“占位”进行了替换。<br>显示为这样：<span style="text-decoration:line-through;background-color:#999;">占位</span></p>
+</div>
+
+<h3 id="记录-2"><a href="#记录-2" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block" id="lianbi3">
+    <span class="lianbi-title"><del>占位</del>旅途记</span>
+    <p>在<del>占位</del>，说起<del>占位岛</del>就让人想起连接<del>占位岛</del>与大陆的那座桥和“海洋”这个字眼来。又是两天后，坐在教室里，细细地回想两到四天前的事。</p>
+    <p>海洋和桥，自然是在路上看到的。从<del>占位</del>海边到<del>占位岛</del>上的路就值得一提。经过<del>（占位占线）</del>和<del>占位占路</del>，我看到了海、海港和船只。基本只在城区待着的我没见过这般略显壮观的景象，立刻被吸引了：<span class="gdg">一排排轮船靠在岸边，船身下的水些许浑黄，仿佛同船一起睡着。海港在休息，但不减其威严气势，自然很引人注目。</span>和庞大的轮船与广阔无垠的海比起来，“小”客车自然没趣。突然间想到“海洋文化”正是这种意蕴。客车走上山路，越走越高。刹那间，眼前凭空出现一座仿佛横跨海面的桥。我的目光立刻又被桥捉了去。桥的支点是在两边的山上的，桥下面没有柱子支撑，所以看起来仿佛悬浮在海面上，桥也很高。车接近了桥，越发显得小了。还没上桥，就已觉得桥下海之广袤。走在桥上，仿佛神话中天神自由在空中行走，越过海洋。</p>
+    <p>过了桥，便上了岛。又走了一会儿，到了活动基地。基地中发生的事反而没让我想到大海的悠远，似乎没什么特别让人印象深刻的事。海边桥上车中，自我上的一节课更让我印象深刻得多。</p>
+    <p style="margin:0">海的<span class="gdg">广阔，如广阔得胸怀，容纳着船只和桥。船只和桥也容纳着其他事物。它们相互包容，相对广阔包容相对渺小的。这是海洋的精神：</span>包容。同样地，我们也得学习传承海洋文化精神。想来，这也算是<del>占位</del>之旅给我带来的收获——包容和责任。</p>
+    <span class="pinyu" style="margin-right:3ch">多去外面走走，会有记很多不一样<br>的启示.</span>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Others</category>
+      </categories>
+      <tags>
+        <tag>作文</tag>
       </tags>
   </entry>
   <entry>
@@ -3695,95 +3784,6 @@ stack<span class="token operator">&lt;</span>node<span class="token operator">><
       <tags>
         <tag>数据结构</tag>
         <tag>动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>一些随笔记录和想法</title>
-    <url>//posts/seventh-lianbi/</url>
-    <content><![CDATA[<style>
-    .hide-blur {
-        filter: blur(5px);
-        transition: filter .1s
-    }
-    .hide-blur:hover {
-        filter: none;
-    }
-    .lianbi-block p:not(.pinyu) {
-        text-indent: 2ic;
-        line-height: 1.5;
-        margin-bottom: .2em;
-    }
-    .lianbi-block .lianbi-title {
-        font-weight: bold;
-        text-align: center;
-        display: block;
-    }
-    .lianbi-block .gdg {
-        text-decoration: #d60000 wavy underline;
-        text-decoration-thickness: 1px;
-    }
-    .lianbi-block .pinyu {
-        color: #d60000;
-        font-family: fangsong;
-        font-weight: 900;
-        line-height: 1.5;
-        text-align: right;
-        margin: 0 0 1em;
-        display: block;
-    }
-    .lianbi-block#lianbi3 del {
-        background-color: #999;
-    }
-</style>
-
-<p><strong>写在前面的废话：</strong><br>又是一篇分类于“琐碎”的文章。<br>加上这篇文章，这个分类下<del>才</del>有三篇文章。想来这个博客在运行 <code>hexo init</code> 之初，我就没想过写生活向的文章。如今“琐碎”下，一篇是画，两篇是作文收集，勉强算是透露了点生活向。<br>想想自己喜欢的，是 HTML, CSS, JavaScript 给我带来的<strong>样式美化</strong>、<strong>多样性</strong>和<strong>自主性</strong>。不然我怎么不记到 .txt 里呢？也不知初衷是什么，唉，这样弄又有些喧宾夺主了。多年后看到，也就微微一笑，笑自己写出的东西<span class="hide-blur" balloon-shown="up" aria-label="看它有什么用呢">古怪？</span>吧。</p>
-<span id="more"></span>
-
-<p>下面，红字和红色波浪线都是老师做的标记。红字是批语。红线大概是老师认为有想法的句子吧。<br><strong>按时间排序的文章：</strong></p>
-<h2 id="一"><a href="#一" class="headerlink" title="一"></a>一</h2><h3 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
-    <span class="lianbi-title" aria-label="这篇文章有些假，自己不太喜欢" balloon-shown="up">运动会跳高随记</span>
-    <p>我在操场上观看男子跳高。哪怕只讲跳高场地的气氛也是十分紧张激烈得了。运动员刚跳完，学生裁判和助理就飞快地冲上去把杆子重新架好，再用手推或脚踢将软垫重新压紧实，另一位运动员又跑步向前，一跃而起，脸上带着坚定和紧张。节奏之快，把观众观赛的热情都点燃了。</p>
-    <p>这时，一位跳高运动员吸引了我的注意。根据他服装上的号码牌，我得知他是四班的一名运动员。他起跳了，但没有跳过，带着杆子跌向软垫。我感觉，他脸上写满不甘心与不服输，他和教师裁判要求再跳一遍。于是，我看到他咬紧牙关，再次冲向调高杆，似乎把腿尽可能地抬高，落向软垫——但他又失败了，脚带动杆子滑落下来，杆子落到地上发出哗啦一声。这声音对他来说可能是震天动地的，意味着失败的响声。我看到他再一次向裁判要求重新跳。我从我们班作为跳高裁判助理的施同学口中得知，如果失败，这次起跳是最后一次了。<span class="gdg">忽地，我联想到了一个人的坚定和决绝，这是不太容易做到的。这一次，他像鸟儿一样轻捷，越过杆子，似乎还有些紧张，但稳稳地落到软垫上，他成功了。</span></p>
-    <p style="margin:0">我知道，在把杆子升高增加难度后，他最后一次失败了，退出了比追逐战还要激烈的跳高比赛。但能这样重复要求重新跳一次，连续跳三次的精神已经很好了，这是运动员的精神，因而留给我很深的印象。我坐在看台上喝奶茶时想到，尽管他是四班的，而我是三班的人。</p>
-    <p class="pinyu" style="margin-right:12ch;">运动精神感染每一个人.</p>
-</blockquote>
-
-<h3 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h3><p>这篇文章是开完运动会老师叫写的<del>（废话）</del>。个人认为这届初中运动会不如小学的时候有那种热情、激动、高兴等等开运动会的感觉了。一方面因为<strong aria-label="流感横行" balloon-shown="up" style="border-bottom:1px dotted">延期</strong>和<strong aria-label="三天缩水成两个下午" balloon-shown="up" style="border-bottom:1px dotted">运动会时间的缩短</strong>，更重要的另一方面<strong>运动会项目减少</strong>、就在<strong>一个操场</strong>看、<strong>不写通讯稿</strong>，对于我来说<span aria-label="从第一次运动会到现在，我就没参加过比赛" balloon-shown="up" style="border-bottom:1px dotted">乐趣</span>都没了。这篇作文 30% 都不算真实感受。<br>至于真实事件，主要是因为有同班同学在跳高场地那儿当助理（也就是扶扶杆子）便跑到那儿和同学聊聊天。男子跳高我们班没人参加，去那儿只为<strong>聊天</strong>（还顺便当好人帮同学扔橘子皮？）。四班体委跳高，看了看，感觉那种跳了三次的事件适合写到作文里，回家一想到就写了。</p>
-<p>至于老师的评语嘛，<span aria-label="包括句尾的一点" balloon-shown="up" style="border-bottom:1px dotted">原话是这样写的</span>，也不知道老师写这个是不是想到了什么。大概没什么别的深意。</p>
-<p><strong>题外话：</strong>那天有奶茶和泡芙供应，只喝了一瓶不知名品牌普通奶茶，味道还好。其他同学吃喝也蛮开心的。</p>
-<h2 id="二"><a href="#二" class="headerlink" title="二"></a>二</h2><h3 id="记录-1"><a href="#记录-1" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block">
-    <span class="lianbi-title" aria-label="不好说自己写这篇文章时的精神状态" balloon-shown="up">周五那些琐碎事</span>
-    <p>此刻，我正坐在微格教室里，写这篇随记。自修的时间大家都很安静，只有教室里不知什么设备发出低沉且有规律的“咚咚”声，正是回忆和写作的耗时间，想想在一个半小时之前发生的琐事，我想。</p>
-    <p>下午，五点，同学们乱哄哄地换完了座位，准备排队出校。而包括我的四个人却还要留在学校里，这真的是一种很奇特的感觉，我在独自去往食堂时想到。几个同学吃完了饭回到教室，有打扫一会儿卫生才去微格教室准备上课。来到微格教室，看到教室的布局，让我想到了母校的微格教室，给人一种很宁静的感觉。原本着急上完课，着急回家的心绪也平静下来。在现在想，<span class="gdg">大概是这种平静才是名词里“素养”与“提升”的感觉，竟有一种置身世外的超然感。</span></p>
-    <p>这次科学老师上课，居然没有数学课那样急切，没有争分夺秒的感觉，甚至没有往常的节奏快。不知是我心里的主观认为还是微格教室的影响。还是给人一种宁静感，甚至悠闲，但又不是。现在想，那种感觉确实是<span class="gdg">安心学习的基础啊，不急功近利，而是宁静平和，甚至有限，轻松，太急躁反而容易犯错呢。我想。</span></p>
-    <p>平时的课一般上一个小时，数学课通常还要拖几分钟，因为任务太多了。但这次不一样，宁静的教室，没有是么非常紧迫的任务。科学老师只上了半个小时的课，刚好在第一节晚自习一半的铃声响起时讲完了作业，剩下的时间老师让我们自修。一切都是平静的。于是，我开始写随记，也就是开头呈现的景象，一切都给人以平静，安静的感觉。</p>
-    <p>想着想着，自修已经到了末尾，班里的同学开始吵闹起来，打破了原有的宁静，以及原有的那份奇特的心境。我意识到，我还要进行枯燥、有条不紊、节奏快的生活。生活的节奏很快，这种宁静是很难再找到了。我想找一句话来总结我的所思所想所写，但周围不再宁静，脑海中全是纷乱的思绪，如同一大片散乱的拼图，十分烦躁。突然几句话拨开纷乱的拼图“夫学须静也，才须学也。”“淫慢则不能励精，险躁则不能治性”。是的，无论干什么，都需要平静，需要宁静专一。宁静，不仅让人放松，还让人奋斗。</p>
-    <p>正准备盖上笔合上本子，却又有一个想法冒出来，我翻到前面看了看开头的自己，抿嘴笑了，添上一句话：</p>
-    <p style="margin:0">从本文开头到结尾，细微的自己变化和涂改状况能看出，这间教室和我在写这篇文章时的宁静与否吧？</p>
-    <span class="pinyu" style="margin-right:15ch">“静能生慧”，一直觉得你是个能<br>“沉得住气”的孩子，很棒哦！</span>
-</blockquote>
-
-<h3 id="想法-1"><a href="#想法-1" class="headerlink" title="想法"></a>想法</h3><p>因为那天开家长会，照理说是所有学生都不用上<span aria-label="“双减”政策，你值得拥有！" balloon-shown="up" style="border-bottom:1px dotted">晚自习</span>五点就回家的。但是我非常遗憾地参加了<del>光明<strong>优倍</strong>鲜牛奶班</del><strong aria-label="某重点中学搞出的“提前批”政策，导致所谓培优班出现" balloon-shown="up" style="border-bottom:1px dotted" class="hide-blur">培优班</strong>，得继续留在学校，上一个小时的<span class="hide-blur">培优班</span>，再写作业写到八点晚自习放学。就感觉很离谱，吐槽一下。<br>实际上，我们四个<span class="hide-blur">培优班</span>的同学吃完了饭确实<em>受老师委托</em>回到教室打扫卫生，才去的微格教室。平常的课都在二班旁边的普通教室上，这次去微格教室<span aria-label="家长会先在报告厅开，后来到各班教室开" balloon-shown="up" style="border-bottom:1px dotted">大概是为了不打扰家长会</span>吧。<br>那天语文课和科学课换了，上的是科学课。老师说就讲三十分钟作业，剩下时间自修，就那样做了。我大概写了五十分钟的其他作业，剩下的时间都拿来写上面这篇作文了。当时想不到写什么好，<span aria-label="每次我都这样做" balloon-shown="up" style="border-bottom:1px dotted">干脆直接写当时场景了</span>。其实也是想在作文里“诉说不易”吧。</p>
-<p>至于老师的评价。。。很难确定老师理解到的是我想写什么，甚至连我自己也不清楚了。也不知道老师为什么评价的字写得比上一篇大。</p>
-<p>附：真不想写“<span class="hide-blur">培优班</span>”三个字。</p>
-<h2 id="三"><a href="#三" class="headerlink" title="三"></a>三</h2><div class="note danger"><p>地名替换</p>
-<p>原作文中有真实地名，为了避免泄露信息，使用划掉的“占位”进行了替换。<br>显示为这样：<span style="text-decoration:line-through;background-color:#999;">占位</span></p>
-</div>
-
-<h3 id="记录-2"><a href="#记录-2" class="headerlink" title="记录"></a>记录</h3><blockquote class="lianbi-block" id="lianbi3">
-    <span class="lianbi-title"><del>占位</del>旅途记</span>
-    <p>在<del>占位</del>，说起<del>占位岛</del>就让人想起连接<del>占位岛</del>与大陆的那座桥和“海洋”这个字眼来。又是两天后，坐在教室里，细细地回想两到四天前的事。</p>
-    <p>海洋和桥，自然是在路上看到的。从<del>占位</del>海边到<del>占位岛</del>上的路就值得一提。经过<del>（占位占线）</del>和<del>占位占路</del>，我看到了海、海港和船只。基本只在城区待着的我没见过这般略显壮观的景象，立刻被吸引了：<span class="gdg">一排排轮船靠在岸边，船身下的水些许浑黄，仿佛同船一起睡着。海港在休息，但不减其威严气势，自然很引人注目。</span>和庞大的轮船与广阔无垠的海比起来，“小”客车自然没趣。突然间想到“海洋文化”正是这种意蕴。客车走上山路，越走越高。刹那间，眼前凭空出现一座仿佛横跨海面的桥。我的目光立刻又被桥捉了去。桥的支点是在两边的山上的，桥下面没有柱子支撑，所以看起来仿佛悬浮在海面上，桥也很高。车接近了桥，越发显得小了。还没上桥，就已觉得桥下海之广袤。走在桥上，仿佛神话中天神自由在空中行走，越过海洋。</p>
-    <p>过了桥，便上了岛。又走了一会儿，到了活动基地。基地中发生的事反而没让我想到大海的悠远，似乎没什么特别让人印象深刻的事。海边桥上车中，自我上的一节课更让我印象深刻得多。</p>
-    <p style="margin:0">海的<span class="gdg">广阔，如广阔得胸怀，容纳着船只和桥。船只和桥也容纳着其他事物。它们相互包容，相对广阔包容相对渺小的。这是海洋的精神：</span>包容。同样地，我们也得学习传承海洋文化精神。想来，这也算是<del>占位</del>之旅给我带来的收获——包容和责任。</p>
-    <span class="pinyu" style="margin-right:3ch">多去外面走走，会有记很多不一样<br>的启示.</span>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Others</category>
-      </categories>
-      <tags>
-        <tag>作文</tag>
       </tags>
   </entry>
   <entry>
@@ -4796,6 +4796,71 @@ b <span class="token operator">=</span> <span class="token operator">&amp;</span
       </tags>
   </entry>
   <entry>
+    <title>双指针-快慢指针</title>
+    <url>//posts/two-pointers/</url>
+    <content><![CDATA[<blockquote>
+<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
+</blockquote>
+<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
+<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
+<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
+<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
+<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
+<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
+<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
+<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
+<hr>
+<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
+<p><strong>代码：</strong>  </p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> n<span class="token punctuation">,</span> m <span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">1e5</span> <span class="token operator">+</span> <span class="token number">5</span> <span class="token punctuation">;</span>
+<span class="token keyword">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">,</span> <span class="token operator">&amp;</span>m<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span> <span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#123;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>j <span class="token operator">></span> m<span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+                <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> b<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
+            <span class="token punctuation">&#123;</span>
+                j<span class="token operator">++</span> <span class="token punctuation">;</span>
+                <span class="token keyword">break</span> <span class="token punctuation">;</span>
+            <span class="token punctuation">&#125;</span>
+            j<span class="token operator">++</span> <span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Yes\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+    
+    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>]]></content>
+      <categories>
+        <category>CourseNotes</category>
+      </categories>
+      <tags>
+        <tag>基础算法</tag>
+        <tag>解题思想</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>样式过渡动画</title>
     <url>//posts/trast-styl/</url>
     <content><![CDATA[<p>一些可以用到 <code>:hover</code> 状态上的样式过渡。</p>
@@ -4966,71 +5031,6 @@ b <span class="token operator">=</span> <span class="token operator">&amp;</span
       </categories>
       <tags>
         <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>双指针-快慢指针</title>
-    <url>//posts/two-pointers/</url>
-    <content><![CDATA[<blockquote>
-<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
-</blockquote>
-<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
-<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
-<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
-<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
-</ul>
-<span id="more"></span>
-
-<h2 id="提示"><a href="#提示" class="headerlink" title="提示"></a>提示</h2><p>双指针是二重循环。</p>
-<p>一般来说，快慢指针的第二个指针（快指针）的变量是在 <code>for</code> 循环体之外定义的。因为 <code>for</code> 循环会初始化变量。快慢指针的变量是不可以初始化的，因为已经遍历过的就不用遍历了，再遍历一遍就变成普通双指针（暴力枚举）了。</p>
-<p><del>怎么感觉只有例题才能讲清楚？？？</del></p>
-<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><p>给定一个长度为 $n$ 的整数序列 $a_1,a_2,…,a_n$ 以及一个长度为 $m$ 的整数序列 $b_1,b_2,…,b_m$。<br>请你判断 $a$ 序列是否为 $b$ 序列的子序列。<br>子序列指序列的一部分项按原有次序排列而得的序列，例如序列 $a_1,a_3,a_5$ 是序列 $a_1,a_2,a_3,a_4,a_5$ 的一个子序列。</p>
-<p><strong>输入时：</strong><br>第一行包含两个整数 $n,m$。<br>第二行包含 $n$ 个整数，表示 $a_1,a_2,…,a_n$。<br>第三行包含 $m$ 个整数，表示 $b_1,b_2,…,b_m$。<br><strong>输出时：</strong><br>如果 $a$ 序列是 $b$ 序列的子序列，输出一行 <code>Yes</code>。<br>否则，输出 <code>No</code>。</p>
-<p><strong>数据保证：</strong><br>$1 \le n \le m \le 10^5$<br>$−10^9 \le a_i,b_i \le 10^9$</p>
-<hr>
-<p><strong>解题：</strong><br>数据那么大，暴枚肯定不行。那么就用今天学的双指针。<br>一个指针 $i$ 遍历数组 $a$ 的元素，指针 $j$ 遍历数组 $b$ 的元素。写一个 <code>while(1)</code> 死循环， $j$ 在 <code>while</code> 中每次 <code>++</code>，如果 $a_i &#x3D; b_j$ ，则 <code>break</code> ，如果 $j &gt; m$ 则输出 <code>No</code> 。 $j$ 变量（指针）的定义要写在循环之外。</p>
-<p><strong>代码：</strong>  </p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
-<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
-
-<span class="token keyword">int</span> n<span class="token punctuation">,</span> m <span class="token punctuation">;</span>
-<span class="token keyword">const</span> <span class="token keyword">int</span> N <span class="token operator">=</span> <span class="token number">1e5</span> <span class="token operator">+</span> <span class="token number">5</span> <span class="token punctuation">;</span>
-<span class="token keyword">int</span> a<span class="token punctuation">[</span>N<span class="token punctuation">]</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>N<span class="token punctuation">]</span> <span class="token punctuation">;</span>
-<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>n<span class="token punctuation">,</span> <span class="token operator">&amp;</span>m<span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    
-    <span class="token keyword">int</span> j <span class="token operator">=</span> <span class="token number">1</span> <span class="token punctuation">;</span>
-    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#123;</span>
-        <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-        <span class="token punctuation">&#123;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>j <span class="token operator">></span> m<span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"No\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-                <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> b<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">)</span>
-            <span class="token punctuation">&#123;</span>
-                j<span class="token operator">++</span> <span class="token punctuation">;</span>
-                <span class="token keyword">break</span> <span class="token punctuation">;</span>
-            <span class="token punctuation">&#125;</span>
-            j<span class="token operator">++</span> <span class="token punctuation">;</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span>
-    
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Yes\n"</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
-    
-    <span class="token keyword">return</span> <span class="token number">0</span> <span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>]]></content>
-      <categories>
-        <category>CourseNotes</category>
-      </categories>
-      <tags>
-        <tag>基础算法</tag>
-        <tag>解题思想</tag>
       </tags>
   </entry>
   <entry>
