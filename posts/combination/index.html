@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-25T14:47:11+08:00">2024-05-25</time>
+                <time datetime="2024-05-26T10:54:13+08:00">2024-05-26</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -122,7 +122,8 @@
 <p>共有 $9$ 个方块，其中有 $4$ 个红色方块， $5$ 个绿色方块，所有<em>红方块不能相邻</em>。那么共有 $\mathrm{A}_{9-4}^{9-4} \times \mathrm{A}_{9 - 4 + 1}^{4} &#x3D; \mathrm{A}_{5}^{5} \times \mathrm{A}_{6}^{4} &#x3D; 43200$ 种方案。</p>
 <p>若 $n$ 个元素中特定的 $m$ 个元素不能相邻，那么总共排列计算为：</p>
 <pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\mathrm&#123;A&#125;_&#123;n - m&#125;^&#123;n - m&#125; \times \mathrm&#123;A&#125;_&#123;n - m + 1&#125;^&#123;m&#125; &#x3D; \frac&#123;(n - m)! \times (n - m + 1)!&#125;&#123;(n - 2m + 1)!&#125;
-% n - m 即为普通元素个数，n - m + 1 就是空隙个数</code></pre>
+% n - m 即为普通元素个数，n - m + 1 就是空隙个数
+</code></pre>
 
 <p>$n - m$ 即为普通元素个数，$n - m + 1$ 就是空隙个数。</p>
 <h3 id="隔板法"><a href="#隔板法" class="headerlink" title="隔板法"></a>隔板法</h3><p><del>至少在我看来</del>更容易理解的问题。将 $n$ 个元素任意放到 $m$ 个空位中，每个空位至少有一个元素（$n \ge m$）。<br>可以看作再 $n$ 个元素空隙中隔板，每个空隙只能放一个板。插入 $m - 1$ 个隔板（即可分成 $m$ 组）到 $n - 1$ 个位置（每两个元素之间为一空隙）中。就是：</p>

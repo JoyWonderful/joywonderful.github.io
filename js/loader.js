@@ -36,11 +36,14 @@ window.lite = {
             this.pjaxReqProg.set("加载完成<br>本页有 KaTeX 公式需要渲染，请耐心等待"); this.pjaxReqProg.destroy(2000);
             renderMathInElement(document.body, {
                 delimiters: [{left: "$", right: "$", display: false}],
-                throwOnError: false
+                output: "html"
             });
             document.querySelectorAll("code.language-mathKatex").forEach((el) => {
                 el.parentNode.className = "";
-                katex.render(el.innerText, el.parentElement, {throwOnError: false, displayMode: true});
+                katex.render(el.innerText, el.parentElement, {
+                    output: "html",
+                    displayMode: true
+                });
             });
         }
     },
