@@ -138,7 +138,7 @@ window.lite = {
         });
     },
     registerLocalSearch: function() {
-        const locSearch = new LocalSearch({ path: "/search.xml" });
+        const locSearch = new LocalSearch({ path: "/search.json" });
         const searchcon = document.querySelector(".search-overlay");
         const resultcon = searchcon.querySelector(".result-container");
         document.querySelector(".main-menu a.menu-search").addEventListener("click", () => {
