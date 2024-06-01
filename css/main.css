@@ -491,9 +491,6 @@ nav.pagination .space {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.post-body h1 .headerlink::before:hover::before {
-  opacity: 0.8;
-}
 .post-body h1:hover .headerlink::before {
   opacity: 0.3;
 }
@@ -517,9 +514,6 @@ nav.pagination .space {
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.3s;
-}
-.post-body h2 .headerlink::before:hover::before {
-  opacity: 0.8;
 }
 .post-body h2:hover .headerlink::before {
   opacity: 0.3;
@@ -545,9 +539,6 @@ nav.pagination .space {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.post-body h3 .headerlink::before:hover::before {
-  opacity: 0.8;
-}
 .post-body h3:hover .headerlink::before {
   opacity: 0.3;
 }
@@ -571,9 +562,6 @@ nav.pagination .space {
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.3s;
-}
-.post-body h4 .headerlink::before:hover::before {
-  opacity: 0.8;
 }
 .post-body h4:hover .headerlink::before {
   opacity: 0.3;
@@ -599,9 +587,6 @@ nav.pagination .space {
   opacity: 0;
   transition: opacity 0.3s;
 }
-.post-body h5 .headerlink::before:hover::before {
-  opacity: 0.8;
-}
 .post-body h5:hover .headerlink::before {
   opacity: 0.3;
 }
@@ -625,9 +610,6 @@ nav.pagination .space {
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.3s;
-}
-.post-body h6 .headerlink::before:hover::before {
-  opacity: 0.8;
 }
 .post-body h6:hover .headerlink::before {
   opacity: 0.3;
