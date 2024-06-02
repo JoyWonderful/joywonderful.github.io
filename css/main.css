@@ -1145,6 +1145,13 @@ pre[class*="language-"] {
 }
 .code-container {
   position: relative;
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+.code-container pre[class*="language-"] {
+  margin: 0;
+  border: none;
 }
 .code-container[data-language]::before {
   content: attr(data-language);
