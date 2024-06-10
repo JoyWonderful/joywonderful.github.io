@@ -36,13 +36,15 @@ window.lite = {
             this.pjaxReqProg.set("加载完成<br>本页有 KaTeX 公式需要渲染，请耐心等待"); this.pjaxReqProg.destroy(2000);
             renderMathInElement(document.body, {
                 delimiters: [{left: "$", right: "$", display: false}],
-                output: "html"
+                output: "html",
+                strict: false
             });
             document.querySelectorAll("code.language-mathKatex").forEach((el) => {
                 el.parentNode.className = "";
                 katex.render(el.innerText, el.parentElement, {
                     output: "html",
-                    displayMode: true
+                    displayMode: true,
+                    strict: false
                 });
             });
         }
@@ -67,7 +69,7 @@ window.lite = {
         if(this.sections.length) this.sectionTOCitem = document.querySelectorAll(".post-toc li a.toc-link");
     },
     activeTOC: function() {
-        if(!this.sections.length) return;
+        if(!this.sections || !this.sections.length) return;
         var idx = lite.sections.findIndex((el) => {return el && el.getBoundingClientRect().top > 10;});
         if(idx === -1) idx = this.sections.length - 1;
         else if(idx > 0) --idx; // nowActive number in lite.sections

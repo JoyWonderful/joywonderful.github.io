@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">44</span>
+            <span class="site-stat-count">45</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,32 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/lianbiao/">线性数据结构：链表的模板</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-19T15:23:32+08:00">2023-07-19</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>链表类似于数组，与数组不同的是，链表可以更加方便地更改数据和删除数据。数组若想将中间的数据删除，则要非很大功夫，而链表就不同了，它的操作更加简单一些（后面说）。</p>
+<p>链表的数据组可以叫做“结点”，结点分成两个部分：一个是数据域，一个是指针域，数据域存数据，指针域指向下一个结点的数据地址。正是指针域将链表的每一个结点连在了一起。这种特性有一个好处：内存地址可以不连续，而数组的内存地址是必须要连续的。<br>比如内存还有 2GB 空闲，我申请了一个 1GB 大的数组，理论上是可以申请下来的，但占用的内存不一定完全是连续的。假设内存被一大堆东西占用的零零碎碎：确实有 2GB，但分成 4 个 500MB，这就申请不下来。而链表呢，可以充分利用内存碎片，通过指针变量，将分开的数据连在一起。</p>
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/cpp-file/">C++ 文件操作</a></h2>
@@ -133,7 +159,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-26T15:27:25+08:00">2024-05-26</time>
+                <time datetime="2024-06-10T09:16:55+08:00">2024-06-10</time>
             </span>
         </div>
     </header>
@@ -168,47 +194,6 @@
 </div>
 
 <p>代码的维护还是很重要的。相信谁也不愿意去维护连自己都看得头晕的代码。在这里，我想给出一些个人建议，让代码的可读性强一些。大部分代码以 C++ 为例。这篇文章其实也是给自己看的。</p>
-    </div>
-</div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/recursion/">递归</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-07-05T12:39:34+08:00">2023-07-05</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <blockquote>
-<p><strong>写递归的要点</strong><br>明白一个函数的作用并相信它能完成这个任务，千万不要跳进这个函数里面企图探究更多细节， 否则就会陷入无穷的细节无法自拔，人脑能压几个栈啊。<br><span style="display:block;text-align:right;">—— <a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/divide-and-conquer/#%E5%86%99%E9%80%92%E5%BD%92%E7%9A%84%E8%A6%81%E7%82%B9">OI-wiki</a></span></p>
-</blockquote>
-<p>递归，就是一个函数自身调用自身。递归起到类似与循环的效果。但是，与循环不同，递归可以<strong>分支</strong>。如果循环一定是一条直线，那么递归可能是树形结构。</p>
-<h2 id="循环-递归"><a href="#循环-递归" class="headerlink" title="循环 -&gt; 递归"></a>循环 -&gt; 递归</h2><p>前面说了，循环和递归很像。那么，我们可以将 <code>for</code> 循环尝试转为递归。先来一个循环的示例：</p>
-<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#123;</span>
-    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span></code></pre>
-
-<p>首先，让我们来想一想，<code>for</code> 循环的括号中 3 个语句分别是干什么的呢？</p>
-<ol>
-<li><code>int i = 1;</code> 这是循环的<strong>初始化</strong>，定义了一个变量 $i$，将其赋值为 $1$。</li>
-<li><code>i &lt;= n;</code> 这是循环<strong>每次进行下去的条件</strong>，当 $i&gt;n$ 时即退出循环。</li>
-<li><code>i++</code> 这是循环<strong>每次结束后干的事</strong>，当执行完循环体时， $i$ 则加 $1$。</li>
-</ol>
-<p>这样回忆下来，可以发现，在 <code>for</code> 循环的括号中 3 个语句其实可以拆分出来。
     </div>
 </div>
 

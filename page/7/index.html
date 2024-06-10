@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">44</span>
+            <span class="site-stat-count">45</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,47 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/recursion/">递归</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-05T12:39:34+08:00">2023-07-05</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-06-09T19:28:24+08:00">2024-06-09</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <blockquote>
+<p><strong>写递归的要点</strong><br>明白一个函数的作用并相信它能完成这个任务，千万不要跳进这个函数里面企图探究更多细节， 否则就会陷入无穷的细节无法自拔，人脑能压几个栈啊。<br><span style="display:block;text-align:right;">—— <a target="_blank" rel="noopener" href="https://oi-wiki.org/basic/divide-and-conquer/#%E5%86%99%E9%80%92%E5%BD%92%E7%9A%84%E8%A6%81%E7%82%B9">OI-wiki</a></span></p>
+</blockquote>
+<p>递归，就是一个函数自身调用自身。递归起到类似与循环的效果。但是，与循环不同，递归可以<strong>分支</strong>。如果循环一定是一条直线，那么递归可能是树形结构。</p>
+<h2 id="循环-递归"><a href="#循环-递归" class="headerlink" title="循环 -&gt; 递归"></a>循环 -&gt; 递归</h2><p>前面说了，循环和递归很像。那么，我们可以将 <code>for</code> 循环尝试转为递归。先来一个循环的示例：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"qwq, %d\n"</span><span class="token punctuation">,</span> n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<p>首先，让我们来想一想，<code>for</code> 循环的括号中 3 个语句分别是干什么的呢？</p>
+<ol>
+<li><code>int i = 1;</code> 这是循环的<strong>初始化</strong>，定义了一个变量 $i$，将其赋值为 $1$。</li>
+<li><code>i &lt;= n;</code> 这是循环<strong>每次进行下去的条件</strong>，当 $i&gt;n$ 时即退出循环。</li>
+<li><code>i++</code> 这是循环<strong>每次结束后干的事</strong>，当执行完循环体时， $i$ 则加 $1$。</li>
+</ol>
+<p>这样回忆下来，可以发现，在 <code>for</code> 循环的括号中 3 个语句其实可以拆分出来。
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/cpp-shujufanwei/">C++ 数据范围</a></h2>
@@ -176,42 +217,6 @@
     <div class="post-body">
         <p>一些六年级写的小作文（小练笔），留作纪念。</p>
 <h2 id="主题：点面结合写“体检”300字以上"><a href="#主题：点面结合写“体检”300字以上" class="headerlink" title="主题：点面结合写“体检”300字以上"></a>主题：点面结合写“体检”300字以上</h2><p>同学们紧张地等待着，一年一度的体检开始了。<br>与往常不同的是，这次体检要抽血。验血区里，紧张的气氛非常明显。我一拿到<em><strong>条形码</strong></em>(当时验血有一个条形码，用来验证身份和当作标签)，就直奔验血区,怕时间长了自己会害怕。很快就轮到了我。我卷起袖子，将胳膊往桌上一放，马上扭过头闭上眼，不敢看针扎进我的胳膊里的样子。
-    </div>
-</div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/sort/">排序</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-06-10T17:21:38+08:00">2023-06-10</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <h2 id="一些说在前面的要点"><a href="#一些说在前面的要点" class="headerlink" title="一些说在前面的要点"></a>一些说在前面的要点</h2><ul>
-<li><strong>稳定性</strong><ul>
-<li>在我们以下学过的排序算法中，只有<strong>选择排序</strong>和<strong>快速排序</strong>不是稳定的。</li>
-<li>稳定性，就是有两个相同的数字，在排序后两个数字的相对位置不变。（前面的在前面，后面的在后面）</li>
-</ul>
-</li>
-<li><strong>逆序对</strong><ul>
-<li>前面的一个数字大于后面一个数字，这就叫做逆序对。</li>
-<li>例如 $5\ 1\ 2\ 3\ 4$ 中，有 $4$ 对逆序对。</li>
-</ul>
-</li>
-</ul>
     </div>
 </div>
 
