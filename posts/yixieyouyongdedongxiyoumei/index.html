@@ -46,7 +46,7 @@
                     
 <script type="application/json" class="cfgKtx">true</script>
 <div class="post-toc">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%92%8C%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">宏定义和类型定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.</span> <span class="toc-text">有符号和无符号</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%92%8C%E7%B1%BB%E5%9E%8B%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">宏定义和类型定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">常量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E7%AC%A6%E5%8F%B7%E5%92%8C%E6%97%A0%E7%AC%A6%E5%8F%B7"><span class="toc-number">3.</span> <span class="toc-text">有符号和无符号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BB%E5%86%99%E6%95%B0%E6%8D%AE"><span class="toc-number">4.</span> <span class="toc-text">读写数据</span></a></li></ol>
 </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+                <time datetime="2024-06-23T16:56:06+08:00">2024-06-23</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -146,6 +146,22 @@
 <p><del>一般来说</del>对于我来说，常量的作用不算特别大，但是拿来定义数组却很方便。</p>
 <h2 id="有符号和无符号"><a href="#有符号和无符号" class="headerlink" title="有符号和无符号"></a>有符号和无符号</h2><p><em>有符号</em>， <code>signed</code> ，符号即为 $-$ ，在一般的数据定义中，<strong>都是</strong>有符号的类型。<em>无符号</em>， <code>unsigned</code> ，即<strong>没有</strong>复数，正数数据范围会大很多。比如普通的 <code>int</code> （ <code>signed int</code> ）数据范围是 $-2147483648 \sim 2147483647$ 而无符号 <code>int</code> （ <code>unsigned int</code> ）数据范围是 $0 \sim 4294967295$ ，这是因为 <code>unsigned int</code> 将附属部分拿来存正数部分，所以可以存的正数会大很多。</p>
 <p>在变量类型中，只有 <code>signed</code> 会被认作 <code>signed int</code> ；只有 <code>unsigned</code> 也会被认作 <code>unsigned int</code> ；不带 <code>signed</code> 和 <code>unsigned</code> 的任何数据类型都会被认做有符号 <code>signed</code> 数据类型。因此，在某些时候主函数 <code>int main()</code> 也可以写成 <code>signed main()</code> </p>
+<h2 id="读写数据"><a href="#读写数据" class="headerlink" title="读写数据"></a>读写数据</h2><p>当数据很大时，直接从控制台输入是不可能的。同样地，控制台输出数据过多也不方便比较数据。</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    FILE <span class="token operator">*</span>fpi <span class="token operator">=</span> <span class="token function">freopen</span><span class="token punctuation">(</span><span class="token string">"test.in"</span><span class="token punctuation">,</span> <span class="token string">"r"</span><span class="token punctuation">,</span> <span class="token constant">stdin</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    FILE <span class="token operator">*</span>fpo <span class="token operator">=</span> <span class="token function">freopen</span><span class="token punctuation">(</span><span class="token string">"test.out"</span><span class="token punctuation">,</span> <span class="token string">"w"</span><span class="token punctuation">,</span> <span class="token constant">stdout</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">fclose</span><span class="token punctuation">(</span>fpi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fclose</span><span class="token punctuation">(</span>fpo<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></code></pre>
+
+<pre class="language-bash" data-language="bash"><code class="language-bash">fc test.out test.ans
+code <span class="token parameter variable">-d</span> test.out test.ans</code></pre>
 
     </div>
     <div class="post-footer">
