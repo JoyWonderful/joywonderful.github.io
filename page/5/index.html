@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">45</span>
+            <span class="site-stat-count">46</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,31 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/shaifa/">数论：质数筛法</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-08-08T14:34:23+08:00">2023-08-08</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-19T08:41:39+08:00">2024-05-19</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p><strong>筛法</strong>是快速找出质数的一种方法。平常没有使用任何筛法的的找质数的时间复杂度通常为 $O(\sqrt n)$，比较慢，但是筛法更快一些。我们学的筛法是埃氏筛和欧拉筛(线性筛)。<br>平常的找质数方法是判断一个数是否能被 1 和它本生以外的数整除，但是筛法的思想不一样。筛法可以说是通常方法的逆向思维，挨个儿寻找当前数的倍数，打上标记，再继续寻找，最后没有被打上标记的就是质数。这种思想的时间复杂度快很多。</p>
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/huff-tree/">哈夫曼树和哈夫曼编码</a></h2>
@@ -174,41 +199,10 @@
         <p>这不，刚学完<a style="border-bottom:none;" href="/posts/dfs">深搜</a>没多久，又来写广搜笔记了（话说我队列笔记还没来得急写呢）。<strong>广度优先搜索</strong>，广搜，英文为<strong>Breadth First Search</strong>，简称 <strong>BFS</strong>。是从一个结点向其他方向的结点不断扩散，如同一道水晕在湖面上荡漾开来。主要可以用来找路径<strong>权值一定</strong>的最短路径。<br>深搜可以用到队列先进先出的特性。当一个结点准备扩散时，即弹出队列，再将接下来扩散到结点加入队列。随后按照队首扩散、弹出，不断循环。这也是叫它广度优先搜索的原因。</p>
     </div>
 </div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/graph-tree/">数据结构：树的概念与储存</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-07-27T19:34:23+08:00">2023-07-27</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <p><strong>树</strong>也是一种数据结构，它是<strong>非线性数据结构</strong>，它能很好地描述一个数据集合中的分支和层次，是一个比较重要的课题，以后的搜索和竞赛都有可能要用到它。树形结构的应用非常广泛，什么索引、语法结构。虽说概念比较繁琐 <del>老师讲了一个小时</del>。有点让人头疼（我咕了好多篇笔记了）。</p>
-<h2 id="树的概念"><a href="#树的概念" class="headerlink" title="树的概念"></a>树的概念</h2><h3 id="前面"><a href="#前面" class="headerlink" title="前面"></a>前面</h3><p>前置芝士，简单说一下这些奇怪的名称：</p>
-<ul>
-<li>树中的每一个元素称为<strong>结点 node</strong>。</li>
-<li>两个结点之间的线称为<strong>边 edge</strong>。</li>
-<li>通过几条边，这几条边组成<strong>路径</strong>。</li>
-</ul>
-    </div>
-</div>
 
 
 <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
 </nav>
             </div>
         </main>

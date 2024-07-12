@@ -3,7 +3,7 @@
 <html lang="zh-CN">
     <head>
         <meta charset="utf-8">
-        <title>标签&lt;基础算法&gt; | Some Notes</title>
+        <title>Some Notes</title>
         <link rel="icon" href="/fonts/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
@@ -67,60 +67,41 @@
                 
 
 <div class="post-block">
-    <div class="post-body">
-        <span class="timeline-title">基础算法<small>标签</small></span>
-        <div class="timeline">
-            <div class="time-line-start"></div>
-            <div class="timeline-year firstel"><span>2023</span></div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">11-26</span>
-                <a href="/posts/bichaj/">并查集概念</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">08-08</span>
-                <a href="/posts/shaifa/">数论：质数筛法</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">08-05</span>
-                <a href="/posts/huff-tree/">哈夫曼树和哈夫曼编码</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">07-30</span>
-                <a href="/posts/bfs/">广度优先搜索</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">07-27</span>
-                <a href="/posts/graph-tree/">数据结构：树的概念与储存</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">07-19</span>
-                <a href="/posts/lianbiao/">线性数据结构：链表的模板</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">07-14</span>
-                <a href="/posts/dfs/">深度优先搜索</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">07-05</span>
-                <a href="/posts/recursion/">递归</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">06-26</span>
-                <a href="/posts/two-pointers/">双指针-快慢指针</a>
-            </div>
-            <div class="timeline-item">
-                <span class="timeline-item-date">06-10</span>
-                <a href="/posts/sort/">排序</a>
-            </div>
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/chafen/">差分</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-02T17:47:43+08:00">2023-05-02</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
         </div>
-        <div class="line-connect-bottom"></div>
+    </header>
+    <div class="post-body">
+        <h2 id="什么是差分，差分与前缀和的关系"><a href="#什么是差分，差分与前缀和的关系" class="headerlink" title="什么是差分，差分与前缀和的关系"></a>什么是差分，差分与前缀和的关系</h2><p>差分也是一种<strong>优化算法</strong>。同时，差分是前缀和的逆运算，也就是说，前缀和也是差分的逆运算。因此，由前缀和数组可以求出差分数组，由差分数组也可以求出前缀和数组。</p>
+<p>假设数组 $a$ 是原数组，数组 $b$ 是差分数组，则：$b_i &#x3D; a_i - a_{i-1}$</p>
+<hr>
+
+<p>差分可以用于修改数组的操作。因为假设我需要将 $a_2$ $a_3$ $a_4$ 都加上 $2$ ，此时若使用前缀和则需要再使用递推重新求一遍前缀和，非常耗时。这时便可以使用差分数组。可以发现：</p>
+<pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\underbrace&#123;b_1,\hspace&#123;2mm&#125; b_2&#125;_&#123;b_2 + 2 &#x3D; b_1&#125; ,\hspace&#123;2mm&#125; b_3,\hspace&#123;2mm&#125; \overbrace&#123;b_4,\hspace&#123;2mm&#125; b_5&#125;^&#123;b_5 - 2 &#x3D;b_4&#125;</code></pre>
+
+<p>因此，只需修改差分数组中的两个项，然后再通过前缀和是差分的逆运算，即可求出原数组，从而完成数组的修改。</p>
     </div>
 </div>
 
 
-
 <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/page/2/">2</a><a class="extend next" rel="next" href="/tags/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
 </nav>
             </div>
         </main>

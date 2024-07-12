@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">45</span>
+            <span class="site-stat-count">46</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,67 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/seventh-lianbi/">一些随笔记录和想法</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-12-31T17:20:14+08:00">2023-12-31</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:37:21+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/Others/">Others</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <style>
+    .hide-blur {
+        filter: blur(5px);
+        transition: filter .1s
+    }
+    .hide-blur:hover {
+        filter: none;
+    }
+    .lianbi-block p:not(.pinyu) {
+        text-indent: 2ic;
+        line-height: 1.5;
+        margin-bottom: .2em;
+    }
+    .lianbi-block .lianbi-title {
+        font-weight: bold;
+        text-align: center;
+        display: block;
+    }
+    .lianbi-block .gdg {
+        text-decoration: #d60000 wavy underline;
+        text-decoration-thickness: 1px;
+    }
+    .lianbi-block .pinyu {
+        color: #d60000;
+        font-family: fangsong;
+        font-weight: 900;
+        line-height: 1.5;
+        text-align: right;
+        margin: 0 0 1em;
+        display: block;
+    }
+    .lianbi-block#lianbi3 del {
+        background-color: #999;
+    }
+</style>
+
+<p><strong>写在前面的废话：</strong><br>又是一篇分类于“琐碎”的文章。<br>加上这篇文章，这个分类下<del>才</del>有三篇文章。想来这个博客在运行 <code>hexo init</code> 之初，我就没想过写生活向的文章。如今“琐碎”下，一篇是画，两篇是作文收集，勉强算是透露了点生活向。<br>想想自己喜欢的，是 HTML, CSS, JavaScript 给我带来的<strong>样式美化</strong>、<strong>多样性</strong>和<strong>自主性</strong>。不然我怎么不记到 .txt 里呢？也不知初衷是什么，唉，这样弄又有些喧宾夺主了。多年后看到，也就微微一笑，笑自己写出的东西<span class="hide-blur" balloon-shown="up" aria-label="看它有什么用呢">古怪？</span>吧。</p>
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/hexo-pretty/">Hexo 建立静态博客记录</a></h2>
@@ -180,48 +241,10 @@
         <p>最近弄的 github 卡片，弄了半天弄出来的鼠标悬浮显示文字的效果。使用 CSS 伪元素弄出来的小提示。但是不适合 <code>overflow: hidden;</code> 的元素。不管怎么说，还是很好用的，忘掉了就不太好，也就放到博客里来了。</p>
     </div>
 </div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/gdb-debug-file/">使用 gdb 调试代码</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-08-30T11:09:49+08:00">2023-08-30</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:36:12+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/Programming/">Programming</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <p>这几天刚去学习了一下用 gdb 调试代码，在这儿记下来。</p>
-<p>首先，编译代码的时候需要加上 <code>-g</code> 选项，说明要加上调试信息，这样才可以正常调试。例如：</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ g++ <span class="token parameter variable">-g</span> oi.cpp <span class="token parameter variable">-o</span> oi.exe</code></pre>
-
-<p>随后，即可使用 gdb 打开文件进行调试。直接使用 <code>gdb [file name]</code> 即可。</p>
-<pre class="language-bash" data-language="bash"><code class="language-bash">$ gdb oi
-GNU gdb <span class="token punctuation">(</span>GDB<span class="token punctuation">)</span> <span class="token number">7.8</span>.1
-Copyright <span class="token punctuation">(</span>C<span class="token punctuation">)</span> <span class="token number">2014</span> Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version <span class="token number">3</span> or later <span class="token operator">&lt;</span>http://gnu.org/licenses/gpl.html<span class="token operator">></span>
-<span class="token comment"># ...[很多信息]</span>
-For help, <span class="token builtin class-name">type</span> <span class="token string">"help"</span><span class="token builtin class-name">.</span>
-Type <span class="token string">"apropos word"</span> to search <span class="token keyword">for</span> commands related to <span class="token string">"word"</span><span class="token punctuation">..</span>.
-Reading symbols from oi<span class="token punctuation">..</span>.done. <span class="token comment"># 成功信息</span>
-<span class="token punctuation">(</span>gdb<span class="token punctuation">)</span>  <span class="token comment"># 现在可以键入调试命令了</span></code></pre>
-    </div>
-</div>
 
 
 <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
 </nav>
             </div>
         </main>
