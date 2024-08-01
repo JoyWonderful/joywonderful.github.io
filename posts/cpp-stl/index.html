@@ -1,0 +1,244 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>C++ STL | Some Notes</title>
+        <link rel="icon" href="/fonts/favicon.svg">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页&emsp;&emsp; || /</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签&emsp;&emsp; || tags</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类&emsp;&emsp; || categories</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档&emsp;&emsp; || archives</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接 || friends</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板&emsp; || guestbook</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于&emsp;&emsp; || about</a>
+                            </li>
+                            <li class="menu-item"><a class="menu-search"><i class="fa fa-search fa-fw"></i>搜索</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vector"><span class="toc-number">2.1.</span> <span class="toc-text">vector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#stack-queue"><span class="toc-number">2.2.</span> <span class="toc-text">stack&#x2F;queue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#priority-queue"><span class="toc-number">2.3.</span> <span class="toc-text">priority_queue</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">3.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#lower-bound-upper-bound"><span class="toc-number">3.1.</span> <span class="toc-text">lower-bound &#x2F; upper-bound</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sort"><span class="toc-number">3.2.</span> <span class="toc-text">sort</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swap"><span class="toc-number">3.3.</span> <span class="toc-text">swap</span></a></li></ol></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">C++ STL</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2024-08-01T08:01:00+08:00">2024-08-01</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-08-01T10:35:45+08:00">2024-08-01</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/Progamming/">Progamming</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>STL，即为<strong>标准模板库</strong>，是 Standard Tenplate Library 的简称。它里面包含容器、算法等。<br>因为是 C++ 标准库，所以以下提到的容器、函数等都处于 <code>std</code> 命名空间中。</p>
+<p>有时候写题目时很有帮助。</p>
+<h2 id="容器"><a href="#容器" class="headerlink" title="容器"></a>容器</h2><h3 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h3><p><em>In header <code>&lt;vector&gt;</code>.</em></p>
+<p><code>vector</code> 是动态的连续数组。创建时尖括号中填写要存的数据类型。</p>
+<p><strong>成员函数</strong>：</p>
+<p><strong>构造</strong>（创建时可选）(<code>vector()</code>)：<br>构造的参数有两个，第一个填写容器大小（将 vector 变为定长的），第二个填写初始化数字（可选）。<br>例如：<code>std::vector&lt;int&gt; a(3, 5)</code> 创建一个数据类型为 int，长度为 10，内容为 {5, 5, 5} 的 vector。</p>
+<ul>
+<li>访问<ul>
+<li><code>at(pos)</code>: 带越界检查的访问，若越界抛出 <code>std::out_of_range</code> 类型的异常。</li>
+<li><code>operator[]</code>: 访问指定元素。</li>
+<li><code>front()</code>: 访问第一个元素。</li>
+<li><code>back()</code>: 访问最后一个元素。</li>
+</ul>
+</li>
+<li>迭代器（弄不懂）<ul>
+<li><code>begin()</code>: 返回指向起始的迭代器。</li>
+<li><code>end()</code>: 返回指向末尾的迭代器。</li>
+</ul>
+</li>
+<li>容量<ul>
+<li><code>empty()</code>: 返回是否为空。</li>
+<li><code>size()</code>: 返回容器大小。</li>
+</ul>
+</li>
+<li>修改<ul>
+<li><code>push_back(value)</code>: 向末尾追加 <code>value</code>。</li>
+<li><code>clear()</code>: 清除所有元素，此后调用 <code>size()</code> 返回 0。</li>
+</ul>
+</li>
+<li>其他<ul>
+<li><code>operator=</code>: 将一个 vector 容器赋值给另一个容器。</li>
+</ul>
+</li>
+</ul>
+<p>例子：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> a<span class="token punctuation">;</span> <span class="token comment">// int 类型的容器</span>
+    vector<span class="token operator">&lt;</span><span class="token keyword">short</span><span class="token operator">></span> <span class="token function">b</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// short 类型的容器，大小为 10</span>
+    vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> <span class="token function">c</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// int 类型，大小为 100，全部初始赋值为 1</span>
+
+    a<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">114</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 追加 114</span>
+    a<span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span><span class="token number">514</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a:: size:%d &#123;%d, %d&#125;\n"</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> a<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// a:: size:2 &#123;114, 514&#125;</span>
+    <span class="token comment">// 大小；访问</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"b:: size:%d &#123;"</span><span class="token punctuation">,</span> b<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 大小已确定为 10</span>
+    b<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">32767</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%d"</span><span class="token punctuation">,</span> b<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">!=</span> <span class="token number">9</span><span class="token punctuation">)</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">", "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"&#125;\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// b:: size:10 &#123;0, 0, 0, 0, 0, 32767, 0, 0, 0, 0&#125;</span>
+    
+    c<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment">// 将最后一个元素赋值为 2</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"c:: front:%d back:%d  "</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    c<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"afterClear-> size: %d"</span><span class="token punctuation">,</span> c<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// c:: front:1 back:2  afterClear-> size: 0</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/*
+a:: size:2 &#123;114, 514&#125;
+b:: size:10 &#123;0, 0, 0, 0, 0, 32767, 0, 0, 0, 0&#125;
+c:: front:1 back:2  afterClear-> size: 0
+*/</span></code></pre>
+
+
+<h3 id="stack-queue"><a href="#stack-queue" class="headerlink" title="stack&#x2F;queue"></a>stack&#x2F;queue</h3><p><em>In header <code>&lt;stack&gt;</code>.</em><br>stack，STL 的栈，提供先进后出 (FILO, First In Last Out) 的结构。</p>
+<p><em>In header <code>&lt;queue&gt;</code>.</em><br>queue，STL 的队列，提供先进先出 (FIFO, First In First Out) 的结构。</p>
+<p><a href="/posts/stackandqueue">之前讲过</a>，不再赘述</p>
+<h3 id="priority-queue"><a href="#priority-queue" class="headerlink" title="priority_queue"></a>priority_queue</h3><p><em>In header <code>&lt;queue&gt;</code>.</em></p>
+<p>优先队列，默认为最大优先队列（大的元素在上）(<code>std::less&lt;typename&gt;</code>)。填写模板形参时，第一个填写数据类型，第二个填写容器（默认和通常都写 <code>vector&lt;typename&gt;</code>，第三个填写该如何比较（默认为 <code>std::less&lt;typename&gt;</code>，通常另外填 <code>std::greater&lt;typename&gt;</code> 最小优先队列）。</p>
+<p>它的成员函数与 <a href="/posts/stackandqueue/#%E6%A0%88">stack</a> 类似，不再赘述。</p>
+<p><strong>例子</strong>：</p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
+<span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+
+priority_queue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">,</span> vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span><span class="token punctuation">,</span> greater<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">>></span> a<span class="token punctuation">;</span> <span class="token comment">// 小数在上，升序</span>
+priority_queue<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> b<span class="token punctuation">;</span> <span class="token comment">// priority_queue&lt;int, vector&lt;int>, less&lt;int>> b; // 大数在上，降序</span>
+<span class="token keyword">int</span> mp<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">35</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">&#123;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        a<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>mp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        b<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>mp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"a:  "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d "</span><span class="token punctuation">,</span> a<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        a<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\nb:  "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">while</span><span class="token punctuation">(</span><span class="token operator">!</span>b<span class="token punctuation">.</span><span class="token function">empty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"%2d "</span><span class="token punctuation">,</span> b<span class="token punctuation">.</span><span class="token function">top</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        b<span class="token punctuation">.</span><span class="token function">pop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">/*
+a:   1  5 10 20 30 35 
+b:  35 30 20 10  5  1
+*/</span></code></pre>
+
+
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p><em>In header <code>&lt;algorithm&gt;</code>.</em></p>
+<h3 id="lower-bound-upper-bound"><a href="#lower-bound-upper-bound" class="headerlink" title="lower-bound &#x2F; upper-bound"></a>lower-bound &#x2F; upper-bound</h3><p><code>lower-bound(first, last, value)</code>:<br><code>first</code>, <code>last</code> 为要查找的起始和终止范围；<br><code>value</code> 为要查找的值。<br>返回第一个<strong>大于等于</strong> <code>value</code> 的值的地址（迭代器）。</p>
+<p><code>upper_bound</code> 参数同上，返回第一个<strong>大于</strong> <code>value</code> 的值的地址（迭代器）。</p>
+<p><strong><a href="/posts/lcs/#%E7%AC%AC%E4%BA%8C%E7%A7%8D">例子</a></strong></p>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><p>见 <a href="/posts/sort/#%E5%A4%B4%E6%96%87%E4%BB%B6-sort-%E6%8E%92%E5%BA%8F"><code>&lt;algorithm&gt;</code> 头文件 <code>sort()</code> 排序</a></p>
+<h3 id="swap"><a href="#swap" class="headerlink" title="swap"></a>swap</h3><p>两个参数，交换元素。</p>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/lcs/">最长上升/公共子序列 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-angles-up fa-fw"></i><span class="progress"></span></div>
+        <aside class="pjax-prog"></aside><div class="search-overlay">
+    <div class="search-container">
+        <div class="input-header">
+            <span class="search-icon"><i></i></span>
+            <input type="search" placeholder="请稍候..." autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" class="search-input">
+            <span><i class="fa fa-circle-xmark search-close"></i></span>
+        </div>
+        <div class="result-container"></div>
+    </div>
+</div>
+        <footer class="footer">
+            &copy; 2024 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer>
+<script src="/js/loader.js"></script>
+
+
+<script defer src="/js/lib/pjax.min.js"></script>
+
+
+<script src="/js/lib/anime.min.js"></script>
+
+
+<script src="/js/lib/katex.min.js"></script>
+
+
+<script src="/js/lib/search.js"></script>
+
+    </body>
+</html>

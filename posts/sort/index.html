@@ -64,7 +64,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-06-10T09:16:46+08:00">2024-06-10</time>
+                <time datetime="2024-08-01T10:32:55+08:00">2024-08-01</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -436,10 +436,9 @@
 <span class="token punctuation">&#125;</span></code></pre>
 
 <h2 id="头文件-sort-排序"><a href="#头文件-sort-排序" class="headerlink" title="&lt;algorithm&gt; 头文件 sort() 排序"></a><code>&lt;algorithm&gt;</code> 头文件 <code>sort()</code> 排序</h2><p>这么多排序算法，头都要晕了。为什么不用别人现成的函数来排序呢？看， <code>C++</code> 就有一个超级好用的头文件 -&gt; <code>&lt;algorithm&gt;</code> ，用它里面的 <code>sort()</code> 函数就可以啦！并且，它支持<strong>自定义排序</strong>。</p>
-<p>从小到大排序时，还有一个更方便的方法：</p>
+<p>从大到小排序时，还有一个更方便的方法：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">sort</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> a <span class="token operator">+</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token generic-function"><span class="token function">greater</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
-<p><code>greater</code> 是一个模板，可以把它理解为在这个函数中把大于号和小于号的含义交换。</p>
 <p>两个重载：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">template</span><span class="token operator">&lt;</span><span class="token keyword">typename</span> <span class="token class-name">_RandomAccessIterator</span><span class="token operator">></span>
     <span class="token keyword">inline</span> <span class="token keyword">void</span>
@@ -450,7 +449,7 @@
     <span class="token function">sort</span><span class="token punctuation">(</span>_RandomAccessIterator __first<span class="token punctuation">,</span> _RandomAccessIterator __last<span class="token punctuation">,</span>
 	 _Compare __comp<span class="token punctuation">)</span></code></pre>
 
-<p>想要用的时候，就直接 <code>sort(&amp;a[0], &amp;a[n])</code> 或者 <code>sort(a, a + n)</code> 就可以了。写排序函数 <code>cmp</code> 时，想交换就 <code>return true</code> ，否则就 <code>return false</code> 。</p>
+<p>想要用的时候，就直接 <code>sort(&amp;a[0], &amp;a[n])</code> 或者 <code>sort(a, a + n)</code> 就可以了。写排序函数 <code>cmp(x, y)</code> 时两个参数代表数组里的元素可以理解为 <code>a[i - 1]</code>, <code>a[i]</code>，升序（默认）写做 <code>return x &gt; y</code>。</p>
 
     </div>
     <div class="post-footer">
