@@ -46,7 +46,7 @@
                     
 <script type="application/json" class="cfgKtx">false</script>
 <div class="post-toc">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Floyd"><span class="toc-number">1.</span> <span class="toc-text">Floyd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPFA-%E4%BB%A3%E7%A0%81%EF%BC%88%E4%BB%85%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">SPFA 代码（仅记录）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra"><span class="toc-number">3.</span> <span class="toc-text">Dijkstra</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Floyd"><span class="toc-number">1.</span> <span class="toc-text">Floyd</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.1.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%8B%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">例题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SPFA-%E4%BB%A3%E7%A0%81%EF%BC%88%E4%BB%85%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">SPFA 代码（仅记录）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra"><span class="toc-number">3.</span> <span class="toc-text">Dijkstra</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="toc-number">3.1.</span> <span class="toc-text">实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">3.2.</span> <span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%94%E7%A4%BA"><span class="toc-number">3.3.</span> <span class="toc-text">演示</span></a></li></ol></li></ol>
 </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-08-09T10:59:35+08:00">2024-08-09</time>
+                <time datetime="2024-08-28T08:55:40+08:00">2024-08-28</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -186,7 +186,16 @@ typec dis<span class="token punctuation">[</span>MAXN<span class="token punctuat
     <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
 
-<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
+<h2 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h2><h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><p>迪克斯特拉（？），用于求<strong>单源</strong>最短路（只从一个结点出发到另一结点的最短路径），<em>不可以有负权值的边</em>。</p>
+<p>使用优先队列优化的 dijkstra 步骤：</p>
+<ol>
+<li>设从起点到编号为 i 的结点的最短路为 dis[i]，设起点编号为 s。初始时 dis[s] &#x3D; 0; 其他的均为无穷大。</li>
+<li>优先队列(pq) 里存该遍历的结点，排序方案为按结点的最短路大小（dis[结点]）排序。</li>
+<li>将 pq 顶部元素弹出，是前一个点。如果从起点到  前一个点(top) 的最短路(dis[top])  加上到  这个点(tv) 的边的权值(tw)  小于  从起点到这个点的最短路(dis[tv])  ，则执行 <code>dis[tv] = dis[top] + tw</code>，将 {tv, dis[tv]}(结构体) 加入 pq。</li>
+</ol>
+<p>重复第 3 步，直到 pq 为空。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P4779">P4779 单源最短路径</a></p>
+<pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;vector></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;queue></span></span>
 <span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
@@ -213,7 +222,7 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
     <span class="token punctuation">&#123;</span>
         <span class="token keyword">int</span> v<span class="token punctuation">,</span> u<span class="token punctuation">,</span> w<span class="token punctuation">;</span>
-        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">,</span> <span class="token operator">&amp;</span>v<span class="token punctuation">,</span> <span class="token operator">&amp;</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">scanf</span><span class="token punctuation">(</span><span class="token string">"%d %d %d"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>u<span class="token punctuation">,</span> <span class="token operator">&amp;</span>v<span class="token punctuation">,</span> <span class="token operator">&amp;</span>w<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// u --w--> v</span>
         edge tmp<span class="token punctuation">;</span>
         tmp<span class="token punctuation">.</span>v <span class="token operator">=</span> v<span class="token punctuation">;</span> tmp<span class="token punctuation">.</span>w <span class="token operator">=</span> w<span class="token punctuation">;</span>
         gr<span class="token punctuation">[</span>u<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push_back</span><span class="token punctuation">(</span>tmp<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -252,6 +261,35 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
     
     <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span></code></pre>
+
+<h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p>设 起点(s) 为 1，INF 代表无穷大，上方注释 c 表示这次访问并改变了，v 表示仅访问过。如下：</p>
+<p><img src="https://s21.ax1x.com/2024/08/28/pAkOcQA.png" alt="spth1"></p>
+<pre class="language-none"><code class="language-none">dis[4] &#x3D; &#123;0, INF, INF, INF&#125;;
+vis[4] &#x3D; &#123;0, 0, 0, 0&#125;;
+pq &#x3D; &#123;&#123;.id&#x3D;1, .dis&#x3D;0&#125;&#125;;</code></pre>
+
+
+<p><img src="https://s21.ax1x.com/2024/08/28/pAkOgsI.png" alt="spth2"></p>
+<pre class="language-none"><code class="language-none">&#x2F;&#x2F;           c  c  c
+dis[4] &#x3D; &#123;0, 2, 5, 4&#125;;
+vis[4] &#x3D; &#123;1, 0, 0, 0&#125;;
+pq &#x3D; &#123;&#123;.id&#x3D;2, .dis&#x3D;2&#125;,  &#123;.id&#x3D;4, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;5&#125;&#125;;</code></pre>
+
+
+<p><img src="https://s21.ax1x.com/2024/08/28/pAkO2Lt.png" alt="spth3"></p>
+<pre class="language-none"><code class="language-none">&#x2F;&#x2F;              c  c
+dis[4] &#x3D; &#123;0, 2, 4, 3&#125;;
+vis[4] &#x3D; &#123;1, 1, 0, 0&#125;;
+pq &#x3D; &#123;&#123;.id&#x3D;4, .dis&#x3D;3&#125;,  &#123;.id&#x3D;4, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;5&#125;&#125;;</code></pre>
+
+
+<p><img src="https://s21.ax1x.com/2024/08/28/pAkOyzd.png" alt="spth4"></p>
+<pre class="language-none"><code class="language-none">&#x2F;&#x2F;              v  v
+dis[4] &#x3D; &#123;0, 2, 4, 3&#125;;
+vis[4] &#x3D; &#123;1, 1, 1, 1&#125;;
+pq &#x3D; &#123;&#125;;</code></pre>
+
+
     </div>
     <div class="post-footer">
         <div class="post-tags">
