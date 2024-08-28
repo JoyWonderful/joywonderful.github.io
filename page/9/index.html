@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">47</span>
+            <span class="site-stat-count">48</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,33 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/erfen/">二分</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-05-21T15:22:53+08:00">2023-05-21</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="二分的意义"><a href="#二分的意义" class="headerlink" title="二分的意义"></a>二分的意义</h2><p><strong>优化</strong>。顾名思义，将一整个<strong>有序的</strong>数列分成两个部分，不断缩小边界，查找某个数字。<br>二分的时间复杂度为 $O(log\ 2\ n)$ 。</p>
+<p>此时，我们学的还是整数二分以及浮点二分。</p>
+<h2 id="整数二分的两个模板"><a href="#整数二分的两个模板" class="headerlink" title="整数二分的两个模板"></a>整数二分的两个模板</h2><p>二分的前提是这个序列是<strong>有序的</strong>，也就是单调递增的。<br>一般来说，二分会取中间值进行初始化，再判断这个中间值是否大于目标值。若是，则缩减左边界，否则缩减右边界。直至逼近答案。<br>说“逼近”，是因为有时查找的元素不存在于序列中，那所二分出的答案是接近于的，但又是不正确的。所以要加上一个特判。除非说明给出的想查询的元素所有都是存在于序列中的。</p>
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/zhizhen/">指针</a></h2>
@@ -189,31 +216,6 @@
         <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>前缀和是一种<strong>优化算法</strong>，用于求区间和。若数据范围特别大，写 <code>for</code> 循环很可能会爆时间复杂度，就可以用上前缀和了。前缀和有<strong>一维前缀和</strong>和<strong>二维前缀和</strong>，我暂时还没有学二位前缀和，故在此不多赘述。</p>
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一维前缀和需要把一个数组比如数组 $a[1]$ 到 $a[n]$ （$n$ 为 $a$ 数组长度）储存到另一个数组中比如 数组 $b$。那么：</p>
 <pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">b[i] \ (i \le n) &#x3D; \displaystyle\sum_&#123;j &#x3D; 1&#125;^&#123;i&#125; a[j]</code></pre>
-    </div>
-</div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/namespace/">命名空间</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-05-05T20:21:43+08:00">2023-05-05</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <h2 id="C-命名空间的概念"><a href="#C-命名空间的概念" class="headerlink" title="C++命名空间的概念"></a>C++命名空间的概念</h2><p><strong>在同一个作用域中，不同的数据不能起同一个名字</strong>，但是C++命名空间概念的出现，提供了解决问题的方案。在不同的命名空间中，可以随意定义相同的名字。命名空间就是为了避免你包含的头文件中与你自己定义的任意类，数据，函数重名，造成令人迷惑的错误而产生的。</p>
     </div>
 </div>
 

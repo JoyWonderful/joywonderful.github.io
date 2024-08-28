@@ -48,7 +48,7 @@
     <div class="site-author">JoyWonderful</div>
     <div class="site-stat">
         <div class="site-stat-item">
-            <span class="site-stat-count">47</span>
+            <span class="site-stat-count">48</span>
             <span class="site-stat-text">文章</span>
         </div>
         <div class="site-stat-item">
@@ -66,6 +66,36 @@
             <div class="main-inner">
                 
 
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title"><a href="/posts/dfs/">深度优先搜索</a></h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2023-07-14T17:18:43+08:00">2023-07-14</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/CourseNotes/">CourseNotes</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <h2 id="前置知识：图论"><a href="#前置知识：图论" class="headerlink" title="前置知识：图论"></a>前置知识：图论</h2><p>引用广为人知的一句话：</p>
+<blockquote>
+<p>图论 (Graph Theory) 是数学的一个分支。它以图为研究对象。图论中的图是由若干给定的点及连接两点的线所构成的图形，这种图形通常用来描述某些事物之间的某种特定关系，用点代表事物，用连接两点的线表示相应两个事物间具有这种关系。</p>
+</blockquote>
+<p>像深度优先搜索，其实也要用到“图”这个概念。其实，“图”体现了搜索（递归）的过程，计算机中的“图”有很多使用的场景。</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>深度优先搜索</strong>（深搜），英文名 <strong>Depth First Search</strong>，简称 <strong>DFS</strong>。即从初始节点出发，按一定顺序不断地向下一节点扩展，达到条件则返回上一个节点，以此类推。这正是一个<a href="/posts/recursion">递归</a>的过程。叫深搜是因为它递归的过程若形象来看是不断“加深”的，这样一搜到底也是递归的特性。
+    </div>
+</div>
 <div class="post-block">
     <header class="post-header">
         <h2 class="post-title"><a href="/posts/all-the-test/">测试全部渲染</a></h2>
@@ -179,38 +209,6 @@
     </header>
     <div class="post-body">
         <p>这就是一个随记，方便自己用的。</p>
-    </div>
-</div>
-<div class="post-block">
-    <header class="post-header">
-        <h2 class="post-title"><a href="/posts/two-pointers/">双指针-快慢指针</a></h2>
-        <div class="post-meta">
-            <span class="post-meta-item">
-                <i class="far fa-calendar post-meta-item-icon"></i>
-                <span class="post-meta-item-text">发表于 </span>
-                <time datetime="2023-06-26T18:00:45+08:00">2023-06-26</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-calendar-check post-meta-item-icon"></i>
-                <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
-            </span>
-            <span class="post-meta-item">
-                <i class="far fa-folder post-meta-item-icon"></i>
-                <span class="post-meta-item-text">分类于 </span>
-                <a href="/categories/CourseNotes/">CourseNotes</a>
-            </span>
-        </div>
-    </header>
-    <div class="post-body">
-        <blockquote>
-<p>双指针其实不是真正的指针，而是有两个变量在序列上进行一些操作。<br>——Lqingyi(Lxandqi)</p>
-</blockquote>
-<h2 id="思想分类"><a href="#思想分类" class="headerlink" title="思想分类"></a>思想分类</h2><ul>
-<li>普通双指针 也就是两个普通的 <code>for</code> （也可以是其他的）循环嵌套。</li>
-<li>左右指针 其实就是二分搜索，一个变量指向开头，一个变量指向末尾，根据条件向中间遍历，直到指针相遇或满足某种条件。（也就是逼近答案）</li>
-<li>快慢指针 两个指针（变量）开始同时开头，但一个遍历的快，一个慢，直到条件满足或指针到末尾。</li>
-</ul>
     </div>
 </div>
 
