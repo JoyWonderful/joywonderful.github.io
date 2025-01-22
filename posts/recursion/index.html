@@ -179,8 +179,7 @@
 <p>但是，递归并不是刚完成就返回，而是<strong>完成了整个分支</strong>才返回。以 $n&#x3D;3$ 为例，画个上面那个递归函数的图：<br><img src="https://mermaid.ink/svg/pako:eNqNVE1vgzAM_SsoJ1eiU81HPzjstON22W4Tl6ikLVKBKg2aprb_fSHVYhPUaRwQzzbvPduBi9h2lRKF2B27r-1BahO9vpdtZK-zsQjcfXaP1BUC4MyjBCAhlAKkhDKAjFAOkBNaAiwJrQBWhNYAa0IbgA0hXFj5BcODHeYHrSFkjtBaQuYJrSlkrtDaQueLdRzN589XvA5pX-diyRBLfO8ulg6x1E8gmj_ZoFam121YPc4E3I4n87MjvdxPMGTg1Y-5eca1N-3V6Sz9bqj_ld8QeVz7PYWqvHqcCbgdz8ZvmM17QYsOOXj9Y_Z_dOvUkUaETD-hg0STwZSO02TSozeCXKhxZ8voMDLlnI7khGf0xl8ak-5FLBqlG1lX9gO_DKWlMAfVqFIU9rFSO9kfTSnK9mZLZW-6j-92KwqjexWL_lRJo15qudey-Q2qqjadfrv_M9yvIxYn2X52nS3ZyeNZ3X4Adj46Eg" alt="recur-stack"><br>（说明：圆圈中的数字是前进的顺序，从小到大；实线箭头和虚线箭头先走实线，走完以后再走虚线；箭头上的数字代表输出的值。</p>
 <h2 id="递归的分治思想"><a href="#递归的分治思想" class="headerlink" title="递归的分治思想"></a>递归的分治思想</h2><p>分治，就是将一个问题分解为多个问题，然后再进行解决。<del>用咱们老师的</del>一个词概括，就是：</p>
 <blockquote>
-<p style="text-align:center;">分而治之</p>
-</blockquote>
+<p style="text-align:center;">分而治之</p></blockquote>
 <p>举个例子：一件工程做 100 个零件，接活的找了 10 个人帮忙，那 10 个人又去找了 10 个人，每一组的 10 个人做完了向上头汇报，上头 10 个人又向接活的人汇报。<br>这其实就是一个递归分治的过程，这么一个例子体现了分治的基本步骤：</p>
 <ol>
 <li><strong>分解</strong>：“接活的找了 10 个人帮忙，那 10 个人又去找了 10 个人” -&gt; 将原问题分解成子问题</li>
