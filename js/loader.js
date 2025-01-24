@@ -1,6 +1,9 @@
-// pjax set
+if(window.location.protocol == "http:" && window.location.hostname != "localhost" && window.location.hostname != "127.0.0.1") {
+    window.location.protocol = "https:";
+} // force https
+
 window.lite = {
-    registerPjaxStart: function() {
+    registerPjaxStart: function() { // pjax set
         window.pjax = new Pjax({
             elements: "a[href^=\"/\"]",
             selectors: [
