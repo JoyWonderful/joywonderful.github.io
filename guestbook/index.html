@@ -77,18 +77,21 @@
 <link rel="stylesheet" href="https://src-jywon.glitch.me/css/twikoo.css">
 <div id="tcomment"></div>
 <script>
-    if(typeof twikoo === "object") {
+    window.loadTwikoo = function() {
         twikoo.init({
             envId: "https://cmt-jywon.glitch.me/",
             el: "#tcomment",
             lang: "zh-CN"
         });
     }
+    if(typeof twikoo === "object") {
+        loadTwikoo();
+    }
     else {
         (function(d, s) {
             s = d.createElement("script");
             s.src = "https://src-jywon.glitch.me/js/twikoo.nocss.min.js";
-            s.onload = () => { twikoo.init({ envId: "https://cmt-jywon.glitch.me/", el: "#tcomment", lang: "zh-CN" }); };
+            s.onload = loadTwikoo;
             d.querySelector(".post-body").appendChild(s);
         })(document);
     }
