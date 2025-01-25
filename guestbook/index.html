@@ -88,13 +88,9 @@
         (function(d, s) {
             s = d.createElement("script");
             s.src = "https://src-jywon.glitch.me/js/twikoo.nocss.min.js";
+            s.onload = () => { twikoo.init({ envId: "https://cmt-jywon.glitch.me/", el: "#tcomment", lang: "zh-CN" }); };
             d.querySelector(".post-body").appendChild(s);
         })(document);
-        twikoo.init({
-            envId: "https://cmt-jywon.glitch.me/",
-            el: "#tcomment",
-            lang: "zh-CN"
-        });
     }
 </script>
 
