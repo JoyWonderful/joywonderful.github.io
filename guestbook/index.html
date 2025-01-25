@@ -75,13 +75,14 @@
 <p>加载可能较慢，请耐心等待！</p>
 
 <link rel="stylesheet" href="https://src-jywon.glitch.me/css/twikoo.css">
+<div id="tcomment"></div>
 <script>
     if(typeof twikoo === "object") {
         twikoo.init({
             envId: "https://cmt-jywon.glitch.me/",
             el: "#tcomment",
             lang: "zh-CN"
-        })
+        });
     }
     else {
         (function(d, s) {
@@ -89,6 +90,11 @@
             s.src = "https://src-jywon.glitch.me/js/twikoo.nocss.min.js";
             d.querySelector(".post-body").appendChild(s);
         })(document);
+        twikoo.init({
+            envId: "https://cmt-jywon.glitch.me/",
+            el: "#tcomment",
+            lang: "zh-CN"
+        });
     }
 </script>
 
