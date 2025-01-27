@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-06-09T19:28:09+08:00">2024-06-09</time>
+                <time datetime="2025-01-27T13:45:10+08:00">2025-01-27</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -146,7 +146,7 @@ void dfs(int x) // 中序：左根右
 <p>例题：<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1305">洛谷[P1305] 新二叉树</a> 就是前序遍历，只是和上面代码的输入格式不太一样。</p>
 <h2 id="实践：前序遍历中序遍历确定树"><a href="#实践：前序遍历中序遍历确定树" class="headerlink" title="实践：前序遍历中序遍历确定树"></a>实践：前序遍历中序遍历确定树</h2><p>前序遍历：<code>1 2 4 3 5 6</code><br>中序遍历：<code>4 2 1 5 3 6</code></p>
 <p>先来看前序，由于前序遍历的顺序是根左右，那么 <code>1</code> 一定是整个树的根结点。随后在中序遍历找到 <code>1</code>，即可判断这个二叉树的左子树和右子树，就是这样分开来：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;">2 4</span> <span style="border: solid 1px #555; border-radius: 2px;">3 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 2</span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 3 6</span></code><br>在继续分下去，得到：<br>前序遍历：<code><span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #777; border-radius: 2px;"><span style="border-bottom: solid 2px #ccc;">2</span> 4</span> <span style="border: solid 1px #555; border-radius: 2px;"><span style="border-bottom: solid 2px #111;">3</span> 5 6</span></code><br>中序遍历：<code><span style="border: solid 1px #777; border-radius: 2px;">4 <span style="border-bottom: solid 2px #ccc;">2</span></span> <span style="border-bottom: solid 2px #999;">1</span> <span style="border: solid 1px #555; border-radius: 2px;">5 <span style="border-bottom: solid 2px #111;">3</span> 6</span></code></p>
-<p>最终，得到这样一个树：<br><img src="https://s2.loli.net/2023/08/03/JqBMmjXIrFUk1L2.png" alt="graph"></p>
+<p>最终，得到这样一个树：<br><img src="https://src-jywon.glitch.me/img/blog-binarytreeFme.png" alt="graph"></p>
 
     </div>
     <div class="post-footer">

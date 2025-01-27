@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2024-05-11T20:35:11+08:00">2024-05-11</time>
+                <time datetime="2025-01-27T13:56:25+08:00">2025-01-27</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -83,8 +83,8 @@
 <span id="more"></span>
 
 <p>树的结点一般画为圆圈，树若画出来也就是几个结点（圆）和几条边（线）组成的图，比较形象化，实际的树的储存方式是通过<a href="/posts/lianbiao" style="border-bottom:none;">链表</a>中的数据域将一个个结点（元素）连接起来，比较麻烦，后面再说。<br>还有一个概念：树的边的个数比树的结点的个数少一。也就是说，假设树的结点的个数为 $n$，则树的边的个数为 $n-1$。</p>
-<h3 id="判断一张图是否为树"><a href="#判断一张图是否为树" class="headerlink" title="判断一张图是否为树"></a>判断一张图是否为树</h3><p>树最重要的就是<strong>每两个结点之间有且只有一条路径可以到达</strong>，也就是说，不可以形成环，不可以在一个树中无法到达所有结点。例如，下面就是一个树：<br><img src="https://s2.loli.net/2023/12/16/5UZo8kn4QAYD1F9.png" alt="graph-tree-1.png"><br>下面两张图不是树，他们分别违反了“不可以形成环”、“不可以在一个树中无法到达所有结点”。<br><img src="https://s2.loli.net/2023/12/16/VgfdiEJmDvSz2OB.png" alt="err-tree1"><br><img src="https://s2.loli.net/2023/12/16/SEGpmcFVrNv95w2.png" alt="err-tree2"></p>
-<h3 id="更多的概念"><a href="#更多的概念" class="headerlink" title="更多的概念"></a>更多的概念</h3><p>首先放一张图：<br><img src="https://s2.loli.net/2023/12/16/O51sWLVJvfdu9ai.png" alt="lizi"></p>
+<h3 id="判断一张图是否为树"><a href="#判断一张图是否为树" class="headerlink" title="判断一张图是否为树"></a>判断一张图是否为树</h3><p>树最重要的就是<strong>每两个结点之间有且只有一条路径可以到达</strong>，也就是说，不可以形成环，不可以在一个树中无法到达所有结点。例如，下面就是一个树：<br><img src="https://src-jywon.glitch.me/img/blog-graphTree-graphTree1.png" alt="graph-tree-1.png"><br>下面两张图不是树，他们分别违反了“不可以形成环”、“不可以在一个树中无法到达所有结点”。<br><img src="https://src-jywon.glitch.me/img/blog-graphTree-errTree1.png" alt="err-tree1"><br><img src="https://src-jywon.glitch.me/img/blog-graphTree-errTree2.png" alt="err-tree2"></p>
+<h3 id="更多的概念"><a href="#更多的概念" class="headerlink" title="更多的概念"></a>更多的概念</h3><p>首先放一张图：<br><img src="https://src-jywon.glitch.me/img/blog-graphTree-lizi.png" alt="lizi"></p>
 <p>以这张图为例，来说下面的概念吧。<br><strong>根结点 root</strong>：根结点通常在最上方，是所有子结点的父结点。在上面的那张图中，结点 1 就是整张图的根结点。在上面的图中，根结点可以更换，也不会影响到什么，但是根结点一变就会让树形态发生变化（假如结点 2 是整个树的根结点，那么树会变<a href="#tree-root-node2">下面的图</a>）。一个树是必须要有根结点的，<span style="background-color:#efefef">根结点只有一个。</span><br><strong>父结点 parent（双亲结点） 子结点 child（孩子结点）</strong>：一个结点的分支就是那个结点的子结点，相反那个结点是分支结点的父结点。子结点通过父结点到达。例如结点 4 5 是结点 2 的子结点，结点 3 是结点 6 7 的父结点。<br><strong>兄弟结点</strong>：同一个父结点的子结点称为兄弟结点。例如结点 4 5 互为兄弟结点，6 7 互为兄弟结点。<br><strong>度</strong>：树的度就是一个结点子结点的个数。例如结点 2 的度就是 2，因为它只有两个子结点。<br><strong>深度</strong>：从<span style="background-color:#efefef">根结点</span>到当前结点的层数，根结点的深度是 1。例如，结点 1 深度为 1，结点 2 3 深度为 2，结点 4 5 6 7 深度为 3。<br><strong>叶子结点</strong>：一个结点的度为 0，就叫做叶子结点。例如结点 4 5 6 7 都是叶子结点。<br><strong>n 叉树</strong>：在树中，这个数是多少叉看度最多的结点，例如这个树就是二叉树（也比较特殊，后面讲）。<br><strong>子树</strong>：假设将树中任意一个度不为 0 的结点与它的父结点切断它们之间的边，那么断开的那一部分又能成为一个新的树，称为子树。例如结点 2 4 5 可以组成一个子树。</p>
 <p>还有一大堆子子孙孙祖先的什么的，懒得写了。说真的，感觉说多了意义不大。</p>
 <h3 id="二叉树的概念"><a href="#二叉树的概念" class="headerlink" title="二叉树的概念"></a>二叉树的概念</h3><p>n 叉树中，又出现了一个<strong>二叉树 Binary Tree</strong> 这么个奇怪的概念。什么左子树右孩子什么的不记了，就讲三个我认为比较重要的。</p>
@@ -108,7 +108,7 @@
 
 <p id="tree-root-node2">假设根结点为 2 时的情况：</p>
 
-<p><img src="https://s2.loli.net/2023/12/16/HBYzUod6LN2vQay.png" alt="node2"></p>
+<p><img src="https://src-jywon.glitch.me/img/blog-graphTree-node2.png" alt="node2"></p>
 
     </div>
     <div class="post-footer">
