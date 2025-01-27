@@ -84,6 +84,7 @@
             envId: "https://cmt-jywon.glitch.me/",
             el: "#tcomment",
             lang: "zh-CN",
+            path: "blog",
             onCommentLoaded: function() {
                 var del_el = document.getElementById("comments-readme");
                 if(del_el) del_el.remove();
@@ -98,7 +99,7 @@
     else {
         (function(d, s) {
             s = d.createElement("script");
-            s.src = "https://src-jywon.glitch.me/js/twikoo.nocss.min.js";
+            s.src = "https://src-jywon.glitch.me/js/twikoo.nocss.js";
             s.onload = loadTwikoo;
             d.querySelector(".post-body").appendChild(s);
         })(document);
