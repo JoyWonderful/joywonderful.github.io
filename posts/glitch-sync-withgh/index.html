@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <title>Github 仓库与 Glitch同步 | Some Notes</title>
+        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+
+
+<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+
+
+<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+
+    </head>
+    <body>
+        <main class="main">
+            <div class="column">
+                <header>
+                    <div class="site-brand">
+                        <div class="site-meta">
+                            <p class="site-title">Some Notes</p><p class="site-subtitle">Be HardWorking Every Day.</p>
+                        </div>
+                    </div>
+                    <nav class="site-nav">
+                        <ul class="main-menu">
+                            <li class="menu-item"><a href="/"><i class="fa fa-home fa-fw"></i>首页&emsp;&emsp; || /</a></li>
+                            <li class="menu-item"><a href="/tags/"><i class="fa fa-tags fa-fw"></i>标签&emsp;&emsp; || tags</a></li>
+                            <li class="menu-item"><a href="/categories/"><i class="fa fa-rectangle-list fa-fw"></i>分类&emsp;&emsp; || categories</a></li>
+                            <li class="menu-item"><a href="/archives/"><i class="fa fa-archive fa-fw"></i>存档&emsp;&emsp; || archives</a></li>
+                            <li class="menu-item menu-more">
+                                <a class="menu-more-btn"><i class="fa fa-ellipsis-vertical fa-fw"></i>更多</a>
+                                <a href="/friends/" class="morebtn-item"><i class="far fa-address-card fa-fw"></i>友情链接 || friends</a>
+                                <a href="/guestbook/" class="morebtn-item"><i class="fa fa-pen-to-square fa-fw"></i>留言板&emsp; || guestbook</a>
+                                <a href="/about/" class="morebtn-item"><i class="fa fa-circle-info fa-fw fa-fw"></i>关于&emsp;&emsp; || about</a>
+                            </li>
+                            <li class="menu-item"><a class="menu-search"><i class="fa fa-search fa-fw"></i>搜索</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                <div class="site-sidebar">
+                    
+<script type="application/json" class="cfgKtx">false</script>
+<div class="post-toc">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Glitch-%E6%96%B9%E9%9D%A2"><span class="toc-number">1.</span> <span class="toc-text">Glitch 方面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-%E6%96%B9%E9%9D%A2"><span class="toc-number">2.</span> <span class="toc-text">Github 方面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-%E9%97%AE%E9%A2%98"><span class="toc-number">2.1.</span> <span class="toc-text">Hexo 问题</span></a></li></ol></li></ol>
+</div>
+                </div>
+            </div>
+            <div class="main-inner">
+                
+<div class="post-block">
+    <header class="post-header">
+        <h2 class="post-title">Github 仓库与 Glitch同步</h2>
+        <div class="post-meta">
+            <span class="post-meta-item">
+                <i class="far fa-calendar post-meta-item-icon"></i>
+                <span class="post-meta-item-text">发表于 </span>
+                <time datetime="2025-03-09T21:40:36+08:00">2025-03-09</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-calendar-check post-meta-item-icon"></i>
+                <span class="post-meta-item-text">更新于 </span>
+                <time datetime="2025-03-09T21:54:25+08:00">2025-03-09</time>
+            </span>
+            <span class="post-meta-item">
+                <i class="far fa-folder post-meta-item-icon"></i>
+                <span class="post-meta-item-text">分类于 </span>
+                <a href="/categories/Programming/">Programming</a>
+            </span>
+        </div>
+    </header>
+    <div class="post-body">
+        <p>由于 Github Pages 实在太慢，我的很多东西都迁移到功能和速度都更好的 Glitch 上。如你所见。<br>Glitch 项目也是一个 Git Repository，可以 push。这里利用 Github Actions，使用 <a target="_blank" rel="noopener" href="https://github.com/wei/git-sync">wei&#x2F;git-sync</a> 项目，进行落实。</p>
+<p>参考 <a target="_blank" rel="noopener" href="https://support.glitch.com/t/automating-deployment-from-github-how-to/64642">https://support.glitch.com/t/automating-deployment-from-github-how-to/64642</a>。</p>
+<span id="more"></span>
+
+<h2 id="Glitch-方面"><a href="#Glitch-方面" class="headerlink" title="Glitch 方面"></a>Glitch 方面</h2><p>打开项目的控制台，依次输入下列语句：</p>
+<pre class="language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> config receive.denyCurrentBranch ignore
+
+<span class="token function">cat</span> <span class="token operator">&lt;&lt;</span> <span class="token string">EOF<span class="token bash punctuation"> <span class="token operator">></span> .git/hooks/post-receive</span>
+unset GIT_INDEX_FILE
+git --work-tree=/app --git-dir=/app/.git checkout -f
+refresh
+EOF</span>
+
+<span class="token function">chmod</span> u+x .git/hooks/post-receive</code></pre>
+
+<p>就是让 git 在收到 force push 的时候接受并且刷新项目。</p>
+<h2 id="Github-方面"><a href="#Github-方面" class="headerlink" title="Github 方面"></a>Github 方面</h2><p>新建 <code>.github/workflows/sync.yml</code> 文件（其实文件名可以随便），添加如下内容：</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Glitch Sync
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> main <span class="token comment"># 改成你要的分支</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">sync</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Sync to Glitch Project
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> wei/git<span class="token punctuation">-</span>sync@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">source_repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//$<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> secrets.GITHUB_TOKEN <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>@github.com/$<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> github.repository <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>.git
+          <span class="token key atrule">source_branch</span><span class="token punctuation">:</span> main
+          <span class="token key atrule">destination_repo</span><span class="token punctuation">:</span> $<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> secrets.GLITCH_GIT_URL <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+          <span class="token key atrule">destination_branch</span><span class="token punctuation">:</span> master</code></pre>
+
+<h3 id="Hexo-问题"><a href="#Hexo-问题" class="headerlink" title="Hexo 问题"></a>Hexo 问题</h3><p>如果是 Hexo 博客，你要在 <code>source</code> 下进行操作（即在 <code>source</code> 下建立 <code>.github/workflows/sync.yml</code>），并且在总的 <code>_config.yml</code> 中把这些改成：</p>
+<pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">skip_render</span><span class="token punctuation">:</span> .github/<span class="token important">**/*</span>
+<span class="token key atrule">include</span><span class="token punctuation">:</span> .github/<span class="token important">**/*</span></code></pre>
+
+    </div>
+    <div class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/Git/"><i class="fa fa-tag"></i> Git</a>
+        </div>
+        <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/min-span-tree/">最小生成树 <i class="fa fa-angle-right"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </main>
+        <div class="back-to-top"><i class="fa fa-angles-up fa-fw"></i><span class="progress"></span></div>
+        <aside class="pjax-prog"></aside><div class="search-overlay">
+    <div class="search-container">
+        <div class="input-header">
+            <span class="search-icon"><i></i></span>
+            <input type="search" placeholder="请稍候..." autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="80" class="search-input">
+            <span><i class="fa fa-circle-xmark search-close"></i></span>
+        </div>
+        <div class="result-container"></div>
+    </div>
+</div>
+        <footer class="footer">
+            &copy; 2025 &nbsp;<i class="fa fa-paper-plane"></i>&nbsp; JoyWonderful
+        </footer>
+<script src="/js/loader.js"></script>
+
+
+<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+
+
+<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+
+
+<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+
+
+<script src="/js/search.js"></script>
+
+    </body>
+</html>
