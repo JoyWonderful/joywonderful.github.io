@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-03-09T21:54:25+08:00">2025-03-09</time>
+                <time datetime="2025-05-11T15:23:33+08:00">2025-05-11</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -90,12 +90,16 @@ EOF</span>
 
 <p>就是让 git 在收到 force push 的时候接受并且刷新项目。</p>
 <h2 id="Github-方面"><a href="#Github-方面" class="headerlink" title="Github 方面"></a>Github 方面</h2><p>新建 <code>.github/workflows/sync.yml</code> 文件（其实文件名可以随便），添加如下内容：</p>
+<div class="note warning"><p>Glitch 默认分支变更</p>
+<p>现在的 Glitch 新建项目默认分支 <code>master</code> 好像变成了 <code>main</code>，老项目不用改，但新项目要把 <code>destination_branch</code> 改成 <code>main</code>。</p>
+</div>
+
 <pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> Glitch Sync
 
 <span class="token key atrule">on</span><span class="token punctuation">:</span>
   <span class="token key atrule">push</span><span class="token punctuation">:</span>
     <span class="token key atrule">branches</span><span class="token punctuation">:</span>
-      <span class="token punctuation">-</span> main <span class="token comment"># 改成你要的分支</span>
+      <span class="token punctuation">-</span> main <span class="token comment"># 改成你要推送的分支</span>
 
 <span class="token key atrule">jobs</span><span class="token punctuation">:</span>
   <span class="token key atrule">sync</span><span class="token punctuation">:</span>
@@ -105,9 +109,9 @@ EOF</span>
         <span class="token key atrule">uses</span><span class="token punctuation">:</span> wei/git<span class="token punctuation">-</span>sync@v3
         <span class="token key atrule">with</span><span class="token punctuation">:</span>
           <span class="token key atrule">source_repo</span><span class="token punctuation">:</span> https<span class="token punctuation">:</span>//$<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> secrets.GITHUB_TOKEN <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>@github.com/$<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> github.repository <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>.git
-          <span class="token key atrule">source_branch</span><span class="token punctuation">:</span> main
+          <span class="token key atrule">source_branch</span><span class="token punctuation">:</span> main <span class="token comment"># 改成你要推送的分支</span>
           <span class="token key atrule">destination_repo</span><span class="token punctuation">:</span> $<span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> secrets.GLITCH_GIT_URL <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
-          <span class="token key atrule">destination_branch</span><span class="token punctuation">:</span> master</code></pre>
+          <span class="token key atrule">destination_branch</span><span class="token punctuation">:</span> main <span class="token comment"># 最好在项目的控制台中看看 git branch 是什么，一般来说默认是 main，不用改</span></code></pre>
 
 <h3 id="Hexo-问题"><a href="#Hexo-问题" class="headerlink" title="Hexo 问题"></a>Hexo 问题</h3><p>如果是 Hexo 博客，你要在 <code>source</code> 下进行操作（即在 <code>source</code> 下建立 <code>.github/workflows/sync.yml</code>），并且在总的 <code>_config.yml</code> 中把这些改成：</p>
 <pre class="language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">skip_render</span><span class="token punctuation">:</span> .github/<span class="token important">**/*</span>
