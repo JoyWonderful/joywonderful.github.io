@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>关于 | Some Notes</title>
-        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+        <link rel="icon" href="https://src-jywon.netlify.app/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/lxgw/font.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ftawsm/fontaw.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ktx/katex.min.css">
 
     </head>
     <body>
@@ -79,87 +79,11 @@
 <br>
 <p style="text-align:center;color:#777;font-size:.875rem;margin-top:30px">以下是一些信息</p>
 
+<p style="margin-bottom:5px"><strong>Site Deploy Status:</strong></p>
+<a style="border-bottom:none" target="_blank" rel="noopener" href="https://app.netlify.com/projects/blog-jywon/deploys"><img alt="Netlify Status" src=https://api.netlify.com/api/v1/badges/5b6267ec-b34a-4b27-8b5d-fdd10de7ea7e/deploy-status></img></a>
 
-<p style="margin-bottom:5px"><strong>Atomgit Sync with Github Status:</strong></p>
 
-<style>
-    div#last-deploy-info {
-        display: flex;
-        white-space: nowrap;
-        overflow-x: auto;
-        margin-bottom: 20px;
-    }
-    div#last-deploy-info div {
-        margin-right: 25px;
-    }
-    div#last-deploy-info span.ititle {
-        color: #888;
-    }
-    div#last-deploy-info span.indexcnt {
-        color: #111;
-    }
-    div#last-deploy-info span, div#last-deploy-info a {
-        font-family: consolas, Menlo, monospace;
-        border-bottom: none;
-    }
-    div#last-deploy-info a:hover {
-        border-bottom: 1px solid #222222;
-    }
-    div#last-deploy-info #dpi-waiting {
-        color: #999;
-    }
-</style>
 
-<div id="last-deploy-info">
-    <span id="dpi-waiting">Please wait...</span>
-    <div id="dpi-cmt-id"></div>
-    <div id="dpi-stat"></div>
-    <div id="dpi-durat"></div>
-    <div id="dpi-update"></div>
-</div>
-
-<script>
-    fetch("https://api.github.com/repos/joywonderful/blog/actions/runs?per_page=1").then((result) => {
-        if(!result.ok) {
-            console.error(result.status);
-            var emsgd = document.querySelector("#last-deploy-info");
-            emsgd.innerHTML = `Failed to fetch deploy data.<br>The server returned a status of ${result.status}.`;
-            emsgd.style.color = "#bd0000";
-        }
-        var remain = result.headers.get("X-Ratelimit-Remaining"); // 获取速率限制
-        console.debug("Ratelimit remaining: " + remain + "\nRate limit reset after: " + result.headers.get("X-Ratelimit-Reset"));
-        if(remain == "0") {
-            console.debug("Too many requests.");
-            var emsgd = document.querySelector("#last-deploy-info");
-            emsgd.innerHTML = `The number of requests is out of range.<br>Rate limit reset after: ${result.headers.get("X-Ratelimit-Reset")}.`;
-            emsgd.style.color = "#bd0000";
-        }
-        return result.json();
-    }).then((data) => {
-        document.querySelector("#dpi-waiting").style.display = "none";
-
-        lrun = data.workflow_runs[0];
-        var cmt_id = document.querySelector("#dpi-cmt-id"), stat = document.querySelector("#dpi-stat"), durat = document.querySelector("#dpi-durat"), update = document.querySelector("#dpi-update");
-
-        const d1 = new Date(lrun.updated_at), d2 = new Date(lrun.created_at);
-        const totdura = (d1.getTime() - d2.getTime()) / 1000;
-
-        if(lrun.conclusion == null) var statstr = lrun.status;
-        else var statstr = lrun.conclusion;
-        var staticon = '<i class="fa-solid fa-question fa-fw fa-sm" style="color:#111;margin-left:5px"></i>';
-        if(statstr == "failure") staticon = '<i class="fa fa-xmark fa-fw fa-sm" style="color:#d1242f;margin-left:5px"></i>';
-        else if(statstr == "success") staticon = '<i class="fa fa-check fa-fw fa-sm" style="color:#1a7f37;margin-left:5px"></i>';
-        else if(statstr == "in_progress" || statstr == "queued" || statstr == "waiting") staticon = '<i class="far fa-circle-dot fa-fw fa-sm" style="color:#dbab0a;margin-left:5px"></i>';
-        else if(statstr == "skipped" || statstr == "cancelled") staticon = '<i class="fa fa-ban fa-sm fa-fw fa-rotate-90" style="color:#656d76;margin-left:5px"></i>';
-
-        cmt_id.style.borderRight = "2px dashed #444";
-        cmt_id.style.paddingRight = "25px";
-        cmt_id.innerHTML = `<span class="ititle">Run_Id: </span><a href="${lrun.html_url}" target="_blank">#${lrun.run_number}</a><br><span class="ititle">Commit: </span><a href="https://github.com/JoyWonderful/joywonderful.github.io/commit/${lrun.head_commit.id}" target="_blank">${lrun.head_commit.id.slice(0, 7)}</a>`;
-        stat.innerHTML = `<span class="ititle">Status</span><br><span class="indexcnt">${statstr}</span>${staticon}`;
-        durat.innerHTML = `<span class="ititle">Total Duration</span><br><span class="indexcnt">${totdura}<span style="opacity:0.7;">sec</span></span>`;
-        update.innerHTML = `<span class="ititle">Created At</span><br><span class="indexcnt">${d2.getFullYear()}-${d2.getMonth()+1}-${d2.getDate()} ${d2.getHours()}:${d2.getMinutes()}:${d2.getSeconds()}</span>`;
-    });
-</script>
 
 
 <p style="margin-bottom:5px"><strong>NPM Dependencies which this Site are Using:</strong></p>
@@ -207,13 +131,13 @@
 <script src="/js/loader.js"></script>
 
 
-<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+<script defer src="https://src-jywon.netlify.app/js/pjax.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/anime.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/katex.min.js"></script>
 
 
 <script src="/js/search.js"></script>

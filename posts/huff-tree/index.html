@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>哈夫曼树和哈夫曼编码 | Some Notes</title>
-        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+        <link rel="icon" href="https://src-jywon.netlify.app/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/lxgw/font.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ftawsm/fontaw.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ktx/katex.min.css">
 
     </head>
     <body>
@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-01-27T14:02:14+08:00">2025-01-27</time>
+                <time datetime="2025-05-25T22:18:27+08:00">2025-05-25</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -83,14 +83,14 @@
 <p>哈夫曼树是二叉树，且哈夫曼树的带权路径长度最小，哈夫曼编码会用到。</p>
 <span id="more"></span>
 
-<h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><p>前面写了，哈夫曼树的带权路径长度最小，若想带权路径最小，则权值小的结点的路径长，权值大的结点路径短。哈夫曼树构建的结点都必须是叶子结点，例如用 1 2 5 6 构建的哈夫曼树是这样的：<br><img src="https://src-jywon.glitch.me/img/blog-huffTree-example.png" alt="哈夫曼树示例"><br>这个树的带权路径长度为 25。</p>
+<h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><p>前面写了，哈夫曼树的带权路径长度最小，若想带权路径最小，则权值小的结点的路径长，权值大的结点路径短。哈夫曼树构建的结点都必须是叶子结点，例如用 1 2 5 6 构建的哈夫曼树是这样的：<br><img src="https://src-jywon.netlify.app/img/blog-huffTree-example.png" alt="哈夫曼树示例"><br>这个树的带权路径长度为 25。</p>
 <p>构造过程：</p>
 <ol>
 <li>选出权值两个最小的结点合并；</li>
 <li>将两个点从将要合并的结点序列中删除，加入两个结点的和；</li>
 <li>重复以上步骤，直至达到要求。</li>
 </ol>
-<p>演示：<br><img src="https://src-jywon.glitch.me/img/blog-huffTree-demo.png" alt="demo"></p>
+<p>演示：<br><img src="https://src-jywon.netlify.app/img/blog-huffTree-demo.png" alt="demo"></p>
 <h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><p>基于哈夫曼树，按照字符出现的频率（也就是哈夫曼树中的权值）进行二进制编码。<br>也就是用哈夫曼树对一串字符进行编码，可以认为左子树是 0，右子树是 1。（说不清楚啊）<br>哈夫曼编码是<strong>贪心</strong>的思想，为了使信息量最小化，可以用到哈夫曼树。</p>
 
     </div>
@@ -128,13 +128,13 @@
 <script src="/js/loader.js"></script>
 
 
-<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+<script defer src="https://src-jywon.netlify.app/js/pjax.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/anime.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/katex.min.js"></script>
 
 
 <script src="/js/search.js"></script>

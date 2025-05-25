@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>并查集概念 | Some Notes</title>
-        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+        <link rel="icon" href="https://src-jywon.netlify.app/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/lxgw/font.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ftawsm/fontaw.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ktx/katex.min.css">
 
     </head>
     <body>
@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-01-27T13:44:18+08:00">2025-01-27</time>
+                <time datetime="2025-05-25T22:18:35+08:00">2025-05-25</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -117,11 +117,11 @@
 
 <p><strong>按秩合并</strong>（启发式合并）：<br>每次查找时，深度（秩）影响查找的速度。当一个深度较大的集合合并到深度较小的集合中时，它的深度一定会加一，就像这样：</p>
 <blockquote>
-<p><img src="https://src-jywon.glitch.me/img/blog-bichaj-mrgWrong.png" alt="mrg-wrong"><br>[1, 2, 3, 4] 这个集合深度为 4；[5, 6] 这个集合深度为 2；将 1 的父结点设为 5 合并后整个集合深度为 5。<br>深度加一，这不利于查找</p>
+<p><img src="https://src-jywon.netlify.app/img/blog-bichaj-mrgWrong.png" alt="mrg-wrong"><br>[1, 2, 3, 4] 这个集合深度为 4；[5, 6] 这个集合深度为 2；将 1 的父结点设为 5 合并后整个集合深度为 5。<br>深度加一，这不利于查找</p>
 </blockquote>
 <p>当深度较小的集合合并到较大的集合中，深度才不会加深（也就保持在较深集合的深度）：</p>
 <blockquote>
-<p><img src="https://src-jywon.glitch.me/img/blog-bichaj-mrgAzhb.png" alt="mrg-azhb"><br>两个集合同上。将 5 的父结点设为 1，深度还是 4。<br>查找集合 [1, 2, 3, 4] 中任意一个结点，花费时间不变。</p>
+<p><img src="https://src-jywon.netlify.app/img/blog-bichaj-mrgAzhb.png" alt="mrg-azhb"><br>两个集合同上。将 5 的父结点设为 1，深度还是 4。<br>查找集合 [1, 2, 3, 4] 中任意一个结点，花费时间不变。</p>
 </blockquote>
 <p>所以，要记录集合的深度，合并时将深度较大的放“上面”。只有在两个集合深度相等时，才可以（不得不）加深。<br>代码是：</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token keyword">int</span> a<span class="token punctuation">,</span> <span class="token keyword">int</span> b<span class="token punctuation">)</span>
@@ -221,13 +221,13 @@
 <script src="/js/loader.js"></script>
 
 
-<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+<script defer src="https://src-jywon.netlify.app/js/pjax.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/anime.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/katex.min.js"></script>
 
 
 <script src="/js/search.js"></script>

@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>最短路 | Some Notes</title>
-        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+        <link rel="icon" href="https://src-jywon.netlify.app/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/lxgw/font.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ftawsm/fontaw.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ktx/katex.min.css">
 
     </head>
     <body>
@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-01-27T15:41:38+08:00">2025-01-27</time>
+                <time datetime="2025-05-25T22:18:39+08:00">2025-05-25</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -262,27 +262,27 @@ priority_queue<span class="token operator">&lt;</span>node<span class="token ope
 <span class="token punctuation">&#125;</span></code></pre>
 
 <h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p>设 起点(s) 为 1，INF 代表无穷大，上方注释 c 表示这次访问并改变了，v 表示仅访问过。如下：</p>
-<p><img src="https://src-jywon.glitch.me/img/blog-shortestPth-1.png" alt="spth1"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-shortestPth-1.png" alt="spth1"></p>
 <pre class="language-none"><code class="language-none">dis[4] &#x3D; &#123;0, INF, INF, INF&#125;;
 vis[4] &#x3D; &#123;0, 0, 0, 0&#125;;
 pq &#x3D; &#123;&#123;.id&#x3D;1, .dis&#x3D;0&#125;&#125;;</code></pre>
 
 
-<p><img src="https://src-jywon.glitch.me/img/blog-shortestPth-2.png" alt="spth2"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-shortestPth-2.png" alt="spth2"></p>
 <pre class="language-none"><code class="language-none">&#x2F;&#x2F;           c  c  c
 dis[4] &#x3D; &#123;0, 2, 5, 4&#125;;
 vis[4] &#x3D; &#123;1, 0, 0, 0&#125;;
 pq &#x3D; &#123;&#123;.id&#x3D;2, .dis&#x3D;2&#125;,  &#123;.id&#x3D;4, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;5&#125;&#125;;</code></pre>
 
 
-<p><img src="https://src-jywon.glitch.me/img/blog-shortestPth-3.png" alt="spth3"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-shortestPth-3.png" alt="spth3"></p>
 <pre class="language-none"><code class="language-none">&#x2F;&#x2F;              c  c
 dis[4] &#x3D; &#123;0, 2, 4, 3&#125;;
 vis[4] &#x3D; &#123;1, 1, 0, 0&#125;;
 pq &#x3D; &#123;&#123;.id&#x3D;4, .dis&#x3D;3&#125;,  &#123;.id&#x3D;4, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;4&#125;,  &#123;.id&#x3D;3, .dis&#x3D;5&#125;&#125;;</code></pre>
 
 
-<p><img src="https://src-jywon.glitch.me/img/blog-shortestPth-4.png" alt="spth4"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-shortestPth-4.png" alt="spth4"></p>
 <pre class="language-none"><code class="language-none">&#x2F;&#x2F;              v  v
 dis[4] &#x3D; &#123;0, 2, 4, 3&#125;;
 vis[4] &#x3D; &#123;1, 1, 1, 1&#125;;
@@ -324,13 +324,13 @@ pq &#x3D; &#123;&#125;;</code></pre>
 <script src="/js/loader.js"></script>
 
 
-<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+<script defer src="https://src-jywon.netlify.app/js/pjax.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/anime.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/katex.min.js"></script>
 
 
 <script src="/js/search.js"></script>

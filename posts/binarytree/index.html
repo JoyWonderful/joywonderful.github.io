@@ -3,17 +3,17 @@
     <head>
         <meta charset="utf-8">
         <title>二叉树的性质 | Some Notes</title>
-        <link rel="icon" href="https://src-jywon.glitch.me/favicon.svg">
+        <link rel="icon" href="https://src-jywon.netlify.app/favicon.svg">
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/lxgw/font.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/lxgw/font.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ftawsm/fontaw.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ftawsm/fontaw.css">
 
 
-<link rel="stylesheet" href="https://src-jywon.glitch.me/fonts/ktx/katex.min.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/fonts/ktx/katex.min.css">
 
     </head>
     <body>
@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-01-27T13:47:19+08:00">2025-01-27</time>
+                <time datetime="2025-05-25T22:18:34+08:00">2025-05-25</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -91,7 +91,7 @@
 <h2 id="几种类型"><a href="#几种类型" class="headerlink" title="几种类型"></a>几种类型</h2><p>这里只说之前没有记过的类型，之前两（三）种类型看<a href="/posts/graph-tree/#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%A6%82%E5%BF%B5">这篇</a>。</p>
 <h3 id="二叉搜索树"><a href="#二叉搜索树" class="headerlink" title="二叉搜索树"></a>二叉搜索树</h3><p>二叉树上的任意一个结点，其<strong>左子树上的所有数（权值）都小于它，右子树上的所有数（权值）都大于它</strong>。就是按照中序遍历（看<a href="/posts/binarytree-fme">这篇</a>）该二叉搜索树，得到的（权值）数列是有序的。<br>同二叉树的定义（递归说法）一样，二叉搜索树的左子树和右子树都是二叉搜索树。二叉搜索树的基本操作最优时间复杂度为 $O(\log n)$，最差为 $O(n)$（$n$ 为结点数）。<del>但目前还没有学二叉搜索树的应用。</del></p>
 <p>例如，下面的图片就是一个二叉搜索树(csAcademy graph editor 炸了，只能用 mermaid 生成的图片凑合)：</p>
-<p><img src="https://src-jywon.glitch.me/img/blog-binarytree-bittreeSearch.png" alt="bitree-search.png"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-binarytree-bittreeSearch.png" alt="bitree-search.png"></p>
 <h3 id="平衡二叉树"><a href="#平衡二叉树" class="headerlink" title="平衡二叉树"></a>平衡二叉树</h3><p>这里以平衡树中的 AVL 树来说。它的<strong>左子树的深度和右子树的深度的差不大于</strong> $1$。例如完全二叉树就是衡二叉树。<br>平衡二叉树的主要用途就是减小时间复杂度，不会像链一样遍历速度很慢。当一棵理想的平衡二叉树的节点数为 $n$ 时，遍历的时间复杂度应为 $O(\log n)$。</p>
 <h2 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h2><ol>
 <li>结点数量<ul>
@@ -112,7 +112,7 @@
 </ol>
 <div class="note success"><p>做例子的图：</p>
 <p>这是一个完美（满）二叉树，也是完全二叉树。</p>
-<p><img src="https://src-jywon.glitch.me/img/blog-binarytree-tree.png" alt="tree"></p>
+<p><img src="https://src-jywon.netlify.app/img/blog-binarytree-tree.png" alt="tree"></p>
 <p>可以发现其结点符合上面的规则。</p>
 </div>
 
@@ -154,13 +154,13 @@
 <script src="/js/loader.js"></script>
 
 
-<script defer src="https://src-jywon.glitch.me/js/pjax.min.js"></script>
+<script defer src="https://src-jywon.netlify.app/js/pjax.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/anime.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/anime.min.js"></script>
 
 
-<script src="https://src-jywon.glitch.me/js/katex.min.js"></script>
+<script src="https://src-jywon.netlify.app/js/katex.min.js"></script>
 
 
 <script src="/js/search.js"></script>
