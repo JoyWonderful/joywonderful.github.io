@@ -884,6 +884,13 @@ footer.footer {
   color: #999;
   font-size: 0.875rem;
 }
+footer.footer .gov-beian {
+  border-bottom: 0;
+  color: #999;
+}
+footer.footer .gov-beian:hover {
+  color: #555;
+}
 .post-body .note {
   border-radius: 3px;
   margin-bottom: 20px;
