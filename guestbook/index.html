@@ -76,31 +76,30 @@
     <p>加载可能较慢，请耐心等待！<br>评论加载成功后这些内容会消失。若加载失败请手动重新加载！</p>
 </div>
 
-<link rel="stylesheet" href="https://src-jywon.netlify.app/css/twikoo.css">
+<link rel="stylesheet" href="https://src-jywon.netlify.app/css/sodesu-comment.css">
 <div id="tcomment"></div>
 <script>
-    window.loadTwikoo = function() {
-        twikoo.init({
-            envId: "https://cmt-jywon.glitch.me/",
+    window.loadSodesu = function() {
+        Sodesu.init({
             el: "#tcomment",
+            path: "personal-blog",
+            serverURL: "https://comment-jywon.netlify.app/.netlify/functions/comment",
+            login: "disable",
+            requiredMeta: ["nick"],
             lang: "zh-CN",
-            path: "blog",
-            onCommentLoaded: function() {
-                var del_el = document.getElementById("comments-readme");
-                if(del_el) del_el.remove();
-                del_el = document.querySelector("header.post-header");
-                if(del_el) del_el.remove();
+            locale: {
+                admin: "管理员"
             }
         });
     }
-    if(typeof twikoo === "object") {
-        loadTwikoo();
+    if(typeof Sodesu === "object") {
+        loadSodesu();
     }
     else {
         (function(d, s) {
             s = d.createElement("script");
-            s.src = "https://src-jywon.netlify.app/js/twikoo.nocss.js";
-            s.onload = loadTwikoo;
+            s.src = "https://src-jywon.netlify.app/js/sodesu.aio.umd.js";
+            s.onload = loadSodesu;
             d.querySelector(".post-body").appendChild(s);
         })(document);
     }
