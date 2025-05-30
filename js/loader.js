@@ -217,7 +217,7 @@ window.lite = {
 }
 
 window.addEventListener("DOMContentLoaded", function() {
-    console.log("Hexo 7.2.0 https://hexo.io/ \nTheme author is the author of this site.")
+    console.log("Hexo 7.3.0 https://hexo.io/ \nTheme author is the author of this site.")
     lite.registerPjaxStart();
     lite.activeMenuItem();
     lite.registerCodeCopy();
