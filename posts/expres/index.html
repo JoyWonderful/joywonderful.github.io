@@ -63,7 +63,7 @@
             <span class="post-meta-item">
                 <i class="far fa-calendar-check post-meta-item-icon"></i>
                 <span class="post-meta-item-text">更新于 </span>
-                <time datetime="2025-05-25T22:18:31+08:00">2025-05-25</time>
+                <time datetime="2025-05-31T07:50:48+08:00">2025-05-31</time>
             </span>
             <span class="post-meta-item">
                 <i class="far fa-folder post-meta-item-icon"></i>
@@ -79,7 +79,7 @@
 <h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><p>例如 $14 + (1 + 2) \times (7 - (6 \div 2))$，表示为：</p>
 <p><img src="https://src-jywon.netlify.app/img/blog-expres.svg" alt="mermaid-expr-tree"></p>
 <p>使用后序遍历即表示为 $\mathtt{14 \ \ 1 \ \ 2 \ \ + \ \ 7 \ \ 6 \ \ 2 \ \ \div \ \ - \ \ \times \ \ +}$，这就是它的后缀表达式。它们的结果都是 $26$。</p>
-<h2 id="实现计算"><a href="#实现计算" class="headerlink" title="实现计算"></a>实现计算</h2><h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p>后缀表达式的模拟用栈实现，仅维护数字栈。其实就是把每一个数字压进栈，遇到符号时，就将栈顶两个元素弹出进行运算，再把结果重新压进栈。例如当栈顶元素是 $s_1$，弹出 $s_1$ 后栈顶元素是 $s_2$。遇到符号减号，将两个元素弹出，加入 $s_2 - s_1$</p>
+<h2 id="实现计算"><a href="#实现计算" class="headerlink" title="实现计算"></a>实现计算</h2><h3 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h3><p>后缀表达式的模拟用栈实现，仅维护数字栈。其实就是把每一个数字压进栈，遇到符号时，就将栈顶两个元素弹出进行运算，再把结果重新压进栈。例如当栈顶元素是 $s_1$，弹出 $s_1$ 后栈顶元素是 $s_2$。遇到符号减号，将两个元素弹出，加入 $s_2 - s_1$。</p>
 <p>其实就是：</p>
 <pre class="language-mathKatex" data-language="mathKatex"><code class="language-mathKatex">\begin&#123;array&#125;&#123;|c|&#125;
 \hdashline
@@ -183,7 +183,7 @@ s_2 - s_1 \\
 \hline
 \end&#123;array&#125;</code></pre>
 
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1449">洛谷 P1449</a><br>和上面的栈式一样的。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P1449">洛谷 P1449</a><br>和上面的栈是一样的。</p>
 <pre class="language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdio></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;stack></span></span>
 <span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;cstdlib></span></span>
