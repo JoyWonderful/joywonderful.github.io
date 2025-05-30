@@ -85,6 +85,13 @@
             path: "personal-blog",
             serverURL: "https://comment-jywon.netlify.app/.netlify/functions/comment",
             requiredMeta: ["nick"],
+            texRenderer: (blockMode, tex) =>
+                katex.renderToString(tex, {
+                    displayMode: blockMode,
+                    output: "html",
+                    throwOnError: false,
+                    strict: false
+                }),
             lang: "zh-CN",
             locale: {
                 admin: "管理员",
