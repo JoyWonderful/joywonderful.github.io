@@ -99,6 +99,40 @@
                 logout: "退出登录"
             }
         });
+        window.addEventListener("comment:load", () => {
+            var el = document.querySelector("#comments-readme");
+            el.style.display = "none";
+            el = document.querySelector("header.post-header");
+            el.style.display = "none";
+
+            function commentGen() {
+                if(!document.querySelector("#tcomment .sds-root > div:nth-child(3)").innerHTML) return; // No comment, wait for load
+                document.querySelectorAll("#tcomment pre:has(code)").forEach((target) => {
+                    var codeLang = target.querySelector("code").className;
+                    if(!codeLang) {
+                        codeLang = "language-plain";
+                        target.querySelector("code").className = codeLang;
+                    }
+                    target.className = codeLang;
+                    target.setAttribute("data-language", codeLang.replace("language-", ""));
+                });
+                lite.registerCodeCopy();
+                renderMathInElement(document.body, {
+                    delimiters: [{left: "$", right: "$", display: false}],
+                    output: "html",
+                    strict: false
+                });
+                document.querySelectorAll("code.language-mathKatex").forEach((el) => {
+                    el.parentNode.className = "";
+                    katex.render(el.innerText, el.parentElement, {
+                        output: "html",
+                        displayMode: true,
+                        strict: false
+                    });
+                });
+            }
+            setTimeout(commentGen, 500);
+        });
     }
     if(typeof Sodesu === "object") {
         loadSodesu();
