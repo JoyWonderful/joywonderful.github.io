@@ -82,7 +82,7 @@
     window.loadSodesu = function() {
         Sodesu.init({
             el: "#tcomment",
-            path: "personal-blog",
+            path: window.location.pathname.replace(/\/$/,''),
             serverURL: "https://comment-jywon.netlify.app/.netlify/functions/comment",
             requiredMeta: ["nick"],
             texRenderer: (blockMode, tex) =>
